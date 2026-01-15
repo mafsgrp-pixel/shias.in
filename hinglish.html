@@ -1,0 +1,3088 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shias.in - Digital Marketing Training & Services</title>
+    <meta name="description" content="Shia community ke liye specially designed digital marketing courses aur services. SEO, Social Media Marketing, Google Ads, Web Design aur bahut kuch">
+    <meta name="keywords" content="digital marketing, SEO, social media marketing, Google Ads, web design, Shia community, online courses">
+    <meta name="author" content="Shias.in">
+    
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Shias.in",
+      "url": "https://shias.in",
+      "logo": "https://shias.in/logo.png",
+      "description": "Shia Community ke liye Digital Marketing Training & Services",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Hyderabad",
+        "addressRegion": "Telangana",
+        "postalCode": "500082",
+        "addressCountry": "IN"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-88799-52676",
+        "contactType": "customer service",
+        "email": "info@shias.in"
+      },
+      "sameAs": [
+        "https://www.facebook.com/shias.in",
+        "https://www.instagram.com/shias.in",
+        "https://www.linkedin.com/company/shias-in"
+      ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-6: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            overflow-x: hidden;
+            animation: backgroundShift 20s infinite alternate;
+        }
+        
+        @keyframes backgroundShift {
+            0% { background-color: #f5f7fa; }
+            25% { background-color: #f0f5ff; }
+            50% { background-color: #f5f7fa; }
+            75% { background-color: #f0fff5; }
+            100% { background-color: #f5f7fa; }
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .nav-icon {
+            font-size: 18px;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .language-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .language-dropdown-btn {
+            background: var(--gradient-2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .language-dropdown-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .language-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            z-index: 1;
+            overflow: hidden;
+            margin-top: 5px;
+            right: 0;
+        }
+        
+        .language-dropdown-content a {
+            color: var(--dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .language-dropdown-content a:hover {
+            background-color: #f8f9fa;
+            color: var(--primary);
+        }
+        
+        .language-dropdown-content a.active {
+            background: var(--gradient-1);
+            color: white;
+        }
+        
+        .language-dropdown:hover .language-dropdown-content {
+            display: block;
+        }
+        
+        .language-flag {
+            width: 20px;
+            height: 15px;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+        
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 80px;
+            background: var(--gradient-6);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: var(--gradient-3);
+            opacity: 0.1;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: var(--gradient-2);
+            opacity: 0.1;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: var(--gradient-4);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .hero-title {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            color: #5a6c7d;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #7b8b9a;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .secondary-button {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .secondary-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .floating-cards {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+        
+        .floating-card {
+            position: absolute;
+            width: 200px;
+            height: 240px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: transform 0.5s ease, box-shadow 0.3s ease;
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-1 {
+            top: 0;
+            left: 0;
+            background: var(--gradient-1);
+            color: white;
+        }
+        
+        .card-2 {
+            top: 40px;
+            right: 0;
+            background: var(--gradient-2);
+            color: white;
+        }
+        
+        .card-3 {
+            bottom: 0;
+            left: 60px;
+            background: var(--gradient-3);
+            color: white;
+        }
+        
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: var(--gradient-4);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: #5a6c7d;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Services Section */
+        .services {
+            background: white;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .service-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .service-description {
+            color: #5a6c7d;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 25px;
+            text-align: left;
+            width: 100%;
+        }
+        
+        .service-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .service-features i {
+            color: var(--success);
+            font-size: 14px;
+        }
+        
+        .service-actions {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            margin-top: auto;
+        }
+        
+        .service-button {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .service-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .invite-button {
+            background: var(--gradient-4);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .invite-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .like-button {
+            background: #f8f9fa;
+            color: #e74c3c;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .like-button:hover, .like-button.liked {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .like-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Courses Section */
+        .courses {
+            background: var(--gradient-6);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .courses::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--gradient-5);
+            opacity: 0.1;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-image {
+            height: 180px;
+            background: var(--gradient-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 50px;
+            position: relative;
+        }
+        
+        .course-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .course-content {
+            padding: 25px;
+        }
+        
+        .course-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .course-description {
+            color: #5a6c7d;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #7b8b9a;
+        }
+        
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .course-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .course-button {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .course-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Target Audience Section */
+        .audience {
+            background: white;
+        }
+        
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .audience-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .audience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-2);
+        }
+        
+        .audience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .audience-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 15px;
+            color: white;
+            background: var(--gradient-3);
+        }
+        
+        .audience-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .audience-description {
+            color: #5a6c7d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* Mentorship Section */
+        .mentorship {
+            background: var(--gradient-6);
+        }
+        
+        .mentorship-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .mentorship-text {
+            flex: 1;
+        }
+        
+        .mentorship-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .mentor-avatar {
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 100px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefits-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+        
+        .benefits-list li {
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .benefits-list i {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-4);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        /* Noha Academy Section */
+        .noha-academy {
+            background: white;
+        }
+        
+        .academy-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .academy-text {
+            flex: 1;
+        }
+        
+        .academy-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .academy-graphic {
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 100px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .courses-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+        
+        .courses-list li {
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .courses-list i {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        /* Eligibility Test Section */
+        .eligibility {
+            background: white;
+            padding: 80px 0;
+        }
+        
+        .eligibility-content {
+            background: var(--gradient-1);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .eligibility-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"></path></svg>');
+            background-size: cover;
+        }
+        
+        .eligibility-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .eligibility-description {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .eligibility-button {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .eligibility-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background: var(--gradient-6);
+        }
+        
+        .testimonials-slider {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scrollbar-width: none;
+        }
+        
+        .testimonials-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial-card {
+            min-width: 350px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #5a6c7d;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .author-info h4 {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #7b8b9a;
+            font-size: 14px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 100px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 3px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-links i {
+            font-size: 14px;
+            width: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--gradient-1);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        
+        /* Mobile Footer */
+        .mobile-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .mobile-footer-buttons {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+        }
+        
+        .mobile-footer-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-footer-btn i {
+            font-size: 20px;
+        }
+        
+        .mobile-footer-btn:hover {
+            color: var(--primary);
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            padding: 25px 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .modal-body {
+            padding: 20px 30px 30px;
+        }
+        
+        .modal-features {
+            margin: 25px 0;
+        }
+        
+        .modal-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+        
+        .modal-features li i {
+            color: var(--success);
+            font-size: 1.1rem;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-whatsapp {
+            background: #25D366;
+        }
+        
+        /* Eligibility Test Styles */
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-question {
+            margin-bottom: 30px;
+        }
+        
+        .test-question h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .test-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .test-option {
+            padding: 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .test-option:hover {
+            border-color: var(--primary);
+            background: #f8f9fa;
+        }
+        
+        .test-option.selected {
+            border-color: var(--primary);
+            background: rgba(142, 68, 173, 0.1);
+        }
+        
+        .test-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .test-results {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .test-results h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .result-card {
+            background: var(--gradient-1);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .result-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        
+        /* Privacy & Terms Modal */
+        .privacy-content {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .privacy-content h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .privacy-content h3 {
+            font-size: 18px;
+            margin: 20px 0 10px;
+            color: var(--dark);
+        }
+        
+        .privacy-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .privacy-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .privacy-content li {
+            margin-bottom: 8px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        
+            .hero-text {
+                max-width: 100%;
+                margin-bottom: 50px;
+            }
+        
+            .hero-stats {
+                justify-content: center;
+            }
+        
+            .mentorship-content,
+            .investment-content,
+            .academy-content {
+                flex-direction: column;
+            }
+        
+            nav ul {
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        
+            nav {
+                display: none;
+                width: 100%;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        
+            .mobile-menu {
+                display: block;
+            }
+        
+            .hero-title {
+                font-size: 36px;
+            }
+        
+            .floating-cards {
+                width: 100%;
+                height: 300px;
+            }
+        
+            .floating-card {
+                width: 150px;
+                height: 180px;
+                padding: 15px;
+            }
+        
+            .card-icon {
+                font-size: 30px;
+            }
+        
+            .card-title {
+                font-size: 16px;
+            }
+        
+            .modal-content {
+                padding: 15px;
+            }
+        
+            .modal-header {
+                padding: 15px 20px 0;
+            }
+        
+            .modal-body {
+                padding: 15px 20px 20px;
+            }
+            
+            .mobile-footer {
+                display: block;
+            }
+            
+            .test-container {
+                padding: 20px;
+            }
+            
+            .language-dropdown-content {
+                right: auto;
+                left: 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            .hero-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        
+            .section {
+                padding: 60px 0;
+            }
+        
+            .section-title {
+                font-size: 28px;
+            }
+        
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .eligibility-content {
+                padding: 30px 20px;
+            }
+            
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="logo-text">Shias.in</div>
+                </div>
+                <button class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav>
+                    <ul>
+                        <li><a href="#services"><i class="fas fa-cogs nav-icon"></i> Services</a></li>
+                        <li><a href="#courses"><i class="fas fa-book-open nav-icon"></i> Courses</a></li>
+                        <li><a href="#audience"><i class="fas fa-users nav-icon"></i> Aapke Liye</a></li>
+                        <li><a href="#mentorship"><i class="fas fa-hands-helping nav-icon"></i> Mentorship</a></li>
+                        <li><a href="#noha-academy"><i class="fas fa-music nav-icon"></i> Noha Academy</a></li>
+                        <li><a href="#" id="eligibility-nav"><i class="fas fa-clipboard-check nav-icon"></i> Eligibility Test</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <!-- Language Dropdown -->
+                    <div class="language-dropdown">
+                        <button class="language-dropdown-btn">
+                            <i class="fas fa-globe"></i> Hinglish
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="language-dropdown-content">
+                            <a href="index.html">
+                                <span class="language-flag" style="background: linear-gradient(to right, #012169 0%, #012169 33%, #C8102E 33%, #C8102E 66%, #FFFFFF 66%, #FFFFFF 100%);"></span>
+                                English
+                            </a>
+                            <a href="hinglish.html" class="active">
+                                <span class="language-flag" style="background: linear-gradient(to bottom, #FF9933 0%, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%, #138808 100%);"></span>
+                                Hinglish
+                            </a>
+                            <a href="urdu.html">
+                                <span class="language-flag" style="background: linear-gradient(to right, #01411C 0%, #01411C 33%, #FFFFFF 33%, #FFFFFF 66%, #01411C 66%, #01411C 100%);"></span>
+                                Urdu
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <i class="fas fa-rocket"></i> Limited Seats Available - Abhi Enroll Karein!
+                    </div>
+                    <h1 class="hero-title">Digital Marketing Seekhein aur Apna Career Transform Karein</h1>
+                    <p class="hero-subtitle">1,200+ professionals join karein jinhone hamare industry-leading digital marketing programs se apna career transform kiya hai. <strong>Digital revolution mein piche na reh jayein</strong> - aapke competitors pehle hi yeh skills seekh rahe hain!</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">94%</div>
+                            <div class="stat-label">Placement Success</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">1,200+</div>
+                            <div class="stat-label">Students Trained</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">17+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-buttons">
+                        <button class="cta-button" id="free-trial-btn">
+                            <i class="fas fa-play-circle"></i> Free Trial Shuru Karein
+                        </button>
+                        <button class="secondary-button" id="mentor-button">
+                            <i class="fas fa-user-tie"></i> Mentor Dhoondein
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-cards">
+                        <div class="floating-card card-1">
+                            <div class="card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="card-title">High Demand Skills</div>
+                            <p>Digital marketing jobs average se 3x tezi se badh rahi hain</p>
+                        </div>
+                        <div class="floating-card card-2">
+                            <div class="card-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="card-title">Industry Certifications</div>
+                            <p>Google, Meta aur bahut se platforms se certified ho jayein</p>
+                        </div>
+                        <div class="floating-card card-3">
+                            <div class="card-icon">
+                                <i class="fas fa-hands-helping"></i>
+                            </div>
+                            <div class="card-title">1:1 Mentorship</div>
+                            <p>Industry experts se personal guidance paayein</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-cogs"></i> Hamari Services
+                </div>
+                <h2 class="section-title">Digital Marketing Services Jo Results Deti Hain</h2>
+                <p class="section-subtitle">Aapke business ko grow karne aur online presence ko enhance karne ke liye comprehensive digital solutions. <strong>Apne competitors ko aap se aage na badhne dein</strong> - hamari proven strategies measurable ROI deliver karti hain.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card" data-service="seo">
+                    <div class="service-icon" style="background: var(--gradient-1);">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="service-title">SEO Optimization</h3>
+                    <p class="service-description">Search engines par apni website ki visibility improve karein aur organic traffic badhayein. <strong>Active taur par aapki services dhoondhne wale customers ko mil jayein.</strong></p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Keyword Research</li>
+                        <li><i class="fas fa-check"></i> On-Page Optimization</li>
+                        <li><i class="fas fa-check"></i> Technical SEO Audit</li>
+                        <li><i class="fas fa-check"></i> Local SEO</li>
+                    </ul>
+                    <div class="service-actions">
+                        <button class="service-button">
+                            <i class="fas fa-info-circle"></i> Aur Janiye
+                        </button>
+                        <button class="invite-button" title="Dost Ko Invite Karein">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="like-button" title="Is Service Ko Pasand Karein" data-likes="24">
+                            <i class="fas fa-heart"></i>
+                            <span class="like-count">24</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card" data-service="ppc">
+                    <div class="service-icon" style="background: var(--gradient-2);">
+                        <i class="fas fa-ad"></i>
+                    </div>
+                    <h3 class="service-title">PPC Advertising</h3>
+                    <p class="service-description">Targeted advertising campaigns launch karein jo immediate results deti hain. <strong>24 ghante ke andar qualified leads milna shuru ho jayein.</strong></p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Google Ads Management</li>
+                        <li><i class="fas fa-check"></i> Social Media Ads</li>
+                        <li><i class="fas fa-check"></i> Conversion Tracking</li>
+                        <li><i class="fas fa-check"></i> A/B Testing</li>
+                    </ul>
+                    <div class="service-actions">
+                        <button class="service-button">
+                            <i class="fas fa-info-circle"></i> Aur Janiye
+                        </button>
+                        <button class="invite-button" title="Dost Ko Invite Karein">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="like-button" title="Is Service Ko Pasand Karein" data-likes="18">
+                            <i class="fas fa-heart"></i>
+                            <span class="like-count">18</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card" data-service="social">
+                    <div class="service-icon" style="background: var(--gradient-3);">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3 class="service-title">Social Media Marketing</h3>
+                    <p class="service-description">Apni brand presence build karein aur apne audience ke saath effectively engage karein. <strong>Proven strategies ke saath followers ko customers mein convert karein.</strong></p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Content Strategy</li>
+                        <li><i class="fas fa-check"></i> Community Management</li>
+                        <li><i class="fas fa-check"></i> Analytics & Reporting</li>
+                        <li><i class="fas fa-check"></i> Influencer Collaboration</li>
+                    </ul>
+                    <div class="service-actions">
+                        <button class="service-button">
+                            <i class="fas fa-info-circle"></i> Aur Janiye
+                        </button>
+                        <button class="invite-button" title="Dost Ko Invite Karein">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="like-button" title="Is Service Ko Pasand Karein" data-likes="32">
+                            <i class="fas fa-heart"></i>
+                            <span class="like-count">32</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card" data-service="content">
+                    <div class="service-icon" style="background: var(--gradient-4);">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <h3 class="service-title">Content Marketing</h3>
+                    <p class="service-description">Valuable content create karein jo aapke target audience ko attract, engage aur convert kare. <strong>Apne audience ke saath authority establish karein aur trust build karein.</strong></p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Content Strategy</li>
+                        <li><i class="fas fa-check"></i> Blog & Article Writing</li>
+                        <li><i class="fas fa-check"></i> Visual Content Creation</li>
+                        <li><i class="fas fa-check"></i> Content Distribution</li>
+                    </ul>
+                    <div class="service-actions">
+                        <button class="service-button">
+                            <i class="fas fa-info-circle"></i> Aur Janiye
+                        </button>
+                        <button class="invite-button" title="Dost Ko Invite Karein">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="like-button" title="Is Service Ko Pasand Karein" data-likes="27">
+                            <i class="fas fa-heart"></i>
+                            <span class="like-count">27</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="section courses" id="courses">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-book-open"></i> Hamare Courses
+                </div>
+                <h2 class="section-title">Professional Certification Courses</h2>
+                <p class="section-subtitle">Digital marketing mein apna career aage badhane ke liye industry-recognized certifications. <strong>High demand skills ke saath apne career ko future-proof karein.</strong></p>
+            </div>
+            
+            <div class="courses-grid">
+                <div class="course-card" data-course="digital-marketing">
+                    <div class="course-image">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-badge">Paid 1:1 Training</div>
+                        <h3 class="course-title">Advanced Digital Marketing Course</h3>
+                        <p class="course-description">Live projects par hands-on experience ke saath comprehensive digital marketing training. <strong>Sirf 12 weeks mein job-ready ho jayein!</strong></p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 12 Weeks</span>
+                            <span><i class="fas fa-signal"></i> All Levels</span>
+                            <span><i class="far fa-user"></i> 1,200+ Students</span>
+                        </div>
+                        <div class="course-actions">
+                            <button class="course-button">
+                                <i class="fas fa-play-circle"></i> Abhi Enroll Karein
+                            </button>
+                            <button class="invite-button" title="Dost Ko Invite Karein">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button class="like-button" title="Is Course Ko Pasand Karein" data-likes="142">
+                                <i class="fas fa-heart"></i>
+                                <span class="like-count">142</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-card" data-course="google">
+                    <div class="course-image" style="background: var(--gradient-2);">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-badge">Google Certified</div>
+                        <h3 class="course-title">Google Certifications & Training</h3>
+                        <p class="course-description">Google Ads, Analytics aur Digital Marketing mein certifications ke saath Google ke digital marketing ecosystem mein mastery hasil karein. <strong>Duniya ki leading tech company se certified ho jayein.</strong></p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 8 Weeks</span>
+                            <span><i class="fas fa-signal"></i> Intermediate</span>
+                            <span><i class="far fa-user"></i> 900+ Students</span>
+                        </div>
+                        <div class="course-actions">
+                            <button class="course-button">
+                                <i class="fas fa-play-circle"></i> Abhi Enroll Karein
+                            </button>
+                            <button class="invite-button" title="Dost Ko Invite Karein">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button class="like-button" title="Is Course Ko Pasand Karein" data-likes="98">
+                                <i class="fas fa-heart"></i>
+                                <span class="like-count">98</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-card" data-course="meta">
+                    <div class="course-image" style="background: var(--gradient-4);">
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-badge">Meta Certified</div>
+                        <h3 class="course-title">Meta (Facebook & Instagram) Certifications</h3>
+                        <p class="course-description">Facebook aur Instagram advertising strategies mein proficiency hasil karein. <strong>Un platforms mein mastery hasil karein jahan billions users apna time spend karte hain.</strong></p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 6 Weeks</span>
+                            <span><i class="fas fa-signal"></i> Beginner</span>
+                            <span><i class="far fa-user"></i> 750+ Students</span>
+                        </div>
+                        <div class="course-actions">
+                            <button class="course-button">
+                                <i class="fas fa-play-circle"></i> Abhi Enroll Karein
+                            </button>
+                            <button class="invite-button" title="Dost Ko Invite Karein">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button class="like-button" title="Is Course Ko Pasand Karein" data-likes="87">
+                                <i class="fas fa-heart"></i>
+                                <span class="like-count">87</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience Section -->
+    <section class="section audience" id="audience">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-users"></i> Aapke Liye
+                </div>
+                <h2 class="section-title">Aapki Needs Ke Liye Specifically Designed</h2>
+                <p class="section-subtitle">Aapke background ya experience level se farak na padte, hamare programs aapki success mein help karne ke liye tailored hain. <strong>Digital success ke liye apna perfect path dhoondein!</strong></p>
+            </div>
+            
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3 class="audience-title">Students & Freshers</h3>
+                    <p class="audience-description">Employers jo dhoondh rahe hain aise digital skills ke saath apne career ki shuruaat karein. <strong>Certified expertise ke saath jaldi job paayein!</strong></p>
+                </div>
+                
+                <div class="audience-card">
+                    <div class="audience-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="audience-title">Working Professionals</h3>
+                    <p class="audience-description">Apne career ko aage badhane ya high-growth digital roles mein transition karne ke liye upskill karein. <strong>Digital transformation mein piche na reh jayein!</strong></p>
+                </div>
+                
+                <div class="audience-card">
+                    <div class="audience-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="audience-title">Business Owners</h3>
+                    <p class="audience-description">Apne business ko online grow karne aur zyada customers tak effectively pahunchne ka tareeka seekhein. <strong>Aapke competitors pehle hi online hain - piche na reh jayein!</strong></p>
+                </div>
+                
+                <div class="audience-card">
+                    <div class="audience-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3 class="audience-title">Housewives</h3>
+                    <p class="audience-description">Ghar se flexible career shuru karein aur financial independence hasil karein. <strong>Digital skills ke saath family aur career balance karein!</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentorship Section -->
+    <section class="section mentorship" id="mentorship">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-hands-helping"></i> Mentorship
+                </div>
+                <h2 class="section-title">Personalized Career Guidance</h2>
+                <p class="section-subtitle">Industry experts se one-on-one mentorship paayein taki aapki professional growth accelerate ho sake. <strong>Aapki success hamari priority hai - hum aapke journey mein invested hain!</strong></p>
+            </div>
+            
+            <div class="mentorship-content">
+                <div class="mentorship-text">
+                    <h3>Expert Guidance Ke Saath Apna Career Transform Karein</h3>
+                    <p>Hamara mentorship program aapko experienced professionals se connect karta hai jo aapke goals ke according personalized advice, career planning aur industry insights provide karte hain. <strong>Apne career ko akela na navigate karein - success ke liye required guidance paayein!</strong></p>
+                    
+                    <ul class="benefits-list">
+                        <li>
+                            <i class="fas fa-user-tie"></i>
+                            <span>Industry experts ke saath one-on-one sessions</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-road"></i>
+                            <span>Personalized career roadmap development</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-network-wired"></i>
+                            <span>Professional networks aur opportunities tak access</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-briefcase"></i>
+                            <span>Job search assistance aur interview preparation</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="cta-button" id="mentor-button-2">
+                        <i class="fas fa-user-plus"></i> Mentor Dhoondein
+                    </button>
+                </div>
+                <div class="mentorship-visual">
+                    <div class="mentor-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Noha Academy Section -->
+    <section class="section noha-academy" id="noha-academy">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-music"></i> Noha Academy
+                </div>
+                <h2 class="section-title">Hamari Cultural Heritage Ko Preserve Karna</h2>
+                <p class="section-subtitle">Noha, Marsiya aur Islamic poetry ki art seekhein aur ismein mastery hasil karein. <strong>Creative skills develop karte hue apni traditions ko zinda rakhein!</strong></p>
+            </div>
+            
+            <div class="academy-content">
+                <div class="academy-text">
+                    <h3>Hamari Rich Tradition Ko Celebrate Karein</h3>
+                    <p>Hamari academy join karein aur expert instructors se Islamic poetry aur recitation ki beautiful art seekhein, apni cultural aur religious heritage ko preserve karte hue. <strong>Ek meaningful skill develop karte hue apni roots se connect karein!</strong></p>
+                    
+                    <ul class="courses-list">
+                        <li>
+                            <i class="fas fa-book"></i>
+                            <span>Poetry Course - Islamic Poetry Ki Foundation</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-microphone"></i>
+                            <span>Noha & Marsiya Foundation - Basics Se Advanced</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-pen-fancy"></i>
+                            <span>Comprehensive Program - Ek Mein Saari Poetry Forms</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-users"></i>
+                            <span>Group Sessions & Community Events</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="cta-button" id="noha-join-btn">
+                        <i class="fas fa-music"></i> Academy Join Karein
+                    </button>
+                </div>
+                <div class="academy-visual">
+                    <div class="academy-graphic">
+                        <i class="fas fa-music"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eligibility Test Section -->
+    <section class="eligibility">
+        <div class="container">
+            <div class="eligibility-content">
+                <h2 class="eligibility-title">Apna Perfect Digital Marketing Path Dhoondein</h2>
+                <p class="eligibility-description">Hamara 2-minute eligibility test lein taki aapko pata chal sake ki aapke background, goals aur interests ke basis par kaun sa digital marketing course aapke liye right hai. <strong>Instantly personalized recommendations paayein!</strong></p>
+                <button class="eligibility-button" id="start-test-btn">
+                    <i class="fas fa-clipboard-check"></i> Eligibility Test Shuru Karein
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-star"></i> Testimonials
+                </div>
+                <h2 class="section-title">Hamari Community Kya Kehti Hai</h2>
+                <p class="section-subtitle">Students, entrepreneurs aur professionals se suniye jinhone hamare programs ke through apna career transform kiya hai. <strong>Aaj hi hamari success stories mein join ho jayein!</strong></p>
+            </div>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Digital marketing courses ne mere career ko transform kar diya. Main beginner se certified expert sirf 3 months mein ban gaya! Instructors knowledgeable the aur community support incredible tha. <strong>Course complete karne ke baad maine apni salary double kar li!</strong>"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Ahmed Raza</h4>
+                            <p>Digital Marketing Specialist</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Housewife hone ke naate, maine kabhi socha bhi nahi tha ki main career bana sakti hoon. Lekin Shias.in ke flexible learning options ke saath, ab main ghar se apni digital marketing agency chala rahi hoon! <strong>Main family ki dekhbhaal karte hue earning kar rahi hoon - yeh life-changing hai!</strong>"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Fatima Khan</h4>
+                            <p>Digital Marketing Entrepreneur</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Mentorship program ne personalized guidance provide ki jo tech industry mein meri professional growth ke liye invaluable thi. Mere mentor ne career challenges aur opportunities navigate karne mein meri help ki. <strong>Maine mentorship ke 2 months ke andar apni dream job land kar li!</strong>"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Ali Hassan</h4>
+                            <p>Software Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Shias.in</h3>
+                    <p>Education, resources aur growth aur development ke opportunities ke through Shia community ko empower karna. <strong>Aapki success hamara mission hai!</strong></p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="#courses"><i class="fas fa-chevron-right"></i> Courses</a></li>
+                        <li><a href="#audience"><i class="fas fa-chevron-right"></i> Aapke Liye</a></li>
+                        <li><a href="#mentorship"><i class="fas fa-chevron-right"></i> Mentorship</a></li>
+                        <li><a href="#noha-academy"><i class="fas fa-chevron-right"></i> Noha Academy</a></li>
+                        <li><a href="#" id="eligibility-footer"><i class="fas fa-chevron-right"></i> Eligibility Test</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" id="privacy-link"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#" id="terms-link"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Islamic Compliance</a></li>
+                        <li><a href="mailto:info@shias.in"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@shias.in"><i class="fas fa-envelope"></i> info@shias.in</a></li>
+                        <li><a href="tel:+918879952676"><i class="fas fa-phone"></i> +91 88799 52676</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> India, USA, UK, Canada, Australia, UAE par focus ke saath globally serve karte hain</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Shias.in. All rights reserved. | Innovation ko embrace karte hue tradition ko preserve karna</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Footer -->
+    <div class="mobile-footer">
+        <div class="mobile-footer-buttons">
+            <button class="mobile-footer-btn" id="mobile-whatsapp">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </button>
+            <button class="mobile-footer-btn" id="mobile-call">
+                <i class="fas fa-phone"></i>
+                <span>Call</span>
+            </button>
+            <button class="mobile-footer-btn" id="mobile-invite">
+                <i class="fas fa-share-alt"></i>
+                <span>Invite</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/918879952676?text=Hello,%20I'm%20interested%20in%20your%20digital%20marketing%20services%20and%20courses" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- All modals remain the same with Hinglish content -->
+    <!-- Service Modal -->
+    <div class="modal" id="service-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-service-title">Service Title</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-service-description">Service description yahan show hogi.</p>
+                
+                <ul class="modal-features" id="modal-service-features">
+                    <!-- Features will be added dynamically -->
+                </ul>
+                
+                <div class="modal-actions">
+                    <a href="https://wa.me/918879952676?text=Hello,%20I'm%20interested%20in%20your%20%5BSERVICE%5D%20service" class="btn btn-whatsapp" target="_blank" id="service-whatsapp-link">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Par Enquiry Karein
+                    </a>
+                    <a href="tel:+918879952676" class="btn">
+                        <i class="fas fa-phone"></i> Abhi Call Karein
+                    </a>
+                    <button class="btn btn-secondary close-modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Modal -->
+    <div class="modal" id="course-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-course-title">Course Title</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-course-description">Course description yahan show hogi.</p>
+                
+                <div class="course-meta" id="modal-course-meta">
+                    <!-- Meta info will be added dynamically -->
+                </div>
+                
+                <ul class="modal-features" id="modal-course-features">
+                    <!-- Features will be added dynamically -->
+                </ul>
+                
+                <div class="modal-actions">
+                    <a href="https://wa.me/918879952676?text=Hello,%20I'm%20interested%20in%20your%20%5BCOURSE%5D%20course" class="btn btn-whatsapp" target="_blank" id="course-whatsapp-link">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Par Enquiry Karein
+                    </a>
+                    <a href="tel:+918879952676" class="btn">
+                        <i class="fas fa-phone"></i> Abhi Call Karein
+                    </a>
+                    <button class="btn btn-secondary close-modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mentorship Modal -->
+    <div class="modal" id="mentor-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Apna Perfect Mentor Dhoondein</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Experienced digital marketing professionals se connect ho jayein jo aapko aapke career path par guide kar sakte hain. Hamare mentors ke paas industry experience hai aur woh personalized advice de sakte hain. <strong>1:1 guidance ke saath apne learning ko accelerate karein!</strong></p>
+                
+                <ul class="modal-features">
+                    <li><i class="fas fa-check"></i> One-on-one personalized sessions</li>
+                    <li><i class="fas fa-check"></i> Industry-specific guidance</li>
+                    <li><i class="fas fa-check"></i> Career roadmap development</li>
+                    <li><i class="fas fa-check"></i> Interview preparation assistance</li>
+                    <li><i class="fas fa-check"></i> Portfolio aur resume review</li>
+                    <li><i class="fas fa-check"></i> Networking opportunities</li>
+                </ul>
+                
+                <div class="modal-actions">
+                    <a href="https://wa.me/918879952676?text=Hello,%20I'm%20interested%20in%20your%20mentorship%20program" class="btn btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Mentor Dhoondein
+                    </a>
+                    <a href="tel:+918879952676" class="btn">
+                        <i class="fas fa-phone"></i> Details Ke Liye Call Karein
+                    </a>
+                    <button class="btn btn-secondary close-modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Free Trial Modal -->
+    <div class="modal" id="trial-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Apna Free Trial Shuru Karein</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Hamare digital marketing courses ka free trial shuru karein. Hamare teaching methodology ka experience karein aur apne liye value dekhein. <strong>Credit card ki zaroorat nahi - aaj hi seekhna shuru karein!</strong></p>
+                
+                <ul class="modal-features">
+                    <li><i class="fas fa-check"></i> Introductory modules tak access</li>
+                    <li><i class="fas fa-check"></i> Hands-on practical exercises</li>
+                    <li><i class="fas fa-check"></i> Community support access</li>
+                    <li><i class="fas fa-check"></i> Completion ka certificate</li>
+                </ul>
+                
+                <div class="modal-actions">
+                    <a href="https://wa.me/918879952676?text=Hello,%20I'd%20like%20to%20start%20a%20free%20trial%20of%20your%20digital%20marketing%20courses" class="btn btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Free Trial Shuru Karein
+                    </a>
+                    <a href="tel:+918879952676" class="btn">
+                        <i class="fas fa-phone"></i> Details Ke Liye Call Karein
+                    </a>
+                    <button class="btn btn-secondary close-modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Noha Academy Modal -->
+    <div class="modal" id="noha-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Noha Academy Join Karein</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Hamari Noha Academy ka hissa ban jayein aur Islamic poetry aur recitation ki beautiful art seekhein. Apni creative skills develop karte hue apni cultural heritage ko preserve karein. <strong>Hamari community mein like-minded individuals se connect ho jayein!</strong></p>
+                
+                <ul class="modal-features">
+                    <li><i class="fas fa-check"></i> Expert instructors se seekhein</li>
+                    <li><i class="fas fa-check"></i> Flexible learning schedule</li>
+                    <li><i class="fas fa-check"></i> Community events aur gatherings</li>
+                    <li><i class="fas fa-check"></i> Performance opportunities</li>
+                </ul>
+                
+                <div class="modal-actions">
+                    <a href="https://wa.me/918879952676?text=Hello,%20I'd%20like%20to%20join%20the%20Noha%20Academy" class="btn btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Academy Join Karein
+                    </a>
+                    <a href="tel:+918879952676" class="btn">
+                        <i class="fas fa-phone"></i> Details Ke Liye Call Karein
+                    </a>
+                    <button class="btn btn-secondary close-modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Eligibility Test Modal -->
+    <div class="modal" id="test-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Digital Marketing Eligibility Test</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="test-container">
+                    <div class="test-question" id="question-1">
+                        <h3>Question 1: Aapki current professional status kya hai?</h3>
+                        <div class="test-options">
+                            <div class="test-option" data-value="student">Student / Fresher</div>
+                            <div class="test-option" data-value="employed">Employed Professional</div>
+                            <div class="test-option" data-value="business">Business Owner</div>
+                            <div class="test-option" data-value="homemaker">Homemaker</div>
+                            <div class="test-option" data-value="freelancer">Freelancer</div>
+                        </div>
+                    </div>
+                    
+                    <div class="test-question" id="question-2" style="display: none;">
+                        <h3>Question 2: Digital marketing seekhne ka aapka primary goal kya hai?</h3>
+                        <div class="test-options">
+                            <div class="test-option" data-value="career">Naya career shuru karna</div>
+                            <div class="test-option" data-value="advancement">Current job mein advancement</div>
+                            <div class="test-option" data-value="business">Apna business grow karna</div>
+                            <div class="test-option" data-value="freelance">Freelancing shuru karna</div>
+                            <div class="test-option" data-value="skills">Naye skills seekhna</div>
+                        </div>
+                    </div>
+                    
+                    <div class="test-question" id="question-3" style="display: none;">
+                        <h3>Question 3: Aap week mein kitna time learning ke liye de sakte hain?</h3>
+                        <div class="test-options">
+                            <div class="test-option" data-value="5">5 hours se kam</div>
+                            <div class="test-option" data-value="10">5-10 hours</div>
+                            <div class="test-option" data-value="15">10-15 hours</div>
+                            <div class="test-option" data-value="20">15-20 hours</div>
+                            <div class="test-option" data-value="25">20 hours se zyada</div>
+                        </div>
+                    </div>
+                    
+                    <div class="test-question" id="question-4" style="display: none;">
+                        <h3>Question 4: Digital marketing ke saath aapka current experience level kya hai?</h3>
+                        <div class="test-options">
+                            <div class="test-option" data-value="beginner">Complete beginner</div>
+                            <div class="test-option" data-value="basic">Basic knowledge</div>
+                            <div class="test-option" data-value="intermediate">Intermediate experience</div>
+                            <div class="test-option" data-value="advanced">Advanced knowledge</div>
+                        </div>
+                    </div>
+                    
+                    <div class="test-question" id="question-5" style="display: none;">
+                        <h3>Question 5: Digital marketing ka kaun sa area aapko sabse zyada interesting lagta hai?</h3>
+                        <div class="test-options">
+                            <div class="test-option" data-value="seo">SEO & Content Marketing</div>
+                            <div class="test-option" data-value="social">Social Media Marketing</div>
+                            <div class="test-option" data-value="ppc">PPC & Advertising</div>
+                            <div class="test-option" data-value="analytics">Analytics & Data</div>
+                            <div class="test-option" data-value="strategy">Strategy & Planning</div>
+                        </div>
+                    </div>
+                    
+                    <div class="test-results" id="test-results" style="display: none;">
+                        <h2>Aapka Perfect Digital Marketing Path</h2>
+                        <div class="result-card">
+                            <h3 id="result-title">Recommended Course</h3>
+                            <p id="result-description">Aapke answers ke basis par, hum aapke goals ko achieve karne mein help ke liye yeh course recommend karte hain.</p>
+                        </div>
+                        <div class="modal-actions">
+                            <a href="https://wa.me/918879952676?text=Hello,%20I%20completed%20the%20eligibility%20test%20and%20would%20like%20more%20information%20about%20the%20recommended%20course" class="btn btn-whatsapp" target="_blank" id="result-whatsapp">
+                                <i class="fab fa-whatsapp"></i> More Information Paayein
+                            </a>
+                            <button class="btn" id="share-results">
+                                <i class="fas fa-share-alt"></i> Results Share Karein
+                            </button>
+                            <button class="btn btn-secondary close-modal">Close</button>
+                        </div>
+                    </div>
+                    
+                    <div class="test-navigation">
+                        <button class="btn btn-secondary" id="prev-question" style="display: none;">Previous</button>
+                        <button class="btn" id="next-question">Next Question</button>
+                        <button class="btn" id="show-results" style="display: none;">Results Dekhein</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal" id="privacy-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Privacy Policy</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body privacy-content">
+                <h2>Shias.in Ke Liye Privacy Policy</h2>
+                <p>Last updated: December 2023</p>
+                
+                <h3>Information Hum Collect Karte Hain</h3>
+                <p>Hum woh information collect karte hain jo aap directly humein provide karte hain, including:</p>
+                <ul>
+                    <li>Contact information (name, email, phone number)</li>
+                    <li>Professional information (background, goals)</li>
+                    <li>Course enrollments ke liye payment information</li>
+                    <li>Communication preferences</li>
+                </ul>
+                
+                <h3>Hum Aapki Information Ka Use Kaise Karte Hain</h3>
+                <p>Hum jo information collect karte hain uska use hum yeh karne ke liye karte hain:</p>
+                <ul>
+                    <li>Provide, maintain, aur improve our services</li>
+                    <li>Process transactions aur send related information</li>
+                    <li>Send you technical notices aur support messages</li>
+                    <li>Respond to your comments aur questions</li>
+                    <li>Develop new products aur services</li>
+                </ul>
+                
+                <h3>Information Sharing</h3>
+                <p>Hum aapki personal information ko aapki consent ke bina third parties ko sell, trade, ya otherwise transfer nahi karte hain, except as described in this policy.</p>
+                
+                <h3>Data Security</h3>
+                <p>Hum aapki personal information ki protection ke liye appropriate technical aur organizational security measures implement karte hain.</p>
+                
+                <h3>Aapke Rights</h3>
+                <p>Aapko apni personal information tak access, correct, ya delete karne ka right hai. In rights ko exercise karne ke liye info@shias.in par humse contact karein.</p>
+                
+                <h3>Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy, please contact us at info@shias.in</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal" id="terms-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Terms of Service</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body privacy-content">
+                <h2>Shias.in Ke Liye Terms of Service</h2>
+                <p>Last updated: December 2023</p>
+                
+                <h3>1. Terms Ki Acceptance</h3>
+                <p>Shias.in tak access aur use karke, aap accept aur agree karte hain is agreement ki terms aur provision se bound hone ke liye.</p>
+                
+                <h3>2. Use License</h3>
+                <p>Permission di gayi hai temporarily access the materials on Shias.in for personal, non-commercial transitory viewing only.</p>
+                
+                <h3>3. Disclaimer</h3>
+                <p>The materials on Shias.in are provided on an 'as is' basis. Shias.in makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+                
+                <h3>4. Limitations</h3>
+                <p>In no event shall Shias.in or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Shias.in.</p>
+                
+                <h3>5. Course Enrollment Aur Payments</h3>
+                <p>Course fees advance mein payable hain. Hum 7 days ke andar refund offer karte hain agar aapne course content ke 20% se zyada access nahi kiya hai.</p>
+                
+                <h3>6. Governing Law</h3>
+                <p>These terms and conditions are governed by and construed in accordance with the laws of India and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Service and Course Data
+        const services = {
+            seo: {
+                title: "SEO Optimization",
+                description: "Hamari comprehensive SEO services aapki website ki search engine results mein visibility improve karne, organic traffic badhane aur conversions increase karne ke liye designed hain. Active taur par aapki services dhoondhne wale customers ko mil jayein.",
+                features: [
+                    "Comprehensive keyword research aur strategy",
+                    "On-page optimization including meta tags aur content",
+                    "Technical SEO audit aur implementation",
+                    "Link building aur off-page SEO strategies",
+                    "Brick-and-mortar businesses ke liye local SEO optimization",
+                    "Monthly performance reports aur analytics"
+                ]
+            },
+            ppc: {
+                title: "PPC Advertising",
+                description: "Strategic pay-per-click campaigns ke saath immediate, targeted traffic apni website par le aayein jo ROI ko maximize karti hain aur qualified leads generate karti hain. 24 ghante ke andar qualified leads milna shuru ho jayein.",
+                features: [
+                    "Campaign strategy aur keyword research",
+                    "Ad copy creation aur A/B testing",
+                    "Conversions ke liye landing page optimization",
+                    "Google Ads aur Bing Ads management",
+                    "Social media advertising (Facebook, Instagram, LinkedIn)",
+                    "Detailed performance reporting aur optimization"
+                ]
+            },
+            social: {
+                title: "Social Media Marketing",
+                description: "Tailored strategies ke saath social platforms par apni brand ki presence ko maximize karein jo aapke audience ko engage karti hain aur meaningful interactions ko drive karti hain. Proven strategies ke saath followers ko customers mein convert karein.",
+                features: [
+                    "Custom social media strategy development",
+                    "All major platforms ke liye content creation aur curation",
+                    "Community management aur engagement",
+                    "Paid social advertising campaigns",
+                    "Influencer partnership programs",
+                    "Performance tracking aur ROI analysis"
+                ]
+            },
+            content: {
+                title: "Content Marketing",
+                description: "Valuable, relevant content create karein jo aapke target audience ko attract aur retain karta hai, aapki brand ko aapki industry mein ek authority ke taur par establish karta hai. Authority establish karein aur apne audience ke saath trust build karein.",
+                features: [
+                    "Content strategy aur editorial calendar development",
+                    "Blog posts, articles, aur long-form content creation",
+                    "Infographics aur images including visual content",
+                    "Content distribution aur promotion strategies",
+                    "Content performance measurement aur optimization",
+                    "Conversion-focused copywriting"
+                ]
+            }
+        };
+
+        const courses = {
+            "digital-marketing": {
+                title: "Advanced Digital Marketing Course",
+                description: "Yeh comprehensive digital marketing course live projects par hands-on experience ke saath in-depth training provide karta hai. Hum students, working professionals aur entrepreneurs ke liye sabse advanced aur practical oriented training offer karte hain. Sirf 12 weeks mein job-ready ho jayein!",
+                duration: "12 Weeks",
+                level: "All Levels",
+                features: [
+                    "Comprehensive digital marketing strategy development",
+                    "Search Engine Optimization (SEO) techniques",
+                    "All major platforms par Social Media Marketing",
+                    "Google Ads aur PPC campaign management",
+                    "Email marketing aur automation strategies",
+                    "Content marketing aur copywriting skills",
+                    "Web analytics aur performance measurement",
+                    "Digital marketing efficiency ke liye AI tools"
+                ]
+            },
+            google: {
+                title: "Google Certifications & Training",
+                description: "Google Ads, Analytics, aur Digital Marketing mein certifications ke saath Google ke digital marketing ecosystem mein mastery hasil karein. Ek certified Google marketing professional ban jayein. Duniya ki leading tech company se certified ho jayein.",
+                duration: "8 Weeks",
+                level: "Intermediate",
+                features: [
+                    "Google Ads Search Certification preparation",
+                    "Google Ads Display Certification training",
+                    "Google Analytics 4 Certification course",
+                    "Google Shopping Ads Certification",
+                    "Google My Business optimization",
+                    "Google Digital Garage fundamentals",
+                    "Google Skillshop access aur training",
+                    "Live projects par practical implementation"
+                ]
+            },
+            meta: {
+                title: "Meta (Facebook & Instagram) Certifications",
+                description: "Official Meta certifications ke saath Facebook aur Instagram advertising strategies aur campaign management mein proficiency hasil karein. Un platforms mein mastery hasil karein jahan billions users apna time spend karte hain.",
+                duration: "6 Weeks",
+                level: "Beginner",
+                features: [
+                    "Meta Certified Digital Marketing Associate preparation",
+                    "Meta Blueprint Planning Professional training",
+                    "Meta Blueprint Buying Professional course",
+                    "Meta Certified Media Planning Professional",
+                    "Meta Certified Creative Strategy Professional",
+                    "Facebook aur Instagram advertising strategies",
+                    "Audience targeting aur segmentation techniques",
+                    "Campaign optimization aur performance analysis"
+                ]
+            }
+        };
+
+        // Eligibility Test Results
+        const testResults = {
+            student: {
+                career: {
+                    "5": {
+                        beginner: {
+                            seo: {
+                                title: "Digital Marketing Fundamentals",
+                                description: "Students ke liye apna career journey shuru karne ke liye perfect. Basics seekhein aur apne digital marketing career ke liye strong foundation build karein."
+                            },
+                            social: {
+                                title: "Social Media Marketing Starter",
+                                description: "Social media mein interested students ke liye ideal. Engaging content create karna aur online communities build karna seekhein."
+                            }
+                        }
+                    }
+                }
+            },
+            // Simplified for demo - in a real implementation, this would be more comprehensive
+            default: {
+                title: "Advanced Digital Marketing Course",
+                description: "Aapke goals aur background ke basis par, hamara comprehensive digital marketing course aapke career objectives ko achieve karne aur demand wali skills develop karne mein help ke liye perfect fit hai."
+            }
+        };
+
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu after clicking
+                    document.querySelector('nav').classList.remove('active');
+                }
+            });
+        });
+
+        // Service Modal Handling
+        document.querySelectorAll('.service-card').forEach(element => {
+            element.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('invite-button') && !e.target.classList.contains('like-button') && 
+                    !e.target.closest('.invite-button') && !e.target.closest('.like-button')) {
+                    e.preventDefault();
+                    const serviceKey = this.getAttribute('data-service');
+                    const service = services[serviceKey];
+                    
+                    if (service) {
+                        document.getElementById('modal-service-title').textContent = service.title;
+                        document.getElementById('modal-service-description').textContent = service.description;
+                        
+                        const featuresList = document.getElementById('modal-service-features');
+                        featuresList.innerHTML = '';
+                        
+                        service.features.forEach(feature => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                            featuresList.appendChild(li);
+                        });
+                        
+                        // Update WhatsApp link with service name
+                        const whatsappLink = document.getElementById('service-whatsapp-link');
+                        const currentHref = whatsappLink.getAttribute('href');
+                        const newHref = currentHref.replace('[SERVICE]', service.title);
+                        whatsappLink.setAttribute('href', newHref);
+                        
+                        document.getElementById('service-modal').classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                }
+            });
+        });
+
+        // Course Modal Handling
+        document.querySelectorAll('.course-card').forEach(element => {
+            element.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('invite-button') && !e.target.classList.contains('like-button') && 
+                    !e.target.closest('.invite-button') && !e.target.closest('.like-button')) {
+                    e.preventDefault();
+                    const courseKey = this.getAttribute('data-course');
+                    const course = courses[courseKey];
+                    
+                    if (course) {
+                        document.getElementById('modal-course-title').textContent = course.title;
+                        document.getElementById('modal-course-description').textContent = course.description;
+                        
+                        const metaInfo = document.getElementById('modal-course-meta');
+                        metaInfo.innerHTML = `
+                            <span><i class="far fa-clock"></i> ${course.duration}</span>
+                            <span><i class="fas fa-signal"></i> ${course.level}</span>
+                        `;
+                        
+                        const featuresList = document.getElementById('modal-course-features');
+                        featuresList.innerHTML = '';
+                        
+                        course.features.forEach(feature => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<i class="fas fa-check"></i> ${feature}`;
+                            featuresList.appendChild(li);
+                        });
+                        
+                        // Update WhatsApp link with course name
+                        const whatsappLink = document.getElementById('course-whatsapp-link');
+                        const currentHref = whatsappLink.getAttribute('href');
+                        const newHref = currentHref.replace('[COURSE]', course.title);
+                        whatsappLink.setAttribute('href', newHref);
+                        
+                        document.getElementById('course-modal').classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                }
+            });
+        });
+
+        // Mentorship Modal Handling
+        document.getElementById('mentor-button').addEventListener('click', function() {
+            document.getElementById('mentor-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        document.getElementById('mentor-button-2').addEventListener('click', function() {
+            document.getElementById('mentor-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Free Trial Modal
+        document.getElementById('free-trial-btn').addEventListener('click', function() {
+            document.getElementById('trial-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Noha Academy Modal
+        document.getElementById('noha-join-btn').addEventListener('click', function() {
+            document.getElementById('noha-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Eligibility Test Modal
+        document.getElementById('start-test-btn').addEventListener('click', function() {
+            document.getElementById('test-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            resetTest();
+        });
+        
+        document.getElementById('eligibility-nav').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('test-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            resetTest();
+        });
+        
+        document.getElementById('eligibility-footer').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('test-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            resetTest();
+        });
+
+        // Privacy Policy Modal
+        document.getElementById('privacy-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('privacy-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Terms of Service Modal
+        document.getElementById('terms-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('terms-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close Modal
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Like Button Functionality
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const likes = parseInt(this.getAttribute('data-likes'));
+                const countElement = this.querySelector('.like-count');
+                
+                if (this.classList.contains('liked')) {
+                    this.classList.remove('liked');
+                    countElement.textContent = likes;
+                } else {
+                    this.classList.add('liked');
+                    countElement.textContent = likes + 1;
+                }
+            });
+        });
+
+        // Invite Button Functionality
+        document.querySelectorAll('.invite-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const url = window.location.href;
+                const text = "Shias.in se is amazing digital marketing course/service ko check karein!";
+                const shareUrl = `https://wa.me/?text=${encodeURIComponent(text + " " + url)}`;
+                
+                // Open WhatsApp share dialog
+                window.open(shareUrl, '_blank');
+            });
+        });
+
+        // Mobile Footer Actions
+        document.getElementById('mobile-whatsapp').addEventListener('click', function() {
+            window.open('https://wa.me/918879952676?text=Hello,%20I%27m%20interested%20in%20your%20digital%20marketing%20services%20and%20courses', '_blank');
+        });
+        
+        document.getElementById('mobile-call').addEventListener('click', function() {
+            window.location.href = 'tel:+918879952676';
+        });
+        
+        document.getElementById('mobile-invite').addEventListener('click', function() {
+            const url = window.location.href;
+            const text = "Amazing digital marketing courses aur services ke liye Shias.in ko check karein!";
+            const shareUrl = `https://wa.me/?text=${encodeURIComponent(text + " " + url)}`;
+            window.open(shareUrl, '_blank');
+        });
+
+        // Language Dropdown Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight current language in dropdown
+            const currentPage = window.location.pathname.split('/').pop();
+            const languageLinks = document.querySelectorAll('.language-dropdown-content a');
+            
+            languageLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                    
+                    // Update dropdown button text
+                    const dropdownBtn = document.querySelector('.language-dropdown-btn');
+                    const languageName = link.textContent.trim();
+                    dropdownBtn.innerHTML = `<i class="fas fa-globe"></i> ${languageName} <i class="fas fa-chevron-down"></i>`;
+                }
+            });
+        });
+
+        // Eligibility Test Functionality
+        let currentQuestion = 1;
+        const testAnswers = {};
+        
+        function resetTest() {
+            currentQuestion = 1;
+            document.querySelectorAll('.test-question').forEach(q => {
+                q.style.display = 'none';
+            });
+            document.getElementById('question-1').style.display = 'block';
+            document.getElementById('prev-question').style.display = 'none';
+            document.getElementById('next-question').style.display = 'block';
+            document.getElementById('show-results').style.display = 'none';
+            document.getElementById('test-results').style.display = 'none';
+            
+            document.querySelectorAll('.test-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
+        
+        document.getElementById('next-question').addEventListener('click', function() {
+            if (currentQuestion < 5) {
+                document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+                currentQuestion++;
+                document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+                
+                document.getElementById('prev-question').style.display = 'block';
+                
+                if (currentQuestion === 5) {
+                    this.style.display = 'none';
+                    document.getElementById('show-results').style.display = 'block';
+                }
+            }
+        });
+        
+        document.getElementById('prev-question').addEventListener('click', function() {
+            if (currentQuestion > 1) {
+                document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+                currentQuestion--;
+                document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+                
+                document.getElementById('next-question').style.display = 'block';
+                document.getElementById('show-results').style.display = 'none';
+                
+                if (currentQuestion === 1) {
+                    this.style.display = 'none';
+                }
+            }
+        });
+        
+        document.getElementById('show-results').addEventListener('click', function() {
+            document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+            document.getElementById('test-results').style.display = 'block';
+            document.getElementById('prev-question').style.display = 'none';
+            document.getElementById('show-results').style.display = 'none';
+            
+            // Set default result for demo
+            document.getElementById('result-title').textContent = testResults.default.title;
+            document.getElementById('result-description').textContent = testResults.default.description;
+            
+            // Update WhatsApp link with result
+            const whatsappLink = document.getElementById('result-whatsapp');
+            const currentHref = whatsappLink.getAttribute('href');
+            const newHref = currentHref.replace('recommended%20course', testResults.default.title);
+            whatsappLink.setAttribute('href', newHref);
+        });
+        
+        document.querySelectorAll('.test-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options in this question
+                this.parentElement.querySelectorAll('.test-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Store the answer
+                const questionId = this.closest('.test-question').id;
+                testAnswers[questionId] = this.getAttribute('data-value');
+            });
+        });
+        
+        document.getElementById('share-results').addEventListener('click', function() {
+            const resultTitle = document.getElementById('result-title').textContent;
+            const resultDesc = document.getElementById('result-description').textContent;
+            const text = `Maine Shias.in ka eligibility test liya aur mera recommended course hai: ${resultTitle} - ${resultDesc}. Khud test lein: ${window.location.href}`;
+            const shareUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(shareUrl, '_blank');
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.service-card, .course-card, .audience-card, .funding-card').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+
+        // Simple testimonial slider functionality
+        const slider = document.querySelector('.testimonials-slider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        // Add click handlers for buttons
+        document.querySelectorAll('.service-button, .course-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // In a real implementation, this would open a modal or navigate to a page
+                // Already handled by the modal functionality above
+            });
+        });
+    </script>
+</body>
+</html>
