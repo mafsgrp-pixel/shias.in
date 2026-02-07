@@ -1,0 +1,1849 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dua Pro | Islamic Supplication Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a1929;
+            --secondary-bg: #1a2b3c;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            
+            /* YOUR EXACT COLORS */
+            --accent-gold: #FFD700;      /* Gold */
+            --accent-silver: #C0C0C0;    /* Silver */
+            --accent-orange: #FFA500;    /* Orange */
+            --accent-skyblue: #87CEEB;   /* Sky Blue */
+            --accent-yellow: #FFFF00;    /* Yellow */
+            
+            /* Dark theme colors from your background */
+            --dark-blue-1: #0a1929;
+            --dark-blue-2: #1a2b3c;
+            
+            --text-primary: #FFFFFF;
+            --text-secondary: #E8E8E8;
+            --border-radius: 12px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            font-family: 'Roboto', sans-serif;
+            padding: var(--spacing-md);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header - USING YOUR BACKGROUND GRADIENT */
+        .header {
+            position: relative;
+            text-align: center;
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, #0a1929, #1a2b3c, #FFD700);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-lg);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .shias-logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #0a1929, #FFD700);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
+            cursor: default;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, #FFFFFF, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Amiri', serif;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .industry-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0a1929, #FFD700);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* Command Sections */
+        .command-section {
+            background: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+            cursor: pointer;
+        }
+
+        .section-header h2 {
+            margin-bottom: 0;
+        }
+
+        .collapse-btn {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .collapse-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .collapsible-content {
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .collapsible-content.collapsed {
+            max-height: 0;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Amiri', serif;
+        }
+
+        .command-box {
+            width: 100%;
+            padding: var(--spacing-sm);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            resize: vertical;
+            min-height: 120px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Dimension Selector */
+        .dimension-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .dimension-btn {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .dimension-btn.active {
+            background: linear-gradient(135deg, #0a1929, #FFD700);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Border Selector */
+        .border-selector {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .border-btn {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .border-btn.active {
+            background: linear-gradient(135deg, #0a1929, #FFD700);
+            color: white;
+        }
+
+        .border-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .border-control {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 120px;
+        }
+
+        .border-control label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .border-control input {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+
+        /* Layout Presets */
+        .layout-presets {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 15px;
+            max-width: 300px;
+        }
+
+        .layout-preset {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .layout-preset:hover {
+            transform: translateY(-3px);
+            border-color: #FFD700;
+        }
+
+        .layout-preset.active {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .layout-preview {
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .layout-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #FFD700;
+            border-radius: 50%;
+        }
+
+        /* Background Type Selector */
+        .bg-type-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .bg-type-btn {
+            padding: 8px 16px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bg-type-btn.active {
+            background: linear-gradient(135deg, #0a1929, #FFD700);
+            border-color: #FFD700;
+            color: white;
+        }
+
+        /* Hashtag Buttons - USING YOUR COLORS */
+        .hashtag-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .hashtag-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .hashtag-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .hashtag-btn i {
+            font-size: 10px;
+        }
+
+        /* Color classes for hashtag buttons - USING YOUR COLORS */
+        .hashtag-color-1 { background: #FFD700; color: #000; } /* Gold */
+        .hashtag-color-2 { background: #C0C0C0; color: #000; } /* Silver */
+        .hashtag-color-3 { background: #FFA500; color: #000; } /* Orange */
+        .hashtag-color-4 { background: #87CEEB; color: #000; } /* Sky Blue */
+        .hashtag-color-5 { background: #FFFF00; color: #000; } /* Yellow */
+        .hashtag-color-6 { background: #0a1929; color: #FFD700; } /* Dark Blue 1 */
+        .hashtag-color-7 { background: #1a2b3c; color: #FFD700; } /* Dark Blue 2 */
+        .hashtag-color-8 { background: #FFD700; color: #000; } /* Gold */
+
+        /* Preview Section */
+        .preview-section {
+            background: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            max-height: 1200px;
+            overflow-y: auto;
+        }
+
+        /* Creative Elements - USING YOUR EXACT COLORS */
+        .creative-preview {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+            border-radius: 8px;
+            overflow: hidden;
+            min-height: 400px;
+            width: 100%;
+            /* YOUR EXACT BACKGROUND */
+            background: linear-gradient(135deg, #0a1929, #1a2b3c, #FFD700);
+        }
+
+        /* ADAPTIVE SIZING - NO CUTTING */
+        .creative-preview.square {
+            aspect-ratio: 1/1;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .creative-preview.portrait {
+            aspect-ratio: 9/16;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .creative-preview.landscape {
+            aspect-ratio: 16/9;
+            max-width: 533px;
+            margin: 0 auto;
+        }
+
+        /* Content container that adapts */
+        .content-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* Shias.in Logo - USING YOUR COLORS */
+        .canvas-logo {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #0a1929, #FFD700);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 14px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Watermark Icon - YOUR EXACT COLOR */
+        .watermark-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 150px;
+            opacity: 0.15;
+            z-index: 1;
+            color: #FFD700; /* YOUR EXACT GOLD COLOR */
+        }
+
+        /* Small icons - USING YOUR EXACT COLORS */
+        .small-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            z-index: 2;
+            flex-wrap: wrap;
+        }
+
+        .small-icon {
+            font-size: 16px;
+        }
+
+        /* Content elements with adaptive sizing - USING YOUR EXACT COLORS */
+        .topic {
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #FFFFFF; /* YOUR EXACT WHITE */
+            z-index: 2;
+            line-height: 1.3;
+            max-width: 98%;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Arabic Text - YOUR EXACT COLOR */
+        .arabic {
+            font-size: clamp(16px, 2vw, 22px);
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Noto Naskh Arabic', serif;
+            line-height: 1.6;
+            direction: rtl;
+            z-index: 2;
+            color: #FFD700; /* YOUR EXACT GOLD */
+            max-width: 988%;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Author/Source - YOUR EXACT COLOR */
+        .author {
+            font-size: clamp(14px, 1.6vw, 18px);
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #FFD700; /* YOUR EXACT GOLD */
+            z-index: 2;
+            max-width: 98%;
+            font-style: italic;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Translation - YOUR EXACT COLOR */
+        .translation {
+            font-size: clamp(12px, 1.4vw, 14px);
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: #FFFFFF; /* YOUR EXACT WHITE */
+            z-index: 2;
+            max-width: 98%;
+            font-style: italic;
+            padding: 8px;
+            background: rgba(255, 215, 0, 0.1); /* Gold tint */
+            border-radius: 4px;
+            border-left: 3px solid #FFD700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Source/Reference - YOUR EXACT COLOR */
+        .source {
+            font-size: clamp(11px, 1.2vw, 13px);
+            margin-top: 8px;
+            color: #FFD700; /* YOUR EXACT GOLD */
+            font-style: italic;
+            padding: 6px 12px;
+            background: rgba(10, 25, 41, 0.5); /* Dark blue tint */
+            border-radius: 6px;
+            z-index: 2;
+            max-width: 98%;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Bismillah Styling - USING GOLD */
+        .bismillah {
+            font-size: clamp(16px, 1.8vw, 20px);
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Noto Naskh Arabic', serif;
+            color: #FFD700; /* Gold */
+            direction: rtl;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Branding Footer - USING YOUR COLORS */
+        .branding-footer {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            background: rgba(10, 25, 41, 0.8); /* Dark blue */
+            padding: 6px 10px;
+            font-size: 9px;
+            color: #FFD700; /* Gold */
+            font-family: 'Roboto', sans-serif;
+            z-index: 100;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .branding-footer strong {
+            color: #FFFFFF; /* White */
+            font-weight: 600;
+        }
+
+        /* Hashtags Container - USING GOLD FROM YOUR SPEC */
+        .hashtags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+            margin-top: 10px;
+            z-index: 2;
+            max-width: 98%;
+        }
+
+        .hashtag-item {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            color: #000; /* Black text for gold hashtags */
+            background: #FFD700; /* YOUR EXACT GOLD */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Download Buttons */
+        .download-buttons {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .single-download-btn {
+            background: rgba(10, 25, 41, 0.8); /* Dark blue */
+            color: #FFD700; /* Gold */
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .single-download-btn:hover {
+            background: rgba(255, 215, 0, 0.8); /* Gold on hover */
+            color: #000;
+        }
+
+        /* Action Buttons - USING YOUR COLORS */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: linear-gradient(135deg, #0a1929, #FFD700);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Progress Container */
+        .progress-container {
+            margin: var(--spacing-lg) 0;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--card-bg);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0a1929, #FFD700);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: var(--spacing-lg) 0;
+            font-size: 1.2rem;
+            color: #FFD700;
+        }
+
+        /* Counter & Stats */
+        .counter {
+            text-align: center;
+            margin: var(--spacing-md) 0;
+            font-size: 16px;
+            color: #FFD700;
+        }
+
+        .stats-panel {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFD700;
+        }
+
+        /* Creative Card */
+        .creative-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-sm);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        /* Settings Summary */
+        .settings-summary {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .summary-item {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .summary-icon {
+            color: #FFD700;
+            width: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .border-selector {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .single-download-btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            
+            .dimension-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .hashtag-buttons {
+                justify-content: center;
+            }
+            
+            .shias-logo {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-top: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .canvas-logo {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            
+            .branding-footer {
+                font-size: 8px;
+                padding: 4px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="shias-logo">
+                <i class="fas fa-star-and-crescent"></i> Shias.in
+            </div>
+            <h1><i class="fas fa-hands-praying"></i> Dua Pro Creative Generator</h1>
+            <p class="subtitle">Professional Islamic Content Creation for Dua (Supplication) Sharing</p>
+            <div class="industry-badge">Shia Supplications • Authentic Sources • Bulk Processing</div>
+        </div>
+
+        <!-- Settings Summary -->
+        <div class="settings-summary" id="settings-summary">
+            <div class="summary-item">
+                <i class="fas fa-cog summary-icon"></i>
+                <span>Ready to generate professional Islamic content. Enter your Dua (supplication) content below.</span>
+            </div>
+        </div>
+
+        <!-- 1. Dimension Selector -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-expand-arrows-alt"></i> 1. Content Dimensions</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <div class="dimension-selector">
+                    <button class="dimension-btn active" data-aspect="square">
+                        <i class="fas fa-square"></i> Square 1:1
+                    </button>
+                    <button class="dimension-btn" data-aspect="portrait">
+                        <i class="fas fa-mobile-alt"></i> Portrait 9:16
+                    </button>
+                    <button class="dimension-btn" data-aspect="landscape">
+                        <i class="fas fa-desktop"></i> Landscape 16:9
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Border & Layout -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-palette"></i> 2. Design Styling</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <h3 style="margin-top: 10px;"><i class="fas fa-border-style"></i> Border Style</h3>
+                <div class="border-selector" id="border-selector">
+                    <!-- Border styles added by JavaScript -->
+                </div>
+                <div class="border-controls">
+                    <div class="border-control">
+                        <label>Border Color</label>
+                        <input type="color" id="border-color" value="#FFD700">
+                    </div>
+                    <div class="border-control">
+                        <label>Border Width</label>
+                        <input type="number" id="border-width" value="5" min="1" max="20">
+                    </div>
+                    <div class="border-control">
+                        <label>Border Radius</label>
+                        <input type="number" id="border-radius" value="8" min="0" max="50">
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 20px;"><i class="fas fa-layer-group"></i> Content Layout</h3>
+                <div class="layout-presets">
+                    <div class="layout-preset active" data-layout="center-focused" onclick="selectLayout('center-focused')">
+                        <div class="layout-preview">
+                            <div class="layout-dot" style="top: 30%; left: 50%;"></div>
+                            <div class="layout-dot" style="top: 45%; left: 50%; width: 10px; height: 10px;"></div>
+                            <div class="layout-dot" style="top: 60%; left: 50%;"></div>
+                        </div>
+                        <div>Center Focused Layout</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Backgrounds -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-fill-drip"></i> 3. Backgrounds</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <div class="bg-type-selector">
+                    <button class="bg-type-btn active" data-type="gradient">Gradient Backgrounds</button>
+                    <button class="bg-type-btn" data-type="image">Image Backgrounds</button>
+                </div>
+                
+                <div id="gradient-backgrounds">
+                    <textarea class="command-box" id="backgrounds-input" placeholder="Enter gradient backgrounds - one per line">linear-gradient(135deg, #0a1929, #1a2b3c, #FFD700)
+linear-gradient(45deg, #0a1929, #1a2b3c, #FFD700)
+linear-gradient(225deg, #0a1929, #1a2b3c, #FFD700)
+linear-gradient(315deg, #0a1929, #1a2b3c, #FFD700)</textarea>
+                </div>
+                
+                <div id="image-backgrounds" style="display: none;">
+                    <textarea class="command-box" id="bg-images-input" placeholder="Enter image URLs - one per line (leave empty for gradients)"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Center Watermark Icons -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-icons"></i> 4. Islamic Icons</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <textarea class="command-box" id="watermarks-input" placeholder="Enter FontAwesome icon classes - one per line">fas fa-moon | #FFD700
+fas fa-star-and-crescent | #FFD700
+fas fa-hands-praying | #FFD700
+fas fa-book-quran | #FFD700</textarea>
+            </div>
+        </div>
+
+        <!-- 5. Small Icons Sets -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-star"></i> 5. Small Icons Sets</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <textarea class="command-box" id="icons-input" placeholder="Enter 5 icon classes per line separated by commas">fas fa-star, fas fa-moon, fas fa-sun, fas fa-cloud, fas fa-bolt | #FFD700,#C0C0C0,#FFA500,#87CEEB,#FFFF00
+fas fa-hands-praying, fas fa-book-quran, fas fa-star, fas fa-dove, fas fa-heart | #FFD700,#C0C0C0,#FFA500,#87CEEB,#FFFF00
+fas fa-mosque, fas fa-prayer-mat, fas fa-quran, fas fa-hands, fas fa-lightbulb | #FFD700,#C0C0C0,#FFA500,#87CEEB,#FFFF00</textarea>
+            </div>
+        </div>
+
+        <!-- 6. Dua Titles -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-heading"></i> 6. Dua Titles</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <textarea class="command-box" id="topics-input" placeholder="Enter dua titles - one per line">Dua of Repentance | 24px | bold | #FFFFFF | Montserrat
+Dua for Patience & Sabr | 22px | 800 | #FFFFFF | Montserrat
+Dua for Protection | 20px | 900 | #FFFFFF | Montserrat
+Dua for Forgiveness | 18px | bold | #FFFFFF | Montserrat</textarea>
+            </div>
+        </div>
+
+        <!-- 7. Arabic Dua Texts -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-align-right"></i> 7. Arabic Dua Text</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <textarea class="command-box" id="arabic-input" placeholder="Enter Arabic dua texts - one per line">إلهي أستغفيرك لكل نَبْبٍ وَ أتُوبُ إِلَيْكَ | 28px | bold | #FFD700 | Noto Naskh Arabic
+رَبَّنَا عَلَيْكَ تَوَكَّلْنَا وَإِلَيْكَ أَنَبْنَا وَإِلَيْكَ الْمَصِيرُ | 32px | bold | #FFD700 | Noto Naskh Arabic
+اللَّهُمَّ احْفَظْنِي بِدِينِكَ | 26px | bold | #FFD700 | Noto Naskh Arabic
+رَبِّ اغْفِرْ لِي وَتُبْ عَلَيَّ | 24px | bold | #FFD700 | Noto Naskh Arabic</textarea>
+            </div>
+        </div>
+
+        <!-- 8. Sources -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-book"></i> 8. Sources</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <textarea class="command-box" id="sources-input" placeholder="Enter sources - one per line">Imam Ali Zain-ul-Abideen (AS) | 18px | 600 | #FFD700 | Montserrat
+Sahifa Sajjadiyya | 18px | 700 | #FFD700 | Montserrat
+Mafatih al-Jinan | 16px | 600 | #FFD700 | Montserrat
+Dua Tawassul | 16px | 600 | #FFD700 | Montserrat</textarea>
+            </div>
+        </div>
+
+        <!-- 9. Translations -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-language"></i> 9. Translations</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <textarea class="command-box" id="translations-input" placeholder="Enter translations - one per line">My God, I seek Your forgiveness for every sin and I repent to You | 14px | 500 | #FFFFFF | Roboto
+Our Lord, upon You we have relied, and to You we have returned, and to You is the destination | 14px | 500 | #FFFFFF | Roboto
+O Allah, protect me through Your religion | 12px | 500 | #FFFFFF | Roboto
+My Lord, forgive me and accept my repentance | 12px | 500 | #FFFFFF | Roboto</textarea>
+            </div>
+        </div>
+
+        <!-- 10. References -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-link"></i> 10. References</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <textarea class="command-box" id="references-input" placeholder="Enter references - one per line">Sahifa Sajjadiyya, Dua 31 (Repentance) | 11px | 500 | #FFD700 | Roboto
+Dua Kumayl, Authentic Shia Source | 11px | 500 | #FFD700 | Roboto
+Mafatih al-Jinan, Page 45 | 10px | 500 | #FFD700 | Roboto
+Bihar al-Anwar, Volume 91 | 10px | 500 | #FFD700 | Roboto</textarea>
+            </div>
+        </div>
+
+        <!-- 11. Hashtags Sets -->
+        <div class="command-section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><i class="fas fa-hashtag"></i> 11. Islamic Hashtags</h2>
+                <button class="collapse-btn">−</button>
+            </div>
+            <div class="collapsible-content">
+                <textarea class="command-box" id="hashtags-input" placeholder="Enter hashtags (one set per line, separated by |)">#Repentance #Tawbah #Forgiveness #IslamicSpirituality | 11px
+#Patience #Sabr #Strength #Faith #Trust #Allah | 10px
+#Forgiveness #Repentance #Tawbah #Mercy #Allah | 9px
+#Knowledge #Wisdom #Learning #Quran #Islamic | 10px</textarea>
+                
+                <div class="hashtag-buttons" id="hashtag-buttons">
+                    <!-- Hashtag buttons will be added here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Counter & Stats -->
+        <div class="counter" id="counter">Ready to generate professional Islamic content. Enter your Dua content above.</div>
+        
+        <div class="stats-panel" id="stats-panel" style="display: none;">
+            <div class="stat-item">
+                <div class="stat-label">Total Creatives</div>
+                <div class="stat-value" id="stat-total">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Content Format</div>
+                <div class="stat-value" id="stat-dimension">Square (1:1)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Content Type</div>
+                <div class="stat-value" id="stat-content">Dua (Supplication)</div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-info">
+                <span id="progress-text">Processing...</span>
+                <span id="progress-percentage">0%</span>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+            <button id="generate-btn"><i class="fas fa-hands-praying"></i> Generate Dua Creatives (Ctrl+G)</button>
+            <button id="download-btn"><i class="fas fa-download"></i> Download All as ZIP (Ctrl+D)</button>
+        </div>
+
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner fa-spin"></i> Processing...
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <h2><i class="fas fa-eye"></i> Preview Dua Creatives</h2>
+            <div class="preview-grid" id="preview-grid">
+                <!-- Generated creatives will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== DUA CONTENT WITH YOUR EXACT COLORS ====================
+        const duaContent = {
+            backgrounds: [
+                'linear-gradient(135deg, #0a1929, #1a2b3c, #FFD700)',
+                'linear-gradient(45deg, #0a1929, #1a2b3c, #FFD700)',
+                'linear-gradient(225deg, #0a1929, #1a2b3c, #FFD700)',
+                'linear-gradient(315deg, #0a1929, #1a2b3c, #FFD700)'
+            ].join('\n'),
+            watermarks: [
+                'fas fa-moon | #FFD700',
+                'fas fa-star-and-crescent | #FFD700',
+                'fas fa-hands-praying | #FFD700',
+                'fas fa-book-quran | #FFD700'
+            ].join('\n'),
+            icons: [
+                'fas fa-star, fas fa-moon, fas fa-sun, fas fa-cloud, fas fa-bolt | #FFD700,#C0C0C0,#FFA500,#87CEEB,#FFFF00',
+                'fas fa-hands-praying, fas fa-book-quran, fas fa-star, fas fa-dove, fas fa-heart | #FFD700,#C0C0C0,#FFA500,#87CEEB,#FFFF00',
+                'fas fa-mosque, fas fa-prayer-mat, fas fa-quran, fas fa-hands, fas fa-lightbulb | #FFD700,#C0C0C0,#FFA500,#87CEEB,#FFFF00'
+            ].join('\n'),
+            topics: [
+                'Dua of Repentance | 24px | bold | #FFFFFF | Montserrat',
+                'Dua for Patience & Sabr | 22px | 800 | #FFFFFF | Montserrat',
+                'Dua for Protection | 20px | 900 | #FFFFFF | Montserrat',
+                'Dua for Forgiveness | 18px | bold | #FFFFFF | Montserrat'
+            ].join('\n'),
+            arabic: [
+                'إلهي أستغفيرك لكل نَبْبٍ وَ أتُوبُ إِلَيْكَ | 28px | bold | #FFD700 | Noto Naskh Arabic',
+                'رَبَّنَا عَلَيْكَ تَوَكَّلْنَا وَإِلَيْكَ أَنَبْنَا وَإِلَيْكَ الْمَصِيرُ | 32px | bold | #FFD700 | Noto Naskh Arabic',
+                'اللَّهُمَّ احْفَظْنِي بِدِينِكَ | 26px | bold | #FFD700 | Noto Naskh Arabic',
+                'رَبِّ اغْفِرْ لِي وَتُبْ عَلَيَّ | 24px | bold | #FFD700 | Noto Naskh Arabic'
+            ].join('\n'),
+            sources: [
+                'Imam Ali Zain-ul-Abideen (AS) | 18px | 600 | #FFD700 | Montserrat',
+                'Sahifa Sajjadiyya | 18px | 700 | #FFD700 | Montserrat',
+                'Mafatih al-Jinan | 16px | 600 | #FFD700 | Montserrat',
+                'Dua Tawassul | 16px | 600 | #FFD700 | Montserrat'
+            ].join('\n'),
+            translations: [
+                'My God, I seek Your forgiveness for every sin and I repent to You | 14px | 500 | #FFFFFF | Roboto',
+                'Our Lord, upon You we have relied, and to You we have returned, and to You is the destination | 14px | 500 | #FFFFFF | Roboto',
+                'O Allah, protect me through Your religion | 12px | 500 | #FFFFFF | Roboto',
+                'My Lord, forgive me and accept my repentance | 12px | 500 | #FFFFFF | Roboto'
+            ].join('\n'),
+            references: [
+                'Sahifa Sajjadiyya, Dua 31 (Repentance) | 11px | 500 | #FFD700 | Roboto',
+                'Dua Kumayl, Authentic Shia Source | 11px | 500 | #FFD700 | Roboto',
+                'Mafatih al-Jinan, Page 45 | 10px | 500 | #FFD700 | Roboto',
+                'Bihar al-Anwar, Volume 91 | 10px | 500 | #FFD700 | Roboto'
+            ].join('\n'),
+            hashtags: [
+                '#Repentance #Tawbah #Forgiveness #IslamicSpirituality | 11px',
+                '#Patience #Sabr #Strength #Faith #Trust #Allah | 10px',
+                '#Forgiveness #Repentance #Tawbah #Mercy #Allah | 9px',
+                '#Knowledge #Wisdom #Learning #Quran #Islamic | 10px'
+            ].join('\n')
+        };
+
+        // Islamic hashtags for Duas
+        const islamicHashtags = [
+            '#Repentance', '#Tawbah', '#Forgiveness', '#IslamicSpirituality',
+            '#Dua', '#Supplication', '#Prayer', '#Islam', '#Shia',
+            '#AhlulBayt', '#Allah', '#Islamic', '#Muslim', '#Faith'
+        ];
+
+        // Bismillah variations
+        const bismillahVariations = [
+            "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+            "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ",
+            "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ"
+        ];
+
+        // Border styles
+        const borderStyles = [
+            "solid", "dashed", "dotted", "double", "groove",
+            "ridge", "inset", "outset"
+        ];
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        // Global variables
+        let currentLayout = 'center-focused';
+        let currentAspect = 'square';
+        let isGenerating = false;
+        let generationQueue = [];
+
+        function initializeApp() {
+            // Set default content for Duas with your exact colors
+            document.getElementById('backgrounds-input').value = duaContent.backgrounds;
+            document.getElementById('watermarks-input').value = duaContent.watermarks;
+            document.getElementById('icons-input').value = duaContent.icons;
+            document.getElementById('topics-input').value = duaContent.topics;
+            document.getElementById('arabic-input').value = duaContent.arabic;
+            document.getElementById('sources-input').value = duaContent.sources;
+            document.getElementById('translations-input').value = duaContent.translations;
+            document.getElementById('references-input').value = duaContent.references;
+            document.getElementById('hashtags-input').value = duaContent.hashtags;
+            
+            // Set border color to gold (from your spec)
+            document.getElementById('border-color').value = '#FFD700';
+            
+            // Initialize border styles
+            const borderSelector = document.getElementById('border-selector');
+            borderStyles.forEach(style => {
+                const btn = document.createElement('button');
+                btn.className = 'border-btn';
+                btn.textContent = style;
+                btn.dataset.style = style;
+                if (style === 'solid') btn.classList.add('active');
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.border-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+                borderSelector.appendChild(btn);
+            });
+            
+            // Initialize dimension buttons
+            document.querySelectorAll('.dimension-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.dimension-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentAspect = this.dataset.aspect;
+                    updateDimensionStats();
+                });
+            });
+            
+            // Initialize background type selector
+            document.querySelectorAll('.bg-type-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.bg-type-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const type = this.dataset.type;
+                    if (type === 'gradient') {
+                        document.getElementById('gradient-backgrounds').style.display = 'block';
+                        document.getElementById('image-backgrounds').style.display = 'none';
+                    } else {
+                        document.getElementById('gradient-backgrounds').style.display = 'none';
+                        document.getElementById('image-backgrounds').style.display = 'block';
+                    }
+                });
+            });
+            
+            // Initialize Islamic hashtag buttons with your colors
+            initializeIslamicHashtagButtons();
+            
+            // Update stats
+            updateStats();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Show welcome message
+            setTimeout(() => {
+                showNotification('Dua Pro Creative Generator Ready!');
+            }, 1000);
+        }
+
+        function initializeIslamicHashtagButtons() {
+            const container = document.getElementById('hashtag-buttons');
+            
+            islamicHashtags.slice(0, 15).forEach((hashtag, index) => {
+                const btn = document.createElement('button');
+                // Apply your exact color theme
+                let colorClass;
+                if (hashtag.includes('Repentance') || hashtag.includes('Tawbah')) {
+                    colorClass = 'hashtag-color-1'; // Gold
+                } else if (hashtag.includes('Forgiveness') || hashtag.includes('Mercy')) {
+                    colorClass = 'hashtag-color-3'; // Orange
+                } else if (hashtag.includes('Dua') || hashtag.includes('Prayer')) {
+                    colorClass = 'hashtag-color-2'; // Silver
+                } else {
+                    colorClass = `hashtag-color-${(index % 8) + 1}`;
+                }
+                
+                btn.className = `hashtag-btn ${colorClass}`;
+                btn.innerHTML = `<i class="fas fa-hashtag"></i> ${hashtag}`;
+                btn.dataset.hashtag = hashtag;
+                btn.addEventListener('click', function() {
+                    addHashtagToInput(hashtag);
+                });
+                container.appendChild(btn);
+            });
+        }
+
+        function addHashtagToInput(hashtag) {
+            const input = document.getElementById('hashtags-input');
+            const currentValue = input.value.trim();
+            
+            if (currentValue === '') {
+                input.value = hashtag;
+            } else {
+                const lines = currentValue.split('\n');
+                const lastLine = lines[lines.length - 1].trim();
+                const hashtagsInLastLine = lastLine.split(' ').filter(h => h.startsWith('#'));
+                
+                if (hashtagsInLastLine.length < 6) {
+                    lines[lines.length - 1] = lastLine + ' ' + hashtag;
+                    input.value = lines.join('\n');
+                } else {
+                    input.value = currentValue + '\n' + hashtag;
+                }
+            }
+            
+            updateStats();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('generate-btn').addEventListener('click', generateAllCreatives);
+            document.getElementById('download-btn').addEventListener('click', downloadAllCreatives);
+            
+            // Add input listeners to update stats
+            const inputs = ['backgrounds-input', 'bg-images-input', 'watermarks-input', 'icons-input', 
+                          'topics-input', 'arabic-input', 'sources-input', 'translations-input', 
+                          'references-input', 'hashtags-input'];
+            inputs.forEach(id => {
+                document.getElementById(id).addEventListener('input', updateStats);
+            });
+        }
+
+        // ==================== UI HELPER FUNCTIONS ====================
+        function toggleSection(header) {
+            const content = header.parentElement.querySelector('.collapsible-content');
+            const btn = header.querySelector('.collapse-btn');
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                btn.textContent = '−';
+            } else {
+                content.classList.add('collapsed');
+                btn.textContent = '+';
+            }
+        }
+
+        function selectLayout(layout) {
+            currentLayout = layout;
+            updateStats();
+        }
+
+        // ==================== PARSING FUNCTIONS ====================
+        function parseCommand(command, defaultSize, defaultWeight, defaultColor, defaultFont) {
+            const parts = command.split('|').map(part => part.trim());
+            return {
+                text: parts[0] || '',
+                size: parts[1] || defaultSize,
+                weight: parts[2] || defaultWeight,
+                color: parts[3] || defaultColor,
+                font: parts[4] || defaultFont
+            };
+        }
+
+        function parseIconCommand(command) {
+            const parts = command.split('|').map(part => part.trim());
+            const iconsPart = parts[0] || '';
+            const colorsPart = parts[1] || '';
+            
+            const icons = iconsPart.split(',').map(icon => icon.trim());
+            const colors = colorsPart.split(',').map(color => color.trim());
+            
+            return {
+                icons: icons,
+                colors: colors
+            };
+        }
+
+        function parseHashtagsCommand(command) {
+            const parts = command.split('|').map(part => part.trim());
+            const hashtags = parts[0] ? parts[0].split(' ').filter(h => h.startsWith('#')) : [];
+            return {
+                hashtags: hashtags,
+                size: parts[1] || '9px'
+            };
+        }
+
+        // ==================== STATS & UTILITIES ====================
+        function updateStats() {
+            const topics = document.getElementById('topics-input').value.split('\n').filter(line => line.trim());
+            const creativeCount = topics.length;
+            
+            // Update stats panel
+            document.getElementById('stat-total').textContent = creativeCount || 0;
+            updateDimensionStats();
+            
+            // Show/hide stats panel
+            const statsPanel = document.getElementById('stats-panel');
+            if (creativeCount > 0) {
+                statsPanel.style.display = 'grid';
+            } else {
+                statsPanel.style.display = 'none';
+            }
+            
+            // Update counter
+            const counter = document.getElementById('counter');
+            if (creativeCount > 0) {
+                counter.textContent = `Ready to generate ${creativeCount} Dua creatives`;
+                counter.style.color = '#FFD700';
+            } else {
+                counter.textContent = 'Enter your Dua content above to generate creatives';
+                counter.style.color = '#FFD700';
+            }
+        }
+
+        function updateDimensionStats() {
+            const dimensionMap = {
+                'square': 'Square (1:1)',
+                'portrait': 'Portrait (9:16)',
+                'landscape': 'Landscape (16:9)'
+            };
+            document.getElementById('stat-dimension').textContent = dimensionMap[currentAspect] || 'Square (1:1)';
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #0a1929, #FFD700);
+                color: white;
+                padding: 12px 24px;
+                border-radius: var(--border-radius);
+                font-weight: 600;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            `;
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // ==================== GENERATION FUNCTIONS ====================
+        function generateAllCreatives() {
+            if (isGenerating) {
+                if (confirm('Generation in progress. Cancel and start new?')) {
+                    cancelGeneration();
+                    setTimeout(generateAllCreatives, 100);
+                }
+                return;
+            }
+            
+            const previewGrid = document.getElementById('preview-grid');
+            const counter = document.getElementById('counter');
+            const loading = document.getElementById('loading');
+            const progressContainer = document.getElementById('progress-container');
+            
+            previewGrid.innerHTML = '';
+            loading.style.display = 'block';
+            progressContainer.style.display = 'block';
+            isGenerating = true;
+            
+            // Get all inputs as arrays
+            const topics = document.getElementById('topics-input').value.split('\n').filter(line => line.trim());
+            
+            if (topics.length === 0) {
+                loading.style.display = 'none';
+                progressContainer.style.display = 'none';
+                counter.textContent = 'Please add Dua titles to generate creatives';
+                isGenerating = false;
+                return;
+            }
+            
+            const creativeCount = topics.length;
+            generationQueue = Array.from({length: creativeCount}, (_, i) => i);
+            generationQueue.originalLength = creativeCount;
+            
+            counter.textContent = `Generating ${creativeCount} Dua creatives...`;
+            
+            // Start generation
+            processGenerationQueue();
+        }
+
+        function processGenerationQueue() {
+            if (!isGenerating || generationQueue.length === 0) {
+                finishGeneration();
+                return;
+            }
+            
+            const index = generationQueue.shift();
+            generateSingleCreative(index);
+            
+            // Update progress
+            const total = generationQueue.length;
+            const processed = generationQueue.originalLength - total;
+            const percentage = Math.round((processed / generationQueue.originalLength) * 100);
+            
+            document.getElementById('progress-fill').style.width = `${percentage}%`;
+            document.getElementById('progress-percentage').textContent = `${percentage}%`;
+            document.getElementById('progress-text').textContent = `Processing ${processed + 1} of ${generationQueue.originalLength}`;
+            
+            // Continue with next
+            setTimeout(processGenerationQueue, 50);
+        }
+
+        function generateSingleCreative(index) {
+            // Get data for this creative
+            const backgrounds = document.getElementById('backgrounds-input').value.split('\n').filter(line => line.trim());
+            const bgImages = document.getElementById('bg-images-input').value.split('\n').filter(line => line.trim());
+            const watermarks = document.getElementById('watermarks-input').value.split('\n').filter(line => line.trim());
+            const iconsSets = document.getElementById('icons-input').value.split('\n').filter(line => line.trim());
+            const topics = document.getElementById('topics-input').value.split('\n').filter(line => line.trim());
+            const arabicTexts = document.getElementById('arabic-input').value.split('\n').filter(line => line.trim());
+            const sources = document.getElementById('sources-input').value.split('\n').filter(line => line.trim());
+            const translations = document.getElementById('translations-input').value.split('\n').filter(line => line.trim());
+            const references = document.getElementById('references-input').value.split('\n').filter(line => line.trim());
+            const hashtagsSets = document.getElementById('hashtags-input').value.split('\n').filter(line => line.trim());
+            
+            // Get values with fallbacks
+            let background;
+            let isImageBackground = false;
+            
+            if (bgImages.length > 0) {
+                background = bgImages[index] || bgImages[0];
+                isImageBackground = true;
+            } else {
+                background = backgrounds[index] || backgrounds[0] || 'linear-gradient(135deg, #0a1929, #1a2b3c, #FFD700)';
+                isImageBackground = false;
+            }
+            
+            const watermarkData = watermarks.length > 0 ? parseIconCommand(watermarks[index] || watermarks[0]) : { icons: [], colors: [] };
+            const iconsData = iconsSets.length > 0 ? parseIconCommand(iconsSets[index] || iconsSets[0]) : { icons: [], colors: [] };
+            const topicInput = topics[index] || topics[0] || 'Dua of Repentance | 24px | bold | #FFFFFF | Montserrat';
+            const arabicInput = arabicTexts[index] || arabicTexts[0] || 'إلهي أستغفيرك لكل نَبْبٍ وَ أتُوبُ إِلَيْكَ | 28px | bold | #FFD700 | Noto Naskh Arabic';
+            const sourceInput = sources[index] || sources[0] || 'Imam Ali Zain-ul-Abideen (AS) | 18px | 600 | #FFD700 | Montserrat';
+            const translationInput = translations[index] || translations[0] || 'My God, I seek Your forgiveness for every sin and I repent to You | 14px | 500 | #FFFFFF | Roboto';
+            const referenceInput = references[index] || references[0] || 'Sahifa Sajjadiyya, Dua 31 (Repentance) | 11px | 500 | #FFD700 | Roboto';
+            const hashtagsData = hashtagsSets.length > 0 ? parseHashtagsCommand(hashtagsSets[index] || hashtagsSets[0]) : { hashtags: [], size: '9px' };
+            
+            // Get border settings
+            const borderStyle = document.querySelector('.border-btn.active').dataset.style;
+            const borderColor = document.getElementById('border-color').value;
+            const borderWidth = document.getElementById('border-width').value + 'px';
+            const borderRadius = document.getElementById('border-radius').value + 'px';
+            
+            // Create creative card
+            const creativeCard = document.createElement('div');
+            creativeCard.className = 'creative-card';
+            creativeCard.dataset.index = index;
+
+            const creativePreview = document.createElement('div');
+            creativePreview.className = `creative-preview ${currentAspect}`;
+            
+            // Set background (YOUR EXACT BACKGROUND)
+            if (isImageBackground) {
+                creativePreview.style.backgroundImage = `url("${background}")`;
+                creativePreview.style.backgroundSize = 'cover';
+                creativePreview.style.backgroundPosition = 'center';
+            } else {
+                creativePreview.style.background = background;
+            }
+            
+            creativePreview.style.border = `${borderWidth} ${borderStyle} ${borderColor}`;
+            creativePreview.style.borderRadius = borderRadius;
+            creativePreview.dataset.index = index;
+
+            // Content wrapper for adaptive layout
+            const contentWrapper = document.createElement('div');
+            contentWrapper.className = 'content-wrapper';
+
+            // 1. SHIAS.IN LOGO (with your colors)
+            const logoEl = document.createElement('div');
+            logoEl.className = 'canvas-logo';
+            logoEl.innerHTML = '<i class="fas fa-star-and-crescent"></i> Shias.in';
+            contentWrapper.appendChild(logoEl);
+
+            // Download buttons container
+            const downloadButtons = document.createElement('div');
+            downloadButtons.className = 'download-buttons';
+            
+            // Single Download Button
+            const singleDownloadBtn = document.createElement('button');
+            singleDownloadBtn.className = 'single-download-btn';
+            singleDownloadBtn.innerHTML = '<i class="fas fa-download"></i> Download';
+            singleDownloadBtn.onclick = function(e) {
+                e.stopPropagation();
+                downloadSingleCreative(creativePreview, index);
+            };
+            downloadButtons.appendChild(singleDownloadBtn);
+            
+            contentWrapper.appendChild(downloadButtons);
+
+            // 2. Watermark Icon (YOUR EXACT COLOR - GOLD)
+            if (watermarkData.icons.length > 0) {
+                const watermarkEl = document.createElement('div');
+                watermarkEl.className = 'watermark-icon';
+                watermarkEl.innerHTML = `<i class="${watermarkData.icons[0]}"></i>`;
+                watermarkEl.style.color = watermarkData.colors[0] || '#FFD700';
+                contentWrapper.appendChild(watermarkEl);
+            }
+
+            // 3. Bismillah (Random)
+            const bismillahEl = document.createElement('div');
+            bismillahEl.className = 'bismillah';
+            bismillahEl.textContent = bismillahVariations[Math.floor(Math.random() * bismillahVariations.length)];
+            contentWrapper.appendChild(bismillahEl);
+
+            // 4. 5 Small Icons (YOUR EXACT COLORS)
+            if (iconsData.icons.length > 0) {
+                const smallIconsEl = document.createElement('div');
+                smallIconsEl.className = 'small-icons';
+                const icons = iconsData.icons.slice(0, 5);
+                icons.forEach((iconClass, i) => {
+                    const icon = document.createElement('i');
+                    icon.className = `${iconClass} small-icon`;
+                    icon.style.color = iconsData.colors[i] || '#FFD700';
+                    icon.style.fontSize = `${Math.random() * 10 + 14}px`;
+                    icon.style.margin = `${Math.random() * 10}px`;
+                    smallIconsEl.appendChild(icon);
+                });
+                contentWrapper.appendChild(smallIconsEl);
+            }
+
+            // 5. Dua Title (YOUR EXACT COLOR - WHITE)
+            const topicData = parseCommand(topicInput, '24px', 'bold', '#FFFFFF', 'Montserrat');
+            const topicEl = document.createElement('div');
+            topicEl.className = 'topic';
+            topicEl.textContent = topicData.text;
+            topicEl.style.fontSize = topicData.size;
+            topicEl.style.fontWeight = topicData.weight;
+            topicEl.style.color = topicData.color;
+            topicEl.style.fontFamily = topicData.font;
+            contentWrapper.appendChild(topicEl);
+
+            // 6. Arabic Dua Text (YOUR EXACT COLOR - GOLD)
+            const arabicData = parseCommand(arabicInput, '18px', 'bold', '#FFD700', 'Noto Naskh Arabic');
+            const arabicEl = document.createElement('div');
+            arabicEl.className = 'arabic';
+            arabicEl.textContent = arabicData.text;
+            arabicEl.style.fontSize = arabicData.size;
+            arabicEl.style.fontWeight = arabicData.weight;
+            arabicEl.style.color = arabicData.color;
+            arabicEl.style.fontFamily = arabicData.font;
+            contentWrapper.appendChild(arabicEl);
+
+            // 7. Source (YOUR EXACT COLOR - GOLD)
+            const sourceData = parseCommand(sourceInput, '14px', '600', '#FFD700', 'Montserrat');
+            const sourceEl = document.createElement('div');
+            sourceEl.className = 'author';
+            sourceEl.textContent = sourceData.text;
+            sourceEl.style.fontSize = sourceData.size;
+            sourceEl.style.fontWeight = sourceData.weight;
+            sourceEl.style.color = sourceData.color;
+            sourceEl.style.fontFamily = sourceData.font;
+            contentWrapper.appendChild(sourceEl);
+
+            // 8. Translation (YOUR EXACT COLOR - WHITE)
+            const translationData = parseCommand(translationInput, '12px', '500', '#FFFFFF', 'Roboto');
+            const translationEl = document.createElement('div');
+            translationEl.className = 'translation';
+            translationEl.textContent = translationData.text;
+            translationEl.style.fontSize = translationData.size;
+            translationEl.style.fontWeight = translationData.weight;
+            translationEl.style.color = translationData.color;
+            translationEl.style.fontFamily = translationData.font;
+            contentWrapper.appendChild(translationEl);
+
+            // 9. Reference (YOUR EXACT COLOR - GOLD)
+            const referenceData = parseCommand(referenceInput, '11px', '500', '#FFD700', 'Roboto');
+            const referenceEl = document.createElement('div');
+            referenceEl.className = 'source';
+            referenceEl.textContent = referenceData.text;
+            referenceEl.style.fontSize = referenceData.size;
+            referenceEl.style.fontWeight = referenceData.weight;
+            referenceEl.style.color = referenceData.color;
+            referenceEl.style.fontFamily = referenceData.font;
+            contentWrapper.appendChild(referenceEl);
+
+            // 10. Hashtags (YOUR EXACT COLOR - GOLD BACKGROUND)
+            if (hashtagsData.hashtags.length > 0) {
+                const hashtagsContainer = document.createElement('div');
+                hashtagsContainer.className = 'hashtags-container';
+                
+                hashtagsData.hashtags.forEach((hashtag, hashtagIndex) => {
+                    if (hashtag && hashtag.startsWith('#')) {
+                        const hashtagEl = document.createElement('div');
+                        hashtagEl.className = 'hashtag-item';
+                        hashtagEl.textContent = hashtag;
+                        // Apply gold color from your spec
+                        hashtagEl.style.background = '#FFD700';
+                        hashtagEl.style.color = '#000';
+                        hashtagEl.style.fontSize = hashtagsData.size;
+                        hashtagsContainer.appendChild(hashtagEl);
+                    }
+                });
+                
+                contentWrapper.appendChild(hashtagsContainer);
+            }
+
+            // 11. BRANDING FOOTER (with your colors)
+            const brandingFooter = document.createElement('div');
+            brandingFooter.className = 'branding-footer';
+            brandingFooter.innerHTML = 'Generated by <strong>Shias Tools</strong> by <strong>Rahil Abbas Rizvi</strong>';
+            contentWrapper.appendChild(brandingFooter);
+
+            // Add content wrapper to creative preview
+            creativePreview.appendChild(contentWrapper);
+            creativeCard.appendChild(creativePreview);
+            document.getElementById('preview-grid').appendChild(creativeCard);
+        }
+
+        function finishGeneration() {
+            const loading = document.getElementById('loading');
+            const progressContainer = document.getElementById('progress-container');
+            const counter = document.getElementById('counter');
+            
+            loading.style.display = 'none';
+            progressContainer.style.display = 'none';
+            
+            const creativeCount = document.querySelectorAll('.creative-preview').length;
+            counter.textContent = `Successfully generated ${creativeCount} Dua creatives!`;
+            counter.style.color = '#FFD700';
+            
+            isGenerating = false;
+            
+            showNotification(`Generated ${creativeCount} Dua creatives!`);
+        }
+
+        function cancelGeneration() {
+            isGenerating = false;
+            generationQueue = [];
+            
+            const loading = document.getElementById('loading');
+            const progressContainer = document.getElementById('progress-container');
+            const counter = document.getElementById('counter');
+            
+            loading.style.display = 'none';
+            progressContainer.style.display = 'none';
+            counter.textContent = 'Generation cancelled';
+            counter.style.color = '#FFD700';
+            
+            showNotification('Generation cancelled');
+        }
+
+        // ==================== DOWNLOAD FUNCTIONS ====================
+        function downloadSingleCreative(element, index) {
+            const downloadButtons = element.querySelector('.download-buttons');
+            const originalDisplay = downloadButtons.style.display;
+            downloadButtons.style.display = 'none';
+            
+            // Use the Exhibition Pro rendering method
+            html2canvas(element, {
+                backgroundColor: null,
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(canvas => {
+                canvas.toBlob(function(blob) {
+                    saveAs(blob, `Dua-Creative-(${index+1}).png`);
+                    downloadButtons.style.display = originalDisplay;
+                });
+            });
+        }
+
+        function downloadAllCreatives() {
+            const creativePreviews = document.querySelectorAll('.creative-preview');
+            if (creativePreviews.length === 0) {
+                alert('Please generate Dua creatives first');
+                return;
+            }
+            
+            const loading = document.getElementById('loading');
+            const counter = document.getElementById('counter');
+            const progressContainer = document.getElementById('progress-container');
+            
+            loading.style.display = 'block';
+            progressContainer.style.display = 'block';
+            counter.textContent = 'Preparing Dua content download...';
+            
+            const zip = new JSZip();
+            let processed = 0;
+            const total = creativePreviews.length;
+            
+            function processNext() {
+                if (processed >= total) {
+                    zip.generateAsync({type:"blob"}).then(function(content) {
+                        saveAs(content, `Dua-Creatives-Batch.zip`);
+                        loading.style.display = 'none';
+                        progressContainer.style.display = 'none';
+                        counter.textContent = `Downloaded ${total} Dua creatives!`;
+                        showNotification(`Downloaded ${total} Dua creatives`);
+                    });
+                    return;
+                }
+
+                const element = creativePreviews[processed];
+                const downloadButtons = element.querySelector('.download-buttons');
+                const originalDisplay = downloadButtons.style.display;
+                downloadButtons.style.display = 'none';
+                
+                html2canvas(element, {
+                    backgroundColor: null,
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true
+                }).then(canvas => {
+                    canvas.toBlob(function(blob) {
+                        zip.file(`Dua-Creative-(${processed+1}).png`, blob);
+                        downloadButtons.style.display = originalDisplay;
+                        
+                        processed++;
+                        const percentage = Math.round((processed / total) * 100);
+                        document.getElementById('progress-fill').style.width = `${percentage}%`;
+                        document.getElementById('progress-percentage').textContent = `${percentage}%`;
+                        document.getElementById('progress-text').textContent = `Processed ${processed} of ${total}`;
+                        
+                        if (processed < total) {
+                            setTimeout(processNext, 100);
+                        } else {
+                            processNext();
+                        }
+                    });
+                });
+            }
+
+            processNext();
+        }
+    </script>
+</body>
+</html>
