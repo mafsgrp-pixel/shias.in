@@ -1,0 +1,1389 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Iftaar.in · India's #1 Fresh Iftar Delivery Mumbai · 58+ Items · 1M+ Reviews</title>
+  <meta name="description" content="India's most loved fresh Iftar delivery. 100% fresh, Halal certified, Paak & hygienic. 58+ items including Aloo Bhajia, Kanda Bhajia, Paneer Bhajia, Chicken Cutlets, Mutton Kebabs, Biryani & more. Free fruits with every order.">
+  <meta name="keywords" content="Iftar delivery Mumbai, fresh Iftar, Halal food Mumbai, aloo bhajia, kanda bhajia, paneer bhajia, chicken cutlet, mutton seekh, biryani, free fruits, Ramadan 2026">
+  <meta name="author" content="Iftaar.in">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Iftaar.in · India's #1 Fresh Iftar Delivery">
+  <meta property="og:description" content="58+ fresh items · 1M+ reviews · Free fruits with every order">
+  <meta property="og:image" content="https://iftaar.in/og-image.jpg">
+  <meta property="og:url" content="https://iftaar.in">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Iftaar.in · Fresh Halal Iftar Mumbai">
+  <meta name="twitter:description" content="58+ fresh items · 1M+ reviews · Free fruits">
+  
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Iftaar.in",
+    "description": "Fresh Halal Iftar delivery in Mumbai",
+    "url": "https://iftaar.in",
+    "telephone": "+918879952676",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Mumbai",
+      "addressCountry": "IN"
+    },
+    "servesCuisine": "Mughlai, Indian, Iftar Special",
+    "priceRange": "₹25-₹699",
+    "openingHours": "Mo-Su 10:00-20:00",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "1256789"
+    }
+  }
+  </script>
+  
+  <!-- Font Awesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Swiper for reviews -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fcf7ef;
+      color: #2a1f18;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem 2rem;
+    }
+
+    /* Viral Header */
+    .header {
+      background: linear-gradient(145deg, #0f4a37, #1b6b4f);
+      color: white;
+      padding: 2rem 2.5rem;
+      border-radius: 80px 80px 80px 20px;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header h1 {
+      font-family: 'Amiri', serif;
+      font-size: 4rem;
+      line-height: 1.2;
+    }
+
+    .header-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      font-weight: 600;
+    }
+
+    /* Filter Chips */
+    .filter-section {
+      margin: 2rem 0;
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .chip {
+      background: white;
+      border: 2px solid #f5cd94;
+      border-radius: 50px;
+      padding: 0.7rem 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chip:hover, .chip.active {
+      background: #1b6b4f;
+      color: white;
+      border-color: #1b6b4f;
+    }
+
+    /* Main Layout - Cart on RIGHT */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 1000px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Group Sections */
+    .group-section {
+      background: white;
+      border-radius: 40px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid #f5cd94;
+    }
+
+    .group-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 3px solid #f5cd94;
+      padding-bottom: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .group-icon {
+      background: #1b6b4f;
+      color: #f5cd94;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .group-title {
+      font-family: 'Amiri', serif;
+      font-size: 1.8rem;
+      color: #1b4e3d;
+    }
+
+    .group-count {
+      background: #f0e0cc;
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      margin-left: auto;
+    }
+
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid #f5cd94;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 30px -10px #1b4e3d;
+    }
+
+    .product-image {
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ff4757;
+      color: white;
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .engagement-stats {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .stat-item {
+      background: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .product-info {
+      padding: 1rem;
+    }
+
+    .product-title {
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .rating {
+      color: #f5b342;
+      font-size: 0.8rem;
+    }
+
+    .price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1b6b4f;
+      margin: 0.5rem 0;
+    }
+
+    .order-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.8rem;
+    }
+
+    .qty-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0f0f0;
+      padding: 0.2rem;
+      border-radius: 40px;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .add-btn {
+      background: #1b6b4f;
+      color: white;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    /* Cart Panel - RIGHT SIDE */
+    .cart-panel {
+      background: white;
+      border-radius: 40px;
+      padding: 1.5rem;
+      border: 2px solid #f5cd94;
+      position: sticky;
+      top: 20px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .cart-panel h2 {
+      font-family: 'Amiri', serif;
+      font-size: 2rem;
+      border-bottom: 3px solid #f5cd94;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .free-fruits {
+      background: #e8f5e9;
+      padding: 0.8rem;
+      border-radius: 30px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px dashed #2e7d32;
+    }
+
+    .cart-items {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      background: #faf3e9;
+      border-radius: 30px;
+      margin-bottom: 0.5rem;
+    }
+
+    .cart-total {
+      font-size: 1.5rem;
+      font-weight: 700;
+      border-top: 2px dashed #f5cd94;
+      padding-top: 1rem;
+      margin: 1rem 0;
+    }
+
+    .field {
+      margin-bottom: 1rem;
+    }
+
+    .field input, .field textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #edd3b3;
+      border-radius: 50px;
+    }
+
+    .payment-area {
+      background: #efe1cf;
+      padding: 1rem;
+      border-radius: 30px;
+      margin: 1rem 0;
+    }
+
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      max-width: 1000px;
+      width: 90%;
+      border-radius: 40px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: #1b6b4f;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .modal-prev { left: -25px; }
+    .modal-next { right: -25px; }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 2rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .modal-image {
+      height: 400px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 30px;
+    }
+
+    .modal-stats {
+      display: flex;
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .engagement-buttons {
+      display: flex;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .engage-btn {
+      flex: 1;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: 0.2s;
+    }
+
+    .engage-btn.like { background: #ff4757; color: white; }
+    .engage-btn.share { background: #1b6b4f; color: white; }
+    .engage-btn.save { background: #f5b342; color: white; }
+
+    /* Reviews Slider */
+    .reviews-section {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: #fff5e6;
+      border-radius: 60px;
+    }
+
+    .swiper {
+      padding: 2rem 1rem;
+    }
+
+    .review-card {
+      background: white;
+      border-radius: 30px;
+      padding: 1.5rem;
+      border: 1px solid #f5cd94;
+    }
+
+    /* Social Floating */
+    .social-floating {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .social-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      background: #0f4a37;
+      color: white;
+      padding: 2rem;
+      border-radius: 60px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating Social -->
+  <div class="social-floating">
+    <div class="social-btn" style="color:#25D366;" onclick="share('whatsapp')"><i class="fab fa-whatsapp"></i></div>
+    <div class="social-btn" style="color:#1877F2;" onclick="share('facebook')"><i class="fab fa-facebook"></i></div>
+    <div class="social-btn" style="color:#E4405F;" onclick="share('instagram')"><i class="fab fa-instagram"></i></div>
+    <div class="social-btn" style="color:#1DA1F2;" onclick="share('twitter')"><i class="fab fa-twitter"></i></div>
+  </div>
+
+  <!-- Product Modal -->
+  <div class="modal" id="productModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <div class="modal-nav modal-prev" onclick="navigateProduct(-1)"><i class="fas fa-chevron-left"></i></div>
+      <div class="modal-nav modal-next" onclick="navigateProduct(1)"><i class="fas fa-chevron-right"></i></div>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Iftaar.in <span style="font-size:2rem; color:#f5cd94;">رمضان 2026</span></h1>
+      <div class="header-stats">
+        <div class="stat-badge"><i class="fas fa-star"></i> 58+ Items</div>
+        <div class="stat-badge"><i class="fas fa-heart"></i> 1.2M+ Reviews</div>
+        <div class="stat-badge"><i class="fas fa-check-circle"></i> Halal Certified</div>
+        <div class="stat-badge"><i class="fas fa-leaf"></i> 100% Fresh</div>
+      </div>
+    </div>
+
+    <!-- Filter Chips -->
+    <div class="filter-section">
+      <div class="filter-chips" id="filterChips">
+        <div class="chip active" data-pack="all">🎯 All Items</div>
+        <div class="chip" data-pack="family5">👪 Family Pack (5)</div>
+        <div class="chip" data-pack="family10">👨‍👩‍👧‍👦 Family Pack (10+)</div>
+        <div class="chip" data-pack="office">💼 Office Iftar</div>
+        <div class="chip" data-pack="mosque">🕌 Send to Mosque</div>
+        <div class="chip" data-pack="friends">🧑‍🤝‍🧑 Friends Iftar</div>
+        <div class="chip" data-pack="shared">🤝 Shared Iftar</div>
+        <div class="chip" data-pack="corporate">🏢 Corporate Bulk</div>
+      </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+      <!-- LEFT: Products Grid with Groups -->
+      <div id="groupsContainer"></div>
+
+      <!-- RIGHT: Cart Panel -->
+      <div class="cart-panel">
+        <h2><i class="fas fa-shopping-bag"></i> Cart</h2>
+        
+        <div class="free-fruits">
+          <i class="fas fa-apple-alt" style="color:#2e7d32; font-size:1.5rem;"></i>
+          <span><strong>FREE Fresh Fruits & Dates</strong> included with every order</span>
+        </div>
+
+        <div class="cart-items" id="cartItems"></div>
+
+        <div class="cart-total" id="cartTotal">
+          <span>Total:</span>
+          <span>₹0</span>
+        </div>
+
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" id="custName" value="Mohd. Rizwan">
+        </div>
+        <div class="field">
+          <label>WhatsApp Number</label>
+          <input type="text" id="custMobile" value="+918879952676">
+        </div>
+        <div class="field">
+          <label>Delivery Address</label>
+          <textarea id="custAddress" rows="2">Bandra East, Mumbai</textarea>
+        </div>
+
+        <div class="payment-area">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <i class="fas fa-qrcode" style="font-size:2rem;"></i>
+            <div>
+              <div><strong>UPI: iftar2026@okhdfcbank</strong></div>
+              <div>📱 +918879952676</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="whatsapp-btn" onclick="placeOrder()">
+          <i class="fab fa-whatsapp"></i> Order via WhatsApp
+        </button>
+      </div>
+    </div>
+
+    <!-- Reviews Slider -->
+    <div class="reviews-section">
+      <h2 style="font-family:'Amiri'; font-size:2.5rem; text-align:center; margin-bottom:2rem;">✨ 1.2 Million+ Happy Customers ✨</h2>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper" id="reviewsSlider"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p style="font-size:1.5rem;">Iftaar.in · Fresh · Halal · Paak · Hygienic</p>
+      <p>📱 +918879952676 (WhatsApp & UPI)</p>
+      <p>✨ Free Fresh Fruits with Every Order · 58+ Fresh Items · 1.2M+ Reviews ✨</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // ==================== ALL 58+ PRODUCTS WITH UNIQUE IMAGES ====================
+    const products = [
+      // GROUP 1: BHAJIA ITEMS (3)
+      { id: 'b1', name: 'Aloo Bhajia', unit: '4 pcs', price: 40, originalPrice: 60, group: 'Bhajia Items', 
+        image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400', 
+        likes: 234567, views: 1897654, shares: 87654, saves: 43210, orders: 98765, rating: 4.9, reviews: 234567,
+        desc: 'Our signature {name} features premium potatoes sliced thin, coated in our secret blend of chickpea flour and aromatic spices, then fried to golden perfection. Each piece is crispy on the outside, soft on the inside, and served with our special mint chutney. Made fresh in small batches throughout the day to ensure maximum crispiness. Perfect for breaking your fast!' },
+      
+      { id: 'b2', name: 'Piyaz (Kanda) Bhajia', unit: '4 pcs', price: 40, originalPrice: 60, group: 'Bhajia Items', 
+        image: 'https://images.unsplash.com/photo-1625943553852-781c6dd46faa?w=400', 
+        likes: 245678, views: 1987654, shares: 92345, saves: 45678, orders: 102345, rating: 4.9, reviews: 245678,
+        desc: 'Our signature {name} features premium potatoes sliced thin, coated in our secret blend of chickpea flour and aromatic spices, then fried to golden perfection. Each piece is crispy on the outside, soft on the inside, and served with our special mint chutney. Made fresh in small batches throughout the day to ensure maximum crispiness. Perfect for breaking your fast!' },
+      
+      { id: 'b3', name: 'Paneer Bhajia', unit: '3 pcs', price: 60, originalPrice: 80, group: 'Bhajia Items', 
+        image: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400', 
+        likes: 198765, views: 1543210, shares: 76543, saves: 34567, orders: 87654, rating: 4.8, reviews: 198765,
+        desc: 'Our signature {name} features premium potatoes sliced thin, coated in our secret blend of chickpea flour and aromatic spices, then fried to golden perfection. Each piece is crispy on the outside, soft on the inside, and served with our special mint chutney. Made fresh in small batches throughout the day to ensure maximum crispiness. Perfect for breaking your fast!' },
+      
+      // GROUP 2: CHICKEN CUTLETS (4)
+      { id: 'c1', name: 'Chicken Cutlet', unit: '1 pc', price: 60, originalPrice: 80, group: 'Chicken Cutlets', 
+        image: 'https://images.unsplash.com/photo-1589778655358-07322e2ad4bc?w=400', 
+        likes: 154321, views: 1234567, shares: 65432, saves: 32109, orders: 76543, rating: 4.8, reviews: 154321,
+        desc: 'Our signature {name} is made with 100% fresh, hand-minced chicken breast, mixed with our family recipe of 12 spices, shaped into perfect patties, and shallow-fried to golden-brown perfection. Each cutlet is juicy inside with a crispy exterior. No frozen meat ever used. Served with our special imli chutney.' },
+      
+      { id: 'c2', name: 'Chicken Cream Cutlet', unit: '1 pc', price: 70, originalPrice: 90, group: 'Chicken Cutlets', 
+        image: 'https://images.unsplash.com/photo-1589778655358-07322e2ad4bc?w=400', 
+        likes: 123456, views: 1123456, shares: 54321, saves: 28765, orders: 65432, rating: 4.7, reviews: 123456,
+        desc: 'Our signature {name} is made with 100% fresh, hand-minced chicken breast, mixed with our family recipe of 12 spices, shaped into perfect patties, and shallow-fried to golden-brown perfection. Each cutlet is juicy inside with a crispy exterior. No frozen meat ever used. Served with our special imli chutney.' },
+      
+      { id: 'c3', name: 'Chicken Cheese Cutlet', unit: '1 pc', price: 75, originalPrice: 95, group: 'Chicken Cutlets', 
+        image: 'https://images.unsplash.com/photo-1589778655358-07322e2ad4bc?w=400', 
+        likes: 187654, views: 1456789, shares: 76543, saves: 39876, orders: 87654, rating: 4.9, reviews: 187654,
+        desc: 'Our signature {name} is made with 100% fresh, hand-minced chicken breast, mixed with our family recipe of 12 spices, shaped into perfect patties, and shallow-fried to golden-brown perfection. Each cutlet is juicy inside with a crispy exterior. No frozen meat ever used. Served with our special imli chutney.' },
+      
+      { id: 'c4', name: 'Chicken Mayonnaise Cutlet', unit: '1 pc', price: 70, originalPrice: 90, group: 'Chicken Cutlets', 
+        image: 'https://images.unsplash.com/photo-1589778655358-07322e2ad4bc?w=400', 
+        likes: 112345, views: 1098765, shares: 49876, saves: 27654, orders: 54321, rating: 4.6, reviews: 112345,
+        desc: 'Our signature {name} is made with 100% fresh, hand-minced chicken breast, mixed with our family recipe of 12 spices, shaped into perfect patties, and shallow-fried to golden-brown perfection. Each cutlet is juicy inside with a crispy exterior. No frozen meat ever used. Served with our special imli chutney.' },
+      
+      // GROUP 3: CHICKEN ROLLS (4)
+      { id: 'r1', name: 'Chicken Roll', unit: '1 pc', price: 65, originalPrice: 85, group: 'Chicken Rolls', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 143210, views: 1345678, shares: 58765, saves: 31234, orders: 67890, rating: 4.7, reviews: 143210,
+        desc: 'Our {name} features succulent pieces of fresh chicken tikka wrapped in a soft, thin rumali roti along with caramelized onions, mint chutney, and our secret sauce. Each roll is made to order, ensuring the roti remains soft and the filling hot. Perfect for iftar on-the-go!' },
+      
+      { id: 'r2', name: 'Chicken Cheese Roll', unit: '1 pc', price: 80, originalPrice: 100, group: 'Chicken Rolls', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 165432, views: 1567890, shares: 65432, saves: 34567, orders: 78901, rating: 4.9, reviews: 165432,
+        desc: 'Our {name} features succulent pieces of fresh chicken tikka wrapped in a soft, thin rumali roti along with caramelized onions, mint chutney, and our secret sauce. Each roll is made to order, ensuring the roti remains soft and the filling hot. Perfect for iftar on-the-go!' },
+      
+      { id: 'r3', name: 'Chicken Cream Roll', unit: '1 pc', price: 75, originalPrice: 95, group: 'Chicken Rolls', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 132109, views: 1234567, shares: 54321, saves: 29876, orders: 65432, rating: 4.6, reviews: 132109,
+        desc: 'Our {name} features succulent pieces of fresh chicken tikka wrapped in a soft, thin rumali roti along with caramelized onions, mint chutney, and our secret sauce. Each roll is made to order, ensuring the roti remains soft and the filling hot. Perfect for iftar on-the-go!' },
+      
+      { id: 'r4', name: 'Chicken Mayonnaise Roll', unit: '1 pc', price: 75, originalPrice: 95, group: 'Chicken Rolls', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 121234, views: 1156789, shares: 48765, saves: 26543, orders: 54321, rating: 4.5, reviews: 121234,
+        desc: 'Our {name} features succulent pieces of fresh chicken tikka wrapped in a soft, thin rumali roti along with caramelized onions, mint chutney, and our secret sauce. Each roll is made to order, ensuring the roti remains soft and the filling hot. Perfect for iftar on-the-go!' },
+      
+      // GROUP 4: CHICKEN SAMOSA (3)
+      { id: 's1', name: 'Chicken Samosa', unit: '2 pcs', price: 60, originalPrice: 80, group: 'Chicken Samosa', 
+        image: 'https://images.unsplash.com/photo-1653669488325-8dfb1ed5dd54?w=400', 
+        likes: 223456, views: 1876543, shares: 87654, saves: 45678, orders: 98765, rating: 4.8, reviews: 223456,
+        desc: 'Our {name} features a crispy, flaky pastry shell filled with spiced minced chicken, green peas, and aromatic herbs. Each samosa is hand-folded and fried to golden perfection. Served with our tangy tamarind chutney and green chutney. Made fresh throughout the day.' },
+      
+      { id: 's2', name: 'Chicken Cheese Samosa', unit: '2 pcs', price: 75, originalPrice: 95, group: 'Chicken Samosa', 
+        image: 'https://images.unsplash.com/photo-1653669488325-8dfb1ed5dd54?w=400', 
+        likes: 212345, views: 1765432, shares: 82345, saves: 43456, orders: 92345, rating: 4.9, reviews: 212345,
+        desc: 'Our {name} features a crispy, flaky pastry shell filled with spiced minced chicken, green peas, and aromatic herbs. Each samosa is hand-folded and fried to golden perfection. Served with our tangy tamarind chutney and green chutney. Made fresh throughout the day.' },
+      
+      { id: 's3', name: 'Chicken Cream Samosa', unit: '2 pcs', price: 70, originalPrice: 90, group: 'Chicken Samosa', 
+        image: 'https://images.unsplash.com/photo-1653669488325-8dfb1ed5dd54?w=400', 
+        likes: 198765, views: 1654321, shares: 76543, saves: 39876, orders: 87654, rating: 4.7, reviews: 198765,
+        desc: 'Our {name} features a crispy, flaky pastry shell filled with spiced minced chicken, green peas, and aromatic herbs. Each samosa is hand-folded and fried to golden perfection. Served with our tangy tamarind chutney and green chutney. Made fresh throughout the day.' },
+      
+      // GROUP 5: CHICKEN SEEKH KEBABS (5)
+      { id: 'k1', name: 'Chicken Seekh Kebab', unit: '1 pc', price: 60, originalPrice: 80, group: 'Chicken Seekh Kebabs', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 187654, views: 1654321, shares: 69876, saves: 35678, orders: 78901, rating: 4.7, reviews: 187654,
+        desc: 'Our {name} is made from fresh, hand-minced chicken mixed with ginger, garlic, green chilies, fresh coriander, and a blend of 15 aromatic spices. Skewered and grilled to perfection in our tandoor, each kebab is smoky, juicy, and bursting with flavor. Served with onion rings and mint chutney.' },
+      
+      { id: 'k2', name: 'Chicken Cheese Seekh', unit: '1 pc', price: 75, originalPrice: 95, group: 'Chicken Seekh Kebabs', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 198765, views: 1765432, shares: 72345, saves: 37890, orders: 81234, rating: 4.8, reviews: 198765,
+        desc: 'Our {name} is made from fresh, hand-minced chicken mixed with ginger, garlic, green chilies, fresh coriander, and a blend of 15 aromatic spices. Skewered and grilled to perfection in our tandoor, each kebab is smoky, juicy, and bursting with flavor. Served with onion rings and mint chutney.' },
+      
+      { id: 'k3', name: 'Chicken Malai Seekh', unit: '1 pc', price: 70, originalPrice: 90, group: 'Chicken Seekh Kebabs', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 165432, views: 1543210, shares: 66543, saves: 33456, orders: 74321, rating: 4.7, reviews: 165432,
+        desc: 'Our {name} is made from fresh, hand-minced chicken mixed with ginger, garlic, green chilies, fresh coriander, and a blend of 15 aromatic spices. Skewered and grilled to perfection in our tandoor, each kebab is smoky, juicy, and bursting with flavor. Served with onion rings and mint chutney.' },
+      
+      { id: 'k4', name: 'Chicken Tikka Seekh', unit: '1 pc', price: 65, originalPrice: 85, group: 'Chicken Seekh Kebabs', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 154321, views: 1432109, shares: 63210, saves: 31234, orders: 69876, rating: 4.6, reviews: 154321,
+        desc: 'Our {name} is made from fresh, hand-minced chicken mixed with ginger, garlic, green chilies, fresh coriander, and a blend of 15 aromatic spices. Skewered and grilled to perfection in our tandoor, each kebab is smoky, juicy, and bursting with flavor. Served with onion rings and mint chutney.' },
+      
+      { id: 'k5', name: 'Chicken Reshmi Seekh', unit: '1 pc', price: 70, originalPrice: 90, group: 'Chicken Seekh Kebabs', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 143210, views: 1321098, shares: 59876, saves: 29876, orders: 65432, rating: 4.6, reviews: 143210,
+        desc: 'Our {name} is made from fresh, hand-minced chicken mixed with ginger, garlic, green chilies, fresh coriander, and a blend of 15 aromatic spices. Skewered and grilled to perfection in our tandoor, each kebab is smoky, juicy, and bursting with flavor. Served with onion rings and mint chutney.' },
+      
+      // GROUP 6: CHICKEN PAV (4)
+      { id: 'p1', name: 'Chicken Kebab Pav', unit: '1 pc', price: 65, originalPrice: 85, group: 'Chicken Pav', 
+        image: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400', 
+        likes: 167890, views: 1456789, shares: 68901, saves: 34567, orders: 76543, rating: 4.7, reviews: 167890,
+        desc: 'Our {name} features a succulent chicken seekh kebab served in a soft, buttery pav (bread roll) with our special green chutney and spicy garlic chutney. The kebab is made fresh and placed in a lightly toasted pav, creating the perfect combination of textures and flavors. A Mumbai street food favorite!' },
+      
+      { id: 'p2', name: 'Chicken Cheese Kebab Pav', unit: '1 pc', price: 80, originalPrice: 100, group: 'Chicken Pav', 
+        image: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400', 
+        likes: 178901, views: 1567890, shares: 71234, saves: 36789, orders: 79876, rating: 4.8, reviews: 178901,
+        desc: 'Our {name} features a succulent chicken seekh kebab served in a soft, buttery pav (bread roll) with our special green chutney and spicy garlic chutney. The kebab is made fresh and placed in a lightly toasted pav, creating the perfect combination of textures and flavors. A Mumbai street food favorite!' },
+      
+      { id: 'p3', name: 'Chicken Cutlet Pav', unit: '1 pc', price: 70, originalPrice: 90, group: 'Chicken Pav', 
+        image: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400', 
+        likes: 156789, views: 1345678, shares: 65432, saves: 32345, orders: 72345, rating: 4.6, reviews: 156789,
+        desc: 'Our {name} features a succulent chicken seekh kebab served in a soft, buttery pav (bread roll) with our special green chutney and spicy garlic chutney. The kebab is made fresh and placed in a lightly toasted pav, creating the perfect combination of textures and flavors. A Mumbai street food favorite!' },
+      
+      { id: 'p4', name: 'Chicken Samosa Pav', unit: '1 pc', price: 70, originalPrice: 90, group: 'Chicken Pav', 
+        image: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400', 
+        likes: 145678, views: 1234567, shares: 61234, saves: 31234, orders: 68765, rating: 4.6, reviews: 145678,
+        desc: 'Our {name} features a succulent chicken seekh kebab served in a soft, buttery pav (bread roll) with our special green chutney and spicy garlic chutney. The kebab is made fresh and placed in a lightly toasted pav, creating the perfect combination of textures and flavors. A Mumbai street food favorite!' },
+      
+      // GROUP 7: CHICKEN STARTERS (8)
+      { id: 'ps1', name: 'Chicken Popcorn', unit: '12 pcs', price: 180, originalPrice: 210, group: 'Chicken Starters', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 198765, views: 1678901, shares: 72345, saves: 37654, orders: 84567, rating: 4.7, reviews: 198765,
+        desc: 'Our {name} features bite-sized pieces of tender chicken breast, marinated in buttermilk and our secret spice blend, then coated in a seasoned flour mixture and fried until golden and crispy. Each piece is juicy inside and perfectly crunchy outside. Served with your choice of dipping sauce.' },
+      
+      { id: 'ps2', name: 'Chicken Nuggets', unit: '6 pcs', price: 150, originalPrice: 180, group: 'Chicken Starters', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 176543, views: 1567890, shares: 69876, saves: 35432, orders: 79876, rating: 4.6, reviews: 176543,
+        desc: 'Our {name} features bite-sized pieces of tender chicken breast, marinated in buttermilk and our secret spice blend, then coated in a seasoned flour mixture and fried until golden and crispy. Each piece is juicy inside and perfectly crunchy outside. Served with your choice of dipping sauce.' },
+      
+      { id: 'ps3', name: 'Chicken Poppers', unit: 'plate', price: 100, originalPrice: 130, group: 'Chicken Starters', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 154321, views: 1456789, shares: 65432, saves: 32345, orders: 72345, rating: 4.5, reviews: 154321,
+        desc: 'Our {name} features bite-sized pieces of tender chicken breast, marinated in buttermilk and our secret spice blend, then coated in a seasoned flour mixture and fried until golden and crispy. Each piece is juicy inside and perfectly crunchy outside. Served with your choice of dipping sauce.' },
+      
+      { id: 'ps4', name: 'Chicken Drumstick Fried', unit: '1 pc', price: 90, originalPrice: 120, group: 'Chicken Starters', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 187654, views: 1654321, shares: 71234, saves: 36789, orders: 81234, rating: 4.8, reviews: 187654,
+        desc: 'Our {name} features bite-sized pieces of tender chicken breast, marinated in buttermilk and our secret spice blend, then coated in a seasoned flour mixture and fried until golden and crispy. Each piece is juicy inside and perfectly crunchy outside. Served with your choice of dipping sauce.' },
+      
+      { id: 'ps5', name: 'Chicken Lollipop', unit: '2 pcs', price: 110, originalPrice: 140, group: 'Chicken Starters', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 213456, views: 1876543, shares: 83456, saves: 42345, orders: 92345, rating: 4.8, reviews: 213456,
+        desc: 'Our {name} features bite-sized pieces of tender chicken breast, marinated in buttermilk and our secret spice blend, then coated in a seasoned flour mixture and fried until golden and crispy. Each piece is juicy inside and perfectly crunchy outside. Served with your choice of dipping sauce.' },
+      
+      { id: 'ps6', name: 'Chicken Wings', unit: '4 pcs', price: 120, originalPrice: 150, group: 'Chicken Starters', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 176543, views: 1567890, shares: 68765, saves: 34567, orders: 78901, rating: 4.7, reviews: 176543,
+        desc: 'Our {name} features bite-sized pieces of tender chicken breast, marinated in buttermilk and our secret spice blend, then coated in a seasoned flour mixture and fried until golden and crispy. Each piece is juicy inside and perfectly crunchy outside. Served with your choice of dipping sauce.' },
+      
+      { id: 'ps7', name: 'Chicken Crispy Strip', unit: '1 pc', price: 65, originalPrice: 85, group: 'Chicken Starters', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 143210, views: 1345678, shares: 59876, saves: 29876, orders: 65432, rating: 4.4, reviews: 143210,
+        desc: 'Our {name} features bite-sized pieces of tender chicken breast, marinated in buttermilk and our secret spice blend, then coated in a seasoned flour mixture and fried until golden and crispy. Each piece is juicy inside and perfectly crunchy outside. Served with your choice of dipping sauce.' },
+      
+      { id: 'ps8', name: 'Chicken Finger', unit: '3 pcs', price: 110, originalPrice: 140, group: 'Chicken Starters', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 154321, views: 1432109, shares: 63456, saves: 31234, orders: 69876, rating: 4.6, reviews: 154321,
+        desc: 'Our {name} features bite-sized pieces of tender chicken breast, marinated in buttermilk and our secret spice blend, then coated in a seasoned flour mixture and fried until golden and crispy. Each piece is juicy inside and perfectly crunchy outside. Served with your choice of dipping sauce.' },
+      
+      // GROUP 8: MUTTON ITEMS (14)
+      { id: 'm1', name: 'Mutton Cutlet', unit: '1 pc', price: 75, originalPrice: 95, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 165432, views: 1456789, shares: 67890, saves: 33456, orders: 74567, rating: 4.8, reviews: 165432,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm2', name: 'Mutton Cheese Cutlet', unit: '1 pc', price: 90, originalPrice: 110, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 176543, views: 1567890, shares: 69876, saves: 34567, orders: 76543, rating: 4.8, reviews: 176543,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm3', name: 'Mutton Cream Cutlet', unit: '1 pc', price: 85, originalPrice: 105, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 154321, views: 1432109, shares: 65432, saves: 32345, orders: 72345, rating: 4.7, reviews: 154321,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm4', name: 'Mutton Roll', unit: '1 pc', price: 80, originalPrice: 100, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 145678, views: 1345678, shares: 63456, saves: 31234, orders: 69876, rating: 4.6, reviews: 145678,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm5', name: 'Mutton Cheese Roll', unit: '1 pc', price: 95, originalPrice: 115, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 167890, views: 1498765, shares: 68765, saves: 33456, orders: 73456, rating: 4.8, reviews: 167890,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm6', name: 'Mutton Samosa', unit: '2 pcs', price: 75, originalPrice: 95, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1653669488325-8dfb1ed5dd54?w=400', 
+        likes: 189765, views: 1678901, shares: 72345, saves: 35678, orders: 77890, rating: 4.8, reviews: 189765,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm7', name: 'Mutton Cheese Samosa', unit: '2 pcs', price: 90, originalPrice: 110, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1653669488325-8dfb1ed5dd54?w=400', 
+        likes: 198765, views: 1765432, shares: 75678, saves: 37890, orders: 80123, rating: 4.9, reviews: 198765,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm8', name: 'Mutton Seekh Kebab', unit: '1 pc', price: 75, originalPrice: 95, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 187654, views: 1654321, shares: 71234, saves: 34567, orders: 75678, rating: 4.8, reviews: 187654,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm9', name: 'Mutton Cheese Seekh', unit: '1 pc', price: 90, originalPrice: 110, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 198765, views: 1765432, shares: 73456, saves: 36789, orders: 78901, rating: 4.9, reviews: 198765,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm10', name: 'Mutton Kheema Samosa', unit: '2 pcs', price: 70, originalPrice: 90, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1653669488325-8dfb1ed5dd54?w=400', 
+        likes: 165432, views: 1543210, shares: 68765, saves: 33456, orders: 72345, rating: 4.7, reviews: 165432,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm11', name: 'Mutton Kheema Roll', unit: '1 pc', price: 85, originalPrice: 105, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 154321, views: 1432109, shares: 65678, saves: 32345, orders: 69876, rating: 4.6, reviews: 154321,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm12', name: 'Mutton Fry Piece', unit: '1 pc', price: 95, originalPrice: 115, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 176543, views: 1567890, shares: 69876, saves: 34567, orders: 74567, rating: 4.7, reviews: 176543,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm13', name: 'Mutton Chaap', unit: '1 pc', price: 90, originalPrice: 110, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 165432, views: 1456789, shares: 67654, saves: 33456, orders: 72345, rating: 4.7, reviews: 165432,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      { id: 'm14', name: 'Mutton Galouti Kebab', unit: '2 pcs', price: 120, originalPrice: 140, group: 'Mutton Items', 
+        image: 'https://images.unsplash.com/photo-1624374050311-6a7276476c6d?w=400', 
+        likes: 234567, views: 1987654, shares: 87654, saves: 43210, orders: 90123, rating: 4.9, reviews: 234567,
+        desc: 'Our premium {name} is made from tender, hand-minced mutton, blended with ginger, garlic, green chilies, and a royal blend of aromatic spices. Each cutlet is shaped by hand and shallow-fried to perfection, creating a crispy exterior while keeping the inside succulent and flavorful. Served with our special mint chutney.' },
+      
+      // GROUP 9: BIRYANI ITEMS (6)
+      { id: 'bir1', name: 'Chicken Dum Biryani', unit: 'full', price: 260, originalPrice: 320, group: 'Biryani Items', 
+        image: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=400', 
+        likes: 345678, views: 2345678, shares: 123456, saves: 65432, orders: 123456, rating: 4.9, reviews: 345678,
+        desc: 'Our {name} is a royal delicacy made with premium aged basmati rice and tender chicken pieces, marinated in yogurt and aromatic spices. Layered and cooked on slow heat (dum) for hours, each grain of rice is infused with the essence of saffron, cardamom, and rose water. Served with raita and mirchi ka salan.' },
+      
+      { id: 'bir2', name: 'Chicken Boneless Biryani', unit: 'full', price: 289, originalPrice: 350, group: 'Biryani Items', 
+        image: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=400', 
+        likes: 334567, views: 2234567, shares: 119876, saves: 63210, orders: 119876, rating: 4.8, reviews: 334567,
+        desc: 'Our {name} is a royal delicacy made with premium aged basmati rice and tender chicken pieces, marinated in yogurt and aromatic spices. Layered and cooked on slow heat (dum) for hours, each grain of rice is infused with the essence of saffron, cardamom, and rose water. Served with raita and mirchi ka salan.' },
+      
+      { id: 'bir3', name: 'Chicken Malai Tikka Biryani', unit: 'full', price: 289, originalPrice: 350, group: 'Biryani Items', 
+        image: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=400', 
+        likes: 323456, views: 2123456, shares: 114567, saves: 61234, orders: 114567, rating: 4.8, reviews: 323456,
+        desc: 'Our {name} is a royal delicacy made with premium aged basmati rice and tender chicken pieces, marinated in yogurt and aromatic spices. Layered and cooked on slow heat (dum) for hours, each grain of rice is infused with the essence of saffron, cardamom, and rose water. Served with raita and mirchi ka salan.' },
+      
+      { id: 'bir4', name: 'Chicken Zam Zam Biryani', unit: 'full', price: 289, originalPrice: 350, group: 'Biryani Items', 
+        image: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=400', 
+        likes: 312345, views: 2012345, shares: 109876, saves: 59876, orders: 109876, rating: 4.8, reviews: 312345,
+        desc: 'Our {name} is a royal delicacy made with premium aged basmati rice and tender chicken pieces, marinated in yogurt and aromatic spices. Layered and cooked on slow heat (dum) for hours, each grain of rice is infused with the essence of saffron, cardamom, and rose water. Served with raita and mirchi ka salan.' },
+      
+      { id: 'bir5', name: 'Mutton Dum Biryani', unit: 'full', price: 320, originalPrice: 380, group: 'Biryani Items', 
+        image: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=400', 
+        likes: 356789, views: 2456789, shares: 128765, saves: 67890, orders: 128765, rating: 4.9, reviews: 356789,
+        desc: 'Our {name} is a royal delicacy made with premium aged basmati rice and tender chicken pieces, marinated in yogurt and aromatic spices. Layered and cooked on slow heat (dum) for hours, each grain of rice is infused with the essence of saffron, cardamom, and rose water. Served with raita and mirchi ka salan.' },
+      
+      { id: 'bir6', name: 'Mutton Boneless Biryani', unit: 'full', price: 350, originalPrice: 400, group: 'Biryani Items', 
+        image: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=400', 
+        likes: 345678, views: 2345678, shares: 123456, saves: 65432, orders: 123456, rating: 4.9, reviews: 345678,
+        desc: 'Our {name} is a royal delicacy made with premium aged basmati rice and tender chicken pieces, marinated in yogurt and aromatic spices. Layered and cooked on slow heat (dum) for hours, each grain of rice is infused with the essence of saffron, cardamom, and rose water. Served with raita and mirchi ka salan.' },
+      
+      // GROUP 10: SPECIAL COMBOS (4)
+      { id: 'cb1', name: 'Chicken Fry Box', unit: '1 box', price: 349, originalPrice: 420, group: 'Special Combos', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 234567, views: 1987654, shares: 98765, saves: 49876, orders: 98765, rating: 4.8, reviews: 234567,
+        desc: 'Our {name} includes: 2 Chicken Cutlets + 2 Chicken Rolls + 4 Chicken Popcorn + 2 Chicken Nuggets + 4 Chicken Poppers + 2 Chicken Strips + FREE Fruits. Perfect for a family of 2-3. All items are freshly prepared and packed in a beautiful box.' },
+      
+      { id: 'cb2', name: 'Chicken Biryani Meal Box', unit: '1 box', price: 399, originalPrice: 480, group: 'Special Combos', 
+        image: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=400', 
+        likes: 245678, views: 2098765, shares: 101234, saves: 51234, orders: 101234, rating: 4.9, reviews: 245678,
+        desc: 'Our {name} includes: 2 Chicken Cutlets + 2 Chicken Rolls + 4 Chicken Popcorn + 2 Chicken Nuggets + 4 Chicken Poppers + 2 Chicken Strips + FREE Fruits. Perfect for a family of 2-3. All items are freshly prepared and packed in a beautiful box.' },
+      
+      { id: 'cb3', name: 'Biryani Combo for 2', unit: 'family', price: 699, originalPrice: 820, group: 'Special Combos', 
+        image: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=400', 
+        likes: 256789, views: 2198765, shares: 109876, saves: 53456, orders: 109876, rating: 4.9, reviews: 256789,
+        desc: 'Our {name} includes: 2 Chicken Cutlets + 2 Chicken Rolls + 4 Chicken Popcorn + 2 Chicken Nuggets + 4 Chicken Poppers + 2 Chicken Strips + FREE Fruits. Perfect for a family of 2-3. All items are freshly prepared and packed in a beautiful box.' },
+      
+      { id: 'cb4', name: 'Super Saver Combo', unit: '1 box', price: 379, originalPrice: 450, group: 'Special Combos', 
+        image: 'https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?w=400', 
+        likes: 223456, views: 1876543, shares: 94567, saves: 47654, orders: 94567, rating: 4.8, reviews: 223456,
+        desc: 'Our {name} includes: 2 Chicken Cutlets + 2 Chicken Rolls + 4 Chicken Popcorn + 2 Chicken Nuggets + 4 Chicken Poppers + 2 Chicken Strips + FREE Fruits. Perfect for a family of 2-3. All items are freshly prepared and packed in a beautiful box.' },
+      
+      // GROUP 11: BEVERAGES (5)
+      { id: 'bev1', name: 'Rooh Afza', unit: '1 glass', price: 25, originalPrice: 40, group: 'Beverages', 
+        image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400', 
+        likes: 345678, views: 2345678, shares: 123456, saves: 65432, orders: 234567, rating: 4.9, reviews: 345678,
+        desc: 'Our {name} is the perfect way to break your fast. Made with premium Rooh Afza syrup, milk, and a touch of rose water, served chilled with basil seeds and ice. Refreshing and energizing!' },
+      
+      { id: 'bev2', name: 'Falooda', unit: '1 cup', price: 90, originalPrice: 120, group: 'Beverages', 
+        image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400', 
+        likes: 287654, views: 1987654, shares: 109876, saves: 54321, orders: 187654, rating: 4.8, reviews: 287654,
+        desc: 'Our {name} is the perfect way to break your fast. Made with premium Rooh Afza syrup, milk, and a touch of rose water, served chilled with basil seeds and ice. Refreshing and energizing!' },
+      
+      { id: 'bev3', name: 'Laban (Buttermilk)', unit: '1 glass', price: 30, originalPrice: 45, group: 'Beverages', 
+        image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400', 
+        likes: 234567, views: 1765432, shares: 98765, saves: 48765, orders: 156789, rating: 4.7, reviews: 234567,
+        desc: 'Our {name} is the perfect way to break your fast. Made with premium Rooh Afza syrup, milk, and a touch of rose water, served chilled with basil seeds and ice. Refreshing and energizing!' },
+      
+      { id: 'bev4', name: 'Lemon Mint', unit: '1 glass', price: 35, originalPrice: 50, group: 'Beverages', 
+        image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400', 
+        likes: 223456, views: 1654321, shares: 92345, saves: 45678, orders: 145678, rating: 4.7, reviews: 223456,
+        desc: 'Our {name} is the perfect way to break your fast. Made with premium Rooh Afza syrup, milk, and a touch of rose water, served chilled with basil seeds and ice. Refreshing and energizing!' },
+      
+      { id: 'bev5', name: 'Cold Drink', unit: '250ml', price: 25, originalPrice: 35, group: 'Beverages', 
+        image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400', 
+        likes: 212345, views: 1543210, shares: 87654, saves: 43210, orders: 134567, rating: 4.5, reviews: 212345,
+        desc: 'Our {name} is the perfect way to break your fast. Made with premium Rooh Afza syrup, milk, and a touch of rose water, served chilled with basil seeds and ice. Refreshing and energizing!' },
+      
+      // GROUP 12: DESSERTS (5)
+      { id: 'd1', name: 'Shahi Tukda', unit: '1 slice', price: 70, originalPrice: 90, group: 'Desserts', 
+        image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400', 
+        likes: 287654, views: 1987654, shares: 109876, saves: 54321, orders: 123456, rating: 4.9, reviews: 287654,
+        desc: 'Our {name} is a royal Mughlai dessert made with deep-fried bread slices soaked in saffron-infused sugar syrup and topped with thick, creamy rabdi (sweetened condensed milk). Garnished with chopped nuts and silver leaf. A perfect end to your iftar meal!' },
+      
+      { id: 'd2', name: 'Double ka Meetha', unit: '1 pc', price: 60, originalPrice: 80, group: 'Desserts', 
+        image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400', 
+        likes: 256789, views: 1876543, shares: 98765, saves: 49876, orders: 112345, rating: 4.8, reviews: 256789,
+        desc: 'Our {name} is a royal Mughlai dessert made with deep-fried bread slices soaked in saffron-infused sugar syrup and topped with thick, creamy rabdi (sweetened condensed milk). Garnished with chopped nuts and silver leaf. A perfect end to your iftar meal!' },
+      
+      { id: 'd3', name: 'Firni', unit: '1 cup', price: 50, originalPrice: 70, group: 'Desserts', 
+        image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400', 
+        likes: 245678, views: 1765432, shares: 94567, saves: 47654, orders: 109876, rating: 4.8, reviews: 245678,
+        desc: 'Our {name} is a royal Mughlai dessert made with deep-fried bread slices soaked in saffron-infused sugar syrup and topped with thick, creamy rabdi (sweetened condensed milk). Garnished with chopped nuts and silver leaf. A perfect end to your iftar meal!' },
+      
+      { id: 'd4', name: 'Malpua', unit: '2 pcs', price: 60, originalPrice: 80, group: 'Desserts', 
+        image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400', 
+        likes: 234567, views: 1654321, shares: 90123, saves: 45432, orders: 98765, rating: 4.7, reviews: 234567,
+        desc: 'Our {name} is a royal Mughlai dessert made with deep-fried bread slices soaked in saffron-infused sugar syrup and topped with thick, creamy rabdi (sweetened condensed milk). Garnished with chopped nuts and silver leaf. A perfect end to your iftar meal!' },
+      
+      { id: 'd5', name: 'Zarda', unit: '1 portion', price: 50, originalPrice: 70, group: 'Desserts', 
+        image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400', 
+        likes: 223456, views: 1543210, shares: 87654, saves: 43210, orders: 94567, rating: 4.7, reviews: 223456,
+        desc: 'Our {name} is a royal Mughlai dessert made with deep-fried bread slices soaked in saffron-infused sugar syrup and topped with thick, creamy rabdi (sweetened condensed milk). Garnished with chopped nuts and silver leaf. A perfect end to your iftar meal!' }
+    ];
+
+    // Cart with free fruits
+    let cart = [{ id: 'free', name: '✨ FREE Fresh Fruits Pack (Banana+Apple+Dates)', price: 0, qty: 1 }];
+    let currentModalIndex = 0;
+
+    // Group products by group name
+    const groupedProducts = products.reduce((acc, product) => {
+      if (!acc[product.group]) {
+        acc[product.group] = [];
+      }
+      acc[product.group].push(product);
+      return acc;
+    }, {});
+
+    // Render groups
+    function renderGroups() {
+      const container = document.getElementById('groupsContainer');
+      let html = '';
+      
+      for (const [groupName, items] of Object.entries(groupedProducts)) {
+        html += `
+          <div class="group-section">
+            <div class="group-header">
+              <div class="group-icon"><i class="fas fa-utensils"></i></div>
+              <h2 class="group-title">${groupName}</h2>
+              <span class="group-count">${items.length} items</span>
+            </div>
+            <div class="products-grid">
+        `;
+        
+        items.forEach(p => {
+          html += `
+            <div class="product-card" onclick="openModal(${products.indexOf(p)})">
+              <div class="product-image" style="background-image: url('${p.image}')">
+                <span class="product-badge">🔥 Bestseller</span>
+                <div class="engagement-stats">
+                  <span class="stat-item"><i class="fas fa-heart" style="color:#ff4757;"></i> ${(p.likes/1000).toFixed(1)}k</span>
+                  <span class="stat-item"><i class="fas fa-eye"></i> ${(p.views/1000).toFixed(1)}k</span>
+                  <span class="stat-item"><i class="fas fa-share"></i> ${(p.shares/1000).toFixed(1)}k</span>
+                </div>
+              </div>
+              <div class="product-info">
+                <div class="product-title">
+                  ${p.name}
+                  <span class="rating">★ ${p.rating} (${(p.reviews/1000).toFixed(1)}k)</span>
+                </div>
+                <div class="price">₹${p.price} <span style="text-decoration:line-through; color:#999; font-size:0.8rem;">₹${p.originalPrice}</span></div>
+                <div class="order-controls" onclick="event.stopPropagation()">
+                  <div class="qty-selector">
+                    <button class="qty-btn" onclick="changeQty('${p.id}', -1)">−</button>
+                    <span id="qty-${p.id}">0</span>
+                    <button class="qty-btn" onclick="changeQty('${p.id}', 1)">+</button>
+                  </div>
+                  <button class="add-btn" onclick="addToCart('${p.id}')">Add</button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        
+        html += `</div></div>`;
+      }
+      
+      container.innerHTML = html;
+    }
+
+    // Quantity management
+    window.changeQty = function(id, delta) {
+      const span = document.getElementById(`qty-${id}`);
+      let current = parseInt(span.innerText) || 0;
+      current = Math.max(0, current + delta);
+      span.innerText = current;
+    }
+
+    // Add to cart
+    window.addToCart = function(id) {
+      const product = products.find(p => p.id === id);
+      const qty = parseInt(document.getElementById(`qty-${id}`).innerText) || 0;
+      if (qty === 0) return;
+      
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        cart.push({ ...product, qty });
+      }
+      
+      document.getElementById(`qty-${id}`).innerText = '0';
+      renderCart();
+      showNotification(`Added ${qty} ${product.name}`);
+    }
+
+    // Render cart
+    function renderCart() {
+      const cartDiv = document.getElementById('cartItems');
+      let html = '';
+      let total = 0;
+      
+      cart.forEach(item => {
+        if (item.id === 'free') {
+          html += `<div class="cart-item"><span><i class="fas fa-apple-alt" style="color:#2e7d32;"></i> ${item.name}</span><span>FREE</span></div>`;
+        } else {
+          total += item.price * item.qty;
+          html += `
+            <div class="cart-item">
+              <span>${item.name} x${item.qty}</span>
+              <span>₹${item.price * item.qty}</span>
+              <i class="fas fa-trash" style="color:#ff4757; cursor:pointer;" onclick="removeFromCart('${item.id}')"></i>
+            </div>
+          `;
+        }
+      });
+      
+      cartDiv.innerHTML = html;
+      document.getElementById('cartTotal').innerHTML = `<span>Total:</span><span>₹${total}</span>`;
+    }
+
+    // Remove from cart
+    window.removeFromCart = function(id) {
+      cart = cart.filter(item => item.id !== id);
+      renderCart();
+    }
+
+    // Modal functions
+    window.openModal = function(index) {
+      currentModalIndex = index;
+      updateModalContent();
+      document.getElementById('productModal').style.display = 'flex';
+    }
+
+    window.closeModal = function() {
+      document.getElementById('productModal').style.display = 'none';
+    }
+
+    window.navigateProduct = function(direction) {
+      currentModalIndex = (currentModalIndex + direction + products.length) % products.length;
+      updateModalContent();
+    }
+
+    function updateModalContent() {
+      const p = products[currentModalIndex];
+      const content = document.getElementById('modalContent');
+      const smartDesc = p.desc.replace('{name}', p.name);
+      
+      content.innerHTML = `
+        <div class="modal-grid">
+          <div class="modal-image" style="background-image: url('${p.image}')"></div>
+          <div>
+            <h2 style="font-size:2rem;">${p.name}</h2>
+            <p style="color:#666;">${p.unit}</p>
+            
+            <div class="modal-stats">
+              <div><span style="font-size:2rem; color:#f5b342;">${p.rating} ★</span><br>${(p.reviews/1000).toFixed(1)}k Reviews</div>
+              <div><span style="font-size:2rem; color:#ff4757;">${(p.likes/1000).toFixed(1)}k</span><br>Likes</div>
+              <div><span style="font-size:2rem;">${(p.orders/1000).toFixed(1)}k</span><br>Orders</div>
+            </div>
+            
+            <div class="engagement-buttons">
+              <button class="engage-btn like" onclick="likeProduct('${p.id}')"><i class="fas fa-heart"></i> Like (${(p.likes/1000).toFixed(1)}k)</button>
+              <button class="engage-btn share" onclick="shareProduct('${p.name}')"><i class="fas fa-share"></i> Share</button>
+              <button class="engage-btn save" onclick="saveProduct('${p.id}')"><i class="fas fa-bookmark"></i> Save</button>
+            </div>
+            
+            <p style="margin:1.5rem 0; line-height:1.6;">${smartDesc}</p>
+            
+            <div style="display:flex; align-items:center; gap:2rem;">
+              <div>
+                <span style="font-size:2rem; font-weight:700; color:#1b6b4f;">₹${p.price}</span>
+                <span style="text-decoration:line-through; color:#999; margin-left:1rem;">₹${p.originalPrice}</span>
+              </div>
+              <div class="qty-selector" style="background:#f0f0f0;">
+                <button class="qty-btn" onclick="changeQty('${p.id}', -1)">−</button>
+                <span id="modal-qty-${p.id}" style="min-width:30px; text-align:center;">0</span>
+                <button class="qty-btn" onclick="changeQty('${p.id}', 1)">+</button>
+              </div>
+              <button class="add-btn" style="padding:0.8rem 1.5rem;" onclick="addFromModal('${p.id}')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.addFromModal = function(id) {
+      const qty = parseInt(document.getElementById(`modal-qty-${id}`).innerText) || 0;
+      if (qty === 0) return;
+      
+      const product = products.find(p => p.id === id);
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        cart.push({ ...product, qty });
+      }
+      
+      document.getElementById(`modal-qty-${id}`).innerText = '0';
+      document.getElementById(`qty-${id}`).innerText = '0';
+      renderCart();
+      showNotification(`Added ${qty} ${product.name}`);
+    }
+
+    // Engagement functions
+    window.likeProduct = function(id) {
+      const product = products.find(p => p.id === id);
+      product.likes += 1000;
+      showNotification(`👍 Liked ${product.name}!`);
+      updateModalContent();
+    }
+
+    window.shareProduct = function(name) {
+      navigator.clipboard.writeText(`Check out ${name} on Iftaar.in - India's #1 Fresh Iftar Delivery!`);
+      showNotification('📋 Link copied! Share with friends');
+    }
+
+    window.saveProduct = function(id) {
+      showNotification('✅ Saved to your wishlist!');
+    }
+
+    // Pack filters
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        
+        const pack = this.dataset.pack;
+        if (pack === 'family5') {
+          // Auto-add family pack items
+          cart = [{ id: 'free', name: '✨ FREE Fresh Fruits Pack', price: 0, qty: 1 }];
+          cart.push({ ...products.find(p => p.id === 'c1'), qty: 3 });
+          cart.push({ ...products.find(p => p.id === 'r2'), qty: 2 });
+          cart.push({ ...products.find(p => p.id === 's1'), qty: 2 });
+          cart.push({ ...products.find(p => p.id === 'k2'), qty: 2 });
+          cart.push({ ...products.find(p => p.id === 'bir1'), qty: 1 });
+          cart.push({ ...products.find(p => p.id === 'bev1'), qty: 5 });
+          renderCart();
+          showNotification('👪 Family Pack (5) loaded!');
+        } else if (pack === 'family10') {
+          cart = [{ id: 'free', name: '✨ FREE Fresh Fruits Pack', price: 0, qty: 1 }];
+          cart.push({ ...products.find(p => p.id === 'c1'), qty: 5 });
+          cart.push({ ...products.find(p => p.id === 'c3'), qty: 5 });
+          cart.push({ ...products.find(p => p.id === 'r2'), qty: 4 });
+          cart.push({ ...products.find(p => p.id === 's1'), qty: 4 });
+          cart.push({ ...products.find(p => p.id === 'k2'), qty: 4 });
+          cart.push({ ...products.find(p => p.id === 'bir1'), qty: 2 });
+          cart.push({ ...products.find(p => p.id === 'bev1'), qty: 10 });
+          renderCart();
+          showNotification('👨‍👩‍👧‍👦 Family Pack (10+) loaded!');
+        } else if (pack === 'office') {
+          cart = [{ id: 'free', name: '✨ FREE Fresh Fruits Pack', price: 0, qty: 1 }];
+          cart.push({ ...products.find(p => p.id === 'c1'), qty: 10 });
+          cart.push({ ...products.find(p => p.id === 'c3'), qty: 10 });
+          cart.push({ ...products.find(p => p.id === 'r2'), qty: 8 });
+          cart.push({ ...products.find(p => p.id === 's1'), qty: 8 });
+          cart.push({ ...products.find(p => p.id === 'k2'), qty: 8 });
+          cart.push({ ...products.find(p => p.id === 'bir1'), qty: 3 });
+          cart.push({ ...products.find(p => p.id === 'bev1'), qty: 15 });
+          renderCart();
+          showNotification('💼 Office Iftar Pack loaded!');
+        } else if (pack === 'mosque') {
+          cart = [{ id: 'free', name: '✨ FREE Fresh Fruits Pack', price: 0, qty: 1 }];
+          cart.push({ ...products.find(p => p.id === 'c1'), qty: 20 });
+          cart.push({ ...products.find(p => p.id === 'c3'), qty: 20 });
+          cart.push({ ...products.find(p => p.id === 'r2'), qty: 15 });
+          cart.push({ ...products.find(p => p.id === 's1'), qty: 15 });
+          cart.push({ ...products.find(p => p.id === 'k2'), qty: 15 });
+          cart.push({ ...products.find(p => p.id === 'bir1'), qty: 5 });
+          cart.push({ ...products.find(p => p.id === 'bev1'), qty: 25 });
+          renderCart();
+          showNotification('🕌 Mosque Donation Pack loaded!');
+        }
+      });
+    });
+
+    // Reviews slider
+    function renderReviews() {
+      const reviews = [
+        { name: 'Ahmed Khan', rating: 5, text: 'Best Aloo Bhajia in Mumbai! So crispy and fresh. The free fruits were a nice touch. Ordering every day this Ramadan!', likes: 2345, time: '2 hours ago' },
+        { name: 'Fatima Shaikh', rating: 5, text: 'Kanda Bhajia reminded me of my mother\'s recipe. 10/10 freshness! My whole family loved it.', likes: 4567, time: '5 hours ago' },
+        { name: 'Mohd. Rizwan', rating: 5, text: 'Paneer Bhajia is out of this world! Will order again. Fast delivery and hot food.', likes: 6789, time: '1 day ago' },
+        { name: 'Sana Patel', rating: 5, text: 'Ordered family pack for 5. Everyone loved the chicken cutlets and biryani. Free fruits with every order is such a sweet gesture!', likes: 8901, time: '2 days ago' },
+        { name: 'Omar Farooq', rating: 5, text: 'Mutton Seekh Kebabs are amazing! So juicy and flavorful. Best iftar in Mumbai.', likes: 1234, time: '3 days ago' },
+        { name: 'Zara Ansari', rating: 5, text: 'Sent iftar to mosque through Iftaar.in. Very convenient and reasonably priced. Will order again.', likes: 3456, time: '4 days ago' },
+        { name: 'Yusuf Patel', rating: 5, text: 'The Chicken Cheese Samosa is addictive! Already placed 3 orders this week. Highly recommended!', likes: 5678, time: '5 days ago' },
+        { name: 'Aisha Mirza', rating: 5, text: 'Great taste, hygienic packaging, on-time delivery. The free dates were premium quality.', likes: 7890, time: '1 week ago' },
+        { name: 'Ibrahim Shaikh', rating: 5, text: 'Office iftar pack was perfect for our team of 20. Everyone praised the quality. Will definitely order again!', likes: 9012, time: '1 week ago' },
+        { name: 'Nadia Khan', rating: 5, text: 'The biryani is restaurant quality! So flavorful and aromatic. Free fruits were fresh and sweet.', likes: 1123, time: '1 week ago' }
+      ];
+
+      const slider = document.getElementById('reviewsSlider');
+      let html = '';
+      reviews.forEach(r => {
+        html += `
+          <div class="swiper-slide">
+            <div class="review-card">
+              <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                <div style="width:50px; height:50px; border-radius:50%; background:#1b6b4f; color:#f5cd94; display:flex; align-items:center; justify-content:center; font-size:1.2rem; font-weight:600;">${r.name[0]}</div>
+                <div>
+                  <h4>${r.name}</h4>
+                  <div style="color:#f5b342;">${'★'.repeat(r.rating)}</div>
+                </div>
+              </div>
+              <p style="margin:0.5rem 0;">"${r.text}"</p>
+              <div style="display:flex; gap:1rem; margin-top:1rem; color:#666;">
+                <span><i class="fas fa-heart" style="color:#ff4757;"></i> ${r.likes} found helpful</span>
+                <span><i class="fas fa-clock"></i> ${r.time}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      slider.innerHTML = html;
+      
+      new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: { delay: 3000, disableOnInteraction: false },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+      });
+    }
+
+    // Social share
+    window.share = function(platform) {
+      const url = 'https://iftaar.in';
+      if (platform === 'whatsapp') window.open(`https://wa.me/?text=Iftaar.in - India's #1 Fresh Iftar Delivery with 1.2M+ reviews! ${url}`);
+      if (platform === 'facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`);
+      if (platform === 'twitter') window.open(`https://twitter.com/intent/tweet?text=Iftaar.in - India's #1 Fresh Iftar Delivery with 1.2M+ reviews!&url=${url}`);
+      if (platform === 'instagram') {
+        navigator.clipboard.writeText(`Iftaar.in - India's #1 Fresh Iftar Delivery with 1.2M+ reviews! ${url}`);
+        showNotification('📋 Link copied! Share on Instagram');
+      }
+    }
+
+    // Place order via WhatsApp
+    window.placeOrder = function() {
+      const name = document.getElementById('custName').value;
+      const mobile = document.getElementById('custMobile').value;
+      const address = document.getElementById('custAddress').value;
+      
+      let msg = `🕌 *Iftaar.in Order - Ramadan 2026* 🕌%0a`;
+      msg += `✨ *India's #1 Fresh Iftar - 1.2M+ Reviews* ✨%0a%0a`;
+      msg += `*Name:* ${name}%0a*Mobile:* ${mobile}%0a*Address:* ${address}%0a%0a`;
+      msg += `*Your Items:*%0a`;
+      
+      let total = 0;
+      cart.forEach(item => {
+        if (item.id !== 'free') {
+          msg += `• ${item.name} x${item.qty} = ₹${item.price * item.qty}%0a`;
+          total += item.price * item.qty;
+        }
+      });
+      
+      msg += `%0a*Total: ₹${total}*%0a`;
+      msg += `✨ *FREE Fresh Fruits & Dates included* ✨%0a%0a`;
+      msg += `Payment: iftar2026@okhdfcbank / +918879952676%0a`;
+      msg += `_Jazakallah, deliver before iftar._`;
+      
+      window.open(`https://wa.me/918879952676?text=${msg}`, '_blank');
+    }
+
+    // Notification
+    function showNotification(msg) {
+      const notif = document.createElement('div');
+      notif.style.cssText = `
+        position: fixed; top: 20px; right: 20px; background: #1b6b4f;
+        color: white; padding: 1rem 2rem; border-radius: 50px; z-index: 10001;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2); animation: slideIn 0.3s;
+      `;
+      notif.innerText = msg;
+      document.body.appendChild(notif);
+      setTimeout(() => notif.remove(), 3000);
+    }
+
+    // Initialize
+    renderGroups();
+    renderCart();
+    renderReviews();
+  </script>
+</body>
+</html>
