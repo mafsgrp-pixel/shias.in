@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Khwani - Book Reciters for Isaal-e-Sawab | Shias.in</title>
+    <meta name="description" content="Book Quran reciters for Isaal-e-Sawab of your marhoomeen. Select from 250+ male and female Huffaz/Qaris across India. Available for Ramzan and全年.">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-6: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles (matching homepage) */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        nav a.active {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-icon {
+            font-size: 18px;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .language-switch {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .lang-btn {
+            background: var(--gradient-2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            top: 100%;
+            right: 0;
+            margin-top: 5px;
+        }
+        
+        .lang-dropdown a {
+            color: var(--dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-dropdown a:hover {
+            background-color: var(--light);
+            color: var(--primary);
+        }
+        
+        .language-switch:hover .lang-dropdown {
+            display: block;
+        }
+        
+        /* Page Banner */
+        .page-banner {
+            padding: 120px 0 60px;
+            background: var(--gradient-6);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .page-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: var(--gradient-3);
+            opacity: 0.1;
+        }
+        
+        .page-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: var(--gradient-2);
+            opacity: 0.1;
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .banner-badge {
+            display: inline-block;
+            background: var(--gradient-4);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .banner-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .banner-subtitle {
+            font-size: 18px;
+            color: #5a6c7d;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .banner-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #7b8b9a;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            padding: 40px 0 20px;
+            background: white;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .filter-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-title i {
+            color: var(--primary);
+        }
+        
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .filter-group label i {
+            color: var(--primary);
+        }
+        
+        .filter-select, .filter-input {
+            padding: 12px 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .filter-select:focus, .filter-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .filter-select:hover, .filter-input:hover {
+            border-color: var(--secondary);
+        }
+        
+        .filter-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .filter-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-btn.apply {
+            background: var(--gradient-1);
+            color: white;
+        }
+        
+        .filter-btn.reset {
+            background: #f8f9fa;
+            color: var(--dark);
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-btn.reset:hover {
+            background: #e9ecef;
+        }
+        
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        
+        .search-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid #f0f0f0;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #bdc3c7;
+            font-size: 18px;
+        }
+        
+        .search-results {
+            font-size: 14px;
+            color: #7b8b9a;
+            white-space: nowrap;
+        }
+        
+        /* Reciters Table */
+        .reciters-section {
+            padding: 40px 0 80px;
+            background: white;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .table-header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 20px;
+        }
+        
+        .table-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .table-responsive {
+            overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+            color: var(--dark);
+            border-bottom: 2px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            background: #f8f9fa;
+            z-index: 10;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #5a6c7d;
+        }
+        
+        tr:hover td {
+            background: #f8f9fa;
+        }
+        
+        .reciter-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .reciter-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+        }
+        
+        .reciter-avatar.male {
+            background: var(--gradient-3);
+        }
+        
+        .reciter-avatar.female {
+            background: var(--gradient-2);
+        }
+        
+        .reciter-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .city-badge {
+            background: var(--gradient-6);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .availability-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .availability-badge.year {
+            background: var(--gradient-4);
+            color: white;
+        }
+        
+        .availability-badge.ramzan {
+            background: var(--gradient-5);
+            color: white;
+        }
+        
+        .availability-badge.both {
+            background: var(--gradient-1);
+            color: white;
+        }
+        
+        .rating {
+            color: #f39c12;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        
+        .rating-value {
+            margin-left: 5px;
+            color: #7b8b9a;
+            font-size: 12px;
+        }
+        
+        .booking-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            border: 2px solid #f0f0f0;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            background: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .qty-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .qty-input {
+            width: 40px;
+            height: 30px;
+            border: none;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .qty-input:focus {
+            outline: none;
+        }
+        
+        .book-btn {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .favorite-btn {
+            background: #f8f9fa;
+            color: #e74c3c;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .favorite-btn:hover, .favorite-btn.active {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        /* Booking Cart */
+        .booking-cart {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .cart-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .cart-title i {
+            color: var(--primary);
+        }
+        
+        .cart-items {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .cart-item-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-meta {
+            display: flex;
+            gap: 10px;
+            font-size: 12px;
+            color: #7b8b9a;
+        }
+        
+        .cart-item-qty {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item-remove:hover {
+            transform: scale(1.1);
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-top: 2px solid #f0f0f0;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .cart-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .checkout-btn {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .clear-cart-btn {
+            background: #f8f9fa;
+            color: var(--dark);
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .clear-cart-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 30px;
+            color: #bdc3c7;
+        }
+        
+        .empty-cart i {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        
+        /* Information Section */
+        .info-section {
+            padding: 60px 0;
+            background: var(--gradient-6);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            margin: 0 auto 20px;
+        }
+        
+        .info-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .info-card p {
+            color: #5a6c7d;
+            line-height: 1.6;
+        }
+        
+        /* Footer (matching homepage) */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 100px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 3px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        
+        /* Mobile Footer */
+        .mobile-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .mobile-footer-buttons {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+        }
+        
+        .mobile-footer-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-footer-btn i {
+            font-size: 20px;
+        }
+        
+        .mobile-footer-btn:hover {
+            color: var(--primary);
+        }
+        
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            text-decoration: none;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            padding: 25px 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #bdc3c7;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+        }
+        
+        .modal-body {
+            padding: 20px 30px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .submit-btn {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .banner-title {
+                font-size: 36px;
+            }
+            
+            .filter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .banner-title {
+                font-size: 28px;
+            }
+            
+            .banner-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-results {
+                text-align: right;
+            }
+            
+            .booking-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .mobile-footer {
+                display: block;
+            }
+            
+            .whatsapp-float {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            th, td {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-quran"></i>
+                    </div>
+                    <div class="logo-text">Shias.in</div>
+                </div>
+                <button class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-home nav-icon"></i> Home</a></li>
+                        <li><a href="#" class="active"><i class="fas fa-quran nav-icon"></i> Quran Khwani</a></li>
+                        <li><a href="#"><i class="fas fa-book-open nav-icon"></i> Courses</a></li>
+                        <li><a href="#"><i class="fas fa-users nav-icon"></i> For You</a></li>
+                        <li><a href="#"><i class="fas fa-hands-helping nav-icon"></i> Mentorship</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <div class="language-switch">
+                        <button class="lang-btn">
+                            <i class="fas fa-globe"></i> Language <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="lang-dropdown">
+                            <a href="#">English</a>
+                            <a href="#">Hinglish</a>
+                            <a href="#">Urdu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="container">
+            <div class="banner-content">
+                <div class="banner-badge">
+                    <i class="fas fa-star"></i> Ramzan Special - 30% Off on All Bookings
+                </div>
+                <h1 class="banner-title">Quran Khwani for Isaal-e-Sawab</h1>
+                <p class="banner-subtitle">Book Quran reciters to dedicate the reward to your marhoomeen. Choose from 250+ verified Huffaz and Qaris across India. Available for Ramzan and全年 bookings.</p>
+                
+                <div class="banner-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">250+</div>
+                        <div class="stat-label">Verified Reciters</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">75+</div>
+                        <div class="stat-label">Cities Across India</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">15K+</div>
+                        <div class="stat-label">Quran Khwani Completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-container">
+                <h3 class="filter-title">
+                    <i class="fas fa-filter"></i> Find the Perfect Reciter
+                </h3>
+                
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label><i class="fas fa-venus-mars"></i> Gender</label>
+                        <select class="filter-select" id="gender-filter">
+                            <option value="all">All Reciters</option>
+                            <option value="male">Male Reciters (Qari/Hafiz)</option>
+                            <option value="female">Female Reciters (Qariah/Hafiza)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label><i class="fas fa-city"></i> City</label>
+                        <select class="filter-select" id="city-filter">
+                            <option value="all">All Cities</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="lucknow">Lucknow</option>
+                            <option value="hyderabad">Hyderabad</option>
+                            <option value="kolkata">Kolkata</option>
+                            <option value="chennai">Chennai</option>
+                            <option value="bengaluru">Bengaluru</option>
+                            <option value="pune">Pune</option>
+                            <option value="ahmedabad">Ahmedabad</option>
+                            <option value="bhopal">Bhopal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label><i class="fas fa-calendar-alt"></i> Availability</label>
+                        <select class="filter-select" id="availability-filter">
+                            <option value="all">All Year</option>
+                            <option value="ramzan">Ramzan Only</option>
+                            <option value="year">Full Year</option>
+                            <option value="both">Both Available</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label><i class="fas fa-star"></i> Minimum Rating</label>
+                        <select class="filter-select" id="rating-filter">
+                            <option value="0">Any Rating</option>
+                            <option value="4">4+ Stars</option>
+                            <option value="4.5">4.5+ Stars</option>
+                            <option value="4.8">4.8+ Stars</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="search-bar">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" id="search-input" placeholder="Search by name, city, or mosque...">
+                    </div>
+                    <div class="search-results" id="search-results">Showing 250 reciters</div>
+                </div>
+                
+                <div class="filter-actions">
+                    <button class="filter-btn apply" id="apply-filters">
+                        <i class="fas fa-check"></i> Apply Filters
+                    </button>
+                    <button class="filter-btn reset" id="reset-filters">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="reciters-section">
+        <div class="container">
+            <div class="row" style="display: grid; grid-template-columns: 1fr 350px; gap: 30px;">
+                <!-- Reciters Table -->
+                <div>
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3><i class="fas fa-list"></i> Available Quran Reciters (250+)</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="reciters-table">
+                                <thead>
+                                    <tr>
+                                        <th>Reciter</th>
+                                        <th>City</th>
+                                        <th>Gender</th>
+                                        <th>Availability</th>
+                                        <th>Rating</th>
+                                        <th>Book</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+                                    <!-- Table will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booking Cart -->
+                <div>
+                    <div class="booking-cart" id="booking-cart">
+                        <h3 class="cart-title">
+                            <i class="fas fa-shopping-cart"></i> Your Bookings
+                        </h3>
+                        
+                        <div class="cart-items" id="cart-items">
+                            <div class="empty-cart">
+                                <i class="fas fa-quran"></i>
+                                <p>No reciters booked yet</p>
+                                <p style="font-size: 14px; margin-top: 10px;">Select reciters and add quantity to book</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cart-total" id="cart-total" style="display: none;">
+                            <span>Total Quran Khwani:</span>
+                            <span id="total-qty">0</span>
+                        </div>
+                        
+                        <div class="cart-actions">
+                            <button class="checkout-btn" id="checkout-btn" disabled>
+                                <i class="fas fa-arrow-right"></i> Proceed for Isaal-e-Sawab
+                            </button>
+                            <button class="clear-cart-btn" id="clear-cart" style="display: none;">
+                                <i class="fas fa-trash"></i> Clear All
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; background: var(--gradient-6); border-radius: 15px; padding: 20px;">
+                        <h4 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                            <i class="fas fa-info-circle" style="color: var(--primary);"></i>
+                            About Isaal-e-Sawab
+                        </h4>
+                        <p style="font-size: 14px; color: #5a6c7d; line-height: 1.6;">
+                            Isaal-e-Sawab means dedicating the reward of good deeds to the departed souls. 
+                            When you book a Quran Khwani, the reciter will complete the recitation and pray 
+                            for the maghfirat of your marhoomeen. You'll receive a confirmation with details 
+                            and can specify names for dua.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="info-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <div class="section-badge" style="display: inline-block; background: var(--gradient-1); color: white; padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; margin-bottom: 15px;">
+                    <i class="fas fa-heart"></i> Why Choose Us
+                </div>
+                <h2 style="font-size: 32px; font-weight: 700; margin-bottom: 15px; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    Trusted by Thousands of Families
+                </h2>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Verified Reciters</h3>
+                    <p>All reciters are verified Huffaz/Qaris with proper Ijazah and experience. Each profile includes their credentials and background.</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Flexible Timing</h3>
+                    <p>Book for specific dates and times. Reciters are available throughout the day, especially during Ramzan and nights.</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Dedicated Dua</h3>
+                    <p>Each reciter will make specific dua for your marhoomeen by name. You'll receive audio/video confirmation upon completion.</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <h3>Affordable Rates</h3>
+                    <p>Transparent pricing with no hidden costs. Special discounts for multiple bookings and Ramzan packages available.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Shias.in</h3>
+                    <p>Empowering the Shia community through education, resources, and opportunities for growth and development. Your success is our mission!</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Quran Khwani</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Courses</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> For You</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Mentorship</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Islamic Compliance</a></li>
+                        <li><a href="mailto:info@shias.in"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@shias.in"><i class="fas fa-envelope"></i> info@shias.in</a></li>
+                        <li><a href="tel:+918879952676"><i class="fas fa-phone"></i> +91 88799 52676</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Serving globally with focus on India, USA, UK, Canada, Australia, UAE</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shias.in. All rights reserved. | Preserving tradition while embracing innovation</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Footer -->
+    <div class="mobile-footer">
+        <div class="mobile-footer-buttons">
+            <button class="mobile-footer-btn" id="mobile-whatsapp">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </button>
+            <button class="mobile-footer-btn" id="mobile-call">
+                <i class="fas fa-phone"></i>
+                <span>Call</span>
+            </button>
+            <button class="mobile-footer-btn" id="mobile-invite">
+                <i class="fas fa-share-alt"></i>
+                <span>Invite</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/918879952676?text=Hi,%20I'm%20interested%20in%20Quran%20Khwani%20booking%20for%20my%20marhoomeen" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Complete Your Booking</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" required placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" required placeholder="Enter WhatsApp number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email (Optional)</label>
+                        <input type="email" placeholder="Enter your email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Names of Marhoomeen</label>
+                        <textarea rows="3" required placeholder="Enter names of your deceased loved ones for Isaal-e-Sawab"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Preferred Date & Time</label>
+                        <input type="datetime-local" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Special Instructions (Optional)</label>
+                        <textarea rows="2" placeholder="Any specific Surahs or preferences?"></textarea>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                        <h4 style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Booking Summary:</span>
+                            <span id="modal-total">0 Quran Khwani</span>
+                        </h4>
+                        <p style="font-size: 14px; color: #5a6c7d;">You'll receive confirmation via WhatsApp within 30 minutes</p>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-check"></i> Confirm Booking
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate 250 reciters data
+        const cities = [
+            'Mumbai', 'Delhi', 'Lucknow', 'Hyderabad', 'Kolkata', 'Chennai', 
+            'Bengaluru', 'Pune', 'Ahmedabad', 'Bhopal', 'Nagpur', 'Jaipur',
+            'Patna', 'Surat', 'Varanasi', 'Agra', 'Meerut', 'Allahabad',
+            'Kanpur', 'Indore', 'Thane', 'Pimpri-Chinchwad', 'Kalyan', 'Vasai-Virar',
+            'Aurangabad', 'Nashik', 'Faridabad', 'Ghaziabad', 'Rajkot', 'Benaras'
+        ];
+        
+        const maleFirstNames = [
+            'Mohammad', 'Ali', 'Hasan', 'Hussain', 'Abbas', 'Jafar', 'Musa', 'Kazim', 'Raza', 'Taqi',
+            'Naqi', 'Mehdi', 'Haider', 'Asghar', 'Akbar', 'Sajjad', 'Baqir', 'Sadiq', 'Qasim', 'Zain',
+            'Yusuf', 'Ibrahim', 'Ismail', 'Yaqub', 'Ayyub', 'Yunus', 'Harun', 'Imran', 'Umar', 'Usman',
+            'Wajih', 'Wasi', 'Wahid', 'Wali', 'Yamin', 'Zaki', 'Zahid', 'Zafar', 'Zubair', 'Zia',
+            'Shahid', 'Shaheen', 'Shafiq', 'Shakir', 'Shahbaz', 'Shahzad', 'Shahryar', 'Shahrukh', 'Shahid', 'Shahzeb'
+        ];
+        
+        const femaleFirstNames = [
+            'Fatima', 'Zainab', 'Ruqayya', 'Kulthum', 'Sakina', 'Masuma', 'Nargis', 'Quratulain', 'Amatul', 'Masooma',
+            'Zahra', 'Zakia', 'Zarina', 'Zulekha', 'Zubaida', 'Zainab', 'Zehra', 'Zoya', 'Zara', 'Zoha',
+            'Ayesha', 'Amina', 'Amna', 'Aafia', 'Areeba', 'Arfa', 'Atiya', 'Alia', 'Anisa', 'Anjum',
+            'Bushra', 'Bano', 'Bisma', 'Batool', 'Bakhtawar', 'Bilqis', 'Benazir', 'Bina', 'Bushra', 'Barira',
+            'Hafsa', 'Haleema', 'Haniya', 'Huma', 'Humaira', 'Hina', 'Hafiza', 'Haleema', 'Hani', 'Huda'
+        ];
+        
+        const lastNames = [
+            'Rizvi', 'Syed', 'Naqvi', 'Zaidi', 'Jafri', 'Hussaini', 'Hasani', 'Abbasi', 'Kazmi', 'Tirmizi',
+            'Qureshi', 'Ansari', 'Siddiqui', 'Farooqui', 'Usmani', 'Alvi', 'Baqri', 'Masoodi', 'Sajjadi', 'Mosavi',
+            'Shirazi', 'Isfahani', 'Khorasani', 'Najafi', 'Karbalai', 'Baghdadi', 'Damishqi', 'Halabi', 'Mashhadi', 'Qummi'
+        ];
+        
+        const mosques = [
+            'Masjid', 'Imambargah', 'Hussainia', 'Markaz', 'Anjuman', 'Jama Masjid', 'Masjid-e-', 'Dargah', 'Karbala', 'Azakhana'
+        ];
+        
+        const areas = [
+            'Bhendi Bazar', 'Mohammedia', 'Abbas Nagar', 'Hussainabad', 'Karbala', 'Najaf', 'Qum', 'Mashhad', 'Samarra', 'Kadhimain',
+            'Lucknow City', 'Old City', 'Chowk', 'Naka', 'Maulviganj', 'Shia Para', 'Imam Bargah', 'Dargah Shareef', 'Karbala Road', 'Hussainia Colony'
+        ];
+        
+        function generateReciters() {
+            const reciters = [];
+            
+            for (let i = 1; i <= 250; i++) {
+                const gender = Math.random() > 0.3 ? 'male' : 'female'; // 70% male, 30% female
+                const firstName = gender === 'male' 
+                    ? maleFirstNames[Math.floor(Math.random() * maleFirstNames.length)]
+                    : femaleFirstNames[Math.floor(Math.random() * femaleFirstNames.length)];
+                const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                const name = `${firstName} ${lastName}`;
+                
+                const city = cities[Math.floor(Math.random() * cities.length)];
+                const area = areas[Math.floor(Math.random() * areas.length)];
+                const mosque = mosques[Math.floor(Math.random() * mosques.length)];
+                const fullLocation = `${area}, ${city}`;
+                
+                // Availability: Ramzan only, Full year, or Both
+                const availabilityRand = Math.random();
+                let availability, availabilityClass;
+                if (availabilityRand < 0.3) {
+                    availability = 'Ramzan Only';
+                    availabilityClass = 'ramzan';
+                } else if (availabilityRand < 0.6) {
+                    availability = 'Full Year';
+                    availabilityClass = 'year';
+                } else {
+                    availability = 'Both';
+                    availabilityClass = 'both';
+                }
+                
+                // Rating between 4.0 and 5.0
+                const rating = (4 + Math.random()).toFixed(1);
+                
+                // Experience in years
+                const experience = Math.floor(Math.random() * 20) + 2;
+                
+                // Bookings completed
+                const bookings = Math.floor(Math.random() * 500) + 50;
+                
+                reciters.push({
+                    id: i,
+                    name: name,
+                    gender: gender,
+                    city: city,
+                    area: area,
+                    location: fullLocation,
+                    mosque: `${mosque} ${city}`,
+                    availability: availability,
+                    availabilityClass: availabilityClass,
+                    rating: rating,
+                    experience: experience,
+                    bookings: bookings,
+                    avatar: gender === 'male' ? 'M' : 'F'
+                });
+            }
+            
+            return reciters;
+        }
+
+        const reciters = generateReciters();
+        
+        // Cart functionality
+        let cart = [];
+        
+        function renderTable(filteredReciters = reciters) {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+            
+            filteredReciters.forEach(reciter => {
+                const row = document.createElement('tr');
+                
+                // Check if reciter is already in cart
+                const cartItem = cart.find(item => item.id === reciter.id);
+                const qty = cartItem ? cartItem.qty : 0;
+                
+                row.innerHTML = `
+                    <td>
+                        <div class="reciter-info">
+                            <div class="reciter-avatar ${reciter.gender}">
+                                ${reciter.avatar === 'M' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-user-circle"></i>'}
+                            </div>
+                            <div>
+                                <div class="reciter-name">${reciter.name}</div>
+                                <small style="color: #7b8b9a;">${reciter.mosque}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="city-badge">
+                            <i class="fas fa-map-marker-alt"></i> ${reciter.city}
+                        </span>
+                        <div style="font-size: 12px; color: #7b8b9a; margin-top: 5px;">${reciter.area}</div>
+                    </td>
+                    <td>
+                        <span style="display: flex; align-items: center; gap: 5px;">
+                            <i class="fas ${reciter.gender === 'male' ? 'fa-mars' : 'fa-venus'}" 
+                               style="color: ${reciter.gender === 'male' ? '#3498db' : '#e74c3c'};"></i>
+                            ${reciter.gender === 'male' ? 'Male' : 'Female'}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="availability-badge ${reciter.availabilityClass}">
+                            ${reciter.availability}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="rating">
+                            ${getStarRating(reciter.rating)}
+                            <span class="rating-value">(${reciter.rating})</span>
+                        </div>
+                        <small style="color: #7b8b9a;">${reciter.bookings}+ bookings</small>
+                    </td>
+                    <td>
+                        <div class="booking-controls">
+                            <div class="qty-selector" data-id="${reciter.id}">
+                                <button class="qty-btn minus" ${qty === 0 ? 'disabled' : ''}>-</button>
+                                <input type="text" class="qty-input" value="${qty}" readonly>
+                                <button class="qty-btn plus">+</button>
+                            </div>
+                            <button class="book-btn" data-id="${reciter.id}">
+                                <i class="fas fa-book"></i> Book
+                            </button>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="favorite-btn" title="Add to favorites">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Attach event listeners
+            attachTableEvents();
+            document.getElementById('search-results').textContent = `Showing ${filteredReciters.length} reciters`;
+        }
+        
+        function getStarRating(rating) {
+            const numRating = parseFloat(rating);
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(numRating)) {
+                    stars += '<i class="fas fa-star"></i>';
+                } else if (i - 0.5 <= numRating) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    stars += '<i class="far fa-star"></i>';
+                }
+            }
+            return stars;
+        }
+        
+        function attachTableEvents() {
+            // Quantity buttons
+            document.querySelectorAll('.qty-btn.plus').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const qtySelector = this.closest('.qty-selector');
+                    const id = parseInt(qtySelector.dataset.id);
+                    const input = qtySelector.querySelector('.qty-input');
+                    const currentQty = parseInt(input.value);
+                    
+                    updateCartItem(id, currentQty + 1);
+                });
+            });
+            
+            document.querySelectorAll('.qty-btn.minus').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const qtySelector = this.closest('.qty-selector');
+                    const id = parseInt(qtySelector.dataset.id);
+                    const input = qtySelector.querySelector('.qty-input');
+                    const currentQty = parseInt(input.value);
+                    
+                    if (currentQty > 0) {
+                        updateCartItem(id, currentQty - 1);
+                    }
+                });
+            });
+            
+            // Book button
+            document.querySelectorAll('.book-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const id = parseInt(this.dataset.id);
+                    const qtySelector = this.closest('tr').querySelector('.qty-selector');
+                    const input = qtySelector.querySelector('.qty-input');
+                    const currentQty = parseInt(input.value);
+                    
+                    if (currentQty === 0) {
+                        updateCartItem(id, 1);
+                    } else {
+                        updateCartItem(id, currentQty + 1);
+                    }
+                });
+            });
+            
+            // Favorite button
+            document.querySelectorAll('.favorite-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    if (this.classList.contains('active')) {
+                        this.innerHTML = '<i class="fas fa-heart"></i>';
+                    } else {
+                        this.innerHTML = '<i class="far fa-heart"></i>';
+                    }
+                });
+            });
+        }
+        
+        function updateCartItem(id, newQty) {
+            const reciter = reciters.find(r => r.id === id);
+            
+            if (newQty === 0) {
+                cart = cart.filter(item => item.id !== id);
+            } else {
+                const existingIndex = cart.findIndex(item => item.id === id);
+                if (existingIndex >= 0) {
+                    cart[existingIndex].qty = newQty;
+                } else {
+                    cart.push({
+                        id: reciter.id,
+                        name: reciter.name,
+                        gender: reciter.gender,
+                        city: reciter.city,
+                        qty: newQty
+                    });
+                }
+            }
+            
+            updateCartDisplay();
+            renderTable(); // Re-render to update quantities
+        }
+        
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const totalQtySpan = document.getElementById('total-qty');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const clearCartBtn = document.getElementById('clear-cart');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-quran"></i>
+                        <p>No reciters booked yet</p>
+                        <p style="font-size: 14px; margin-top: 10px;">Select reciters and add quantity to book</p>
+                    </div>
+                `;
+                cartTotal.style.display = 'none';
+                checkoutBtn.disabled = true;
+                clearCartBtn.style.display = 'none';
+            } else {
+                let itemsHtml = '';
+                let totalQty = 0;
+                
+                cart.forEach(item => {
+                    totalQty += item.qty;
+                    itemsHtml += `
+                        <div class="cart-item">
+                            <div class="cart-item-avatar ${item.gender === 'male' ? 'male' : 'female'}" 
+                                 style="background: ${item.gender === 'male' ? 'var(--gradient-3)' : 'var(--gradient-2)'}">
+                                <i class="fas ${item.gender === 'male' ? 'fa-user' : 'fa-user-circle'}"></i>
+                            </div>
+                            <div class="cart-item-details">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> ${item.city}</span>
+                                    <span class="cart-item-qty">${item.qty} Quran</span>
+                                </div>
+                            </div>
+                            <button class="cart-item-remove" onclick="updateCartItem(${item.id}, 0)">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+                
+                cartItems.innerHTML = itemsHtml;
+                cartTotal.style.display = 'flex';
+                totalQtySpan.textContent = totalQty;
+                checkoutBtn.disabled = false;
+                clearCartBtn.style.display = 'block';
+                
+                // Update modal total
+                document.getElementById('modal-total').textContent = `${totalQty} Quran Khwani`;
+            }
+        }
+        
+        // Filter functionality
+        document.getElementById('apply-filters').addEventListener('click', function() {
+            const gender = document.getElementById('gender-filter').value;
+            const city = document.getElementById('city-filter').value;
+            const availability = document.getElementById('availability-filter').value;
+            const rating = parseFloat(document.getElementById('rating-filter').value);
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            let filtered = reciters;
+            
+            if (gender !== 'all') {
+                filtered = filtered.filter(r => r.gender === gender);
+            }
+            
+            if (city !== 'all') {
+                filtered = filtered.filter(r => r.city.toLowerCase() === city.toLowerCase());
+            }
+            
+            if (availability !== 'all') {
+                if (availability === 'ramzan') {
+                    filtered = filtered.filter(r => r.availability === 'Ramzan Only' || r.availability === 'Both');
+                } else if (availability === 'year') {
+                    filtered = filtered.filter(r => r.availability === 'Full Year' || r.availability === 'Both');
+                } else if (availability === 'both') {
+                    filtered = filtered.filter(r => r.availability === 'Both');
+                }
+            }
+            
+            if (rating > 0) {
+                filtered = filtered.filter(r => parseFloat(r.rating) >= rating);
+            }
+            
+            if (searchTerm) {
+                filtered = filtered.filter(r => 
+                    r.name.toLowerCase().includes(searchTerm) ||
+                    r.city.toLowerCase().includes(searchTerm) ||
+                    r.area.toLowerCase().includes(searchTerm) ||
+                    r.mosque.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            renderTable(filtered);
+        });
+        
+        document.getElementById('reset-filters').addEventListener('click', function() {
+            document.getElementById('gender-filter').value = 'all';
+            document.getElementById('city-filter').value = 'all';
+            document.getElementById('availability-filter').value = 'all';
+            document.getElementById('rating-filter').value = '0';
+            document.getElementById('search-input').value = '';
+            renderTable(reciters);
+        });
+        
+        // Search with debounce
+        let searchTimeout;
+        document.getElementById('search-input').addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                document.getElementById('apply-filters').click();
+            }, 500);
+        });
+        
+        // Checkout
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            if (cart.length > 0) {
+                document.getElementById('booking-modal').classList.add('active');
+            }
+        });
+        
+        // Clear cart
+        document.getElementById('clear-cart').addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear all bookings?')) {
+                cart = [];
+                updateCartDisplay();
+                renderTable();
+            }
+        });
+        
+        // Modal close
+        document.querySelectorAll('.close-modal').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+            });
+        });
+        
+        // Close modal on outside click
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+        
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+        
+        // Mobile footer actions
+        document.getElementById('mobile-whatsapp').addEventListener('click', function() {
+            window.open('https://wa.me/918879952676?text=Hi,%20I%20need%20information%20about%20Quran%20Khwani%20bookings', '_blank');
+        });
+        
+        document.getElementById('mobile-call').addEventListener('click', function() {
+            window.location.href = 'tel:+918879952676';
+        });
+        
+        document.getElementById('mobile-invite').addEventListener('click', function() {
+            const url = window.location.href;
+            const text = "Check out Shias.in for Quran Khwani bookings for Isaal-e-Sawab of your marhoomeen!";
+            const shareUrl = `https://wa.me/?text=${encodeURIComponent(text + " " + url)}`;
+            window.open(shareUrl, '_blank');
+        });
+        
+        // Booking form submit
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your booking! You will receive a confirmation on WhatsApp within 30 minutes.');
+            cart = [];
+            updateCartDisplay();
+            renderTable();
+            document.getElementById('booking-modal').classList.remove('active');
+        });
+        
+        // Initialize table
+        renderTable();
+        
+        // Smooth scroll for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                document.querySelector('nav').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
