@@ -431,6 +431,98 @@
             background: #a5b9cf;
         }
 
+        /* Welcome Popup Styles */
+        .welcome-popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #0e2a38 0%, #1b4053 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 60px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            max-width: 90%;
+            width: auto;
+            animation: slideDown 0.5s ease-out, fadeOut 0.5s ease-in 4.5s forwards;
+            border: 2px solid #ffb05c;
+        }
+
+        @keyframes slideDown {
+            from {
+                top: -100px;
+                opacity: 0;
+            }
+            to {
+                top: 20px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.9);
+                display: none;
+            }
+        }
+
+        .welcome-popup i {
+            font-size: 2.5rem;
+            color: #ffb05c;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .welcome-popup-content {
+            flex: 1;
+        }
+
+        .welcome-popup h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: #ffb05c;
+        }
+
+        .welcome-popup p {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .welcome-popup-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .welcome-popup-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
         @media (max-width: 850px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -451,15 +543,36 @@
                 padding: 12px 20px;
                 font-size: 1rem;
             }
+            .welcome-popup {
+                padding: 15px 20px;
+                top: 10px;
+            }
+            .welcome-popup h3 {
+                font-size: 1.1rem;
+            }
+            .welcome-popup p {
+                font-size: 0.9rem;
+            }
         }
         @media (max-width: 550px) {
             .app-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
+            .welcome-popup {
+                flex-direction: column;
+                text-align: center;
+                border-radius: 30px;
+                padding: 15px;
+            }
         }
 
+        /* A3 Print Styles */
         @media print {
+            @page {
+                size: A3 landscape;
+                margin: 1cm;
+            }
             body * { visibility: hidden; }
             .cv-preview, .cv-preview * {
                 visibility: visible;
@@ -469,9 +582,11 @@
                 left: 0;
                 top: 0;
                 width: 100%;
-                padding: 1.8cm;
+                max-width: 100%;
+                padding: 2cm;
                 box-shadow: none;
                 border: none;
+                transform: scale(1);
             }
         }
 
@@ -504,13 +619,45 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* A3 size indicator */
+        .size-badge {
+            background: #ffb05c;
+            color: #0e2a38;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 10px;
+        }
+        .size-badge i {
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
 <div class="cv-app">
     <div class="app-header">
-        <h1><i class="fa-solid fa-hands-helping"></i> CV maker · Shia community</h1>
+        <h1>
+            <i class="fa-solid fa-hands-helping"></i> CV maker · Shia community
+            <span class="size-badge"><i class="fa-regular fa-file"></i> A3 Ready</span>
+        </h1>
         <div class="header-badge"><i class="fa-regular fa-circle-check"></i> Rahil Abbas Rizvi (demo)</div>
+    </div>
+
+    <!-- Welcome Popup -->
+    <div class="welcome-popup" id="welcomePopup">
+        <i class="fa-solid fa-heart"></i>
+        <div class="welcome-popup-content">
+            <h3>✨ Free for Shia Community ✨</h3>
+            <p>No login required · No data stored · 100% private · A3 format ready for all devices</p>
+        </div>
+        <button class="welcome-popup-close" onclick="closeWelcomePopup()">
+            <i class="fa-solid fa-times"></i>
+        </button>
     </div>
 
     <div class="panel-toggle" id="toggleLeftBtn">
@@ -654,32 +801,33 @@
 <!-- floating action buttons -->
 <div class="action-floating">
     <button class="action-btn" onclick="openExportModal()"><i class="fa-regular fa-download"></i> Export</button>
-    <button class="action-btn print" onclick="window.print()"><i class="fa-regular fa-print"></i> Print canvas</button>
-    <button class="action-btn pdf" onclick="exportAsPDF()"><i class="fa-regular fa-file-pdf"></i> instant PDF</button>
+    <button class="action-btn print" onclick="window.print()"><i class="fa-regular fa-print"></i> Print A3</button>
+    <button class="action-btn pdf" onclick="exportAsPDF()"><i class="fa-regular fa-file-pdf"></i> PDF A3</button>
 </div>
 
 <!-- export modal -->
 <div class="modal" id="exportModal">
     <div class="modal-card">
-        <h2 style="margin-bottom:20px;">Export as</h2>
+        <h2 style="margin-bottom:20px;">Export as A3 Format</h2>
+        <p style="margin-bottom:20px; color:#666;"><i class="fa-regular fa-file"></i> Optimized for A3 paper size (works on all devices)</p>
         <div class="export-opt" id="pdfExportBtn">
             <i class="fa-regular fa-file-pdf" style="color:#b13e3e;"></i> 
-            <span>PDF (high quality)</span>
+            <span>PDF (A3)</span>
         </div>
         <div class="export-opt" id="docxExportBtn">
             <i class="fa-regular fa-file-word" style="color:#0e2a38;"></i> 
-            <span>DOCX (Word)</span>
+            <span>DOCX (A3)</span>
         </div>
         <div class="export-opt" id="htmlExportBtn">
             <i class="fa-regular fa-file-code" style="color:#d97706;"></i> 
-            <span>HTML (web page)</span>
+            <span>HTML (A3)</span>
         </div>
         <button class="cancel-btn" onclick="closeModal()">Cancel</button>
     </div>
 </div>
 
 <script>
-    // ===== GLOBAL VARIABLES - Make sure everything is in global scope =====
+    // ===== GLOBAL VARIABLES =====
     let cvData = {
         personal: {
             name: "Rahil Abbas Rizvi",
@@ -717,6 +865,23 @@
         design: { template: "modern", color: "#0e2a38" },
         sections: { summary: true, skills: true, experience: true, education: true, projects: true, certifications: true, languages: true, custom: true }
     };
+
+    // ===== WELCOME POPUP FUNCTION =====
+    function closeWelcomePopup() {
+        const popup = document.getElementById('welcomePopup');
+        popup.style.animation = 'fadeOut 0.3s ease-in forwards';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 300);
+    }
+
+    // Auto close popup after 5 seconds
+    setTimeout(() => {
+        const popup = document.getElementById('welcomePopup');
+        if (popup.style.display !== 'none') {
+            closeWelcomePopup();
+        }
+    }, 5000);
 
     // ===== HELPER FUNCTIONS =====
     function showLoading(message) {
@@ -1116,15 +1281,14 @@
         document.getElementById('exportModal').classList.remove('active');
     }
 
-    // ===== PDF EXPORT - COMPLETELY REWRITTEN TO WORK =====
+    // ===== PDF EXPORT - A3 FORMAT =====
     function exportAsPDF() {
         closeModal();
-        showLoading('Generating PDF...');
+        showLoading('Generating A3 PDF...');
         
         const element = document.getElementById('cvPreview');
         const originalHTML = element.innerHTML;
         
-        // Use html2canvas + jsPDF directly (more reliable)
         html2canvas(element, {
             scale: 2,
             backgroundColor: '#ffffff',
@@ -1134,34 +1298,26 @@
         }).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
             const { jsPDF } = window.jspdf;
+            
+            // A3 dimensions in mm: 420mm x 297mm (landscape)
             const pdf = new jsPDF({
-                orientation: 'portrait',
-                unit: 'px',
-                format: 'a4'
+                orientation: 'landscape',
+                unit: 'mm',
+                format: 'a3'
             });
             
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
-            const canvasWidth = canvas.width;
-            const canvasHeight = canvas.height;
             
-            // Calculate ratio to fit in PDF
-            const ratio = Math.min(pdfWidth / canvasWidth, pdfHeight / canvasHeight);
-            const width = canvasWidth * ratio;
-            const height = canvasHeight * ratio;
-            
-            // Center on page
-            const xOffset = (pdfWidth - width) / 2;
-            const yOffset = (pdfHeight - height) / 2;
-            
-            pdf.addImage(imgData, 'PNG', xOffset, yOffset, width, height);
-            pdf.save('Rahil_Abbas_Rizvi_CV.pdf');
+            // Add image to fit A3
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+            pdf.save('Rahil_Abbas_Rizvi_CV_A3.pdf');
             hideLoading();
             element.innerHTML = originalHTML;
         }).catch(error => {
             console.error('PDF error:', error);
             hideLoading();
-            alert('PDF generation failed. Trying fallback method...');
+            alert('PDF generation failed. Using fallback method...');
             fallbackPrintPDF();
             element.innerHTML = originalHTML;
         });
@@ -1180,31 +1336,40 @@
             <!DOCTYPE html>
             <html>
                 <head>
-                    <title>Rahil Abbas Rizvi - CV</title>
+                    <title>Rahil Abbas Rizvi - CV (A3)</title>
                     <meta charset="UTF-8">
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
                     <style>
                         ${styleText}
                         body {
                             background: white;
-                            padding: 20px;
+                            padding: 0;
                             margin: 0;
                             font-family: 'Inter', sans-serif;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            min-height: 100vh;
                         }
                         .cv-preview {
-                            max-width: 210mm;
-                            margin: 0 auto;
+                            max-width: 420mm;
+                            max-height: 297mm;
+                            width: 100%;
+                            height: 100%;
+                            margin: 0;
                             box-shadow: none;
                             border: none;
                             padding: 20mm;
+                            box-sizing: border-box;
                         }
                         @media print {
                             @page {
-                                size: A4;
+                                size: A3 landscape;
                                 margin: 0;
                             }
                             body {
                                 padding: 0;
+                                margin: 0;
                             }
                         }
                     </style>
@@ -1227,33 +1392,32 @@
         printWindow.document.close();
     }
 
-    // ===== DOCX EXPORT - COMPLETELY REWRITTEN TO WORK =====
+    // ===== DOCX EXPORT - A3 OPTIMIZED =====
     function downloadDOCX() {
         closeModal();
-        showLoading('Preparing Word document...');
+        showLoading('Preparing A3 Word document...');
         
         const preview = document.getElementById('cvPreview').cloneNode(true);
         preview.classList.add('template-' + cvData.design.template);
         
-        // Get all styles
         const styles = document.querySelectorAll('style');
         let styleText = '';
         styles.forEach(s => styleText += s.innerHTML);
         
-        // Create Word-compatible HTML with proper structure
         const content = `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Rahil Abbas Rizvi - CV</title>
+    <title>Rahil Abbas Rizvi - CV (A3)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         ${styleText}
         body {
             font-family: 'Inter', sans-serif;
-            padding: 1in;
+            padding: 2cm;
             background: white;
             margin: 0;
+            size: A3 landscape;
         }
         .cv-preview {
             max-width: 100%;
@@ -1276,6 +1440,10 @@
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
+        @page {
+            size: A3 landscape;
+            margin: 2cm;
+        }
     </style>
 </head>
 <body>
@@ -1283,13 +1451,10 @@
 </body>
 </html>`;
         
-        // Use proper MIME type for Word
         const blob = new Blob([content], { type: 'application/msword' });
-        
-        // Use download attribute
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'Rahil_Abbas_Rizvi_CV.doc';
+        link.download = 'Rahil_Abbas_Rizvi_CV_A3.doc';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -1298,26 +1463,24 @@
         hideLoading();
     }
 
-    // ===== HTML EXPORT =====
+    // ===== HTML EXPORT - A3 OPTIMIZED =====
     function downloadHTML() {
         closeModal();
-        showLoading('Preparing HTML file...');
+        showLoading('Preparing A3 HTML file...');
         
         const preview = document.getElementById('cvPreview').cloneNode(true);
         preview.classList.add('template-' + cvData.design.template);
         
-        // Get all styles
         const styles = document.querySelectorAll('style');
         let styleText = '';
         styles.forEach(s => styleText += s.innerHTML);
         
-        // Create complete HTML file
         const content = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahil Abbas Rizvi - CV</title>
+    <title>Rahil Abbas Rizvi - CV (A3)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -1330,12 +1493,18 @@
             font-family: 'Inter', sans-serif;
         }
         .cv-preview {
-            max-width: 900px;
+            max-width: 420mm;
             margin: 0 auto;
             background: white;
             padding: 40px 45px;
             border-radius: 32px;
             box-shadow: 0 20px 35px -8px rgba(0,35,60,0.15);
+        }
+        @media print {
+            @page {
+                size: A3 landscape;
+                margin: 2cm;
+            }
         }
     </style>
 </head>
@@ -1347,7 +1516,7 @@
         const blob = new Blob([content], { type: 'text/html' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'Rahil_Abbas_Rizvi_CV.html';
+        link.download = 'Rahil_Abbas_Rizvi_CV_A3.html';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -1389,7 +1558,7 @@
             }
         });
 
-        // Export buttons - make sure they're properly attached
+        // Export buttons
         document.getElementById('pdfExportBtn').addEventListener('click', exportAsPDF);
         document.getElementById('docxExportBtn').addEventListener('click', downloadDOCX);
         document.getElementById('htmlExportBtn').addEventListener('click', downloadHTML);
@@ -1400,9 +1569,6 @@
                 closeModal();
             }
         });
-
-        // Also attach direct PDF button
-        document.querySelector('.action-btn.pdf').addEventListener('click', exportAsPDF);
     }
 
     // Make all functions globally accessible
@@ -1437,6 +1603,7 @@
     window.downloadDOCX = downloadDOCX;
     window.downloadHTML = downloadHTML;
     window.fallbackPrintPDF = fallbackPrintPDF;
+    window.closeWelcomePopup = closeWelcomePopup;
 
     // Start everything when page loads
     document.addEventListener('DOMContentLoaded', init);
