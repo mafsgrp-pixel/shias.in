@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
     <title>CV maker · Shia community · FREE for job seekers</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- Libraries for export -->
+    <!-- Libraries for export - CORRECT VERSIONS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -431,7 +432,7 @@
             background: #a5b9cf;
         }
 
-        /* Mini popup styles */
+        /* Mini popup styles - 60 second display */
         .mini-popup {
             position: fixed;
             top: 20px;
@@ -447,7 +448,7 @@
             align-items: center;
             gap: 15px;
             font-weight: 500;
-            animation: slideDown 0.5s ease, fadeOut 0.5s ease 4.5s forwards;
+            animation: slideDown 0.5s ease;
             max-width: 90%;
             border: 2px solid #ffb05c;
         }
@@ -476,12 +477,6 @@
             to {
                 top: 20px;
                 opacity: 1;
-            }
-        }
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                visibility: hidden;
             }
         }
 
@@ -572,7 +567,7 @@
         <div class="header-badge"><i class="fa-regular fa-circle-check"></i> Rahil Abbas Rizvi (demo)</div>
     </div>
 
-    <!-- Mini Popup - Shows on load -->
+    <!-- Mini Popup - Shows on load for 60 seconds -->
     <div class="mini-popup" id="welcomePopup">
         <i class="fa-solid fa-heart"></i>
         <span>✨ Free for Shia community job seekers · No login · No data storage ✨</span>
@@ -784,21 +779,18 @@
         sections: { summary: true, skills: true, experience: true, education: true, projects: true, certifications: true, languages: true, custom: true }
     };
 
-    // ===== POPUP FUNCTION =====
+    // ===== POPUP FUNCTION - 60 SECONDS =====
     function closePopup() {
         document.getElementById('welcomePopup').style.display = 'none';
     }
 
-    // Auto-hide popup after 5 seconds
+    // Popup stays for 60 seconds (60000ms)
     setTimeout(() => {
         const popup = document.getElementById('welcomePopup');
         if (popup) {
-            popup.style.animation = 'slideDown 0.5s ease, fadeOut 0.5s ease 4.5s forwards';
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 5000);
+            popup.style.display = 'none';
         }
-    }, 100);
+    }, 60000); // 60 seconds
 
     // ===== HELPER FUNCTIONS =====
     function showLoading(message) {
@@ -1198,55 +1190,88 @@
         document.getElementById('exportModal').classList.remove('active');
     }
 
-    // ===== PDF EXPORT - GUARANTEED A4 =====
+    // ===== PDF EXPORT - FIXED AND GUARANTEED TO WORK =====
     function exportAsPDF() {
         closeModal();
         showLoading('Generating A4 PDF...');
         
         const element = document.getElementById('cvPreview');
-        const originalHTML = element.innerHTML;
         
-        // Create a clone with A4 dimensions
-        const clone = element.cloneNode(true);
-        clone.style.width = '210mm';
-        clone.style.minHeight = '297mm';
-        clone.style.padding = '15mm';
-        clone.style.margin = '0';
-        clone.style.boxSizing = 'border-box';
-        
-        // Use html2canvas with A4 dimensions
-        html2canvas(clone, {
-            scale: 2,
-            backgroundColor: '#ffffff',
-            logging: false,
-            allowTaint: false,
-            useCORS: true,
-            windowWidth: 794, // A4 width in pixels at 96 DPI
-            windowHeight: 1123 // A4 height in pixels
-        }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const { jsPDF } = window.jspdf;
-            
-            // Create PDF with exact A4 dimensions
-            const pdf = new jsPDF({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4'
-            });
-            
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-            
-            // Add image to fit A4 exactly
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
-            pdf.save('Rahil_Abbas_Rizvi_CV_A4.pdf');
-            hideLoading();
-        }).catch(error => {
-            console.error('PDF error:', error);
-            hideLoading();
-            alert('PDF generation failed. Using fallback A4 print method...');
-            fallbackPrintPDF();
-        });
+        // Use a timeout to ensure DOM is ready
+        setTimeout(() => {
+            try {
+                // Create a clone with proper styling
+                const clone = element.cloneNode(true);
+                clone.style.width = '210mm';
+                clone.style.minHeight = '297mm';
+                clone.style.padding = '15mm';
+                clone.style.margin = '0 auto';
+                clone.style.backgroundColor = 'white';
+                clone.style.boxSizing = 'border-box';
+                
+                // Temporarily append to body for proper rendering
+                const container = document.createElement('div');
+                container.style.position = 'absolute';
+                container.style.left = '-9999px';
+                container.style.top = '0';
+                container.style.width = '210mm';
+                container.style.backgroundColor = 'white';
+                container.appendChild(clone);
+                document.body.appendChild(container);
+                
+                // Use html2canvas with specific settings
+                html2canvas(clone, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    allowTaint: true,
+                    useCORS: true,
+                    windowWidth: 794,
+                    windowHeight: 1123,
+                    onclone: function(clonedDoc) {
+                        // Ensure all styles are applied
+                        const styleElements = document.querySelectorAll('style');
+                        styleElements.forEach(style => {
+                            const newStyle = clonedDoc.createElement('style');
+                            newStyle.textContent = style.textContent;
+                            clonedDoc.head.appendChild(newStyle);
+                        });
+                    }
+                }).then(canvas => {
+                    // Remove the temporary container
+                    document.body.removeChild(container);
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const { jsPDF } = window.jspdf;
+                    
+                    // Create PDF with exact A4 dimensions
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
+                    
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+                    
+                    // Add image to fit A4 exactly
+                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+                    pdf.save('Rahil_Abbas_Rizvi_CV_A4.pdf');
+                    hideLoading();
+                }).catch(error => {
+                    console.error('PDF error:', error);
+                    document.body.removeChild(container);
+                    hideLoading();
+                    alert('PDF generation failed. Using fallback A4 print method...');
+                    fallbackPrintPDF();
+                });
+            } catch (error) {
+                console.error('PDF error:', error);
+                hideLoading();
+                alert('PDF generation failed. Using fallback A4 print method...');
+                fallbackPrintPDF();
+            }
+        }, 500);
     }
 
     function fallbackPrintPDF() {
@@ -1265,6 +1290,7 @@
                     <title>Rahil Abbas Rizvi - CV (A4)</title>
                     <meta charset="UTF-8">
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
                     <style>
                         ${styleText}
                         body {
@@ -1285,6 +1311,7 @@
                             box-shadow: none !important;
                             border: none !important;
                             box-sizing: border-box !important;
+                            background: white !important;
                         }
                         @media print {
                             @page {
@@ -1307,7 +1334,7 @@
                                 setTimeout(function() {
                                     window.close();
                                 }, 2000);
-                            }, 500);
+                            }, 1000);
                         }
                     <\/script>
                 </body>
@@ -1321,21 +1348,23 @@
         closeModal();
         showLoading('Preparing A4 Word document...');
         
-        const preview = document.getElementById('cvPreview').cloneNode(true);
-        preview.classList.add('template-' + cvData.design.template);
-        
-        // Get all styles
-        const styles = document.querySelectorAll('style');
-        let styleText = '';
-        styles.forEach(s => styleText += s.innerHTML);
-        
-        // Create Word-compatible HTML with A4 sizing
-        const content = `<!DOCTYPE html>
+        setTimeout(() => {
+            const preview = document.getElementById('cvPreview').cloneNode(true);
+            preview.classList.add('template-' + cvData.design.template);
+            
+            // Get all styles
+            const styles = document.querySelectorAll('style');
+            let styleText = '';
+            styles.forEach(s => styleText += s.innerHTML);
+            
+            // Create Word-compatible HTML with A4 sizing
+            const content = `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Rahil Abbas Rizvi - CV (A4)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         ${styleText}
         body {
@@ -1356,18 +1385,7 @@
             box-sizing: border-box !important;
             background: white !important;
         }
-        .cv-contact {
-            background: #edf4fa !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        .skill-item {
-            background: #e9f0f8 !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        .exp-company {
-            background: #dde9f5 !important;
+        .cv-contact, .skill-item, .exp-company {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
@@ -1381,17 +1399,18 @@
     ${preview.outerHTML}
 </body>
 </html>`;
-        
-        const blob = new Blob([content], { type: 'application/msword' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'Rahil_Abbas_Rizvi_CV_A4.doc';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => URL.revokeObjectURL(link.href), 100);
-        
-        hideLoading();
+            
+            const blob = new Blob([content], { type: 'application/msword' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Rahil_Abbas_Rizvi_CV_A4.doc';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(link.href), 100);
+            
+            hideLoading();
+        }, 500);
     }
 
     // ===== HTML EXPORT - A4 READY =====
@@ -1399,16 +1418,17 @@
         closeModal();
         showLoading('Preparing A4 HTML file...');
         
-        const preview = document.getElementById('cvPreview').cloneNode(true);
-        preview.classList.add('template-' + cvData.design.template);
-        
-        // Get all styles
-        const styles = document.querySelectorAll('style');
-        let styleText = '';
-        styles.forEach(s => styleText += s.innerHTML);
-        
-        // Create complete HTML file with A4 print settings
-        const content = `<!DOCTYPE html>
+        setTimeout(() => {
+            const preview = document.getElementById('cvPreview').cloneNode(true);
+            preview.classList.add('template-' + cvData.design.template);
+            
+            // Get all styles
+            const styles = document.querySelectorAll('style');
+            let styleText = '';
+            styles.forEach(s => styleText += s.innerHTML);
+            
+            // Create complete HTML file with A4 print settings
+            const content = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1454,17 +1474,18 @@
     ${preview.outerHTML}
 </body>
 </html>`;
-        
-        const blob = new Blob([content], { type: 'text/html' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'Rahil_Abbas_Rizvi_CV_A4.html';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => URL.revokeObjectURL(link.href), 100);
-        
-        hideLoading();
+            
+            const blob = new Blob([content], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Rahil_Abbas_Rizvi_CV_A4.html';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(link.href), 100);
+            
+            hideLoading();
+        }, 500);
     }
 
     // ===== INIT =====
