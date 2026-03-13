@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CV maker · Shia community · WORKING EXPORTS</title>
+    <title>CV maker · Shia community · FREE for job seekers</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- CRITICAL: Load libraries in correct order with fallbacks -->
+    <!-- Libraries for export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -431,8 +431,8 @@
             background: #a5b9cf;
         }
 
-        /* Mini popup notification */
-        .community-popup {
+        /* Mini popup styles */
+        .mini-popup {
             position: fixed;
             top: 20px;
             left: 50%;
@@ -445,41 +445,28 @@
             z-index: 3000;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             font-weight: 500;
-            animation: slideDown 0.5s ease-out, fadeOut 0.5s ease-in 4.5s forwards;
+            animation: slideDown 0.5s ease, fadeOut 0.5s ease 4.5s forwards;
             max-width: 90%;
             border: 2px solid #ffb05c;
         }
-        .community-popup i {
+        .mini-popup i {
             color: #ffb05c;
             font-size: 1.5rem;
         }
-        .community-popup .popup-content {
-            flex: 1;
-        }
-        .community-popup .popup-title {
-            font-weight: 700;
-            margin-bottom: 4px;
-            font-size: 1.1rem;
-        }
-        .community-popup .popup-text {
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-        .community-popup .close-popup {
+        .mini-popup-close {
             background: none;
             border: none;
             color: white;
             font-size: 1.2rem;
             cursor: pointer;
-            padding: 5px 10px;
+            padding: 5px;
+            margin-left: 10px;
             opacity: 0.8;
-            transition: 0.2s;
         }
-        .community-popup .close-popup:hover {
+        .mini-popup-close:hover {
             opacity: 1;
-            transform: scale(1.1);
         }
         @keyframes slideDown {
             from {
@@ -492,46 +479,10 @@
             }
         }
         @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
             to {
                 opacity: 0;
                 visibility: hidden;
             }
-        }
-
-        /* A4 sizing for print/exports - works on all devices */
-        @media print {
-            @page {
-                size: A4;
-                margin: 1.5cm;
-            }
-            body * {
-                visibility: hidden;
-            }
-            .cv-preview, .cv-preview * {
-                visibility: visible;
-            }
-            .cv-preview {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                padding: 0;
-                box-shadow: none;
-                border: none;
-                max-width: 100%;
-            }
-        }
-
-        /* A4 preview for exports - responsive across devices */
-        .a4-export {
-            width: 210mm;
-            min-height: 297mm;
-            margin: 0 auto;
-            background: white;
-            padding: 20mm;
         }
 
         .loading-overlay {
@@ -564,6 +515,27 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* A4 size guarantee for all exports */
+        @media print {
+            body * { visibility: hidden; }
+            .cv-preview, .cv-preview * {
+                visibility: visible;
+            }
+            .cv-preview {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 210mm !important;
+                min-height: 297mm !important;
+                padding: 15mm !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                border: none !important;
+                border-radius: 0 !important;
+                background: white !important;
+            }
+        }
+
         @media (max-width: 850px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -584,21 +556,11 @@
                 padding: 12px 20px;
                 font-size: 1rem;
             }
-            .community-popup {
-                top: 10px;
-                padding: 12px 20px;
-                font-size: 0.9rem;
-            }
         }
         @media (max-width: 550px) {
             .app-header {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-            .community-popup {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
             }
         }
     </style>
@@ -610,14 +572,11 @@
         <div class="header-badge"><i class="fa-regular fa-circle-check"></i> Rahil Abbas Rizvi (demo)</div>
     </div>
 
-    <!-- Mini popup notification -->
-    <div class="community-popup" id="communityPopup">
+    <!-- Mini Popup - Shows on load -->
+    <div class="mini-popup" id="welcomePopup">
         <i class="fa-solid fa-heart"></i>
-        <div class="popup-content">
-            <div class="popup-title">Free for Shia Community Job Seekers</div>
-            <div class="popup-text">✓ No login required ✓ We don't store your data ✓ A4 optimized for all devices</div>
-        </div>
-        <button class="close-popup" onclick="document.getElementById('communityPopup').remove()">✕</button>
+        <span>✨ Free for Shia community job seekers · No login · No data storage ✨</span>
+        <button class="mini-popup-close" onclick="closePopup()"><i class="fa-solid fa-times"></i></button>
     </div>
 
     <div class="panel-toggle" id="toggleLeftBtn">
@@ -768,25 +727,25 @@
 <!-- export modal -->
 <div class="modal" id="exportModal">
     <div class="modal-card">
-        <h2 style="margin-bottom:20px;">Export as</h2>
+        <h2 style="margin-bottom:20px;">Export as (A4 guaranteed)</h2>
         <div class="export-opt" id="pdfExportBtn">
             <i class="fa-regular fa-file-pdf" style="color:#b13e3e;"></i> 
-            <span>PDF (A4 - high quality)</span>
+            <span>PDF - A4 size</span>
         </div>
         <div class="export-opt" id="docxExportBtn">
             <i class="fa-regular fa-file-word" style="color:#0e2a38;"></i> 
-            <span>DOCX (A4 - Word)</span>
+            <span>DOCX - A4 size</span>
         </div>
         <div class="export-opt" id="htmlExportBtn">
             <i class="fa-regular fa-file-code" style="color:#d97706;"></i> 
-            <span>HTML (A4 - web page)</span>
+            <span>HTML - A4 ready</span>
         </div>
         <button class="cancel-btn" onclick="closeModal()">Cancel</button>
     </div>
 </div>
 
 <script>
-    // ===== GLOBAL VARIABLES - Make sure everything is in global scope =====
+    // ===== GLOBAL VARIABLES =====
     let cvData = {
         personal: {
             name: "Rahil Abbas Rizvi",
@@ -824,6 +783,22 @@
         design: { template: "modern", color: "#0e2a38" },
         sections: { summary: true, skills: true, experience: true, education: true, projects: true, certifications: true, languages: true, custom: true }
     };
+
+    // ===== POPUP FUNCTION =====
+    function closePopup() {
+        document.getElementById('welcomePopup').style.display = 'none';
+    }
+
+    // Auto-hide popup after 5 seconds
+    setTimeout(() => {
+        const popup = document.getElementById('welcomePopup');
+        if (popup) {
+            popup.style.animation = 'slideDown 0.5s ease, fadeOut 0.5s ease 4.5s forwards';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 5000);
+        }
+    }, 100);
 
     // ===== HELPER FUNCTIONS =====
     function showLoading(message) {
@@ -1223,7 +1198,7 @@
         document.getElementById('exportModal').classList.remove('active');
     }
 
-    // ===== PDF EXPORT - A4 optimized for all devices =====
+    // ===== PDF EXPORT - GUARANTEED A4 =====
     function exportAsPDF() {
         closeModal();
         showLoading('Generating A4 PDF...');
@@ -1231,20 +1206,28 @@
         const element = document.getElementById('cvPreview');
         const originalHTML = element.innerHTML;
         
-        // Use html2canvas + jsPDF directly with A4 sizing
-        html2canvas(element, {
+        // Create a clone with A4 dimensions
+        const clone = element.cloneNode(true);
+        clone.style.width = '210mm';
+        clone.style.minHeight = '297mm';
+        clone.style.padding = '15mm';
+        clone.style.margin = '0';
+        clone.style.boxSizing = 'border-box';
+        
+        // Use html2canvas with A4 dimensions
+        html2canvas(clone, {
             scale: 2,
             backgroundColor: '#ffffff',
             logging: false,
             allowTaint: false,
             useCORS: true,
-            windowWidth: element.scrollWidth,
-            windowHeight: element.scrollHeight
+            windowWidth: 794, // A4 width in pixels at 96 DPI
+            windowHeight: 1123 // A4 height in pixels
         }).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
             const { jsPDF } = window.jspdf;
             
-            // Create A4 PDF (portrait)
+            // Create PDF with exact A4 dimensions
             const pdf = new jsPDF({
                 orientation: 'portrait',
                 unit: 'mm',
@@ -1254,27 +1237,15 @@
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
             
-            // Calculate dimensions to fit A4 properly
-            const imgWidth = canvas.width;
-            const imgHeight = canvas.height;
-            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-            const width = imgWidth * ratio;
-            const height = imgHeight * ratio;
-            
-            // Center on page
-            const xOffset = (pdfWidth - width) / 2;
-            const yOffset = (pdfHeight - height) / 2;
-            
-            pdf.addImage(imgData, 'PNG', xOffset, yOffset, width, height);
+            // Add image to fit A4 exactly
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
             pdf.save('Rahil_Abbas_Rizvi_CV_A4.pdf');
             hideLoading();
-            element.innerHTML = originalHTML;
         }).catch(error => {
             console.error('PDF error:', error);
             hideLoading();
-            alert('PDF generation failed. Using print method for A4...');
+            alert('PDF generation failed. Using fallback A4 print method...');
             fallbackPrintPDF();
-            element.innerHTML = originalHTML;
         });
     }
 
@@ -1293,14 +1264,9 @@
                 <head>
                     <title>Rahil Abbas Rizvi - CV (A4)</title>
                     <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
                     <style>
                         ${styleText}
-                        @page {
-                            size: A4;
-                            margin: 15mm;
-                        }
                         body {
                             background: white;
                             margin: 0;
@@ -1312,16 +1278,22 @@
                             min-height: 100vh;
                         }
                         .cv-preview {
-                            max-width: 190mm;
-                            margin: 0 auto;
-                            box-shadow: none;
-                            border: none;
-                            padding: 10mm;
-                            background: white;
+                            width: 210mm !important;
+                            min-height: 297mm !important;
+                            padding: 15mm !important;
+                            margin: 0 auto !important;
+                            box-shadow: none !important;
+                            border: none !important;
+                            box-sizing: border-box !important;
                         }
                         @media print {
+                            @page {
+                                size: A4;
+                                margin: 0;
+                            }
                             body {
                                 padding: 0;
+                                margin: 0;
                             }
                         }
                     </style>
@@ -1344,7 +1316,7 @@
         printWindow.document.close();
     }
 
-    // ===== DOCX EXPORT - A4 optimized =====
+    // ===== DOCX EXPORT - A4 FORMATTED =====
     function downloadDOCX() {
         closeModal();
         showLoading('Preparing A4 Word document...');
@@ -1366,25 +1338,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         ${styleText}
-        @page {
-            size: A4;
-            margin: 2cm;
-        }
         body {
             font-family: 'Inter', sans-serif;
             background: white;
             margin: 0;
-            padding: 20mm;
+            padding: 0;
+            display: flex;
+            justify-content: center;
         }
         .cv-preview {
-            max-width: 100%;
-            box-shadow: none;
-            border: none;
-            padding: 0;
+            width: 210mm !important;
+            min-height: 297mm !important;
+            padding: 15mm !important;
+            margin: 0 auto !important;
+            box-shadow: none !important;
+            border: none !important;
+            box-sizing: border-box !important;
+            background: white !important;
         }
-        .cv-contact, .skill-item, .exp-company {
+        .cv-contact {
+            background: #edf4fa !important;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+        }
+        .skill-item {
+            background: #e9f0f8 !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .exp-company {
+            background: #dde9f5 !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        @page {
+            size: A4;
+            margin: 0;
         }
     </style>
 </head>
@@ -1393,10 +1382,7 @@
 </body>
 </html>`;
         
-        // Use proper MIME type for Word
         const blob = new Blob([content], { type: 'application/msword' });
-        
-        // Use download attribute
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
         link.download = 'Rahil_Abbas_Rizvi_CV_A4.doc';
@@ -1408,7 +1394,7 @@
         hideLoading();
     }
 
-    // ===== HTML EXPORT - A4 optimized =====
+    // ===== HTML EXPORT - A4 READY =====
     function downloadHTML() {
         closeModal();
         showLoading('Preparing A4 HTML file...');
@@ -1432,10 +1418,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         ${styleText}
-        @page {
-            size: A4;
-            margin: 2cm;
-        }
         body {
             background: #f5f7fa;
             padding: 20px;
@@ -1444,22 +1426,26 @@
             font-family: 'Inter', sans-serif;
         }
         .cv-preview {
-            max-width: 210mm;
-            margin: 0 auto;
-            background: white;
-            padding: 15mm;
-            border-radius: 32px;
+            width: 210mm !important;
+            min-height: 297mm !important;
+            padding: 15mm !important;
+            margin: 0 auto !important;
+            background: white !important;
             box-shadow: 0 20px 35px -8px rgba(0,35,60,0.15);
+            box-sizing: border-box !important;
         }
         @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
             body {
-                background: white;
                 padding: 0;
+                background: white;
             }
             .cv-preview {
                 box-shadow: none;
-                border: none;
-                padding: 0;
+                padding: 15mm;
             }
         }
     </style>
@@ -1494,12 +1480,6 @@
         renderSectionToggles();
         renderPreview();
 
-        // Auto-remove popup after 5 seconds
-        setTimeout(() => {
-            const popup = document.getElementById('communityPopup');
-            if (popup) popup.remove();
-        }, 5000);
-
         // Left panel toggle
         document.getElementById('toggleLeftBtn').addEventListener('click', function() {
             document.getElementById('leftPanel').classList.toggle('collapsed');
@@ -1520,7 +1500,7 @@
             }
         });
 
-        // Export buttons - make sure they're properly attached
+        // Export buttons
         document.getElementById('pdfExportBtn').addEventListener('click', exportAsPDF);
         document.getElementById('docxExportBtn').addEventListener('click', downloadDOCX);
         document.getElementById('htmlExportBtn').addEventListener('click', downloadHTML);
@@ -1531,9 +1511,6 @@
                 closeModal();
             }
         });
-
-        // Also attach direct PDF button
-        document.querySelector('.action-btn.pdf').addEventListener('click', exportAsPDF);
     }
 
     // Make all functions globally accessible
@@ -1567,7 +1544,7 @@
     window.exportAsPDF = exportAsPDF;
     window.downloadDOCX = downloadDOCX;
     window.downloadHTML = downloadHTML;
-    window.fallbackPrintPDF = fallbackPrintPDF;
+    window.closePopup = closePopup;
 
     // Start everything when page loads
     document.addEventListener('DOMContentLoaded', init);
