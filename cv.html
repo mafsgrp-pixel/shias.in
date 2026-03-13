@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CV maker · Shia community · FULLY INTERACTIVE</title>
+    <title>CV maker · Shia community · WORKING EXPORTS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- CRITICAL: Load libraries in correct order with fallbacks -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -404,10 +408,27 @@
             gap: 25px;
             cursor: pointer;
             font-weight: 600;
+            transition: 0.2s;
+        }
+        .export-opt:hover {
+            background: #f0f5fc;
+            border-color: #0e2a38;
         }
         .export-opt i { font-size: 2.4rem; }
         .cancel-btn {
-            background: #c0cfdf; border: none; padding: 14px; width: 100%; border-radius: 60px; font-weight: 700; font-size: 1.2rem; margin-top: 16px; cursor: pointer;
+            background: #c0cfdf; 
+            border: none; 
+            padding: 14px; 
+            width: 100%; 
+            border-radius: 60px; 
+            font-weight: 700; 
+            font-size: 1.2rem; 
+            margin-top: 16px; 
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .cancel-btn:hover {
+            background: #a5b9cf;
         }
 
         @media (max-width: 850px) {
@@ -422,15 +443,19 @@
             .left-panel.collapsed {
                 display: none;
             }
+            .action-floating {
+                bottom: 15px;
+                right: 15px;
+            }
+            .action-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
         }
         @media (max-width: 550px) {
             .app-header {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-            .action-floating {
-                bottom: 15px;
-                right: 15px;
             }
         }
 
@@ -449,6 +474,36 @@
                 border: none;
             }
         }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .loading-overlay.active {
+            display: flex;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #0e2a38;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -463,9 +518,9 @@
     </div>
 
     <div class="dashboard">
-        <!-- LEFT PANEL (FULLY INTERACTIVE) -->
+        <!-- LEFT PANEL -->
         <div class="left-panel" id="leftPanel">
-            <!-- Personal info with LIVE updates -->
+            <!-- Personal info -->
             <div class="card">
                 <h3><i class="fa-regular fa-id-card"></i> Personal</h3>
                 <div class="form-group">
@@ -474,7 +529,7 @@
                 </div>
                 <div class="form-group">
                     <label>Title</label>
-                    <input type="text" id="title" value="Web Analyst / Digital Marketing Trainer" oninput="updatePersonal('title', this.value)">
+                    <input type="text" id="title" value="Web Analyst & Digital Marketing Trainer" oninput="updatePersonal('title', this.value)">
                 </div>
                 <div class="form-group">
                     <label>Email</label>
@@ -498,7 +553,7 @@
                 </div>
             </div>
 
-            <!-- Skills with LIVE add/remove -->
+            <!-- Skills -->
             <div class="card">
                 <h3><i class="fa-regular fa-code"></i> Skills</h3>
                 <div id="skillsList"></div>
@@ -508,7 +563,7 @@
                 </div>
             </div>
 
-            <!-- Experience with LIVE add/remove -->
+            <!-- Experience -->
             <div class="card">
                 <h3><i class="fa-regular fa-briefcase"></i> Experience</h3>
                 <div id="expList"></div>
@@ -553,30 +608,30 @@
                 </div>
             </div>
 
-            <!-- Design (LIVE template/color) -->
+            <!-- Design -->
             <div class="card">
                 <h3><i class="fa-regular fa-palette"></i> Design</h3>
                 <div class="form-group">
                     <label>Template</label>
                     <div class="template-grid" id="templateGrid">
-                        <div class="template-opt active" onclick="setTemplate('modern')">Modern</div>
-                        <div class="template-opt" onclick="setTemplate('classic')">Classic</div>
-                        <div class="template-opt" onclick="setTemplate('professional')">Pro</div>
-                        <div class="template-opt" onclick="setTemplate('creative')">Creative</div>
+                        <div class="template-opt active" onclick="setTemplate('modern', this)">Modern</div>
+                        <div class="template-opt" onclick="setTemplate('classic', this)">Classic</div>
+                        <div class="template-opt" onclick="setTemplate('professional', this)">Pro</div>
+                        <div class="template-opt" onclick="setTemplate('creative', this)">Creative</div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Color</label>
                     <div class="color-options">
-                        <div class="color-dot active" style="background:#0e2a38;" onclick="setColor('#0e2a38')"></div>
-                        <div class="color-dot" style="background:#2b5797;" onclick="setColor('#2b5797')"></div>
-                        <div class="color-dot" style="background:#117a65;" onclick="setColor('#117a65')"></div>
-                        <div class="color-dot" style="background:#a55233;" onclick="setColor('#a55233')"></div>
+                        <div class="color-dot active" style="background:#0e2a38;" onclick="setColor('#0e2a38', this)"></div>
+                        <div class="color-dot" style="background:#2b5797;" onclick="setColor('#2b5797', this)"></div>
+                        <div class="color-dot" style="background:#117a65;" onclick="setColor('#117a65', this)"></div>
+                        <div class="color-dot" style="background:#a55233;" onclick="setColor('#a55233', this)"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Sections toggle (LIVE hide/show) -->
+            <!-- Sections toggle -->
             <div class="card">
                 <h3><i class="fa-regular fa-eye"></i> Show/Hide</h3>
                 <div id="sectionToggles"></div>
@@ -585,31 +640,46 @@
 
         <!-- RIGHT PANEL preview -->
         <div class="right-panel">
-            <div class="cv-preview" id="cvPreview"></div>
+            <div class="cv-preview template-modern" id="cvPreview"></div>
         </div>
     </div>
+</div>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div style="font-size: 1.2rem; color: #0e2a38;" id="loadingMessage">Processing...</div>
 </div>
 
 <!-- floating action buttons -->
 <div class="action-floating">
     <button class="action-btn" onclick="openExportModal()"><i class="fa-regular fa-download"></i> Export</button>
     <button class="action-btn print" onclick="window.print()"><i class="fa-regular fa-print"></i> Print canvas</button>
-    <button class="action-btn pdf" onclick="forcePDF()"><i class="fa-regular fa-file-pdf"></i> instant PDF</button>
+    <button class="action-btn pdf" onclick="exportAsPDF()"><i class="fa-regular fa-file-pdf"></i> instant PDF</button>
 </div>
 
 <!-- export modal -->
 <div class="modal" id="exportModal">
     <div class="modal-card">
         <h2 style="margin-bottom:20px;">Export as</h2>
-        <div class="export-opt" onclick="forcePDF(); closeModal();"><i class="fa-regular fa-file-pdf" style="color:#b13e3e;"></i> PDF (forced)</div>
-        <div class="export-opt" onclick="downloadDOCX(); closeModal();"><i class="fa-regular fa-file-word" style="color:#0e2a38;"></i> DOCX</div>
-        <div class="export-opt" onclick="downloadHTML(); closeModal();"><i class="fa-regular fa-file-code" style="color:#d97706;"></i> HTML</div>
+        <div class="export-opt" id="pdfExportBtn">
+            <i class="fa-regular fa-file-pdf" style="color:#b13e3e;"></i> 
+            <span>PDF (high quality)</span>
+        </div>
+        <div class="export-opt" id="docxExportBtn">
+            <i class="fa-regular fa-file-word" style="color:#0e2a38;"></i> 
+            <span>DOCX (Word)</span>
+        </div>
+        <div class="export-opt" id="htmlExportBtn">
+            <i class="fa-regular fa-file-code" style="color:#d97706;"></i> 
+            <span>HTML (web page)</span>
+        </div>
         <button class="cancel-btn" onclick="closeModal()">Cancel</button>
     </div>
 </div>
 
 <script>
-    // ===== COMPLETE DATA MODEL =====
+    // ===== GLOBAL VARIABLES - Make sure everything is in global scope =====
     let cvData = {
         personal: {
             name: "Rahil Abbas Rizvi",
@@ -648,13 +718,30 @@
         sections: { summary: true, skills: true, experience: true, education: true, projects: true, certifications: true, languages: true, custom: true }
     };
 
-    // ===== PERSONAL INFO LIVE UPDATE =====
+    // ===== HELPER FUNCTIONS =====
+    function showLoading(message) {
+        document.getElementById('loadingMessage').textContent = message || 'Processing...';
+        document.getElementById('loadingOverlay').classList.add('active');
+    }
+
+    function hideLoading() {
+        document.getElementById('loadingOverlay').classList.remove('active');
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        let div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // ===== PERSONAL INFO =====
     function updatePersonal(field, value) {
         cvData.personal[field] = value;
         renderPreview();
     }
 
-    // ===== SKILLS FUNCTIONS =====
+    // ===== SKILLS =====
     function addSkill() {
         let input = document.getElementById('newSkill');
         if (input.value.trim()) {
@@ -676,7 +763,7 @@
         renderPreview();
     }
 
-    // ===== EXPERIENCE FUNCTIONS =====
+    // ===== EXPERIENCE =====
     function addExperience() {
         cvData.experience.push({ title: "New Position", company: "Company", startDate: "2024", endDate: "Present", description: "Description" });
         renderExperience();
@@ -694,7 +781,7 @@
         renderPreview();
     }
 
-    // ===== EDUCATION FUNCTIONS =====
+    // ===== EDUCATION =====
     function addEducation() {
         cvData.education.push({ degree: "New Degree", institution: "Institution", year: "2024", details: "" });
         renderEducation();
@@ -712,7 +799,7 @@
         renderPreview();
     }
 
-    // ===== PROJECTS FUNCTIONS =====
+    // ===== PROJECTS =====
     function addProject() {
         cvData.projects.push({ name: "New Project", description: "Description" });
         renderProjects();
@@ -730,7 +817,7 @@
         renderPreview();
     }
 
-    // ===== CERTIFICATIONS FUNCTIONS =====
+    // ===== CERTIFICATIONS =====
     function addCertification() {
         cvData.certifications.push("New Certification");
         renderCertifications();
@@ -748,7 +835,7 @@
         renderPreview();
     }
 
-    // ===== LANGUAGES FUNCTIONS =====
+    // ===== LANGUAGES =====
     function addLanguage() {
         cvData.languages.push({ language: "New Language", level: "Intermediate" });
         renderLanguages();
@@ -766,7 +853,7 @@
         renderPreview();
     }
 
-    // ===== CUSTOM SECTIONS FUNCTIONS =====
+    // ===== CUSTOM SECTIONS =====
     function addCustomSection() {
         let input = document.getElementById('customTitle');
         if (input.value.trim()) {
@@ -795,18 +882,19 @@
         renderPreview();
     }
 
-    // ===== DESIGN FUNCTIONS =====
-    function setTemplate(template) {
+    // ===== DESIGN =====
+    function setTemplate(template, element) {
         cvData.design.template = template;
         document.querySelectorAll('.template-opt').forEach(opt => opt.classList.remove('active'));
-        event.target.classList.add('active');
+        element.classList.add('active');
+        document.getElementById('cvPreview').className = `cv-preview template-${template}`;
         renderPreview();
     }
     
-    function setColor(color) {
+    function setColor(color, element) {
         cvData.design.color = color;
         document.querySelectorAll('.color-dot').forEach(dot => dot.classList.remove('active'));
-        event.target.classList.add('active');
+        element.classList.add('active');
         renderPreview();
     }
 
@@ -815,7 +903,7 @@
         let html = '';
         cvData.skills.forEach((skill, index) => {
             html += `<div style="display:flex; align-items:center; gap:4px; margin:8px 0">
-                <input value="${skill}" oninput="updateSkill(${index}, this.value)" style="flex:1">
+                <input value="${escapeHtml(skill)}" oninput="updateSkill(${index}, this.value)" style="flex:1">
                 <button class="remove-btn" onclick="removeSkill(${index})">✕</button>
             </div>`;
         });
@@ -830,13 +918,13 @@
                     <b>#${index+1}</b>
                     <button class="remove-btn" onclick="removeExperience(${index})">remove</button>
                 </div>
-                <input value="${exp.title}" oninput="updateExperience(${index}, 'title', this.value)" placeholder="title">
-                <input value="${exp.company}" oninput="updateExperience(${index}, 'company', this.value)" placeholder="company">
+                <input value="${escapeHtml(exp.title)}" oninput="updateExperience(${index}, 'title', this.value)" placeholder="title">
+                <input value="${escapeHtml(exp.company)}" oninput="updateExperience(${index}, 'company', this.value)" placeholder="company">
                 <div style="display:flex;gap:5px">
-                    <input value="${exp.startDate}" oninput="updateExperience(${index}, 'startDate', this.value)" placeholder="start">
-                    <input value="${exp.endDate}" oninput="updateExperience(${index}, 'endDate', this.value)" placeholder="end">
+                    <input value="${escapeHtml(exp.startDate)}" oninput="updateExperience(${index}, 'startDate', this.value)" placeholder="start">
+                    <input value="${escapeHtml(exp.endDate)}" oninput="updateExperience(${index}, 'endDate', this.value)" placeholder="end">
                 </div>
-                <textarea oninput="updateExperience(${index}, 'description', this.value)" rows="2" placeholder="description">${exp.description}</textarea>
+                <textarea oninput="updateExperience(${index}, 'description', this.value)" rows="2" placeholder="description">${escapeHtml(exp.description)}</textarea>
             </div>`;
         });
         document.getElementById('expList').innerHTML = html;
@@ -850,10 +938,10 @@
                     <b>Edu ${index+1}</b>
                     <button class="remove-btn" onclick="removeEducation(${index})">✕</button>
                 </div>
-                <input value="${edu.degree}" oninput="updateEducation(${index}, 'degree', this.value)" placeholder="degree">
-                <input value="${edu.institution}" oninput="updateEducation(${index}, 'institution', this.value)" placeholder="institution">
-                <input value="${edu.year}" oninput="updateEducation(${index}, 'year', this.value)" placeholder="year">
-                <textarea oninput="updateEducation(${index}, 'details', this.value)" placeholder="details">${edu.details}</textarea>
+                <input value="${escapeHtml(edu.degree)}" oninput="updateEducation(${index}, 'degree', this.value)" placeholder="degree">
+                <input value="${escapeHtml(edu.institution)}" oninput="updateEducation(${index}, 'institution', this.value)" placeholder="institution">
+                <input value="${escapeHtml(edu.year)}" oninput="updateEducation(${index}, 'year', this.value)" placeholder="year">
+                <textarea oninput="updateEducation(${index}, 'details', this.value)" placeholder="details">${escapeHtml(edu.details)}</textarea>
             </div>`;
         });
         document.getElementById('eduList').innerHTML = html;
@@ -867,8 +955,8 @@
                     <b>Project</b>
                     <button class="remove-btn" onclick="removeProject(${index})">✕</button>
                 </div>
-                <input value="${proj.name}" oninput="updateProject(${index}, 'name', this.value)" placeholder="project name">
-                <textarea oninput="updateProject(${index}, 'description', this.value)" placeholder="description">${proj.description}</textarea>
+                <input value="${escapeHtml(proj.name)}" oninput="updateProject(${index}, 'name', this.value)" placeholder="project name">
+                <textarea oninput="updateProject(${index}, 'description', this.value)" placeholder="description">${escapeHtml(proj.description)}</textarea>
             </div>`;
         });
         document.getElementById('projList').innerHTML = html;
@@ -878,7 +966,7 @@
         let html = '';
         cvData.certifications.forEach((cert, index) => {
             html += `<div style="display:flex;align-items:center;gap:5px; margin:8px 0">
-                <input value="${cert}" oninput="updateCertification(${index}, this.value)" style="flex:1">
+                <input value="${escapeHtml(cert)}" oninput="updateCertification(${index}, this.value)" style="flex:1">
                 <button class="remove-btn" onclick="removeCertification(${index})">✕</button>
             </div>`;
         });
@@ -889,7 +977,7 @@
         let html = '';
         cvData.languages.forEach((lang, index) => {
             html += `<div style="display:flex;gap:6px;align-items:center;margin:8px 0">
-                <input value="${lang.language}" oninput="updateLanguage(${index}, 'language', this.value)" style="flex:1" placeholder="language">
+                <input value="${escapeHtml(lang.language)}" oninput="updateLanguage(${index}, 'language', this.value)" style="flex:1" placeholder="language">
                 <select onchange="updateLanguage(${index}, 'level', this.value)">
                     <option ${lang.level=='Native'?'selected':''}>Native</option>
                     <option ${lang.level=='Fluent'?'selected':''}>Fluent</option>
@@ -907,11 +995,11 @@
         cvData.customSections.forEach((section, index) => {
             html += `<div style="border:2px dashed #0e2a38; border-radius:20px;padding:14px;margin:15px 0">
                 <div style="display:flex;justify-content:space-between">
-                    <b>${section.title}</b>
+                    <b>${escapeHtml(section.title)}</b>
                     <button class="remove-btn" onclick="removeCustomSection(${index})">✕</button>
                 </div>
-                <input value="${section.title}" oninput="updateCustomSection(${index}, 'title', this.value)" placeholder="section title">
-                <textarea oninput="updateCustomSection(${index}, 'content', this.value)" placeholder="content">${section.content}</textarea>
+                <input value="${escapeHtml(section.title)}" oninput="updateCustomSection(${index}, 'title', this.value)" placeholder="section title">
+                <textarea oninput="updateCustomSection(${index}, 'content', this.value)" placeholder="content">${escapeHtml(section.content)}</textarea>
             </div>`;
         });
         document.getElementById('customList').innerHTML = html;
@@ -946,24 +1034,24 @@
         let p = cvData.personal;
         let html = `
             <div class="cv-header">
-                <div class="cv-name">${p.name}</div>
-                <div class="cv-title" style="color:${col}">${p.title}</div>
+                <div class="cv-name">${escapeHtml(p.name)}</div>
+                <div class="cv-title" style="color:${col}">${escapeHtml(p.title)}</div>
                 <div class="cv-contact">
-                    ${p.email ? '<span><i class="fa-regular fa-envelope"></i> '+p.email+'</span>' : ''}
-                    ${p.phone ? '<span><i class="fa-regular fa-phone"></i> '+p.phone+'</span>' : ''}
-                    ${p.location ? '<span><i class="fa-regular fa-location-dot"></i> '+p.location+'</span>' : ''}
-                    ${p.linkedin ? '<span><i class="fa-brands fa-linkedin"></i> '+p.linkedin+'</span>' : ''}
+                    ${p.email ? '<span><i class="fa-regular fa-envelope"></i> '+escapeHtml(p.email)+'</span>' : ''}
+                    ${p.phone ? '<span><i class="fa-regular fa-phone"></i> '+escapeHtml(p.phone)+'</span>' : ''}
+                    ${p.location ? '<span><i class="fa-regular fa-location-dot"></i> '+escapeHtml(p.location)+'</span>' : ''}
+                    ${p.linkedin ? '<span><i class="fa-brands fa-linkedin"></i> '+escapeHtml(p.linkedin)+'</span>' : ''}
                 </div>
             </div>
         `;
 
         if (cvData.sections.summary && p.summary) {
-            html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Summary</div><div>${p.summary}</div></div>`;
+            html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Summary</div><div>${escapeHtml(p.summary)}</div></div>`;
         }
 
         if (cvData.sections.skills && cvData.skills.length) {
             html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Skills</div>`;
-            cvData.skills.forEach(s => { html += `<span class="skill-item" style="border-left-color:${col}">${s}</span>`; });
+            cvData.skills.forEach(s => { html += `<span class="skill-item" style="border-left-color:${col}">${escapeHtml(s)}</span>`; });
             html += `</div>`;
         }
 
@@ -972,11 +1060,11 @@
             cvData.experience.forEach(e => {
                 html += `<div class="exp-item">
                     <div class="exp-header">
-                        <span class="exp-title">${e.title}</span>
-                        <span class="exp-company">${e.company}</span>
+                        <span class="exp-title">${escapeHtml(e.title)}</span>
+                        <span class="exp-company">${escapeHtml(e.company)}</span>
                     </div>
-                    <div class="exp-date">${e.startDate} – ${e.endDate}</div>
-                    <div>${e.description}</div>
+                    <div class="exp-date">${escapeHtml(e.startDate)} – ${escapeHtml(e.endDate)}</div>
+                    <div>${escapeHtml(e.description)}</div>
                 </div>`;
             });
             html += `</div>`;
@@ -985,7 +1073,7 @@
         if (cvData.sections.education && cvData.education.length) {
             html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Education</div>`;
             cvData.education.forEach(e => {
-                html += `<div><b>${e.degree}</b> – ${e.institution} (${e.year})<br>${e.details}</div>`;
+                html += `<div><b>${escapeHtml(e.degree)}</b> – ${escapeHtml(e.institution)} (${escapeHtml(e.year)})<br>${escapeHtml(e.details)}</div>`;
             });
             html += `</div>`;
         }
@@ -993,33 +1081,33 @@
         if (cvData.sections.projects && cvData.projects.length) {
             html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Projects</div>`;
             cvData.projects.forEach(p => {
-                html += `<div><b>${p.name}</b><br>${p.description}</div>`;
+                html += `<div><b>${escapeHtml(p.name)}</b><br>${escapeHtml(p.description)}</div>`;
             });
             html += `</div>`;
         }
 
         if (cvData.sections.certifications && cvData.certifications.length) {
             html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Certifications</div><ul>`;
-            cvData.certifications.forEach(c => html += `<li>${c}</li>`);
+            cvData.certifications.forEach(c => html += `<li>${escapeHtml(c)}</li>`);
             html += `</ul></div>`;
         }
 
         if (cvData.sections.languages && cvData.languages.length) {
             html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Languages</div><ul>`;
-            cvData.languages.forEach(l => html += `<li><b>${l.language}:</b> ${l.level}</li>`);
+            cvData.languages.forEach(l => html += `<li><b>${escapeHtml(l.language)}:</b> ${escapeHtml(l.level)}</li>`);
             html += `</ul></div>`;
         }
 
         if (cvData.sections.custom) {
             cvData.customSections.forEach(cs => {
-                html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">${cs.title}</div><div>${cs.content}</div></div>`;
+                html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">${escapeHtml(cs.title)}</div><div>${escapeHtml(cs.content)}</div></div>`;
             });
         }
 
         document.getElementById('cvPreview').innerHTML = html;
     }
 
-    // ===== UI HELPERS =====
+    // ===== MODAL FUNCTIONS =====
     function openExportModal() {
         document.getElementById('exportModal').classList.add('active');
     }
@@ -1028,57 +1116,249 @@
         document.getElementById('exportModal').classList.remove('active');
     }
 
-    // ===== EXPORT FUNCTIONS =====
-    function forcePDF() {
-        let style = document.querySelector('style').innerHTML;
-        let previewHTML = document.getElementById('cvPreview').innerHTML;
-        let win = window.open('', '_blank');
-        win.document.write(`
+    // ===== PDF EXPORT - COMPLETELY REWRITTEN TO WORK =====
+    function exportAsPDF() {
+        closeModal();
+        showLoading('Generating PDF...');
+        
+        const element = document.getElementById('cvPreview');
+        const originalHTML = element.innerHTML;
+        
+        // Use html2canvas + jsPDF directly (more reliable)
+        html2canvas(element, {
+            scale: 2,
+            backgroundColor: '#ffffff',
+            logging: false,
+            allowTaint: false,
+            useCORS: true
+        }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'px',
+                format: 'a4'
+            });
+            
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+            
+            // Calculate ratio to fit in PDF
+            const ratio = Math.min(pdfWidth / canvasWidth, pdfHeight / canvasHeight);
+            const width = canvasWidth * ratio;
+            const height = canvasHeight * ratio;
+            
+            // Center on page
+            const xOffset = (pdfWidth - width) / 2;
+            const yOffset = (pdfHeight - height) / 2;
+            
+            pdf.addImage(imgData, 'PNG', xOffset, yOffset, width, height);
+            pdf.save('Rahil_Abbas_Rizvi_CV.pdf');
+            hideLoading();
+            element.innerHTML = originalHTML;
+        }).catch(error => {
+            console.error('PDF error:', error);
+            hideLoading();
+            alert('PDF generation failed. Trying fallback method...');
+            fallbackPrintPDF();
+            element.innerHTML = originalHTML;
+        });
+    }
+
+    function fallbackPrintPDF() {
+        const preview = document.getElementById('cvPreview').cloneNode(true);
+        preview.classList.add('template-' + cvData.design.template);
+        
+        const styles = document.querySelectorAll('style');
+        let styleText = '';
+        styles.forEach(s => styleText += s.innerHTML);
+        
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+            <!DOCTYPE html>
             <html>
                 <head>
-                    <style>${style} body { background:white; display:flex; justify-content:center; padding:30px; } .cv-preview { max-width:210mm; padding:20mm; } @media print { @page { size:A4; margin:0; } }</style>
+                    <title>Rahil Abbas Rizvi - CV</title>
+                    <meta charset="UTF-8">
+                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+                    <style>
+                        ${styleText}
+                        body {
+                            background: white;
+                            padding: 20px;
+                            margin: 0;
+                            font-family: 'Inter', sans-serif;
+                        }
+                        .cv-preview {
+                            max-width: 210mm;
+                            margin: 0 auto;
+                            box-shadow: none;
+                            border: none;
+                            padding: 20mm;
+                        }
+                        @media print {
+                            @page {
+                                size: A4;
+                                margin: 0;
+                            }
+                            body {
+                                padding: 0;
+                            }
+                        }
+                    </style>
                 </head>
                 <body>
-                    <div class="cv-preview">${previewHTML}</div>
+                    ${preview.outerHTML}
                     <script>
                         window.onload = function() {
                             setTimeout(function() {
                                 window.print();
-                                window.close();
-                            }, 300);
+                                setTimeout(function() {
+                                    window.close();
+                                }, 1000);
+                            }, 500);
                         }
                     <\/script>
                 </body>
             </html>
         `);
-        win.document.close();
-        closeModal();
+        printWindow.document.close();
     }
 
+    // ===== DOCX EXPORT - COMPLETELY REWRITTEN TO WORK =====
     function downloadDOCX() {
-        let style = document.querySelector('style').innerHTML;
-        let previewHTML = document.getElementById('cvPreview').innerHTML;
-        let content = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rahil CV</title><style>${style}</style></head><body style="padding:2cm;">${previewHTML}</body></html>`;
-        let blob = new Blob([content], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
-        let a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'Rahil_Abbas_Rizvi.docx';
-        a.click();
+        closeModal();
+        showLoading('Preparing Word document...');
+        
+        const preview = document.getElementById('cvPreview').cloneNode(true);
+        preview.classList.add('template-' + cvData.design.template);
+        
+        // Get all styles
+        const styles = document.querySelectorAll('style');
+        let styleText = '';
+        styles.forEach(s => styleText += s.innerHTML);
+        
+        // Create Word-compatible HTML with proper structure
+        const content = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Rahil Abbas Rizvi - CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        ${styleText}
+        body {
+            font-family: 'Inter', sans-serif;
+            padding: 1in;
+            background: white;
+            margin: 0;
+        }
+        .cv-preview {
+            max-width: 100%;
+            box-shadow: none;
+            border: none;
+            padding: 0;
+        }
+        .cv-contact {
+            background: #edf4fa !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .skill-item {
+            background: #e9f0f8 !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .exp-company {
+            background: #dde9f5 !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+    </style>
+</head>
+<body>
+    ${preview.outerHTML}
+</body>
+</html>`;
+        
+        // Use proper MIME type for Word
+        const blob = new Blob([content], { type: 'application/msword' });
+        
+        // Use download attribute
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Rahil_Abbas_Rizvi_CV.doc';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(link.href), 100);
+        
+        hideLoading();
     }
 
+    // ===== HTML EXPORT =====
     function downloadHTML() {
-        let style = document.querySelector('style').innerHTML;
-        let previewHTML = document.getElementById('cvPreview').innerHTML;
-        let content = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rahil CV</title><style>${style}</style></head><body style="padding:30px;">${previewHTML}</body></html>`;
-        let blob = new Blob([content], {type: 'text/html'});
-        let a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'Rahil_Abbas_Rizvi.html';
-        a.click();
+        closeModal();
+        showLoading('Preparing HTML file...');
+        
+        const preview = document.getElementById('cvPreview').cloneNode(true);
+        preview.classList.add('template-' + cvData.design.template);
+        
+        // Get all styles
+        const styles = document.querySelectorAll('style');
+        let styleText = '';
+        styles.forEach(s => styleText += s.innerHTML);
+        
+        // Create complete HTML file
+        const content = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahil Abbas Rizvi - CV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        ${styleText}
+        body {
+            background: #f5f7fa;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+        }
+        .cv-preview {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px 45px;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -8px rgba(0,35,60,0.15);
+        }
+    </style>
+</head>
+<body>
+    ${preview.outerHTML}
+</body>
+</html>`;
+        
+        const blob = new Blob([content], { type: 'text/html' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Rahil_Abbas_Rizvi_CV.html';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(link.href), 100);
+        
+        hideLoading();
     }
 
-    // ===== INITIAL RENDER =====
+    // ===== INIT =====
     function init() {
+        // Render all sections
         renderSkills();
         renderExperience();
         renderEducation();
@@ -1108,10 +1388,58 @@
                 addSkill();
             }
         });
+
+        // Export buttons - make sure they're properly attached
+        document.getElementById('pdfExportBtn').addEventListener('click', exportAsPDF);
+        document.getElementById('docxExportBtn').addEventListener('click', downloadDOCX);
+        document.getElementById('htmlExportBtn').addEventListener('click', downloadHTML);
+        
+        // Close modal when clicking outside
+        document.getElementById('exportModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Also attach direct PDF button
+        document.querySelector('.action-btn.pdf').addEventListener('click', exportAsPDF);
     }
 
-    // Start everything
-    init();
+    // Make all functions globally accessible
+    window.updatePersonal = updatePersonal;
+    window.addSkill = addSkill;
+    window.updateSkill = updateSkill;
+    window.removeSkill = removeSkill;
+    window.addExperience = addExperience;
+    window.updateExperience = updateExperience;
+    window.removeExperience = removeExperience;
+    window.addEducation = addEducation;
+    window.updateEducation = updateEducation;
+    window.removeEducation = removeEducation;
+    window.addProject = addProject;
+    window.updateProject = updateProject;
+    window.removeProject = removeProject;
+    window.addCertification = addCertification;
+    window.updateCertification = updateCertification;
+    window.removeCertification = removeCertification;
+    window.addLanguage = addLanguage;
+    window.updateLanguage = updateLanguage;
+    window.removeLanguage = removeLanguage;
+    window.addCustomSection = addCustomSection;
+    window.updateCustomSection = updateCustomSection;
+    window.removeCustomSection = removeCustomSection;
+    window.toggleSection = toggleSection;
+    window.setTemplate = setTemplate;
+    window.setColor = setColor;
+    window.openExportModal = openExportModal;
+    window.closeModal = closeModal;
+    window.exportAsPDF = exportAsPDF;
+    window.downloadDOCX = downloadDOCX;
+    window.downloadHTML = downloadHTML;
+    window.fallbackPrintPDF = fallbackPrintPDF;
+
+    // Start everything when page loads
+    document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
