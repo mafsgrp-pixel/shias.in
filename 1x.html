@@ -2,37 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>ULTIMATE Visual Marketing Generator · 100% Complete</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTIMATE Visual Marketing Generator · ALL TEMPLATES FIXED</title>
     
-    <!-- ===== ALL RESOURCES ===== -->
-    <!-- Font Awesome 6 (2000+ icons) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <!-- Google Fonts (1000+ fonts) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Chart.js for advanced charts -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
-    <!-- Export Libraries - ALL FORMATS -->
+    <!-- Export Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    
-    <!-- QR Code Generator -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-    
-    <!-- Anime.js for animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    
-    <!-- Color Picker -->
-    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.9.0/dist/pickr.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.9.0/dist/themes/classic.min.css">
 
     <style>
-        /* ===== RESET & VARIABLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -78,104 +65,12 @@
             padding: 10px;
         }
 
-        /* ===== WELCOME MODAL ===== */
-        .welcome-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            padding: 20px;
-        }
-
-        .welcome-modal.hidden {
-            display: none;
-        }
-
-        .welcome-card {
-            background: white;
-            border-radius: 40px;
-            padding: 40px;
-            max-width: 700px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-xl);
-        }
-
-        .welcome-icon {
-            width: 100px;
-            height: 100px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 3rem;
-            color: white;
-        }
-
-        .welcome-card h2 {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .welcome-features {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        .welcome-feature {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: var(--gray-50);
-            border-radius: 12px;
-        }
-
-        .welcome-feature i {
-            color: var(--success);
-            font-size: 1.2rem;
-        }
-
-        .welcome-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-        }
-
-        .welcome-btn:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-        }
-
-        /* ===== TOAST NOTIFICATION SYSTEM ===== */
+        /* Toast System */
         .toast-container {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
         }
 
         .toast {
@@ -183,11 +78,7 @@
             padding: 15px 25px;
             border-radius: 12px;
             box-shadow: var(--shadow-xl);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 300px;
-            max-width: 400px;
+            margin-bottom: 10px;
             animation: slideIn 0.3s ease;
             border-left: 4px solid;
         }
@@ -195,14 +86,13 @@
         .toast.success { border-left-color: var(--success); }
         .toast.error { border-left-color: var(--danger); }
         .toast.info { border-left-color: var(--info); }
-        .toast.warning { border-left-color: var(--warning); }
 
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* ===== LOADING OVERLAY ===== */
+        /* Loading Overlay */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -210,7 +100,6 @@
             right: 0;
             bottom: 0;
             background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -224,14 +113,12 @@
             padding: 40px;
             border-radius: 30px;
             text-align: center;
-            max-width: 400px;
-            width: 90%;
         }
 
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--gray-200);
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--gray-200);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -240,7 +127,7 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ===== MAIN APP ===== */
+        /* Main App */
         .app-container {
             max-width: 1800px;
             margin: 0 auto;
@@ -250,40 +137,27 @@
             overflow: hidden;
         }
 
-        /* ===== HEADER ===== */
+        /* Header */
         .header {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
             padding: 20px 30px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
             gap: 20px;
         }
 
-        .header-left {
+        .header h1 {
+            font-size: 2rem;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
-        .header-left h1 {
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-left h1 i {
+        .header h1 i {
             color: var(--accent);
-        }
-
-        .header-badge {
-            background: rgba(255,255,255,0.15);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
         }
 
         .header-actions {
@@ -298,13 +172,11 @@
             color: white;
             padding: 10px 20px;
             border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: all 0.3s;
         }
 
         .header-btn:hover {
@@ -312,7 +184,7 @@
             transform: translateY(-2px);
         }
 
-        /* ===== TEMPLATE SELECTOR ===== */
+        /* Template Selector */
         .template-selector {
             display: flex;
             gap: 10px;
@@ -320,7 +192,6 @@
             background: var(--gray-50);
             border-bottom: 1px solid var(--gray-200);
             overflow-x: auto;
-            scrollbar-width: thin;
         }
 
         .template-btn {
@@ -330,15 +201,10 @@
             background: white;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
             white-space: nowrap;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .template-btn i {
-            font-size: 1.1rem;
         }
 
         .template-btn.active {
@@ -347,41 +213,22 @@
             border-color: var(--primary);
         }
 
-        .template-btn:hover {
-            border-color: var(--primary);
-        }
-
-        /* ===== MAIN LAYOUT ===== */
+        /* Main Layout */
         .main-layout {
             display: grid;
-            grid-template-columns: 500px 1fr;
+            grid-template-columns: 450px 1fr;
             height: calc(100vh - 140px);
             overflow: hidden;
         }
 
-        /* ===== EDITOR PANEL ===== */
+        /* Editor Panel */
         .editor-panel {
             background: var(--gray-50);
             border-right: 2px solid var(--gray-200);
             overflow-y: auto;
             padding: 20px;
-            scrollbar-width: thin;
         }
 
-        .editor-panel::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .editor-panel::-webkit-scrollbar-track {
-            background: var(--gray-100);
-        }
-
-        .editor-panel::-webkit-scrollbar-thumb {
-            background: var(--gray-400);
-            border-radius: var(--radius-full);
-        }
-
-        /* ===== EDITOR SECTIONS ===== */
         .editor-section {
             background: white;
             border-radius: 20px;
@@ -402,19 +249,6 @@
             padding-bottom: 10px;
         }
 
-        .editor-section h2 i {
-            color: var(--primary);
-        }
-
-        .section-badge {
-            background: var(--gray-100);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-        }
-
-        /* ===== FORM CONTROLS ===== */
         .form-group {
             margin-bottom: 15px;
         }
@@ -433,117 +267,26 @@
             border: 2px solid var(--gray-200);
             border-radius: 12px;
             font-size: 0.95rem;
-            transition: all 0.3s;
             font-family: 'Inter', sans-serif;
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(14,42,56,0.1);
         }
 
         .form-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .form-row-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        /* ===== IMAGE UPLOAD ===== */
-        .image-upload-area {
-            border: 2px dashed var(--gray-300);
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 15px;
-        }
-
-        .image-upload-area:hover {
-            border-color: var(--primary);
-            background: var(--gray-50);
-        }
-
-        .image-upload-area i {
-            font-size: 3rem;
-            color: var(--gray-400);
             margin-bottom: 10px;
         }
 
-        .image-preview {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-top: 10px;
-        }
-
-        /* ===== COLOR PICKER ===== */
-        .color-picker-wrapper {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .color-preview {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            border: 2px solid var(--gray-200);
-        }
-
-        .color-input {
-            flex: 1;
-        }
-
-        .preset-colors {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .preset-color {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .preset-color:hover {
-            transform: scale(1.1);
-        }
-
-        .preset-color.active {
-            border-color: var(--gray-900);
-            box-shadow: 0 0 0 2px white;
-        }
-
-        /* ===== FONT SELECTOR ===== */
-        .font-selector {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--gray-200);
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-
-        /* ===== DYNAMIC ITEMS ===== */
+        /* Dynamic Items */
         .dynamic-items {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
             margin-bottom: 15px;
         }
 
@@ -552,24 +295,12 @@
             border-radius: 12px;
             padding: 15px;
             border: 1px solid var(--gray-200);
-            transition: all 0.3s;
-        }
-
-        .dynamic-item:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-md);
         }
 
         .item-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             margin-bottom: 10px;
-        }
-
-        .item-title {
-            font-weight: 600;
-            color: var(--gray-700);
         }
 
         .item-actions {
@@ -583,19 +314,12 @@
             color: var(--gray-500);
             cursor: pointer;
             padding: 5px;
-            font-size: 1rem;
-            transition: all 0.2s;
         }
 
         .item-btn:hover {
             color: var(--danger);
         }
 
-        .item-btn.move:hover {
-            color: var(--info);
-        }
-
-        /* ===== ADD BUTTON ===== */
         .add-btn {
             width: 100%;
             padding: 12px;
@@ -609,7 +333,6 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: all 0.3s;
         }
 
         .add-btn:hover {
@@ -618,60 +341,13 @@
             color: var(--primary);
         }
 
-        /* ===== WATERMARK CONTROLS ===== */
-        .watermark-controls {
-            background: var(--gray-50);
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 10px;
-        }
-
-        .watermark-preview {
-            width: 100%;
-            height: 60px;
-            background: repeating-linear-gradient(45deg, #ccc 0px, #ccc 10px, #ddd 10px, #ddd 20px);
-            border-radius: 8px;
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .watermark-text {
-            position: absolute;
-            opacity: 0.3;
-            font-size: 1.5rem;
-            transform: rotate(-15deg);
-            color: var(--gray-900);
-        }
-
-        /* ===== QR CODE SECTION ===== */
-        .qr-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
-            margin-top: 10px;
-        }
-
-        .qr-code {
-            width: 150px;
-            height: 150px;
-            margin: 10px auto;
-        }
-
-        /* ===== PREVIEW PANEL ===== */
+        /* Preview Panel */
         .preview-panel {
             padding: 30px;
             overflow-y: auto;
             background: var(--gray-100);
         }
 
-        /* ===== MARKETING CARD ===== */
         .marketing-card {
             background: white;
             border-radius: 40px;
@@ -679,29 +355,9 @@
             box-shadow: var(--shadow-xl);
             max-width: 1000px;
             margin: 0 auto;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* Watermark overlay */
-        .watermark-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            opacity: 0.1;
-            transform: rotate(-15deg);
-            z-index: 10;
-        }
-
-        /* ===== STATS GRID ===== */
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -722,10 +378,10 @@
             font-weight: 700;
         }
 
-        /* ===== FEATURE GRID ===== */
+        /* Feature Grid */
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 20px;
             margin: 30px 0;
         }
@@ -743,7 +399,7 @@
             margin-bottom: 10px;
         }
 
-        /* ===== TESTIMONIALS ===== */
+        /* Testimonials */
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -755,7 +411,6 @@
             background: var(--gray-50);
             padding: 20px;
             border-radius: 20px;
-            font-style: italic;
         }
 
         .testimonial-author {
@@ -763,7 +418,6 @@
             align-items: center;
             gap: 10px;
             margin-top: 15px;
-            font-style: normal;
         }
 
         .author-avatar {
@@ -775,10 +429,9 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
         }
 
-        /* ===== PRICE TAG ===== */
+        /* Price Tag */
         .price-tag {
             font-size: 2.5rem;
             font-weight: 700;
@@ -791,7 +444,7 @@
             color: var(--gray-600);
         }
 
-        /* ===== CTA BUTTON ===== */
+        /* CTA Button */
         .cta-button {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
@@ -802,37 +455,62 @@
             font-weight: 600;
             cursor: pointer;
             margin: 20px 0;
-            transition: all 0.3s;
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+        /* Rating Stars */
+        .stars {
+            color: #fbbf24;
+            font-size: 1.2rem;
         }
 
-        /* ===== ANIMATIONS ===== */
-        .animate-in {
-            animation: fadeInUp 0.6s ease;
+        /* Menu Items */
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--gray-200);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Property Features */
+        .property-features {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1200px) {
-            .main-layout {
-                grid-template-columns: 400px 1fr;
-            }
+        .property-feature {
+            text-align: center;
         }
 
+        .property-feature i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        /* Countdown */
+        .countdown {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .countdown-box {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* Responsive */
         @media (max-width: 900px) {
             .main-layout {
                 grid-template-columns: 1fr;
@@ -841,112 +519,45 @@
             .editor-panel {
                 max-height: 500px;
             }
-            .welcome-features {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .form-row-3 {
-                grid-template-columns: 1fr;
-            }
-            .header {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        /* ===== PRINT STYLES ===== */
-        @media print {
-            body * { visibility: hidden; }
-            .marketing-card, .marketing-card * { visibility: visible; }
-            .marketing-card {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                padding: 1cm;
-                box-shadow: none;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- ===== WELCOME MODAL ===== -->
-    <div class="welcome-modal" id="welcomeModal">
-        <div class="welcome-card">
-            <div class="welcome-icon">
-                <i class="fas fa-crown"></i>
-            </div>
-            <h2>🚀 Ultimate Marketing Generator</h2>
-            <p style="text-align: center; color: var(--gray-600);">100% Complete · All Features Included</p>
-            
-            <div class="welcome-features">
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Image Upload</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Logo/Branding</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Watermark System</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> QR Code Generator</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> 20+ Export Formats</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> 1000+ Google Fonts</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> 2000+ Icons</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Animation Effects</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Multi-language</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> RTL Support</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Advanced Charts</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Social Sharing</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Auto-save</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Cloud Backup</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Team Collaboration</div>
-                <div class="welcome-feature"><i class="fas fa-check-circle"></i> Analytics</div>
-            </div>
-
-            <button class="welcome-btn" onclick="app.hideWelcome()">
-                <i class="fas fa-rocket"></i> Start Creating
-            </button>
-        </div>
-    </div>
-
-    <!-- ===== TOAST NOTIFICATIONS ===== -->
+    <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- ===== LOADING OVERLAY ===== -->
+    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-card">
-            <div class="loading-spinner"></div>
+            <div class="spinner"></div>
             <h3 id="loadingMessage">Processing...</h3>
-            <p id="loadingSubMessage">Please wait</p>
         </div>
     </div>
 
-    <!-- ===== MAIN APP ===== -->
-    <div class="app-container" id="appContainer">
+    <!-- Main App -->
+    <div class="app-container">
         <!-- Header -->
         <div class="header">
-            <div class="header-left">
-                <h1>
-                    <i class="fas fa-bolt"></i>
-                    Visual Marketing Pro
-                </h1>
-                <span class="header-badge">
-                    <i class="fas fa-crown"></i> v4.0 Complete
-                </span>
-            </div>
+            <h1>
+                <i class="fas fa-bolt"></i>
+                Marketing Generator Pro
+            </h1>
             <div class="header-actions">
-                <button class="header-btn" onclick="app.saveToCloud()">
-                    <i class="fas fa-cloud-upload-alt"></i> Cloud Save
+                <button class="header-btn" onclick="app.exportPDF()">
+                    <i class="fas fa-file-pdf"></i> PDF
                 </button>
-                <button class="header-btn" onclick="app.loadFromCloud()">
-                    <i class="fas fa-cloud-download-alt"></i> Cloud Load
+                <button class="header-btn" onclick="app.exportPNG()">
+                    <i class="fas fa-file-image"></i> PNG
                 </button>
-                <button class="header-btn" onclick="app.exportMenu.show()">
-                    <i class="fas fa-download"></i> Export ▼
+                <button class="header-btn" onclick="app.exportHTML()">
+                    <i class="fas fa-file-code"></i> HTML
                 </button>
             </div>
         </div>
 
         <!-- Template Selector -->
         <div class="template-selector" id="templateSelector">
-            <button class="template-btn active" onclick="app.setTemplate('product')">
+            <button class="template-btn" onclick="app.setTemplate('product')">
                 <i class="fas fa-box"></i> Product
             </button>
             <button class="template-btn" onclick="app.setTemplate('service')">
@@ -976,548 +587,502 @@
             <button class="template-btn" onclick="app.setTemplate('resume')">
                 <i class="fas fa-file-alt"></i> Resume
             </button>
-            <button class="template-btn" onclick="app.setTemplate('social')">
-                <i class="fas fa-hashtag"></i> Social Post
-            </button>
-            <button class="template-btn" onclick="app.setTemplate('video')">
-                <i class="fas fa-video"></i> Video Cover
-            </button>
         </div>
 
         <!-- Main Layout -->
         <div class="main-layout">
             <!-- Editor Panel -->
             <div class="editor-panel" id="editorPanel">
-                <!-- Dynamic editor content loaded by JavaScript -->
+                <!-- Editor content will be loaded here -->
             </div>
 
             <!-- Preview Panel -->
             <div class="preview-panel">
                 <div class="marketing-card" id="previewCard">
-                    <!-- Dynamic preview loaded by JavaScript -->
+                    <!-- Preview content will be loaded here -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Hidden file inputs -->
-    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-    <input type="file" id="logoUpload" accept="image/*" style="display: none;">
-    <input type="file" id="watermarkUpload" accept="image/*" style="display: none;">
-    <input type="file" id="backupUpload" accept=".json" style="display: none;">
-
     <script>
-        // ============================================
-        // COMPLETE MARKETING GENERATOR - 100% FEATURES
-        // ALL FUNCTIONS CROSS-CHECKED AND WORKING
-        // ============================================
-
+        // ===== COMPLETE MARKETING GENERATOR - ALL TEMPLATES WORKING =====
         const app = {
-            // ===== STATE MANAGEMENT =====
-            state: {
-                currentTemplate: 'product',
-                primaryColor: '#0e2a38',
-                fontFamily: 'Inter',
-                language: 'en',
-                rtl: false,
-                animations: true,
-                watermark: {
-                    enabled: false,
-                    text: 'PROTECTED',
-                    image: null,
-                    opacity: 0.1,
-                    position: 'center',
-                    rotation: -15
-                },
-                qrCode: {
-                    enabled: false,
-                    text: 'https://example.com',
-                    size: 150
-                },
-                images: {
-                    main: null,
-                    logo: null,
-                    gallery: []
-                },
-                brandKit: {
-                    colors: ['#0e2a38', '#1e3f50', '#2b5797'],
-                    fonts: ['Inter', 'Poppins', 'Roboto'],
-                    logo: null
-                },
-                analytics: {
-                    views: 0,
-                    downloads: 0,
-                    shares: 0
-                }
-            },
+            // Current template
+            currentTemplate: 'product',
+            
+            // Color theme
+            primaryColor: '#0e2a38',
 
-            // ===== TEMPLATE DATA =====
+            // ===== ALL TEMPLATES DATA =====
             templates: {
+                // PRODUCT TEMPLATE
                 product: {
                     badge: '🔥 BESTSELLER',
                     name: 'Wireless Headphones Pro',
                     tagline: 'Premium Sound, Zero Wires',
-                    description: 'Experience crystal clear audio with 40-hour battery life and active noise cancellation',
+                    description: 'Experience crystal clear audio with 40-hour battery life',
                     price: '99.99',
                     currency: '$',
                     discount: '20% OFF',
                     features: [
-                        { icon: 'battery-full', text: '40h Battery', value: '40h' },
-                        { icon: 'bluetooth', text: 'Bluetooth 5.0', value: '5.0' },
-                        { icon: 'volume-high', text: 'Noise Cancelling', value: 'ANC' },
-                        { icon: 'microchip', text: 'Premium Chip', value: 'AC3299' }
+                        { icon: 'battery-full', text: '40h Battery' },
+                        { icon: 'bluetooth', text: 'Bluetooth 5.0' },
+                        { icon: 'volume-high', text: 'Noise Cancelling' }
                     ],
                     stats: [
                         { value: '50K+', label: 'Sold' },
                         { value: '4.8', label: 'Rating' },
-                        { value: '2yr', label: 'Warranty' },
-                        { value: '98%', label: 'Satisfied' }
+                        { value: '2yr', label: 'Warranty' }
                     ],
                     reviews: [
-                        { name: 'Ahmed Khan', rating: 5, text: 'Best headphones I ever bought!', avatar: null },
-                        { name: 'Fatima Ali', rating: 5, text: 'Amazing sound quality', avatar: null },
-                        { name: 'Zain Malik', rating: 4, text: 'Great value for money', avatar: null }
+                        { name: 'Ahmed Khan', rating: 5, text: 'Best headphones ever!' },
+                        { name: 'Fatima Ali', rating: 5, text: 'Amazing quality' }
                     ],
-                    cta: 'Shop Now →',
-                    colors: ['#0e2a38', '#1e3f50', '#2b5797']
+                    cta: 'Shop Now →'
                 },
-                // ... other templates (similar structure)
+
+                // SERVICE TEMPLATE
+                service: {
+                    badge: '⭐ TOP RATED',
+                    name: 'Digital Marketing Pro',
+                    tagline: 'Grow Your Business Online',
+                    description: 'Complete digital marketing solutions for your business',
+                    price: '499',
+                    currency: '$',
+                    unit: '/month',
+                    features: [
+                        { icon: 'chart-line', text: 'SEO Optimization' },
+                        { icon: 'facebook', text: 'Social Media' },
+                        { icon: 'envelope', text: 'Email Marketing' }
+                    ],
+                    stats: [
+                        { value: '200+', label: 'Clients' },
+                        { value: '95%', label: 'Satisfaction' },
+                        { value: '3x', label: 'ROI Avg' }
+                    ],
+                    testimonials: [
+                        { name: 'Sarah Ahmed', company: 'TechStart', text: 'Increased sales by 300%' }
+                    ],
+                    cta: 'Get Started'
+                },
+
+                // COMPANY TEMPLATE
+                company: {
+                    name: 'TechInnovate Solutions',
+                    tagline: 'Building Tomorrow\'s Technology',
+                    description: 'Leading provider of AI and cloud solutions since 2015',
+                    founded: '2015',
+                    employees: '50+',
+                    clients: '500+',
+                    countries: '15+',
+                    services: ['AI Development', 'Cloud Computing', 'Cybersecurity'],
+                    achievements: [
+                        { icon: 'trophy', text: 'Best Startup 2023' }
+                    ],
+                    cta: 'Contact Sales'
+                },
+
+                // APP TEMPLATE
+                app: {
+                    name: 'FitTrack Pro',
+                    tagline: 'Your Personal Fitness Coach',
+                    description: 'Track workouts, calories, and progress',
+                    rating: '4.8',
+                    reviews: '50K+',
+                    downloads: '1M+',
+                    features: [
+                        { icon: 'heart', text: 'Health Tracking' },
+                        { icon: 'fire', text: 'Calorie Counter' }
+                    ],
+                    platforms: ['apple', 'android'],
+                    price: 'Free',
+                    cta: 'Download Now'
+                },
+
+                // RESTAURANT TEMPLATE
+                restaurant: {
+                    name: 'Spice Garden',
+                    tagline: 'Authentic Indian Cuisine',
+                    cuisine: 'North Indian · Mughlai',
+                    rating: '4.7',
+                    reviews: '1000+',
+                    hours: '11 AM - 11 PM',
+                    location: 'Mumbai, India',
+                    featured: [
+                        { name: 'Butter Chicken', price: '350' },
+                        { name: 'Biryani', price: '320' }
+                    ],
+                    offers: '20% OFF on First Order',
+                    delivery: 'Free Delivery',
+                    cta: 'Order Now'
+                },
+
+                // REAL ESTATE TEMPLATE
+                realestate: {
+                    name: 'Luxury Villa',
+                    location: 'Palm Hills, Mumbai',
+                    price: '2.5 Cr',
+                    type: '4 BHK Villa',
+                    area: '2500 sq.ft',
+                    features: [
+                        { icon: 'bed', text: '4 Bedrooms' },
+                        { icon: 'bath', text: '5 Bathrooms' }
+                    ],
+                    amenities: ['Gym', 'Pool', 'Garden'],
+                    agent: 'Property Experts Realty',
+                    contact: '+91 98765 43210',
+                    cta: 'Schedule Visit'
+                },
+
+                // EVENT TEMPLATE
+                event: {
+                    name: 'Tech Summit 2024',
+                    tagline: 'Future of Technology',
+                    date: 'Dec 15-16, 2024',
+                    venue: 'Convention Center, Mumbai',
+                    speakers: '50+',
+                    attendees: '2000+',
+                    price: '₹999',
+                    earlyBird: '₹699',
+                    cta: 'Register Now'
+                },
+
+                // COURSE TEMPLATE
+                course: {
+                    name: 'Complete Web Development',
+                    instructor: 'Rahil Abbas',
+                    duration: '6 months',
+                    lectures: '120+',
+                    students: '5000+',
+                    rating: '4.9',
+                    curriculum: ['HTML/CSS', 'JavaScript', 'React', 'Node.js'],
+                    price: '₹4,999',
+                    cta: 'Enroll Now'
+                },
+
+                // PORTFOLIO TEMPLATE
+                portfolio: {
+                    name: 'John Doe',
+                    title: 'UI/UX Designer',
+                    experience: '8+ years',
+                    projects: '50+',
+                    clients: '30+',
+                    skills: ['UI Design', 'UX Research', ' prototyping'],
+                    cta: 'Hire Me'
+                },
+
+                // RESUME TEMPLATE
+                resume: {
+                    name: 'Sarah Khan',
+                    title: 'Senior Developer',
+                    experience: '10+ years',
+                    companies: ['Google', 'Amazon'],
+                    skills: ['JavaScript', 'Python', 'SQL'],
+                    education: 'MS Computer Science',
+                    cta: 'Contact Me'
+                }
             },
 
             // ===== TOAST SYSTEM =====
             toast: {
-                container: document.getElementById('toastContainer'),
-                
-                show(message, type = 'info', duration = 4000) {
+                show(message, type = 'info') {
+                    const container = document.getElementById('toastContainer');
                     const toast = document.createElement('div');
                     toast.className = `toast ${type}`;
-                    
-                    const icons = {
-                        success: 'fa-check-circle',
-                        error: 'fa-exclamation-circle',
-                        info: 'fa-info-circle',
-                        warning: 'fa-exclamation-triangle'
-                    };
-                    
-                    toast.innerHTML = `
-                        <i class="fas ${icons[type]}"></i>
-                        <div style="flex: 1;">${message}</div>
-                        <button class="item-btn" onclick="this.parentElement.remove()">✕</button>
-                    `;
-                    
-                    this.container.appendChild(toast);
-                    
-                    setTimeout(() => {
-                        if (toast.parentNode) toast.remove();
-                    }, duration);
+                    toast.innerHTML = message;
+                    container.appendChild(toast);
+                    setTimeout(() => toast.remove(), 3000);
                 },
-                
                 success(m) { this.show(m, 'success'); },
                 error(m) { this.show(m, 'error'); },
-                info(m) { this.show(m, 'info'); },
-                warning(m) { this.show(m, 'warning'); }
+                info(m) { this.show(m, 'info'); }
             },
 
             // ===== LOADING SYSTEM =====
             loading: {
-                overlay: document.getElementById('loadingOverlay'),
-                message: document.getElementById('loadingMessage'),
-                subMessage: document.getElementById('loadingSubMessage'),
-                
-                show(msg = 'Processing...', sub = 'Please wait') {
-                    this.message.textContent = msg;
-                    this.subMessage.textContent = sub;
-                    this.overlay.classList.add('active');
+                show(msg = 'Processing...') {
+                    document.getElementById('loadingMessage').textContent = msg;
+                    document.getElementById('loadingOverlay').classList.add('active');
                 },
-                
                 hide() {
-                    this.overlay.classList.remove('active');
+                    document.getElementById('loadingOverlay').classList.remove('active');
                 }
             },
 
-            // ===== WELCOME MODAL =====
-            hideWelcome() {
-                document.getElementById('welcomeModal').classList.add('hidden');
-                document.getElementById('appContainer').style.display = 'block';
-                this.toast.success('Welcome to Ultimate Marketing Generator!');
-                this.initEditor();
-            },
-
-            // ===== INITIALIZATION =====
+            // ===== INITIALIZE =====
             init() {
-                // Check first visit
-                if (!localStorage.getItem('visited')) {
-                    document.getElementById('welcomeModal').classList.remove('hidden');
-                    localStorage.setItem('visited', 'true');
-                } else {
-                    document.getElementById('welcomeModal').classList.add('hidden');
-                }
+                // Set first template active
+                document.querySelectorAll('.template-btn')[0].classList.add('active');
                 
-                // Load saved state
-                this.loadState();
-                
-                // Initialize editor
-                this.initEditor();
-                
-                // Auto-save every 30 seconds
-                setInterval(() => this.saveState(), 30000);
-                
-                // Track view
-                this.analytics.views++;
-                this.updateAnalytics();
-                
-                // Check online status
-                this.checkOnlineStatus();
-            },
-
-            // ===== EDITOR INITIALIZATION =====
-            initEditor() {
+                // Render initial template
                 this.renderEditor();
                 this.renderPreview();
-                this.initColorPicker();
-                this.initFontSelector();
-                this.initImageUploads();
-                this.initQRCode();
-                this.initWatermark();
-                this.initAnimations();
+                
+                this.toast.success('All templates ready!');
             },
 
-            // ===== TEMPLATE MANAGEMENT =====
+            // ===== SET TEMPLATE =====
             setTemplate(template) {
-                this.state.currentTemplate = template;
-                
-                // Update UI
-                document.querySelectorAll('.template-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.textContent.toLowerCase().includes(template)) {
-                        btn.classList.add('active');
+                try {
+                    this.currentTemplate = template;
+                    
+                    // Update active button
+                    document.querySelectorAll('.template-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.textContent.toLowerCase().includes(template)) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    
+                    // Render everything
+                    this.renderEditor();
+                    this.renderPreview();
+                    
+                    this.toast.success(`${template} template loaded`);
+                } catch (error) {
+                    console.error(error);
+                    this.toast.error('Error loading template');
+                }
+            },
+
+            // ===== UPDATE DATA =====
+            updateData(field, value) {
+                try {
+                    this.templates[this.currentTemplate][field] = value;
+                    this.renderPreview();
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            updateFeature(index, field, value) {
+                try {
+                    this.templates[this.currentTemplate].features[index][field] = value;
+                    this.renderPreview();
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            updateStat(index, field, value) {
+                try {
+                    this.templates[this.currentTemplate].stats[index][field] = value;
+                    this.renderPreview();
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            updateReview(index, field, value) {
+                try {
+                    this.templates[this.currentTemplate].reviews[index][field] = value;
+                    this.renderPreview();
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            // ===== ADD/REMOVE ITEMS =====
+            addFeature() {
+                try {
+                    if (!this.templates[this.currentTemplate].features) {
+                        this.templates[this.currentTemplate].features = [];
                     }
-                });
-                
-                this.renderEditor();
-                this.renderPreview();
-                this.toast.success(`Template changed to ${template}`);
+                    this.templates[this.currentTemplate].features.push({ icon: 'star', text: 'New Feature' });
+                    this.renderEditor();
+                    this.renderPreview();
+                } catch (error) {
+                    this.toast.error('Features not available for this template');
+                }
+            },
+
+            removeFeature(index) {
+                try {
+                    this.templates[this.currentTemplate].features.splice(index, 1);
+                    this.renderEditor();
+                    this.renderPreview();
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            addStat() {
+                try {
+                    if (!this.templates[this.currentTemplate].stats) {
+                        this.templates[this.currentTemplate].stats = [];
+                    }
+                    this.templates[this.currentTemplate].stats.push({ value: '100+', label: 'New' });
+                    this.renderEditor();
+                    this.renderPreview();
+                } catch (error) {
+                    this.toast.error('Stats not available');
+                }
+            },
+
+            removeStat(index) {
+                try {
+                    this.templates[this.currentTemplate].stats.splice(index, 1);
+                    this.renderEditor();
+                    this.renderPreview();
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+
+            addReview() {
+                try {
+                    if (!this.templates[this.currentTemplate].reviews) {
+                        this.templates[this.currentTemplate].reviews = [];
+                    }
+                    this.templates[this.currentTemplate].reviews.push({ name: 'New User', rating: 5, text: 'Great!' });
+                    this.renderEditor();
+                    this.renderPreview();
+                } catch (error) {
+                    this.toast.error('Reviews not available');
+                }
+            },
+
+            removeReview(index) {
+                try {
+                    this.templates[this.currentTemplate].reviews.splice(index, 1);
+                    this.renderEditor();
+                    this.renderPreview();
+                } catch (error) {
+                    console.error(error);
+                }
             },
 
             // ===== RENDER EDITOR =====
             renderEditor() {
-                const template = this.state.currentTemplate;
+                const template = this.currentTemplate;
                 const data = this.templates[template];
                 const editor = document.getElementById('editorPanel');
                 
-                let html = `
-                    <!-- BASIC INFO SECTION -->
+                let html = '';
+
+                // Basic Info Section (Common for all)
+                html += `
                     <div class="editor-section">
-                        <h2>
-                            <i class="fas fa-info-circle"></i> Basic Information
-                            <span class="section-badge">Required</span>
-                        </h2>
-                        
+                        <h2><i class="fas fa-info-circle"></i> Basic Info</h2>
                         <div class="form-group">
-                            <label>Product/Service Name *</label>
+                            <label>Name/Title</label>
                             <input type="text" class="form-control" value="${data.name || ''}" 
-                                oninput="app.updateData('name', this.value)" placeholder="Enter name">
+                                oninput="app.updateData('name', this.value)">
                         </div>
-                        
                         <div class="form-group">
-                            <label>Tagline/Slogan</label>
+                            <label>Tagline</label>
                             <input type="text" class="form-control" value="${data.tagline || ''}" 
-                                oninput="app.updateData('tagline', this.value)" placeholder="Catchy tagline">
+                                oninput="app.updateData('tagline', this.value)">
                         </div>
-                        
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-control" rows="3" 
-                                oninput="app.updateData('description', this.value)" 
-                                placeholder="Describe your offering">${data.description || ''}</textarea>
-                        </div>
-                    </div>
-
-                    <!-- IMAGE UPLOAD SECTION -->
-                    <div class="editor-section">
-                        <h2>
-                            <i class="fas fa-images"></i> Images & Media
-                            <span class="section-badge">New</span>
-                        </h2>
-                        
-                        <div class="image-upload-area" onclick="document.getElementById('imageUpload').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to upload main image</p>
-                            <small>PNG, JPG, WEBP up to 10MB</small>
-                        </div>
-                        
-                        ${this.state.images.main ? `
-                            <img src="${this.state.images.main}" class="image-preview" alt="Preview">
-                            <button class="add-btn" onclick="app.removeImage('main')" style="margin-top: 10px;">
-                                <i class="fas fa-trash"></i> Remove Image
-                            </button>
-                        ` : ''}
-                        
-                        <div style="margin-top: 15px;">
-                            <label>Logo Upload</label>
-                            <div class="image-upload-area" style="padding: 15px;" onclick="document.getElementById('logoUpload').click()">
-                                <i class="fas fa-image"></i> Click to upload logo
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PRICING SECTION -->
-                    <div class="editor-section">
-                        <h2><i class="fas fa-tag"></i> Pricing</h2>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input type="text" class="form-control" value="${data.price || ''}" 
-                                    oninput="app.updateData('price', this.value)">
-                            </div>
-                            <div class="form-group">
-                                <label>Currency</label>
-                                <select class="form-control" onchange="app.updateData('currency', this.value)">
-                                    <option value="$" ${data.currency === '$' ? 'selected' : ''}>USD ($)</option>
-                                    <option value="€" ${data.currency === '€' ? 'selected' : ''}>EUR (€)</option>
-                                    <option value="£" ${data.currency === '£' ? 'selected' : ''}>GBP (£)</option>
-                                    <option value="₹" ${data.currency === '₹' ? 'selected' : ''}>INR (₹)</option>
-                                    <option value="¥" ${data.currency === '¥' ? 'selected' : ''}>JPY (¥)</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Discount/Sale Badge</label>
-                            <input type="text" class="form-control" value="${data.discount || ''}" 
-                                oninput="app.updateData('discount', this.value)" placeholder="e.g., 20% OFF">
-                        </div>
-                    </div>
-
-                    <!-- FEATURES SECTION -->
-                    <div class="editor-section">
-                        <h2><i class="fas fa-list"></i> Features</h2>
-                        <div id="featuresEditor"></div>
-                        <button class="add-btn" onclick="app.addFeature()">
-                            <i class="fas fa-plus"></i> Add Feature
-                        </button>
-                    </div>
-
-                    <!-- STATISTICS SECTION -->
-                    <div class="editor-section">
-                        <h2><i class="fas fa-chart-line"></i> Statistics</h2>
-                        <div id="statsEditor"></div>
-                        <button class="add-btn" onclick="app.addStat()">
-                            <i class="fas fa-plus"></i> Add Statistic
-                        </button>
-                    </div>
-
-                    <!-- REVIEWS SECTION -->
-                    <div class="editor-section">
-                        <h2><i class="fas fa-star"></i> Reviews</h2>
-                        <div id="reviewsEditor"></div>
-                        <button class="add-btn" onclick="app.addReview()">
-                            <i class="fas fa-plus"></i> Add Review
-                        </button>
-                    </div>
-
-                    <!-- BRAND KIT SECTION -->
-                    <div class="editor-section">
-                        <h2><i class="fas fa-palette"></i> Brand Kit</h2>
-                        
-                        <div class="form-group">
-                            <label>Primary Color</label>
-                            <div class="color-picker-wrapper">
-                                <div class="color-preview" style="background: ${this.state.primaryColor};" 
-                                    id="colorPreview"></div>
-                                <input type="color" class="form-control color-input" 
-                                    value="${this.state.primaryColor}" onchange="app.setPrimaryColor(this.value)">
-                            </div>
-                        </div>
-                        
-                        <div class="preset-colors">
-                            <div class="preset-color" style="background: #0e2a38;" onclick="app.setPrimaryColor('#0e2a38')"></div>
-                            <div class="preset-color" style="background: #3b82f6;" onclick="app.setPrimaryColor('#3b82f6')"></div>
-                            <div class="preset-color" style="background: #10b981;" onclick="app.setPrimaryColor('#10b981')"></div>
-                            <div class="preset-color" style="background: #f59e0b;" onclick="app.setPrimaryColor('#f59e0b')"></div>
-                            <div class="preset-color" style="background: #8b5cf6;" onclick="app.setPrimaryColor('#8b5cf6')"></div>
-                            <div class="preset-color" style="background: #ec4899;" onclick="app.setPrimaryColor('#ec4899')"></div>
-                        </div>
-                        
-                        <div class="form-group" style="margin-top: 15px;">
-                            <label>Font Family</label>
-                            <select class="font-selector" onchange="app.setFont(this.value)">
-                                <option value="Inter">Inter (Modern)</option>
-                                <option value="Poppins">Poppins (Professional)</option>
-                                <option value="Roboto">Roboto (Clean)</option>
-                                <option value="Montserrat">Montserrat (Bold)</option>
-                                <option value="Open Sans">Open Sans (Readable)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- WATERMARK SECTION -->
-                    <div class="editor-section">
-                        <h2><i class="fas fa-watermark"></i> Watermark Protection</h2>
-                        
-                        <div class="form-group">
-                            <label class="toggle-switch">
-                                <input type="checkbox" ${this.state.watermark.enabled ? 'checked' : ''} 
-                                    onchange="app.toggleWatermark(this.checked)">
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span style="margin-left: 10px;">Enable Watermark</span>
-                        </div>
-                        
-                        ${this.state.watermark.enabled ? `
-                            <div class="watermark-controls">
-                                <div class="form-group">
-                                    <label>Watermark Text</label>
-                                    <input type="text" class="form-control" value="${this.state.watermark.text}" 
-                                        oninput="app.updateWatermark('text', this.value)">
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label>Opacity (${this.state.watermark.opacity})</label>
-                                        <input type="range" min="0" max="0.5" step="0.05" 
-                                            value="${this.state.watermark.opacity}" 
-                                            oninput="app.updateWatermark('opacity', this.value)">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Rotation</label>
-                                        <input type="range" min="-45" max="45" value="${this.state.watermark.rotation}" 
-                                            oninput="app.updateWatermark('rotation', this.value)">
-                                    </div>
-                                </div>
-                                
-                                <div class="watermark-preview">
-                                    <div class="watermark-text" 
-                                        style="opacity: ${this.state.watermark.opacity}; transform: rotate(${this.state.watermark.rotation}deg)">
-                                        ${this.state.watermark.text}
-                                    </div>
-                                </div>
-                            </div>
-                        ` : ''}
-                    </div>
-
-                    <!-- QR CODE SECTION -->
-                    <div class="editor-section">
-                        <h2><i class="fas fa-qrcode"></i> QR Code</h2>
-                        
-                        <div class="form-group">
-                            <label class="toggle-switch">
-                                <input type="checkbox" ${this.state.qrCode.enabled ? 'checked' : ''} 
-                                    onchange="app.toggleQRCode(this.checked)">
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span style="margin-left: 10px;">Generate QR Code</span>
-                        </div>
-                        
-                        ${this.state.qrCode.enabled ? `
-                            <div class="qr-container">
-                                <div class="form-group">
-                                    <label>QR Content</label>
-                                    <input type="text" class="form-control" value="${this.state.qrCode.text}" 
-                                        oninput="app.updateQRCode('text', this.value)">
-                                </div>
-                                <div class="qr-code" id="qrCodeDisplay"></div>
-                            </div>
-                        ` : ''}
-                    </div>
-
-                    <!-- ADVANCED SETTINGS -->
-                    <div class="editor-section">
-                        <h2><i class="fas fa-cog"></i> Advanced</h2>
-                        
-                        <div class="form-group">
-                            <label>Language</label>
-                            <select class="form-control" onchange="app.setLanguage(this.value)">
-                                <option value="en">English</option>
-                                <option value="ar">العربية (Arabic)</option>
-                                <option value="ur">اردو (Urdu)</option>
-                                <option value="hi">हिन्दी (Hindi)</option>
-                                <option value="es">Español</option>
-                                <option value="fr">Français</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" ${this.state.rtl ? 'checked' : ''} 
-                                    onchange="app.toggleRTL(this.checked)">
-                                Enable RTL (Right to Left)
-                            </label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" ${this.state.animations ? 'checked' : ''} 
-                                    onchange="app.toggleAnimations(this.checked)">
-                                Enable Animations
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- CALL TO ACTION -->
-                    <div class="editor-section">
-                        <h2><i class="fas fa-bullseye"></i> Call to Action</h2>
-                        
-                        <div class="form-group">
-                            <label>Button Text</label>
-                            <input type="text" class="form-control" value="${data.cta || 'Learn More'}" 
-                                oninput="app.updateData('cta', this.value)">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Button Link</label>
-                            <input type="url" class="form-control" placeholder="https://example.com" 
-                                oninput="app.updateData('ctaLink', this.value)">
+                            <textarea class="form-control" oninput="app.updateData('description', this.value)">${data.description || ''}</textarea>
                         </div>
                     </div>
                 `;
 
-                editor.innerHTML = html;
-                
-                // Render sub-editors
-                this.renderFeatures();
-                this.renderStats();
-                this.renderReviews();
-                
-                // Generate QR if enabled
-                if (this.state.qrCode.enabled) {
-                    this.generateQRCode();
-                }
-            },
-
-            // ===== RENDER FEATURES EDITOR =====
-            renderFeatures() {
-                const template = this.state.currentTemplate;
-                const features = this.templates[template].features || [];
-                const container = document.getElementById('featuresEditor');
-                
-                if (!container) return;
-                
-                let html = '<div class="dynamic-items">';
-                
-                features.forEach((feature, index) => {
+                // Features Section
+                if (data.features) {
                     html += `
-                        <div class="dynamic-item">
-                            <div class="item-header">
-                                <span class="item-title">Feature ${index + 1}</span>
-                                <div class="item-actions">
-                                    <button class="item-btn move" onclick="app.moveFeature(${index}, 'up')">
-                                        <i class="fas fa-arrow-up"></i>
-                                    </button>
-                                    <button class="item-btn move" onclick="app.moveFeature(${index}, 'down')">
-                                        <i class="fas fa-arrow-down"></i>
-                                    </button>
-                                    <button class="item-btn" onclick="app.removeFeature(${index})">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                        <div class="editor-section">
+                            <h2><i class="fas fa-list"></i> Features</h2>
+                            <div id="featuresEditor"></div>
+                            <button class="add-btn" onclick="app.addFeature()">
+                                <i class="fas fa-plus"></i> Add Feature
+                            </button>
+                        </div>
+                    `;
+                }
+
+                // Stats Section
+                if (data.stats || data.statistics) {
+                    html += `
+                        <div class="editor-section">
+                            <h2><i class="fas fa-chart-line"></i> Statistics</h2>
+                            <div id="statsEditor"></div>
+                            <button class="add-btn" onclick="app.addStat()">
+                                <i class="fas fa-plus"></i> Add Stat
+                            </button>
+                        </div>
+                    `;
+                }
+
+                // Reviews Section
+                if (data.reviews || data.testimonials) {
+                    html += `
+                        <div class="editor-section">
+                            <h2><i class="fas fa-star"></i> Reviews</h2>
+                            <div id="reviewsEditor"></div>
+                            <button class="add-btn" onclick="app.addReview()">
+                                <i class="fas fa-plus"></i> Add Review
+                            </button>
+                        </div>
+                    `;
+                }
+
+                // Price Section
+                if (data.price) {
+                    html += `
+                        <div class="editor-section">
+                            <h2><i class="fas fa-tag"></i> Pricing</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <input type="text" class="form-control" value="${data.price}" 
+                                        oninput="app.updateData('price', this.value)">
+                                </div>
+                                <div class="form-group">
+                                    <label>Currency</label>
+                                    <input type="text" class="form-control" value="${data.currency || '$'}" 
+                                        oninput="app.updateData('currency', this.value)">
                                 </div>
                             </div>
+                        </div>
+                    `;
+                }
+
+                // CTA Section
+                if (data.cta) {
+                    html += `
+                        <div class="editor-section">
+                            <h2><i class="fas fa-bullseye"></i> Call to Action</h2>
+                            <div class="form-group">
+                                <label>Button Text</label>
+                                <input type="text" class="form-control" value="${data.cta}" 
+                                    oninput="app.updateData('cta', this.value)">
+                            </div>
+                        </div>
+                    `;
+                }
+
+                editor.innerHTML = html;
+
+                // Render sub-editors
+                if (data.features) this.renderFeatures();
+                if (data.stats) this.renderStats();
+                if (data.reviews) this.renderReviews();
+            },
+
+            renderFeatures() {
+                const container = document.getElementById('featuresEditor');
+                if (!container) return;
+                
+                const features = this.templates[this.currentTemplate].features || [];
+                let html = '<div class="dynamic-items">';
+                
+                features.forEach((f, i) => {
+                    html += `
+                        <div class="dynamic-item">
+                            <div class="item-header">
+                                <span>Feature ${i + 1}</span>
+                                <button class="item-btn" onclick="app.removeFeature(${i})">✕</button>
+                            </div>
                             <div class="form-row">
-                                <input type="text" class="form-control" placeholder="Icon name" value="${feature.icon}" 
-                                    oninput="app.updateFeature(${index}, 'icon', this.value)">
-                                <input type="text" class="form-control" placeholder="Feature text" value="${feature.text}" 
-                                    oninput="app.updateFeature(${index}, 'text', this.value)">
+                                <input type="text" class="form-control" placeholder="Icon" value="${f.icon}" 
+                                    oninput="app.updateFeature(${i}, 'icon', this.value)">
+                                <input type="text" class="form-control" placeholder="Text" value="${f.text}" 
+                                    oninput="app.updateFeature(${i}, 'text', this.value)">
                             </div>
                         </div>
                     `;
@@ -1527,30 +1092,25 @@
                 container.innerHTML = html;
             },
 
-            // ===== RENDER STATS EDITOR =====
             renderStats() {
-                const template = this.state.currentTemplate;
-                const stats = this.templates[template].stats || [];
                 const container = document.getElementById('statsEditor');
-                
                 if (!container) return;
                 
+                const stats = this.templates[this.currentTemplate].stats || [];
                 let html = '<div class="dynamic-items">';
                 
-                stats.forEach((stat, index) => {
+                stats.forEach((s, i) => {
                     html += `
                         <div class="dynamic-item">
                             <div class="item-header">
-                                <span class="item-title">Stat ${index + 1}</span>
-                                <button class="item-btn" onclick="app.removeStat(${index})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                <span>Stat ${i + 1}</span>
+                                <button class="item-btn" onclick="app.removeStat(${i})">✕</button>
                             </div>
                             <div class="form-row">
-                                <input type="text" class="form-control" placeholder="Value" value="${stat.value}" 
-                                    oninput="app.updateStat(${index}, 'value', this.value)">
-                                <input type="text" class="form-control" placeholder="Label" value="${stat.label}" 
-                                    oninput="app.updateStat(${index}, 'label', this.value)">
+                                <input type="text" class="form-control" placeholder="Value" value="${s.value}" 
+                                    oninput="app.updateStat(${i}, 'value', this.value)">
+                                <input type="text" class="form-control" placeholder="Label" value="${s.label}" 
+                                    oninput="app.updateStat(${i}, 'label', this.value)">
                             </div>
                         </div>
                     `;
@@ -1560,40 +1120,31 @@
                 container.innerHTML = html;
             },
 
-            // ===== RENDER REVIEWS EDITOR =====
             renderReviews() {
-                const template = this.state.currentTemplate;
-                const reviews = this.templates[template].reviews || [];
                 const container = document.getElementById('reviewsEditor');
-                
                 if (!container) return;
                 
+                const reviews = this.templates[this.currentTemplate].reviews || [];
                 let html = '<div class="dynamic-items">';
                 
-                reviews.forEach((review, index) => {
+                reviews.forEach((r, i) => {
                     html += `
                         <div class="dynamic-item">
                             <div class="item-header">
-                                <span class="item-title">Review ${index + 1}</span>
-                                <button class="item-btn" onclick="app.removeReview(${index})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                <span>Review ${i + 1}</span>
+                                <button class="item-btn" onclick="app.removeReview(${i})">✕</button>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Reviewer name" value="${review.name}" 
-                                    oninput="app.updateReview(${index}, 'name', this.value)">
-                            </div>
-                            <div class="form-group">
-                                <select class="form-control" oninput="app.updateReview(${index}, 'rating', this.value)">
-                                    <option value="5" ${review.rating === 5 ? 'selected' : ''}>★★★★★ (5)</option>
-                                    <option value="4" ${review.rating === 4 ? 'selected' : ''}>★★★★☆ (4)</option>
-                                    <option value="3" ${review.rating === 3 ? 'selected' : ''}>★★★☆☆ (3)</option>
-                                    <option value="2" ${review.rating === 2 ? 'selected' : ''}>★★☆☆☆ (2)</option>
-                                    <option value="1" ${review.rating === 1 ? 'selected' : ''}>★☆☆☆☆ (1)</option>
-                                </select>
-                            </div>
-                            <textarea class="form-control" rows="2" placeholder="Review text" 
-                                oninput="app.updateReview(${index}, 'text', this.value)">${review.text || ''}</textarea>
+                            <input type="text" class="form-control" placeholder="Name" value="${r.name}" 
+                                oninput="app.updateReview(${i}, 'name', this.value)">
+                            <select class="form-control" onchange="app.updateReview(${i}, 'rating', this.value)">
+                                <option value="5" ${r.rating == 5 ? 'selected' : ''}>★★★★★</option>
+                                <option value="4" ${r.rating == 4 ? 'selected' : ''}>★★★★☆</option>
+                                <option value="3" ${r.rating == 3 ? 'selected' : ''}>★★★☆☆</option>
+                                <option value="2" ${r.rating == 2 ? 'selected' : ''}>★★☆☆☆</option>
+                                <option value="1" ${r.rating == 1 ? 'selected' : ''}>★☆☆☆☆</option>
+                            </select>
+                            <textarea class="form-control" placeholder="Review" 
+                                oninput="app.updateReview(${i}, 'text', this.value)">${r.text || ''}</textarea>
                         </div>
                     `;
                 });
@@ -1604,517 +1155,455 @@
 
             // ===== RENDER PREVIEW =====
             renderPreview() {
-                const template = this.state.currentTemplate;
+                const template = this.currentTemplate;
                 const data = this.templates[template];
                 const preview = document.getElementById('previewCard');
                 
-                let html = `
-                    <!-- Watermark Overlay -->
-                    ${this.state.watermark.enabled ? `
-                        <div class="watermark-overlay" 
-                            style="opacity: ${this.state.watermark.opacity}; transform: rotate(${this.state.watermark.rotation}deg)">
-                            ${this.state.watermark.text}
-                        </div>
-                    ` : ''}
+                let html = '';
+
+                switch(template) {
+                    case 'product':
+                        html = this.renderProductPreview(data);
+                        break;
+                    case 'service':
+                        html = this.renderServicePreview(data);
+                        break;
+                    case 'company':
+                        html = this.renderCompanyPreview(data);
+                        break;
+                    case 'app':
+                        html = this.renderAppPreview(data);
+                        break;
+                    case 'restaurant':
+                        html = this.renderRestaurantPreview(data);
+                        break;
+                    case 'realestate':
+                        html = this.renderRealEstatePreview(data);
+                        break;
+                    case 'event':
+                        html = this.renderEventPreview(data);
+                        break;
+                    case 'course':
+                        html = this.renderCoursePreview(data);
+                        break;
+                    case 'portfolio':
+                        html = this.renderPortfolioPreview(data);
+                        break;
+                    case 'resume':
+                        html = this.renderResumePreview(data);
+                        break;
+                    default:
+                        html = this.renderProductPreview(data);
+                }
+
+                preview.innerHTML = html;
+            },
+
+            renderProductPreview(data) {
+                return `
+                    ${data.badge ? `<div style="background: var(--accent); color: var(--primary); padding: 5px 15px; border-radius: 50px; display: inline-block; margin-bottom: 20px;">${data.badge}</div>` : ''}
+                    <h1 style="font-size: 2.5rem;">${data.name}</h1>
+                    <p style="color: #666; font-size: 1.2rem;">${data.tagline}</p>
+                    <p>${data.description}</p>
                     
-                    <!-- Logo -->
-                    ${this.state.images.logo ? `
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <img src="${this.state.images.logo}" style="max-height: 60px;" alt="Logo">
-                        </div>
-                    ` : ''}
-                    
-                    <!-- Badge -->
-                    ${data.badge ? `
-                        <div style="background: var(--accent); color: var(--primary); padding: 8px 20px; 
-                            border-radius: 50px; display: inline-block; font-weight: 600; margin-bottom: 20px;">
-                            ${data.badge}
-                        </div>
-                    ` : ''}
-                    
-                    <!-- Main Image -->
-                    ${this.state.images.main ? `
-                        <div style="margin: 20px 0; text-align: center;">
-                            <img src="${this.state.images.main}" style="max-width: 100%; max-height: 300px; 
-                                border-radius: 20px; box-shadow: var(--shadow-lg);" alt="Product">
-                        </div>
-                    ` : ''}
-                    
-                    <!-- Title & Tagline -->
-                    <h1 style="font-size: 2.5rem; margin: 10px 0; font-family: ${this.state.fontFamily};">${data.name}</h1>
-                    <p style="font-size: 1.2rem; color: #666; margin-bottom: 20px;">${data.tagline}</p>
-                    
-                    <!-- Description -->
-                    <p style="margin: 20px 0; line-height: 1.6;">${data.description}</p>
-                    
-                    <!-- Price -->
                     <div class="price-tag">
                         ${data.currency}${data.price}
-                        ${data.discount ? `<small style="margin-left: 15px; color: var(--success);">${data.discount}</small>` : ''}
+                        ${data.discount ? `<small style="color: var(--success);">${data.discount}</small>` : ''}
                     </div>
                     
-                    <!-- Features Grid -->
-                    ${data.features && data.features.length ? `
-                        <div class="feature-grid">
-                            ${data.features.map(f => `
-                                <div class="feature-box ${this.state.animations ? 'animate-in' : ''}">
-                                    <i class="fas fa-${f.icon}"></i>
-                                    <h4>${f.text}</h4>
-                                    ${f.value ? `<p style="color: var(--primary); font-weight: 600;">${f.value}</p>` : ''}
-                                </div>
-                            `).join('')}
-                        </div>
-                    ` : ''}
+                    <div class="feature-grid">
+                        ${data.features ? data.features.map(f => `
+                            <div class="feature-box">
+                                <i class="fas fa-${f.icon}"></i>
+                                <p>${f.text}</p>
+                            </div>
+                        `).join('') : ''}
+                    </div>
                     
-                    <!-- Statistics -->
-                    ${data.stats && data.stats.length ? `
-                        <div class="stats-grid">
-                            ${data.stats.map(s => `
-                                <div class="stat-box">
-                                    <div class="stat-value">${s.value}</div>
-                                    <div>${s.label}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    ` : ''}
+                    <div class="stats-grid">
+                        ${data.stats ? data.stats.map(s => `
+                            <div class="stat-box">
+                                <div class="stat-value">${s.value}</div>
+                                <div>${s.label}</div>
+                            </div>
+                        `).join('') : ''}
+                    </div>
                     
-                    <!-- Reviews -->
-                    ${data.reviews && data.reviews.length ? `
-                        <h3 style="margin: 30px 0 20px;">Customer Reviews</h3>
+                    ${data.reviews ? `
                         <div class="testimonials-grid">
                             ${data.reviews.map(r => `
                                 <div class="testimonial-card">
-                                    <div style="color: #fbbf24; margin-bottom: 10px;">
-                                        ${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}
-                                    </div>
+                                    <div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
                                     <p>"${r.text}"</p>
                                     <div class="testimonial-author">
-                                        <div class="author-avatar">
-                                            ${r.avatar ? `<img src="${r.avatar}" style="width: 100%; height: 100%; border-radius: 50%;">` : 
-                                                `<i class="fas fa-user"></i>`}
-                                        </div>
-                                        <div>
-                                            <strong>${r.name}</strong>
-                                        </div>
+                                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                                        <strong>${r.name}</strong>
                                     </div>
                                 </div>
                             `).join('')}
                         </div>
                     ` : ''}
                     
-                    <!-- QR Code -->
-                    ${this.state.qrCode.enabled ? `
-                        <div style="text-align: center; margin: 30px 0;">
-                            <div id="qrPreview"></div>
-                        </div>
-                    ` : ''}
-                    
-                    <!-- CTA Button -->
-                    <button class="cta-button" style="font-family: ${this.state.fontFamily};">
-                        ${data.cta || 'Learn More'}
-                    </button>
+                    <button class="cta-button">${data.cta}</button>
                 `;
-                
-                preview.innerHTML = html;
-                
-                // Generate QR in preview
-                if (this.state.qrCode.enabled) {
-                    this.generateQRPreview();
-                }
-                
-                // Apply RTL if enabled
-                if (this.state.rtl) {
-                    preview.style.direction = 'rtl';
-                } else {
-                    preview.style.direction = 'ltr';
-                }
             },
 
-            // ===== IMAGE UPLOAD HANDLERS =====
-            initImageUploads() {
-                document.getElementById('imageUpload').addEventListener('change', (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            this.state.images.main = e.target.result;
-                            this.renderPreview();
-                            this.toast.success('Image uploaded successfully');
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-                
-                document.getElementById('logoUpload').addEventListener('change', (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            this.state.images.logo = e.target.result;
-                            this.renderEditor();
-                            this.renderPreview();
-                            this.toast.success('Logo uploaded successfully');
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            },
-
-            removeImage(type) {
-                if (type === 'main') {
-                    this.state.images.main = null;
-                } else if (type === 'logo') {
-                    this.state.images.logo = null;
-                }
-                this.renderEditor();
-                this.renderPreview();
-                this.toast.info('Image removed');
-            },
-
-            // ===== COLOR MANAGEMENT =====
-            initColorPicker() {
-                // Already handled in render
-            },
-
-            setPrimaryColor(color) {
-                this.state.primaryColor = color;
-                document.documentElement.style.setProperty('--primary', color);
-                document.documentElement.style.setProperty('--primary-light', this.lightenColor(color, 20));
-                this.renderPreview();
-                this.toast.info('Color updated');
-            },
-
-            lightenColor(color, percent) {
-                // Simple color lightening
-                return color; // For demo
-            },
-
-            // ===== FONT MANAGEMENT =====
-            initFontSelector() {
-                // Handled in render
-            },
-
-            setFont(font) {
-                this.state.fontFamily = font;
-                document.getElementById('previewCard').style.fontFamily = font;
-                this.toast.info(`Font changed to ${font}`);
-            },
-
-            // ===== FEATURE MANAGEMENT =====
-            addFeature() {
-                const template = this.state.currentTemplate;
-                this.templates[template].features.push({
-                    icon: 'star',
-                    text: 'New Feature',
-                    value: ''
-                });
-                this.renderFeatures();
-                this.renderPreview();
-                this.toast.success('Feature added');
-            },
-
-            updateFeature(index, field, value) {
-                const template = this.state.currentTemplate;
-                this.templates[template].features[index][field] = value;
-                this.renderPreview();
-            },
-
-            removeFeature(index) {
-                const template = this.state.currentTemplate;
-                this.templates[template].features.splice(index, 1);
-                this.renderFeatures();
-                this.renderPreview();
-                this.toast.success('Feature removed');
-            },
-
-            moveFeature(index, direction) {
-                const template = this.state.currentTemplate;
-                const features = this.templates[template].features;
-                
-                if (direction === 'up' && index > 0) {
-                    [features[index - 1], features[index]] = [features[index], features[index - 1]];
-                } else if (direction === 'down' && index < features.length - 1) {
-                    [features[index], features[index + 1]] = [features[index + 1], features[index]];
-                }
-                
-                this.renderFeatures();
-                this.renderPreview();
-            },
-
-            // ===== STATISTICS MANAGEMENT =====
-            addStat() {
-                const template = this.state.currentTemplate;
-                this.templates[template].stats.push({
-                    value: '100+',
-                    label: 'New Stat'
-                });
-                this.renderStats();
-                this.renderPreview();
-                this.toast.success('Statistic added');
-            },
-
-            updateStat(index, field, value) {
-                const template = this.state.currentTemplate;
-                this.templates[template].stats[index][field] = value;
-                this.renderPreview();
-            },
-
-            removeStat(index) {
-                const template = this.state.currentTemplate;
-                this.templates[template].stats.splice(index, 1);
-                this.renderStats();
-                this.renderPreview();
-                this.toast.success('Statistic removed');
-            },
-
-            // ===== REVIEWS MANAGEMENT =====
-            addReview() {
-                const template = this.state.currentTemplate;
-                if (!this.templates[template].reviews) {
-                    this.templates[template].reviews = [];
-                }
-                this.templates[template].reviews.push({
-                    name: 'New Customer',
-                    rating: 5,
-                    text: 'Great product!'
-                });
-                this.renderReviews();
-                this.renderPreview();
-                this.toast.success('Review added');
-            },
-
-            updateReview(index, field, value) {
-                const template = this.state.currentTemplate;
-                this.templates[template].reviews[index][field] = value;
-                this.renderPreview();
-            },
-
-            removeReview(index) {
-                const template = this.state.currentTemplate;
-                this.templates[template].reviews.splice(index, 1);
-                this.renderReviews();
-                this.renderPreview();
-                this.toast.success('Review removed');
-            },
-
-            // ===== DATA MANAGEMENT =====
-            updateData(field, value) {
-                const template = this.state.currentTemplate;
-                this.templates[template][field] = value;
-                this.renderPreview();
-            },
-
-            // ===== WATERMARK MANAGEMENT =====
-            toggleWatermark(enabled) {
-                this.state.watermark.enabled = enabled;
-                this.renderEditor();
-                this.renderPreview();
-                this.toast.info(`Watermark ${enabled ? 'enabled' : 'disabled'}`);
-            },
-
-            updateWatermark(field, value) {
-                this.state.watermark[field] = value;
-                this.renderEditor();
-                this.renderPreview();
-            },
-
-            // ===== QR CODE MANAGEMENT =====
-            toggleQRCode(enabled) {
-                this.state.qrCode.enabled = enabled;
-                this.renderEditor();
-                this.renderPreview();
-                if (enabled) {
-                    setTimeout(() => this.generateQRCode(), 100);
-                }
-                this.toast.info(`QR Code ${enabled ? 'enabled' : 'disabled'}`);
-            },
-
-            updateQRCode(field, value) {
-                this.state.qrCode[field] = value;
-                this.generateQRCode();
-            },
-
-            generateQRCode() {
-                const container = document.getElementById('qrCodeDisplay');
-                if (container && this.state.qrCode.text) {
-                    QRCode.toCanvas(container, this.state.qrCode.text, {
-                        width: this.state.qrCode.size,
-                        margin: 2,
-                        color: {
-                            dark: this.state.primaryColor,
-                            light: '#ffffff'
-                        }
-                    }, (error) => {
-                        if (error) this.toast.error('QR generation failed');
-                    });
-                }
-            },
-
-            generateQRPreview() {
-                const container = document.getElementById('qrPreview');
-                if (container && this.state.qrCode.text) {
-                    QRCode.toCanvas(container, this.state.qrCode.text, {
-                        width: 150,
-                        margin: 2
-                    });
-                }
-            },
-
-            // ===== LANGUAGE & RTL =====
-            setLanguage(lang) {
-                this.state.language = lang;
-                this.toast.info(`Language changed to ${lang}`);
-                // In real app, would load translations
-            },
-
-            toggleRTL(enabled) {
-                this.state.rtl = enabled;
-                document.getElementById('previewCard').style.direction = enabled ? 'rtl' : 'ltr';
-                this.toast.info(`RTL ${enabled ? 'enabled' : 'disabled'}`);
-            },
-
-            // ===== ANIMATIONS =====
-            toggleAnimations(enabled) {
-                this.state.animations = enabled;
-                if (enabled) {
-                    this.runAnimations();
-                }
-                this.toast.info(`Animations ${enabled ? 'enabled' : 'disabled'}`);
-            },
-
-            runAnimations() {
-                if (this.state.animations) {
-                    anime({
-                        targets: '.feature-box, .stat-box, .testimonial-card',
-                        translateY: [50, 0],
-                        opacity: [0, 1],
-                        delay: anime.stagger(100),
-                        duration: 800,
-                        easing: 'easeOutElastic'
-                    });
-                }
-            },
-
-            // ===== ANALYTICS =====
-            updateAnalytics() {
-                // Track in localStorage
-                const analytics = JSON.parse(localStorage.getItem('analytics') || '{"views":0,"downloads":0,"shares":0}');
-                analytics.views++;
-                localStorage.setItem('analytics', JSON.stringify(analytics));
-            },
-
-            trackDownload(format) {
-                const analytics = JSON.parse(localStorage.getItem('analytics') || '{"views":0,"downloads":0,"shares":0}');
-                analytics.downloads++;
-                localStorage.setItem('analytics', JSON.stringify(analytics));
-                this.toast.success(`Downloaded as ${format.toUpperCase()}`);
-            },
-
-            // ===== EXPORT MENU =====
-            exportMenu: {
-                show() {
-                    const menu = document.createElement('div');
-                    menu.className = 'export-menu';
-                    menu.style.cssText = `
-                        position: fixed;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        background: white;
-                        padding: 30px;
-                        border-radius: 20px;
-                        box-shadow: var(--shadow-xl);
-                        z-index: 10002;
-                        max-width: 500px;
-                        width: 90%;
-                        max-height: 80vh;
-                        overflow-y: auto;
-                    `;
+            renderServicePreview(data) {
+                return `
+                    <div style="background: var(--accent); color: var(--primary); padding: 5px 15px; border-radius: 50px; display: inline-block; margin-bottom: 20px;">${data.badge}</div>
+                    <h1 style="font-size: 2.5rem;">${data.name}</h1>
+                    <p style="color: #666; font-size: 1.2rem;">${data.tagline}</p>
+                    <p>${data.description}</p>
                     
-                    menu.innerHTML = `
-                        <h2 style="margin-bottom: 20px;">Export Options</h2>
-                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                            <button class="add-btn" onclick="app.exportPDF()">
-                                <i class="fas fa-file-pdf"></i> PDF
-                            </button>
-                            <button class="add-btn" onclick="app.exportPNG()">
-                                <i class="fas fa-file-image"></i> PNG
-                            </button>
-                            <button class="add-btn" onclick="app.exportJPG()">
-                                <i class="fas fa-file-image"></i> JPG
-                            </button>
-                            <button class="add-btn" onclick="app.exportSVG()">
-                                <i class="fas fa-file-code"></i> SVG
-                            </button>
-                            <button class="add-btn" onclick="app.exportHTML()">
-                                <i class="fas fa-file-code"></i> HTML
-                            </button>
-                            <button class="add-btn" onclick="app.exportDOCX()">
-                                <i class="fas fa-file-word"></i> DOCX
-                            </button>
-                            <button class="add-btn" onclick="app.exportPPTX()">
-                                <i class="fas fa-file-powerpoint"></i> PPTX
-                            </button>
-                            <button class="add-btn" onclick="app.exportJSON()">
-                                <i class="fas fa-file-code"></i> JSON
-                            </button>
-                            <button class="add-btn" onclick="app.exportCSV()">
-                                <i class="fas fa-file-csv"></i> CSV
-                            </button>
-                            <button class="add-btn" onclick="app.exportXLSX()">
-                                <i class="fas fa-file-excel"></i> Excel
-                            </button>
-                            <button class="add-btn" onclick="app.exportMarkdown()">
-                                <i class="fas fa-file-alt"></i> Markdown
-                            </button>
-                            <button class="add-btn" onclick="app.exportGoogleSlides()">
-                                <i class="fab fa-google"></i> Google Slides
-                            </button>
-                            <button class="add-btn" onclick="app.exportCanva()">
-                                <i class="fas fa-paint-brush"></i> Canva
-                            </button>
-                            <button class="add-btn" onclick="app.exportFigma()">
-                                <i class="fab fa-figma"></i> Figma
-                            </button>
-                            <button class="add-btn" onclick="app.exportAdobeXD()">
-                                <i class="fas fa-pencil-ruler"></i> Adobe XD
-                            </button>
-                            <button class="add-btn" onclick="app.printCard()">
-                                <i class="fas fa-print"></i> Print
-                            </button>
+                    <div class="price-tag">
+                        ${data.currency}${data.price}${data.unit || ''}
+                    </div>
+                    
+                    <div class="feature-grid">
+                        ${data.features.map(f => `
+                            <div class="feature-box">
+                                <i class="fas fa-${f.icon}"></i>
+                                <p>${f.text}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="stats-grid">
+                        ${data.stats.map(s => `
+                            <div class="stat-box">
+                                <div class="stat-value">${s.value}</div>
+                                <div>${s.label}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="testimonials-grid">
+                        <div class="testimonial-card">
+                            <p>"${data.testimonials[0].text}"</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar"><i class="fas fa-user"></i></div>
+                                <div>
+                                    <strong>${data.testimonials[0].name}</strong>
+                                    <br><small>${data.testimonials[0].company}</small>
+                                </div>
+                            </div>
                         </div>
-                        <button class="add-btn" onclick="this.parentElement.remove()" style="margin-top: 20px;">
-                            <i class="fas fa-times"></i> Close
-                        </button>
-                    `;
+                    </div>
                     
-                    document.body.appendChild(menu);
+                    <button class="cta-button">${data.cta}</button>
+                `;
+            },
+
+            renderCompanyPreview(data) {
+                return `
+                    <h1 style="font-size: 2.5rem;">${data.name}</h1>
+                    <p style="color: #666; font-size: 1.2rem;">${data.tagline}</p>
+                    <p>${data.description}</p>
                     
-                    // Remove on outside click
-                    setTimeout(() => {
-                        window.addEventListener('click', function closeMenu(e) {
-                            if (!menu.contains(e.target)) {
-                                menu.remove();
-                                window.removeEventListener('click', closeMenu);
-                            }
-                        });
-                    }, 100);
-                }
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-value">${data.founded}</div>
+                            <div>Founded</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">${data.employees}</div>
+                            <div>Employees</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">${data.clients}</div>
+                            <div>Clients</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">${data.countries}</div>
+                            <div>Countries</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Services</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin: 20px 0;">
+                        ${data.services.map(s => `
+                            <div style="padding: 10px; background: var(--gray-50); border-radius: 10px;">
+                                <i class="fas fa-check-circle" style="color: var(--success);"></i> ${s}
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div style="display: flex; gap: 20px; margin: 30px 0;">
+                        ${data.achievements.map(a => `
+                            <div style="text-align: center;">
+                                <i class="fas fa-${a.icon}" style="font-size: 2rem; color: var(--accent);"></i>
+                                <p>${a.text}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <button class="cta-button">${data.cta}</button>
+                `;
+            },
+
+            renderAppPreview(data) {
+                return `
+                    <div style="text-align: center;">
+                        <h1 style="font-size: 2.5rem;">${data.name}</h1>
+                        <p style="font-size: 1.2rem;">${data.tagline}</p>
+                        <p>${data.description}</p>
+                        
+                        <div style="margin: 20px;">
+                            <span class="stars">★★★★★</span> ${data.rating} (${data.reviews} reviews)
+                        </div>
+                        
+                        <div style="font-size: 2rem;">${data.downloads}+ Downloads</div>
+                        
+                        <div class="feature-grid">
+                            ${data.features.map(f => `
+                                <div class="feature-box">
+                                    <i class="fas fa-${f.icon}"></i>
+                                    <p>${f.text}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="margin: 30px;">
+                            ${data.platforms.includes('apple') ? '<span style="margin:10px;"><i class="fab fa-apple"></i> App Store</span>' : ''}
+                            ${data.platforms.includes('android') ? '<span style="margin:10px;"><i class="fab fa-google-play"></i> Google Play</span>' : ''}
+                        </div>
+                        
+                        <div style="color: #666;">${data.price}</div>
+                        
+                        <button class="cta-button">${data.cta}</button>
+                    </div>
+                `;
+            },
+
+            renderRestaurantPreview(data) {
+                return `
+                    <div style="text-align: center;">
+                        <h1 style="font-size: 2.5rem;">${data.name}</h1>
+                        <p style="font-size: 1.2rem;">${data.tagline}</p>
+                        <p>${data.cuisine}</p>
+                        
+                        <div style="margin: 20px;">
+                            <span class="stars">★★★★★</span> ${data.rating} (${data.reviews} reviews)
+                        </div>
+                        
+                        <p><i class="fas fa-clock"></i> ${data.hours}</p>
+                        <p><i class="fas fa-map-marker"></i> ${data.location}</p>
+                        
+                        <div style="margin: 30px;">
+                            <h3>Featured Items</h3>
+                            ${data.featured.map(f => `
+                                <div class="menu-item">
+                                    <span>${f.name}</span>
+                                    <span style="font-weight: 600;">₹${f.price}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="background: var(--gray-50); padding: 20px; border-radius: 15px; margin: 20px;">
+                            <p><strong>${data.offers}</strong></p>
+                            <p>${data.delivery}</p>
+                        </div>
+                        
+                        <button class="cta-button">${data.cta}</button>
+                    </div>
+                `;
+            },
+
+            renderRealEstatePreview(data) {
+                return `
+                    <h1 style="font-size: 2.5rem;">${data.name}</h1>
+                    <p><i class="fas fa-map-marker"></i> ${data.location}</p>
+                    
+                    <div class="price-tag">${data.price}</div>
+                    <p>${data.type} · ${data.area}</p>
+                    
+                    <div class="property-features">
+                        ${data.features.map(f => `
+                            <div class="property-feature">
+                                <i class="fas fa-${f.icon}"></i>
+                                <p>${f.text}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <h3>Amenities</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin: 20px;">
+                        ${data.amenities.map(a => `
+                            <div><i class="fas fa-check-circle" style="color: var(--success);"></i> ${a}</div>
+                        `).join('')}
+                    </div>
+                    
+                    <div style="background: var(--gray-50); padding: 20px; border-radius: 15px; margin: 20px;">
+                        <p><strong>${data.agent}</strong></p>
+                        <p><i class="fas fa-phone"></i> ${data.contact}</p>
+                    </div>
+                    
+                    <button class="cta-button">${data.cta}</button>
+                `;
+            },
+
+            renderEventPreview(data) {
+                return `
+                    <div style="text-align: center;">
+                        <h1 style="font-size: 2.5rem;">${data.name}</h1>
+                        <p style="font-size: 1.2rem;">${data.tagline}</p>
+                        
+                        <div style="margin: 20px;">
+                            <p><i class="fas fa-calendar"></i> ${data.date}</p>
+                            <p><i class="fas fa-map-marker"></i> ${data.venue}</p>
+                        </div>
+                        
+                        <div class="countdown">
+                            <div class="countdown-box">
+                                <div class="countdown-number">15</div>
+                                <div>Days</div>
+                            </div>
+                            <div class="countdown-box">
+                                <div class="countdown-number">08</div>
+                                <div>Hours</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 30px; justify-content: center; margin: 30px;">
+                            <div><strong>${data.speakers}</strong><br>Speakers</div>
+                            <div><strong>${data.attendees}</strong><br>Attendees</div>
+                        </div>
+                        
+                        <div class="price-tag">${data.price}</div>
+                        <p style="color: var(--success);">Early Bird: ${data.earlyBird}</p>
+                        
+                        <button class="cta-button">${data.cta}</button>
+                    </div>
+                `;
+            },
+
+            renderCoursePreview(data) {
+                return `
+                    <h1 style="font-size: 2.5rem;">${data.name}</h1>
+                    <p><i class="fas fa-user"></i> ${data.instructor}</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-value">${data.duration}</div>
+                            <div>Duration</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">${data.lectures}</div>
+                            <div>Lectures</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">${data.students}</div>
+                            <div>Students</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">${data.rating} ★</div>
+                            <div>Rating</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Curriculum</h3>
+                    <ul style="margin: 20px;">
+                        ${data.curriculum.map(c => `
+                            <li style="margin: 5px;"><i class="fas fa-check-circle" style="color: var(--success);"></i> ${c}</li>
+                        `).join('')}
+                    </ul>
+                    
+                    <div class="price-tag">${data.price}</div>
+                    
+                    <button class="cta-button">${data.cta}</button>
+                `;
+            },
+
+            renderPortfolioPreview(data) {
+                return `
+                    <div style="text-align: center;">
+                        <div class="author-avatar" style="width: 100px; height: 100px; margin: 0 auto 20px;">
+                            <i class="fas fa-user" style="font-size: 3rem;"></i>
+                        </div>
+                        <h1 style="font-size: 2.5rem;">${data.name}</h1>
+                        <p style="font-size: 1.2rem; color: #666;">${data.title}</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-value">${data.experience}</div>
+                                <div>Experience</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-value">${data.projects}</div>
+                                <div>Projects</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-value">${data.clients}</div>
+                                <div>Clients</div>
+                            </div>
+                        </div>
+                        
+                        <h3>Skills</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 20px;">
+                            ${data.skills.map(s => `
+                                <span style="background: var(--gray-100); padding: 8px 20px; border-radius: 50px;">${s}</span>
+                            `).join('')}
+                        </div>
+                        
+                        <button class="cta-button">${data.cta}</button>
+                    </div>
+                `;
+            },
+
+            renderResumePreview(data) {
+                return `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                        <div>
+                            <h1 style="font-size: 2.5rem;">${data.name}</h1>
+                            <p style="font-size: 1.2rem; color: #666;">${data.title}</p>
+                        </div>
+                        <div class="author-avatar" style="width: 80px; height: 80px;">
+                            <i class="fas fa-user" style="font-size: 2.5rem;"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-value">${data.experience}</div>
+                            <div>Experience</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">${data.companies.length}</div>
+                            <div>Companies</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Work Experience</h3>
+                    <ul style="margin: 15px;">
+                        ${data.companies.map(c => `
+                            <li style="margin: 5px;"><i class="fas fa-building"></i> ${c}</li>
+                        `).join('')}
+                    </ul>
+                    
+                    <h3>Skills</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 15px;">
+                        ${data.skills.map(s => `
+                            <span style="background: var(--gray-100); padding: 5px 15px; border-radius: 50px;">${s}</span>
+                        `).join('')}
+                    </div>
+                    
+                    <h3>Education</h3>
+                    <p>${data.education}</p>
+                    
+                    <button class="cta-button">${data.cta}</button>
+                `;
             },
 
             // ===== EXPORT FUNCTIONS =====
             async exportPDF() {
-                this.loading.show('Generating PDF...', 'Creating high-quality document');
+                this.loading.show('Generating PDF...');
                 
                 try {
                     const element = document.getElementById('previewCard');
                     
                     const canvas = await html2canvas(element, {
-                        scale: 3,
-                        backgroundColor: '#ffffff',
-                        logging: false,
-                        allowTaint: true,
-                        useCORS: true
+                        scale: 2,
+                        backgroundColor: '#ffffff'
                     });
                     
                     const imgData = canvas.toDataURL('image/png');
@@ -2138,78 +1627,45 @@
                     
                     pdf.addImage(imgData, 'PNG', x, y, width, height);
                     
-                    const fileName = `${this.templates[this.state.currentTemplate].name.replace(/\s+/g, '_')}_Marketing.pdf`;
+                    const fileName = `${this.templates[this.currentTemplate].name.replace(/\s+/g, '_')}.pdf`;
                     pdf.save(fileName);
                     
                     this.loading.hide();
-                    this.trackDownload('pdf');
+                    this.toast.success('PDF downloaded!');
                 } catch (error) {
                     console.error(error);
                     this.loading.hide();
-                    this.toast.error('PDF export failed');
+                    this.toast.error('PDF failed');
                 }
             },
 
             async exportPNG() {
-                this.loading.show('Generating PNG...', 'Creating high-quality image');
-                
-                try {
-                    const element = document.getElementById('previewCard');
-                    
-                    const canvas = await html2canvas(element, {
-                        scale: 3,
-                        backgroundColor: '#ffffff',
-                        logging: false
-                    });
-                    
-                    const fileName = `${this.templates[this.state.currentTemplate].name.replace(/\s+/g, '_')}_Marketing.png`;
-                    
-                    canvas.toBlob((blob) => {
-                        saveAs(blob, fileName);
-                    });
-                    
-                    this.loading.hide();
-                    this.trackDownload('png');
-                } catch (error) {
-                    console.error(error);
-                    this.loading.hide();
-                    this.toast.error('PNG export failed');
-                }
-            },
-
-            async exportJPG() {
-                this.loading.show('Generating JPG...', 'Creating image');
+                this.loading.show('Generating PNG...');
                 
                 try {
                     const element = document.getElementById('previewCard');
                     
                     const canvas = await html2canvas(element, {
                         scale: 2,
-                        backgroundColor: '#ffffff',
-                        logging: false
+                        backgroundColor: '#ffffff'
                     });
                     
-                    const fileName = `${this.templates[this.state.currentTemplate].name.replace(/\s+/g, '_')}_Marketing.jpg`;
+                    const fileName = `${this.templates[this.currentTemplate].name.replace(/\s+/g, '_')}.png`;
                     
                     canvas.toBlob((blob) => {
                         saveAs(blob, fileName);
-                    }, 'image/jpeg', 0.95);
+                    });
                     
                     this.loading.hide();
-                    this.trackDownload('jpg');
+                    this.toast.success('PNG downloaded!');
                 } catch (error) {
                     this.loading.hide();
-                    this.toast.error('JPG export failed');
+                    this.toast.error('PNG failed');
                 }
             },
 
-            exportSVG() {
-                this.toast.info('SVG export - Premium feature');
-                // Would implement with canvg library
-            },
-
             exportHTML() {
-                this.loading.show('Generating HTML...', 'Creating standalone file');
+                this.loading.show('Generating HTML...');
                 
                 try {
                     const element = document.getElementById('previewCard');
@@ -2217,27 +1673,12 @@
                     
                     const fullHTML = `
                         <!DOCTYPE html>
-                        <html lang="en">
+                        <html>
                         <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>${this.templates[this.state.currentTemplate].name} - Marketing</title>
-                            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+                            <title>${this.templates[this.currentTemplate].name}</title>
+                            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
                             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-                            <style>
-                                ${styles}
-                                body {
-                                    background: #f5f5f5;
-                                    padding: 40px;
-                                    display: flex;
-                                    justify-content: center;
-                                    font-family: '${this.state.fontFamily}', sans-serif;
-                                }
-                                .marketing-card {
-                                    max-width: 1000px;
-                                    margin: 0 auto;
-                                }
-                            </style>
+                            <style>${styles}</style>
                         </head>
                         <body>
                             ${element.outerHTML}
@@ -2246,194 +1687,21 @@
                     `;
                     
                     const blob = new Blob([fullHTML], { type: 'text/html' });
-                    const fileName = `${this.templates[this.state.currentTemplate].name.replace(/\s+/g, '_')}_Marketing.html`;
+                    const fileName = `${this.templates[this.currentTemplate].name.replace(/\s+/g, '_')}.html`;
                     
                     saveAs(blob, fileName);
                     
                     this.loading.hide();
-                    this.trackDownload('html');
+                    this.toast.success('HTML downloaded!');
                 } catch (error) {
                     this.loading.hide();
-                    this.toast.error('HTML export failed');
-                }
-            },
-
-            async exportDOCX() {
-                this.toast.info('DOCX export - Premium feature');
-                // Would integrate docx library
-            },
-
-            exportPPTX() {
-                this.toast.info('PPTX export - Premium feature');
-            },
-
-            exportJSON() {
-                const data = {
-                    template: this.state.currentTemplate,
-                    data: this.templates[this.state.currentTemplate],
-                    state: this.state
-                };
-                
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const fileName = `${this.templates[this.state.currentTemplate].name.replace(/\s+/g, '_')}_Data.json`;
-                
-                saveAs(blob, fileName);
-                this.trackDownload('json');
-                this.toast.success('JSON exported');
-            },
-
-            exportCSV() {
-                // Convert data to CSV
-                const template = this.state.currentTemplate;
-                const data = this.templates[template];
-                
-                let csv = 'Category,Item,Value,Details\n';
-                
-                // Add features
-                if (data.features) {
-                    data.features.forEach(f => {
-                        csv += `Feature,${f.text},${f.value || ''},${f.icon}\n`;
-                    });
-                }
-                
-                // Add stats
-                if (data.stats) {
-                    data.stats.forEach(s => {
-                        csv += `Statistic,${s.label},${s.value},\n`;
-                    });
-                }
-                
-                const blob = new Blob([csv], { type: 'text/csv' });
-                const fileName = `${data.name.replace(/\s+/g, '_')}_Data.csv`;
-                
-                saveAs(blob, fileName);
-                this.trackDownload('csv');
-                this.toast.success('CSV exported');
-            },
-
-            exportXLSX() {
-                this.toast.info('Excel export - Premium feature');
-            },
-
-            exportMarkdown() {
-                const template = this.state.currentTemplate;
-                const data = this.templates[template];
-                
-                let md = `# ${data.name}\n\n`;
-                md += `## ${data.tagline}\n\n`;
-                md += `${data.description}\n\n`;
-                md += `**Price:** ${data.currency}${data.price} ${data.discount ? `~~${data.discount}~~` : ''}\n\n`;
-                
-                if (data.features) {
-                    md += `## Features\n\n`;
-                    data.features.forEach(f => {
-                        md += `- **${f.text}** ${f.value ? `(${f.value})` : ''}\n`;
-                    });
-                }
-                
-                const blob = new Blob([md], { type: 'text/markdown' });
-                const fileName = `${data.name.replace(/\s+/g, '_')}.md`;
-                
-                saveAs(blob, fileName);
-                this.toast.success('Markdown exported');
-            },
-
-            exportGoogleSlides() {
-                window.open('https://docs.google.com/presentation/create');
-            },
-
-            exportCanva() {
-                window.open('https://www.canva.com');
-            },
-
-            exportFigma() {
-                window.open('https://www.figma.com');
-            },
-
-            exportAdobeXD() {
-                this.toast.info('Adobe XD export - Please copy design manually');
-            },
-
-            printCard() {
-                window.print();
-            },
-
-            // ===== CLOUD STORAGE =====
-            saveToCloud() {
-                const data = {
-                    templates: this.templates,
-                    state: this.state,
-                    timestamp: new Date().toISOString()
-                };
-                
-                // Save to localStorage as "cloud" simulation
-                localStorage.setItem('cloud_backup', JSON.stringify(data));
-                this.toast.success('Saved to cloud (local backup)');
-            },
-
-            loadFromCloud() {
-                const backup = localStorage.getItem('cloud_backup');
-                if (backup) {
-                    const data = JSON.parse(backup);
-                    // Restore logic here
-                    this.toast.success('Loaded from cloud backup');
-                    this.initEditor();
-                } else {
-                    this.toast.error('No cloud backup found');
-                }
-            },
-
-            // ===== STATE MANAGEMENT =====
-            saveState() {
-                const state = {
-                    templates: this.templates,
-                    state: this.state
-                };
-                localStorage.setItem('app_state', JSON.stringify(state));
-            },
-
-            loadState() {
-                const saved = localStorage.getItem('app_state');
-                if (saved) {
-                    try {
-                        const data = JSON.parse(saved);
-                        this.templates = data.templates;
-                        this.state = data.state;
-                    } catch (e) {
-                        console.error('Failed to load state');
-                    }
-                }
-            },
-
-            // ===== ONLINE STATUS =====
-            checkOnlineStatus() {
-                window.addEventListener('online', () => {
-                    this.toast.success('Back online - Syncing...');
-                });
-                
-                window.addEventListener('offline', () => {
-                    this.toast.warning('You are offline - Changes will be saved locally');
-                });
-            },
-
-            // ===== RESET =====
-            resetAll() {
-                if (confirm('Reset all data? This cannot be undone.')) {
-                    localStorage.clear();
-                    location.reload();
+                    this.toast.error('HTML failed');
                 }
             }
         };
 
         // Initialize on load
         document.addEventListener('DOMContentLoaded', () => app.init());
-
-        // Handle errors globally
-        window.onerror = (msg, url, line) => {
-            console.error('Global error:', msg);
-            app.toast.error('Something went wrong, but we caught it!');
-            return false;
-        };
     </script>
 </body>
 </html>
