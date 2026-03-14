@@ -1,15 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CV maker · Shia community · WORKING EXPORTS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced CV Maker · Shia Community · Production Version</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- CRITICAL: Load libraries in correct order with fallbacks -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,321 +14,468 @@
             box-sizing: border-box;
         }
 
-        body {
-            background: #eef2f6;
-            font-family: 'Inter', sans-serif;
-            padding: 12px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        :root {
+            --primary: #0e2a38;
+            --primary-light: #1e3f50;
+            --primary-dark: #071a23;
+            --accent: #ffb05c;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --success: #059669;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --info: #2563eb;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --radius-full: 9999px;
         }
 
-        .cv-app {
-            max-width: 1500px;
-            width: 100%;
-            background: white;
-            border-radius: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            overflow: hidden;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 9999;
             display: flex;
             flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .app-header {
-            background: #0e2a38;
-            color: white;
-            padding: 18px 28px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-        .app-header h1 {
-            font-weight: 600;
-            font-size: 1.9rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .app-header h1 i {
-            color: #ffb05c;
-        }
-        .header-badge {
-            background: #1b4053;
-            padding: 8px 22px;
-            border-radius: 60px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: 360px 1fr;
-            transition: 0.2s;
-        }
-
-        .left-panel {
-            background: #f7fafd;
-            border-right: 1px solid #d4e0ec;
-            padding: 22px 18px;
-            overflow-y: auto;
-            max-height: 80vh;
-            transition: all 0.2s;
-        }
-        .left-panel.collapsed {
-            display: none;
-        }
-
-        .panel-toggle {
+        .toast {
             background: white;
-            border: 2px solid #0e2a38;
-            color: #0e2a38;
-            width: 48px;
-            height: 48px;
-            border-radius: 60px;
+            color: var(--gray-900);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
+            gap: 0.75rem;
+            min-width: 300px;
+            max-width: 400px;
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .toast.success { border-left-color: var(--success); }
+        .toast.error { border-left-color: var(--danger); }
+        .toast.warning { border-left-color: var(--warning); }
+        .toast.info { border-left-color: var(--info); }
+
+        .toast i {
+            font-size: 1.25rem;
+        }
+
+        .toast.success i { color: var(--success); }
+        .toast.error i { color: var(--danger); }
+        .toast.warning i { color: var(--warning); }
+        .toast.info i { color: var(--info); }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .toast-message {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--gray-400);
             cursor: pointer;
-            transition: 0.15s;
-            margin: 12px 0 4px 18px;
+            font-size: 1.25rem;
+            padding: 0.25rem;
+            transition: color 0.2s;
         }
-        .panel-toggle:hover {
-            background: #0e2a38;
+
+        .toast-close:hover {
+            color: var(--gray-600);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Main App */
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
-        }
-
-        .right-panel {
-            background: white;
-            padding: 30px 30px;
-            overflow-x: auto;
-            display: flex;
-            justify-content: center;
-        }
-
-        .cv-preview {
-            max-width: 900px;
-            width: 100%;
-            background: white;
-            padding: 40px 45px;
-            border-radius: 32px;
-            box-shadow: 0 20px 35px -8px rgba(0,35,60,0.15);
-            border: 1px solid #e6ecf2;
-        }
-
-        .cv-name {
-            font-size: clamp(2.2rem, 8vw, 3.8rem);
-            font-weight: 700;
-            color: #06212e;
-            line-height: 1.2;
-        }
-        .cv-title {
-            font-size: clamp(1.2rem, 4vw, 1.9rem);
-            color: #0e2a38;
-            font-weight: 600;
-            margin: 8px 0 16px 0;
-        }
-        .cv-contact {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px 35px;
-            background: #edf4fa;
-            padding: 18px 25px;
-            border-radius: 60px;
-            margin: 18px 0 25px 0;
-        }
-        .cv-contact span {
+            padding: 1.5rem 2rem;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #0e2a38;
-            border-bottom: 4px solid #0e2a38;
-            padding-bottom: 10px;
-            margin: 30px 0 20px 0;
-        }
-        .skill-item {
-            display: inline-block;
-            background: #e9f0f8;
-            padding: 8px 20px;
-            margin: 0 12px 14px 0;
-            border-radius: 60px;
-            font-weight: 500;
-            border-left: 5px solid #0e2a38;
-        }
-        .exp-item {
-            margin-bottom: 28px;
-        }
-        .exp-header {
-            display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
-            align-items: baseline;
-            gap: 12px;
-        }
-        .exp-title {
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #00263b;
-        }
-        .exp-company {
-            background: #dde9f5;
-            padding: 5px 18px;
-            border-radius: 60px;
-            font-weight: 600;
-        }
-        .exp-date {
-            color: #2c4c6b;
-            font-weight: 500;
-            margin: 6px 0 10px 0;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .card {
-            background: white;
-            border-radius: 24px;
-            padding: 22px 18px;
-            margin-bottom: 24px;
-            box-shadow: 0 5px 15px rgba(0, 20, 30, 0.04);
-            border: 1px solid #dae3ee;
-        }
-        .card h3 {
-            font-weight: 600;
-            color: #102f40;
-            margin-bottom: 18px;
-            font-size: 1.3rem;
+        .header-title {
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-left: 6px solid #0e2a38;
-            padding-left: 16px;
+            gap: 1rem;
         }
 
-        .form-group {
-            margin-bottom: 18px;
+        .header-title h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
         }
-        .form-group label {
+
+        .header-title i {
+            color: var(--accent);
+            font-size: 2rem;
+        }
+
+        .header-badge {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .header-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            height: calc(100vh - 100px);
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--gray-50);
+            border-right: 1px solid var(--gray-200);
+            overflow-y: auto;
+            padding: 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gray-400) var(--gray-100);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+        }
+
+        /* Editor Sections */
+        .editor-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+        }
+
+        .editor-section h2 {
+            font-size: 1.25rem;
             font-weight: 600;
-            color: #1f3f57;
-            display: block;
-            margin-bottom: 6px;
+            color: var(--gray-900);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--gray-200);
         }
-        input, textarea, select {
+
+        .editor-section h2 i {
+            color: var(--primary);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 0.375rem;
+        }
+
+        .form-control {
             width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #d4deec;
-            border-radius: 30px;
-            font-size: 1rem;
-            background: #fafdff;
-            transition: 0.15s;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            transition: all 0.2s;
             font-family: 'Inter', sans-serif;
         }
-        input:focus, textarea:focus {
-            border-color: #0e2a38;
+
+        .form-control:focus {
             outline: none;
-            background: white;
-        }
-        .add-btn {
-            background: #0e2a38;
-            color: white;
-            border: none;
-            padding: 14px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            width: 100%;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: 0.15s;
-        }
-        .add-btn:hover {
-            background: #1b4057;
-        }
-        .remove-btn {
-            background: #c8354c;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: 0.1s;
-        }
-        .remove-btn:hover {
-            background: #a52a3d;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(14, 42, 56, 0.1);
         }
 
-        .color-options {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-        .color-dot {
-            width: 45px;
-            height: 45px;
-            border-radius: 45px;
-            border: 3px solid transparent;
-            cursor: pointer;
-        }
-        .color-dot.active {
-            border-color: black;
-            transform: scale(1.12);
-        }
-        .template-grid {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 12px;
-        }
-        .template-opt {
-            background: #ecf3fa;
-            padding: 12px 0;
-            text-align: center;
-            border-radius: 40px;
-            font-weight: 600;
-            border: 2px solid transparent;
-            cursor: pointer;
-        }
-        .template-opt.active {
-            background: #0e2a38;
-            color: white;
-            border-color: #0e2a38;
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
         }
 
-        .toggle-row {
+        /* Dynamic Items */
+        .dynamic-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .dynamic-item {
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            border: 1px solid var(--gray-200);
+            transition: all 0.2s;
+        }
+
+        .dynamic-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .item-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
+            margin-bottom: 0.75rem;
         }
-        .switch {
+
+        .item-title {
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .item-btn {
+            background: none;
+            border: none;
+            color: var(--gray-500);
+            cursor: pointer;
+            padding: 0.25rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .item-btn:hover {
+            color: var(--danger);
+        }
+
+        .item-btn.move:hover {
+            color: var(--info);
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--gray-100);
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--radius-md);
+            color: var(--gray-600);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .add-btn:hover {
+            background: var(--gray-200);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Grid Layout for Forms */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Color Picker */
+        .color-picker {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: var(--gray-900);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Template Options */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .template-option {
+            padding: 1rem;
+            text-align: center;
+            background: var(--gray-100);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .template-option:hover {
+            background: var(--gray-200);
+        }
+
+        .template-option.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        /* Toggle Switches */
+        .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .toggle-item:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 54px;
+            width: 52px;
             height: 28px;
         }
-        .switch input {
-            opacity: 0; width:0; height:0;
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
         }
-        .slider {
+
+        .toggle-slider {
             position: absolute;
             cursor: pointer;
-            top:0; left:0; right:0; bottom:0;
-            background-color: #b0c5da;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--gray-300);
+            transition: 0.2s;
             border-radius: 34px;
-            transition: .2s;
         }
-        .slider:before {
+
+        .toggle-slider:before {
             position: absolute;
             content: "";
             height: 22px;
@@ -339,235 +483,308 @@
             left: 3px;
             bottom: 3px;
             background-color: white;
+            transition: 0.2s;
             border-radius: 50%;
-            transition: .2s;
-        }
-        input:checked + .slider {
-            background-color: #0e2a38;
-        }
-        input:checked + .slider:before {
-            transform: translateX(26px);
         }
 
-        .action-floating {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            z-index: 999;
-        }
-        .action-btn {
-            border: none;
-            background: #0e2a38;
-            color: white;
-            padding: 16px 28px;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 15px 30px -5px #0e2a3866;
-            cursor: pointer;
-            transition: 0.15s;
-            border: 2px solid white;
-        }
-        .action-btn.print {
-            background: #1a5f3e;
-        }
-        .action-btn.pdf {
-            background: #b13e3e;
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.4);
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
         }
-        .modal.active { display: flex; }
-        .modal-card {
+
+        /* Preview Area */
+        .preview-area {
+            padding: 2rem;
+            overflow-y: auto;
+            background: var(--gray-100);
+        }
+
+        .cv-preview {
             background: white;
-            border-radius: 48px;
-            padding: 40px;
-            max-width: 450px;
-            width: 90%;
-        }
-        .export-opt {
-            padding: 18px 25px;
-            border: 2px solid #cbdae9;
-            border-radius: 60px;
-            margin: 15px 0;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-        .export-opt:hover {
-            background: #f0f5fc;
-            border-color: #0e2a38;
-        }
-        .export-opt i { font-size: 2.4rem; }
-        .cancel-btn {
-            background: #c0cfdf; 
-            border: none; 
-            padding: 14px; 
-            width: 100%; 
-            border-radius: 60px; 
-            font-weight: 700; 
-            font-size: 1.2rem; 
-            margin-top: 16px; 
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .cancel-btn:hover {
-            background: #a5b9cf;
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            max-width: 900px;
+            margin: 0 auto;
+            transition: all 0.3s;
         }
 
-        /* Welcome popup styling */
-        .welcome-popup {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 20, 30, 0.7);
-            backdrop-filter: blur(5px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-        }
-        .welcome-popup.active {
-            display: flex;
-        }
-        .welcome-card {
-            background: white;
-            border-radius: 60px;
-            padding: 40px;
-            max-width: 500px;
-            width: 90%;
+        /* CV Templates */
+        .template-modern .cv-header {
             text-align: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-            animation: popIn 0.4s ease;
-        }
-        .welcome-icon {
-            font-size: 4rem;
-            color: #0e2a38;
-            margin-bottom: 20px;
-            background: #edf4fa;
-            width: 100px;
-            height: 100px;
-            border-radius: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px auto;
-        }
-        .welcome-card h2 {
-            font-size: 2rem;
-            color: #0e2a38;
-            margin-bottom: 20px;
-        }
-        .welcome-card p {
-            font-size: 1.2rem;
-            color: #2c4c6b;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-        .welcome-btn {
-            background: #0e2a38;
-            color: white;
-            border: none;
-            padding: 16px 40px;
-            border-radius: 60px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 2px solid #0e2a38;
-            margin-top: 10px;
-        }
-        .welcome-btn:hover {
-            background: white;
-            color: #0e2a38;
-        }
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
+            margin-bottom: 2rem;
         }
 
+        .template-classic .cv-header {
+            border-bottom: 2px solid;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .template-professional .cv-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            margin: -2rem -2rem 2rem -2rem;
+            padding: 2rem;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+
+        .template-professional .cv-contact span {
+            color: white;
+        }
+
+        .template-creative .cv-header {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .template-creative .cv-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            border-radius: var(--radius-full);
+        }
+
+        .cv-name {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-title {
+            font-size: 1.5rem;
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .cv-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .cv-contact span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+        }
+
+        .cv-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-bottom: 3px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: var(--gray-100);
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem 0.5rem 0;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            border-left: 3px solid;
+        }
+
+        .exp-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .exp-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .exp-title {
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .exp-company {
+            background: var(--gray-100);
+            padding: 0.25rem 1rem;
+            border-radius: var(--radius-full);
+            font-weight: 500;
+        }
+
+        .exp-date {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Loading Overlay */
         .loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.9);
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 3000;
-            flex-direction: column;
-            gap: 20px;
+            z-index: 10000;
         }
+
         .loading-overlay.active {
             display: flex;
         }
-        .spinner {
+
+        .loading-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .loading-spinner {
             width: 50px;
             height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #0e2a38;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            to { transform: rotate(360deg); }
         }
 
-        @media (max-width: 850px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-            .left-panel {
-                max-height: 600px;
-                border-right: none;
-                border-bottom: 1px solid #d2e0ec;
-            }
-            .left-panel.collapsed {
-                display: none;
-            }
-            .action-floating {
-                bottom: 15px;
-                right: 15px;
-            }
-            .action-btn {
-                padding: 12px 20px;
-                font-size: 1rem;
-            }
+        /* Welcome Modal */
+        .welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
         }
-        @media (max-width: 550px) {
-            .app-header {
-                flex-direction: column;
-                align-items: flex-start;
+
+        .welcome-modal.hidden {
+            display: none;
+        }
+
+        .welcome-card {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
             }
-            .welcome-card {
-                padding: 25px;
-            }
-            .welcome-card h2 {
-                font-size: 1.6rem;
+            to {
+                transform: scale(1);
+                opacity: 1;
             }
         }
 
+        .welcome-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+
+        .welcome-card h2 {
+            font-size: 2rem;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .welcome-card p {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .welcome-features {
+            background: var(--gray-50);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .welcome-features li {
+            list-style: none;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .welcome-features i {
+            color: var(--success);
+        }
+
+        .welcome-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-full);
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .welcome-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Print Styles */
         @media print {
-            body * { visibility: hidden; }
-            .cv-preview, .cv-preview * {
+            body * {
+                visibility: hidden;
+            }
+            .cv-preview,
+            .cv-preview * {
                 visibility: visible;
             }
             .cv-preview {
@@ -575,791 +792,1428 @@
                 left: 0;
                 top: 0;
                 width: 100%;
-                padding: 1.8cm;
+                padding: 1in;
                 box-shadow: none;
-                border: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 350px 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .sidebar {
+                max-height: 500px;
+            }
+            .cv-name {
+                font-size: 2rem;
+            }
+            .cv-title {
+                font-size: 1.25rem;
             }
         }
     </style>
 </head>
 <body>
-<!-- WELCOME POPUP (FREE FOR SHIA COMMUNITY) -->
-<div class="welcome-popup active" id="welcomePopup">
-    <div class="welcome-card">
-        <div class="welcome-icon">
-            <i class="fa-solid fa-hands-helping"></i>
+    <!-- Welcome Modal -->
+    <div class="welcome-modal" id="welcomeModal">
+        <div class="welcome-card">
+            <div class="welcome-icon">
+                <i class="fas fa-hands-helping"></i>
+            </div>
+            <h2>🌙 Shia Community CV Maker</h2>
+            <p>Professional CV builder designed for the Shia community</p>
+            <div class="welcome-features">
+                <li><i class="fas fa-check-circle"></i> 100% Free - No hidden costs</li>
+                <li><i class="fas fa-check-circle"></i> Privacy First - Data stays on your device</li>
+                <li><i class="fas fa-check-circle"></i> Multiple Export Formats - PDF, DOCX, HTML</li>
+                <li><i class="fas fa-check-circle"></i> Real-time Preview - See changes instantly</li>
+                <li><i class="fas fa-check-circle"></i> Auto-save - Never lose your work</li>
+                <li><i class="fas fa-check-circle"></i> RTL Support - For Arabic/Urdu CVs</li>
+            </div>
+            <button class="welcome-btn" onclick="app.hideWelcome()">Start Building →</button>
         </div>
-        <h2>🌙 Shia Community CV Maker</h2>
-        <p><i class="fa-solid fa-circle-check" style="color:#27ae60;"></i> <strong>Free for Shia job seekers</strong><br>No login required · No data storage · 100% private</p>
-        <p style="font-size:1rem; background:#edf4fa; padding:15px; border-radius:60px;">Your details stay on your device — we never see them 🙌</p>
-        <button class="welcome-btn" onclick="closeWelcomePopup()">Start Building →</button>
-    </div>
-</div>
-
-<div class="cv-app">
-    <div class="app-header">
-        <h1><i class="fa-solid fa-hands-helping"></i> CV maker · Shia community</h1>
-        <div class="header-badge"><i class="fa-regular fa-circle-check"></i> Rahil Abbas Rizvi (demo)</div>
     </div>
 
-    <div class="panel-toggle" id="toggleLeftBtn">
-        <i class="fa-solid fa-angles-left" id="toggleIcon"></i>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-card">
+            <div class="loading-spinner"></div>
+            <div id="loadingMessage">Processing...</div>
+        </div>
     </div>
 
-    <div class="dashboard">
-        <!-- LEFT PANEL -->
-        <div class="left-panel" id="leftPanel">
-            <!-- Personal info -->
-            <div class="card">
-                <h3><i class="fa-regular fa-id-card"></i> Personal</h3>
-                <div class="form-group">
-                    <label>Full name</label>
-                    <input type="text" id="name" value="Rahil Abbas Rizvi" oninput="updatePersonal('name', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" id="title" value="Web Analyst & Digital Marketing Trainer" oninput="updatePersonal('title', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="email" value="fake@mail.com" oninput="updatePersonal('email', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input type="tel" id="phone" value="+91123xxxxxxx" oninput="updatePersonal('phone', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" id="location" value="Mumbai, India" oninput="updatePersonal('location', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>LinkedIn</label>
-                    <input type="text" id="linkedin" value="linkedin.com/in/rahil-abbas" oninput="updatePersonal('linkedin', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Summary</label>
-                    <textarea id="summary" rows="3" oninput="updatePersonal('summary', this.value)">15+ years digital marketing · Google certified · trainer · web analyst · SEO & Ads specialist</textarea>
-                </div>
+    <!-- Main App -->
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-title">
+                <i class="fas fa-hands-helping"></i>
+                <h1>CV Maker · Shia Community</h1>
             </div>
-
-            <!-- Skills -->
-            <div class="card">
-                <h3><i class="fa-regular fa-code"></i> Skills</h3>
-                <div id="skillsList"></div>
-                <div style="display: flex; gap: 5px; margin-top: 10px;">
-                    <input type="text" id="newSkill" placeholder="e.g., Google Analytics" style="flex: 1;">
-                    <button class="add-btn" onclick="addSkill()" style="width: auto; padding: 14px 20px;"><i class="fa-regular fa-plus"></i></button>
-                </div>
+            <div class="header-badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>Privacy First · No Data Storage</span>
             </div>
-
-            <!-- Experience -->
-            <div class="card">
-                <h3><i class="fa-regular fa-briefcase"></i> Experience</h3>
-                <div id="expList"></div>
-                <button class="add-btn" onclick="addExperience()"><i class="fa-regular fa-plus"></i> Add experience</button>
+            <div class="header-actions">
+                <button class="header-btn" onclick="app.saveToLocalStorage()">
+                    <i class="fas fa-save"></i>
+                    <span>Save</span>
+                </button>
+                <button class="header-btn" onclick="app.loadFromLocalStorage()">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Load</span>
+                </button>
+                <button class="header-btn" onclick="app.resetToDefault()">
+                    <i class="fas fa-undo"></i>
+                    <span>Reset</span>
+                </button>
             </div>
+        </header>
 
-            <!-- Education -->
-            <div class="card">
-                <h3><i class="fa-regular fa-graduation-cap"></i> Education</h3>
-                <div id="eduList"></div>
-                <button class="add-btn" onclick="addEducation()">➕ Add education</button>
-            </div>
-
-            <!-- Projects -->
-            <div class="card">
-                <h3><i class="fa-regular fa-diagram-project"></i> Projects</h3>
-                <div id="projList"></div>
-                <button class="add-btn" onclick="addProject()">➕ Add project</button>
-            </div>
-
-            <!-- Certifications -->
-            <div class="card">
-                <h3><i class="fa-regular fa-certificate"></i> Certifications</h3>
-                <div id="certList"></div>
-                <button class="add-btn" onclick="addCertification()">➕ Add cert</button>
-            </div>
-
-            <!-- Languages -->
-            <div class="card">
-                <h3><i class="fa-regular fa-language"></i> Languages</h3>
-                <div id="langList"></div>
-                <button class="add-btn" onclick="addLanguage()">➕ Add language</button>
-            </div>
-
-            <!-- Custom section -->
-            <div class="card">
-                <h3><i class="fa-regular fa-plus"></i> Custom</h3>
-                <div id="customList"></div>
-                <div style="display:flex; gap:6px; margin-top:10px;">
-                    <input type="text" id="customTitle" placeholder="Section title">
-                    <button class="add-btn" onclick="addCustomSection()" style="width:auto;">add</button>
-                </div>
-            </div>
-
-            <!-- Design -->
-            <div class="card">
-                <h3><i class="fa-regular fa-palette"></i> Design</h3>
-                <div class="form-group">
-                    <label>Template</label>
-                    <div class="template-grid" id="templateGrid">
-                        <div class="template-opt active" onclick="setTemplate('modern', this)">Modern</div>
-                        <div class="template-opt" onclick="setTemplate('classic', this)">Classic</div>
-                        <div class="template-opt" onclick="setTemplate('professional', this)">Pro</div>
-                        <div class="template-opt" onclick="setTemplate('creative', this)">Creative</div>
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Sidebar Editor -->
+            <aside class="sidebar" id="sidebar">
+                <!-- Personal Info -->
+                <section class="editor-section" data-section="personal">
+                    <h2><i class="fas fa-user"></i> Personal Information</h2>
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" class="form-control" id="fullName" placeholder="Rahil Abbas Rizvi" oninput="app.updatePersonal('name', this.value)">
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Color</label>
-                    <div class="color-options">
-                        <div class="color-dot active" style="background:#0e2a38;" onclick="setColor('#0e2a38', this)"></div>
-                        <div class="color-dot" style="background:#2b5797;" onclick="setColor('#2b5797', this)"></div>
-                        <div class="color-dot" style="background:#117a65;" onclick="setColor('#117a65', this)"></div>
-                        <div class="color-dot" style="background:#a55233;" onclick="setColor('#a55233', this)"></div>
+                    <div class="form-group">
+                        <label>Professional Title *</label>
+                        <input type="text" class="form-control" id="title" placeholder="Web Analyst & Digital Marketing Trainer" oninput="app.updatePersonal('title', this.value)">
                     </div>
-                </div>
-            </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" class="form-control" id="email" placeholder="email@example.com" oninput="app.updatePersonal('email', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="+91 12345 67890" oninput="app.updatePersonal('phone', this.value)">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" class="form-control" id="location" placeholder="Mumbai, India" oninput="app.updatePersonal('location', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>LinkedIn</label>
+                            <input type="text" class="form-control" id="linkedin" placeholder="linkedin.com/in/username" oninput="app.updatePersonal('linkedin', this.value)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Professional Summary</label>
+                        <textarea class="form-control" id="summary" rows="4" oninput="app.updatePersonal('summary', this.value)"></textarea>
+                    </div>
+                </section>
 
-            <!-- Sections toggle -->
-            <div class="card">
-                <h3><i class="fa-regular fa-eye"></i> Show/Hide</h3>
-                <div id="sectionToggles"></div>
-            </div>
-        </div>
+                <!-- Skills -->
+                <section class="editor-section" data-section="skills">
+                    <h2><i class="fas fa-code"></i> Skills</h2>
+                    <div id="skillsContainer" class="dynamic-items"></div>
+                    <button class="add-btn" onclick="app.addSkill()">
+                        <i class="fas fa-plus"></i> Add Skill
+                    </button>
+                </section>
 
-        <!-- RIGHT PANEL preview -->
-        <div class="right-panel">
-            <div class="cv-preview template-modern" id="cvPreview"></div>
+                <!-- Experience -->
+                <section class="editor-section" data-section="experience">
+                    <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
+                    <div id="experienceContainer" class="dynamic-items"></div>
+                    <button class="add-btn" onclick="app.addExperience()">
+                        <i class="fas fa-plus"></i> Add Experience
+                    </button>
+                </section>
+
+                <!-- Education -->
+                <section class="editor-section" data-section="education">
+                    <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+                    <div id="educationContainer" class="dynamic-items"></div>
+                    <button class="add-btn" onclick="app.addEducation()">
+                        <i class="fas fa-plus"></i> Add Education
+                    </button>
+                </section>
+
+                <!-- Projects -->
+                <section class="editor-section" data-section="projects">
+                    <h2><i class="fas fa-project-diagram"></i> Projects</h2>
+                    <div id="projectsContainer" class="dynamic-items"></div>
+                    <button class="add-btn" onclick="app.addProject()">
+                        <i class="fas fa-plus"></i> Add Project
+                    </button>
+                </section>
+
+                <!-- Certifications -->
+                <section class="editor-section" data-section="certifications">
+                    <h2><i class="fas fa-certificate"></i> Certifications</h2>
+                    <div id="certificationsContainer" class="dynamic-items"></div>
+                    <button class="add-btn" onclick="app.addCertification()">
+                        <i class="fas fa-plus"></i> Add Certification
+                    </button>
+                </section>
+
+                <!-- Languages -->
+                <section class="editor-section" data-section="languages">
+                    <h2><i class="fas fa-language"></i> Languages</h2>
+                    <div id="languagesContainer" class="dynamic-items"></div>
+                    <button class="add-btn" onclick="app.addLanguage()">
+                        <i class="fas fa-plus"></i> Add Language
+                    </button>
+                </section>
+
+                <!-- Custom Sections -->
+                <section class="editor-section" data-section="custom">
+                    <h2><i class="fas fa-puzzle-piece"></i> Custom Sections</h2>
+                    <div id="customContainer" class="dynamic-items"></div>
+                    <button class="add-btn" onclick="app.addCustomSection()">
+                        <i class="fas fa-plus"></i> Add Custom Section
+                    </button>
+                </section>
+
+                <!-- Design Settings -->
+                <section class="editor-section">
+                    <h2><i class="fas fa-palette"></i> Design Settings</h2>
+                    
+                    <div class="form-group">
+                        <label>Template Style</label>
+                        <div class="template-grid" id="templateGrid">
+                            <div class="template-option" onclick="app.setTemplate('modern')">Modern</div>
+                            <div class="template-option" onclick="app.setTemplate('classic')">Classic</div>
+                            <div class="template-option" onclick="app.setTemplate('professional')">Professional</div>
+                            <div class="template-option" onclick="app.setTemplate('creative')">Creative</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Accent Color</label>
+                        <div class="color-picker" id="colorPicker">
+                            <div class="color-option" style="background: #0e2a38;" onclick="app.setColor('#0e2a38')"></div>
+                            <div class="color-option" style="background: #2b5797;" onclick="app.setColor('#2b5797')"></div>
+                            <div class="color-option" style="background: #117a65;" onclick="app.setColor('#117a65')"></div>
+                            <div class="color-option" style="background: #a55233;" onclick="app.setColor('#a55233')"></div>
+                            <div class="color-option" style="background: #8e44ad;" onclick="app.setColor('#8e44ad')"></div>
+                            <div class="color-option" style="background: #c0392b;" onclick="app.setColor('#c0392b')"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>RTL Support (Arabic/Urdu)</label>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="rtlToggle" onchange="app.toggleRTL(this.checked)">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span style="color: var(--gray-600);">Enable right-to-left text</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section Visibility -->
+                <section class="editor-section">
+                    <h2><i class="fas fa-eye"></i> Section Visibility</h2>
+                    <div id="sectionToggles"></div>
+                </section>
+            </aside>
+
+            <!-- Preview Area -->
+            <main class="preview-area">
+                <div class="cv-preview" id="cvPreview"></div>
+            </main>
         </div>
     </div>
-</div>
 
-<!-- Loading overlay -->
-<div class="loading-overlay" id="loadingOverlay">
-    <div class="spinner"></div>
-    <div style="font-size: 1.2rem; color: #0e2a38;" id="loadingMessage">Processing...</div>
-</div>
+    <script>
+        (function() {
+            // ============================================
+            // Advanced CV Maker - Production Version
+            // ============================================
 
-<!-- floating action buttons -->
-<div class="action-floating">
-    <button class="action-btn" onclick="openExportModal()"><i class="fa-regular fa-download"></i> Export</button>
-    <button class="action-btn print" onclick="window.print()"><i class="fa-regular fa-print"></i> Print canvas</button>
-    <button class="action-btn pdf" onclick="exportAsPDF()"><i class="fa-regular fa-file-pdf"></i> instant PDF</button>
-</div>
+            // Constants
+            const STORAGE_KEY = 'shia_cv_maker_data';
+            const AUTO_SAVE_DELAY = 1000;
+            const DEFAULT_COLOR = '#0e2a38';
+            const DEFAULT_TEMPLATE = 'modern';
 
-<!-- export modal -->
-<div class="modal" id="exportModal">
-    <div class="modal-card">
-        <h2 style="margin-bottom:20px;">Export as</h2>
-        <div class="export-opt" id="pdfExportBtn">
-            <i class="fa-regular fa-file-pdf" style="color:#b13e3e;"></i> 
-            <span>PDF (high quality)</span>
-        </div>
-        <div class="export-opt" id="docxExportBtn">
-            <i class="fa-regular fa-file-word" style="color:#0e2a38;"></i> 
-            <span>DOCX (Word)</span>
-        </div>
-        <div class="export-opt" id="htmlExportBtn">
-            <i class="fa-regular fa-file-code" style="color:#d97706;"></i> 
-            <span>HTML (web page)</span>
-        </div>
-        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
-    </div>
-</div>
-
-<script>
-    // ===== GLOBAL VARIABLES =====
-    let cvData = {
-        personal: {
-            name: "Rahil Abbas Rizvi",
-            title: "Web Analyst & Digital Marketing Trainer",
-            email: "fake@mail.com",
-            phone: "+91123xxxxxxx",
-            location: "Mumbai, India",
-            linkedin: "linkedin.com/in/rahil-abbas",
-            summary: "15+ years digital marketing · Google certified · trainer · web analyst · SEO & Ads specialist"
-        },
-        skills: ["Google Analytics", "Google Ads", "SEO", "Meta Ads", "Content Strategy", "Looker Studio", "GTM", "Email Marketing"],
-        experience: [
-            { title: "Lead Digital Analyst", company: "WebElevate", startDate: "2018", endDate: "present", description: "Campaign analysis, reporting, team training." },
-            { title: "Senior Trainer", company: "Shia Youth Skills", startDate: "2015", endDate: "2018", description: "Trained 300+ students in Google Ads & Analytics." },
-            { title: "Web Analyst", company: "NetPulse", startDate: "2010", endDate: "2015", description: "Google Ads certified specialist, SEO campaigns." }
-        ],
-        education: [
-            { degree: "MBA Marketing", institution: "Mumbai University", year: "2012", details: "Digital marketing specialization" },
-            { degree: "BCA", institution: "Shia PG College", year: "2009", details: "" }
-        ],
-        projects: [
-            { name: "Shia job portal CV builder", description: "This interactive CV tool for community" },
-            { name: "Analytics training hub", description: "Google Analytics 4 course for community" }
-        ],
-        certifications: ["Google Ads Search Cert", "GAIQ", "HubSpot Digital Marketing", "Meta Certified Media Buyer"],
-        languages: [
-            { language: "Urdu", level: "Native" },
-            { language: "English", level: "Fluent" },
-            { language: "Hindi", level: "Fluent" },
-            { language: "Arabic", level: "Intermediate" }
-        ],
-        customSections: [
-            { title: "Volunteer", content: "Mentor at Shia youth career council · career workshops" }
-        ],
-        design: { template: "modern", color: "#0e2a38" },
-        sections: { summary: true, skills: true, experience: true, education: true, projects: true, certifications: true, languages: true, custom: true }
-    };
-
-    // ===== WELCOME POPUP =====
-    function closeWelcomePopup() {
-        document.getElementById('welcomePopup').classList.remove('active');
-    }
-
-    // ===== HELPER FUNCTIONS =====
-    function showLoading(message) {
-        document.getElementById('loadingMessage').textContent = message || 'Processing...';
-        document.getElementById('loadingOverlay').classList.add('active');
-    }
-
-    function hideLoading() {
-        document.getElementById('loadingOverlay').classList.remove('active');
-    }
-
-    function escapeHtml(text) {
-        if (!text) return '';
-        let div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    // ===== PERSONAL INFO =====
-    function updatePersonal(field, value) {
-        cvData.personal[field] = value;
-        renderPreview();
-    }
-
-    // ===== SKILLS =====
-    function addSkill() {
-        let input = document.getElementById('newSkill');
-        if (input.value.trim()) {
-            cvData.skills.push(input.value.trim());
-            input.value = '';
-            renderSkills();
-            renderPreview();
-        }
-    }
-    
-    function updateSkill(index, value) {
-        cvData.skills[index] = value;
-        renderPreview();
-    }
-    
-    function removeSkill(index) {
-        cvData.skills.splice(index, 1);
-        renderSkills();
-        renderPreview();
-    }
-
-    // ===== EXPERIENCE =====
-    function addExperience() {
-        cvData.experience.push({ title: "New Position", company: "Company", startDate: "2024", endDate: "Present", description: "Description" });
-        renderExperience();
-        renderPreview();
-    }
-    
-    function updateExperience(index, field, value) {
-        cvData.experience[index][field] = value;
-        renderPreview();
-    }
-    
-    function removeExperience(index) {
-        cvData.experience.splice(index, 1);
-        renderExperience();
-        renderPreview();
-    }
-
-    // ===== EDUCATION =====
-    function addEducation() {
-        cvData.education.push({ degree: "New Degree", institution: "Institution", year: "2024", details: "" });
-        renderEducation();
-        renderPreview();
-    }
-    
-    function updateEducation(index, field, value) {
-        cvData.education[index][field] = value;
-        renderPreview();
-    }
-    
-    function removeEducation(index) {
-        cvData.education.splice(index, 1);
-        renderEducation();
-        renderPreview();
-    }
-
-    // ===== PROJECTS =====
-    function addProject() {
-        cvData.projects.push({ name: "New Project", description: "Description" });
-        renderProjects();
-        renderPreview();
-    }
-    
-    function updateProject(index, field, value) {
-        cvData.projects[index][field] = value;
-        renderPreview();
-    }
-    
-    function removeProject(index) {
-        cvData.projects.splice(index, 1);
-        renderProjects();
-        renderPreview();
-    }
-
-    // ===== CERTIFICATIONS =====
-    function addCertification() {
-        cvData.certifications.push("New Certification");
-        renderCertifications();
-        renderPreview();
-    }
-    
-    function updateCertification(index, value) {
-        cvData.certifications[index] = value;
-        renderPreview();
-    }
-    
-    function removeCertification(index) {
-        cvData.certifications.splice(index, 1);
-        renderCertifications();
-        renderPreview();
-    }
-
-    // ===== LANGUAGES =====
-    function addLanguage() {
-        cvData.languages.push({ language: "New Language", level: "Intermediate" });
-        renderLanguages();
-        renderPreview();
-    }
-    
-    function updateLanguage(index, field, value) {
-        cvData.languages[index][field] = value;
-        renderPreview();
-    }
-    
-    function removeLanguage(index) {
-        cvData.languages.splice(index, 1);
-        renderLanguages();
-        renderPreview();
-    }
-
-    // ===== CUSTOM SECTIONS =====
-    function addCustomSection() {
-        let input = document.getElementById('customTitle');
-        if (input.value.trim()) {
-            cvData.customSections.push({ title: input.value.trim(), content: "" });
-            input.value = '';
-            renderCustomSections();
-            renderPreview();
-        }
-    }
-    
-    function updateCustomSection(index, field, value) {
-        cvData.customSections[index][field] = value;
-        renderCustomSections();
-        renderPreview();
-    }
-    
-    function removeCustomSection(index) {
-        cvData.customSections.splice(index, 1);
-        renderCustomSections();
-        renderPreview();
-    }
-
-    // ===== SECTION TOGGLES =====
-    function toggleSection(sectionId, checked) {
-        cvData.sections[sectionId] = checked;
-        renderPreview();
-    }
-
-    // ===== DESIGN =====
-    function setTemplate(template, element) {
-        cvData.design.template = template;
-        document.querySelectorAll('.template-opt').forEach(opt => opt.classList.remove('active'));
-        element.classList.add('active');
-        document.getElementById('cvPreview').className = `cv-preview template-${template}`;
-        renderPreview();
-    }
-    
-    function setColor(color, element) {
-        cvData.design.color = color;
-        document.querySelectorAll('.color-dot').forEach(dot => dot.classList.remove('active'));
-        element.classList.add('active');
-        renderPreview();
-    }
-
-    // ===== RENDER FUNCTIONS =====
-    function renderSkills() {
-        let html = '';
-        cvData.skills.forEach((skill, index) => {
-            html += `<div style="display:flex; align-items:center; gap:4px; margin:8px 0">
-                <input value="${escapeHtml(skill)}" oninput="updateSkill(${index}, this.value)" style="flex:1">
-                <button class="remove-btn" onclick="removeSkill(${index})">✕</button>
-            </div>`;
-        });
-        document.getElementById('skillsList').innerHTML = html;
-    }
-
-    function renderExperience() {
-        let html = '';
-        cvData.experience.forEach((exp, index) => {
-            html += `<div style="border:1px solid #dae1ec; border-radius:20px; padding:14px; margin:14px 0">
-                <div style="display:flex; justify-content:space-between">
-                    <b>#${index+1}</b>
-                    <button class="remove-btn" onclick="removeExperience(${index})">remove</button>
-                </div>
-                <input value="${escapeHtml(exp.title)}" oninput="updateExperience(${index}, 'title', this.value)" placeholder="title">
-                <input value="${escapeHtml(exp.company)}" oninput="updateExperience(${index}, 'company', this.value)" placeholder="company">
-                <div style="display:flex;gap:5px">
-                    <input value="${escapeHtml(exp.startDate)}" oninput="updateExperience(${index}, 'startDate', this.value)" placeholder="start">
-                    <input value="${escapeHtml(exp.endDate)}" oninput="updateExperience(${index}, 'endDate', this.value)" placeholder="end">
-                </div>
-                <textarea oninput="updateExperience(${index}, 'description', this.value)" rows="2" placeholder="description">${escapeHtml(exp.description)}</textarea>
-            </div>`;
-        });
-        document.getElementById('expList').innerHTML = html;
-    }
-
-    function renderEducation() {
-        let html = '';
-        cvData.education.forEach((edu, index) => {
-            html += `<div style="border:1px solid #d4e0f0;border-radius:18px;padding:12px;margin:10px 0">
-                <div style="display:flex;justify-content:space-between">
-                    <b>Edu ${index+1}</b>
-                    <button class="remove-btn" onclick="removeEducation(${index})">✕</button>
-                </div>
-                <input value="${escapeHtml(edu.degree)}" oninput="updateEducation(${index}, 'degree', this.value)" placeholder="degree">
-                <input value="${escapeHtml(edu.institution)}" oninput="updateEducation(${index}, 'institution', this.value)" placeholder="institution">
-                <input value="${escapeHtml(edu.year)}" oninput="updateEducation(${index}, 'year', this.value)" placeholder="year">
-                <textarea oninput="updateEducation(${index}, 'details', this.value)" placeholder="details">${escapeHtml(edu.details)}</textarea>
-            </div>`;
-        });
-        document.getElementById('eduList').innerHTML = html;
-    }
-
-    function renderProjects() {
-        let html = '';
-        cvData.projects.forEach((proj, index) => {
-            html += `<div style="border:1px solid #cddeef;border-radius:18px;padding:12px;margin:12px 0">
-                <div style="display:flex;justify-content:space-between">
-                    <b>Project</b>
-                    <button class="remove-btn" onclick="removeProject(${index})">✕</button>
-                </div>
-                <input value="${escapeHtml(proj.name)}" oninput="updateProject(${index}, 'name', this.value)" placeholder="project name">
-                <textarea oninput="updateProject(${index}, 'description', this.value)" placeholder="description">${escapeHtml(proj.description)}</textarea>
-            </div>`;
-        });
-        document.getElementById('projList').innerHTML = html;
-    }
-
-    function renderCertifications() {
-        let html = '';
-        cvData.certifications.forEach((cert, index) => {
-            html += `<div style="display:flex;align-items:center;gap:5px; margin:8px 0">
-                <input value="${escapeHtml(cert)}" oninput="updateCertification(${index}, this.value)" style="flex:1">
-                <button class="remove-btn" onclick="removeCertification(${index})">✕</button>
-            </div>`;
-        });
-        document.getElementById('certList').innerHTML = html;
-    }
-
-    function renderLanguages() {
-        let html = '';
-        cvData.languages.forEach((lang, index) => {
-            html += `<div style="display:flex;gap:6px;align-items:center;margin:8px 0">
-                <input value="${escapeHtml(lang.language)}" oninput="updateLanguage(${index}, 'language', this.value)" style="flex:1" placeholder="language">
-                <select onchange="updateLanguage(${index}, 'level', this.value)">
-                    <option ${lang.level=='Native'?'selected':''}>Native</option>
-                    <option ${lang.level=='Fluent'?'selected':''}>Fluent</option>
-                    <option ${lang.level=='Intermediate'?'selected':''}>Intermediate</option>
-                    <option ${lang.level=='Basic'?'selected':''}>Basic</option>
-                </select>
-                <button class="remove-btn" onclick="removeLanguage(${index})">✕</button>
-            </div>`;
-        });
-        document.getElementById('langList').innerHTML = html;
-    }
-
-    function renderCustomSections() {
-        let html = '';
-        cvData.customSections.forEach((section, index) => {
-            html += `<div style="border:2px dashed #0e2a38; border-radius:20px;padding:14px;margin:15px 0">
-                <div style="display:flex;justify-content:space-between">
-                    <b>${escapeHtml(section.title)}</b>
-                    <button class="remove-btn" onclick="removeCustomSection(${index})">✕</button>
-                </div>
-                <input value="${escapeHtml(section.title)}" oninput="updateCustomSection(${index}, 'title', this.value)" placeholder="section title">
-                <textarea oninput="updateCustomSection(${index}, 'content', this.value)" placeholder="content">${escapeHtml(section.content)}</textarea>
-            </div>`;
-        });
-        document.getElementById('customList').innerHTML = html;
-    }
-
-    function renderSectionToggles() {
-        let sections = [
-            {id:'summary', name:'Summary'},
-            {id:'skills', name:'Skills'},
-            {id:'experience', name:'Experience'},
-            {id:'education', name:'Education'},
-            {id:'projects', name:'Projects'},
-            {id:'certifications', name:'Certs'},
-            {id:'languages', name:'Languages'},
-            {id:'custom', name:'Custom'}
-        ];
-        let html = '';
-        sections.forEach(s => {
-            html += `<div class="toggle-row">
-                <span>${s.name}</span>
-                <label class="switch">
-                    <input type="checkbox" ${cvData.sections[s.id] ? 'checked' : ''} onchange="toggleSection('${s.id}', this.checked)">
-                    <span class="slider"></span>
-                </label>
-            </div>`;
-        });
-        document.getElementById('sectionToggles').innerHTML = html;
-    }
-
-    function renderPreview() {
-        let col = cvData.design.color;
-        let p = cvData.personal;
-        let html = `
-            <div class="cv-header">
-                <div class="cv-name">${escapeHtml(p.name)}</div>
-                <div class="cv-title" style="color:${col}">${escapeHtml(p.title)}</div>
-                <div class="cv-contact">
-                    ${p.email ? '<span><i class="fa-regular fa-envelope"></i> '+escapeHtml(p.email)+'</span>' : ''}
-                    ${p.phone ? '<span><i class="fa-regular fa-phone"></i> '+escapeHtml(p.phone)+'</span>' : ''}
-                    ${p.location ? '<span><i class="fa-regular fa-location-dot"></i> '+escapeHtml(p.location)+'</span>' : ''}
-                    ${p.linkedin ? '<span><i class="fa-brands fa-linkedin"></i> '+escapeHtml(p.linkedin)+'</span>' : ''}
-                </div>
-            </div>
-        `;
-
-        if (cvData.sections.summary && p.summary) {
-            html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Summary</div><div>${escapeHtml(p.summary)}</div></div>`;
-        }
-
-        if (cvData.sections.skills && cvData.skills.length) {
-            html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Skills</div>`;
-            cvData.skills.forEach(s => { html += `<span class="skill-item" style="border-left-color:${col}">${escapeHtml(s)}</span>`; });
-            html += `</div>`;
-        }
-
-        if (cvData.sections.experience && cvData.experience.length) {
-            html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Experience</div>`;
-            cvData.experience.forEach(e => {
-                html += `<div class="exp-item">
-                    <div class="exp-header">
-                        <span class="exp-title">${escapeHtml(e.title)}</span>
-                        <span class="exp-company">${escapeHtml(e.company)}</span>
-                    </div>
-                    <div class="exp-date">${escapeHtml(e.startDate)} – ${escapeHtml(e.endDate)}</div>
-                    <div>${escapeHtml(e.description)}</div>
-                </div>`;
-            });
-            html += `</div>`;
-        }
-
-        if (cvData.sections.education && cvData.education.length) {
-            html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Education</div>`;
-            cvData.education.forEach(e => {
-                html += `<div><b>${escapeHtml(e.degree)}</b> – ${escapeHtml(e.institution)} (${escapeHtml(e.year)})<br>${escapeHtml(e.details)}</div>`;
-            });
-            html += `</div>`;
-        }
-
-        if (cvData.sections.projects && cvData.projects.length) {
-            html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Projects</div>`;
-            cvData.projects.forEach(p => {
-                html += `<div><b>${escapeHtml(p.name)}</b><br>${escapeHtml(p.description)}</div>`;
-            });
-            html += `</div>`;
-        }
-
-        if (cvData.sections.certifications && cvData.certifications.length) {
-            html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Certifications</div><ul>`;
-            cvData.certifications.forEach(c => html += `<li>${escapeHtml(c)}</li>`);
-            html += `</ul></div>`;
-        }
-
-        if (cvData.sections.languages && cvData.languages.length) {
-            html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Languages</div><ul>`;
-            cvData.languages.forEach(l => html += `<li><b>${escapeHtml(l.language)}:</b> ${escapeHtml(l.level)}</li>`);
-            html += `</ul></div>`;
-        }
-
-        if (cvData.sections.custom) {
-            cvData.customSections.forEach(cs => {
-                html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">${escapeHtml(cs.title)}</div><div>${escapeHtml(cs.content)}</div></div>`;
-            });
-        }
-
-        document.getElementById('cvPreview').innerHTML = html;
-    }
-
-    // ===== MODAL FUNCTIONS =====
-    function openExportModal() {
-        document.getElementById('exportModal').classList.add('active');
-    }
-
-    function closeModal() {
-        document.getElementById('exportModal').classList.remove('active');
-    }
-
-    // ===== PDF EXPORT =====
-    function exportAsPDF() {
-        closeModal();
-        showLoading('Generating PDF...');
-        
-        const element = document.getElementById('cvPreview');
-        const originalHTML = element.innerHTML;
-        
-        html2canvas(element, {
-            scale: 2,
-            backgroundColor: '#ffffff',
-            logging: false,
-            allowTaint: false,
-            useCORS: true
-        }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF({
-                orientation: 'portrait',
-                unit: 'px',
-                format: 'a4'
-            });
-            
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-            
-            const ratio = Math.min(pdfWidth / canvas.width, pdfHeight / canvas.height);
-            const width = canvas.width * ratio;
-            const height = canvas.height * ratio;
-            
-            const xOffset = (pdfWidth - width) / 2;
-            const yOffset = (pdfHeight - height) / 2;
-            
-            pdf.addImage(imgData, 'PNG', xOffset, yOffset, width, height);
-            pdf.save('Rahil_Abbas_Rizvi_CV.pdf');
-            hideLoading();
-        }).catch(error => {
-            console.error('PDF error:', error);
-            hideLoading();
-            alert('PDF generation failed. Trying fallback method...');
-            fallbackPrintPDF();
-        });
-    }
-
-    function fallbackPrintPDF() {
-        const preview = document.getElementById('cvPreview').cloneNode(true);
-        preview.classList.add('template-' + cvData.design.template);
-        
-        const styles = document.querySelectorAll('style');
-        let styleText = '';
-        styles.forEach(s => styleText += s.innerHTML);
-        
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-            <!DOCTYPE html>
-            <html>
-                <head>
-                    <title>Rahil Abbas Rizvi - CV</title>
-                    <meta charset="UTF-8">
-                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-                    <style>
-                        ${styleText}
-                        body {
-                            background: white;
-                            padding: 20px;
-                            margin: 0;
-                            font-family: 'Inter', sans-serif;
+            // Toast System
+            const Toast = {
+                container: document.getElementById('toastContainer'),
+                
+                show(message, type = 'info', duration = 5000) {
+                    const toast = document.createElement('div');
+                    toast.className = `toast ${type}`;
+                    
+                    const icons = {
+                        success: 'fa-check-circle',
+                        error: 'fa-exclamation-circle',
+                        warning: 'fa-exclamation-triangle',
+                        info: 'fa-info-circle'
+                    };
+                    
+                    const titles = {
+                        success: 'Success',
+                        error: 'Error',
+                        warning: 'Warning',
+                        info: 'Information'
+                    };
+                    
+                    toast.innerHTML = `
+                        <i class="fas ${icons[type]}"></i>
+                        <div class="toast-content">
+                            <div class="toast-title">${titles[type]}</div>
+                            <div class="toast-message">${message}</div>
+                        </div>
+                        <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+                    `;
+                    
+                    this.container.appendChild(toast);
+                    
+                    setTimeout(() => {
+                        if (toast.parentNode) {
+                            toast.remove();
                         }
-                        .cv-preview {
-                            max-width: 210mm;
-                            margin: 0 auto;
-                            box-shadow: none;
-                            border: none;
-                            padding: 20mm;
-                        }
-                        @media print {
-                            @page {
-                                size: A4;
-                                margin: 0;
-                            }
-                            body {
-                                padding: 0;
-                            }
-                        }
-                    </style>
-                </head>
-                <body>
-                    ${preview.outerHTML}
-                    <script>
-                        window.onload = function() {
-                            setTimeout(function() {
-                                window.print();
-                                setTimeout(function() {
-                                    window.close();
-                                }, 1000);
-                            }, 500);
-                        }
-                    <\/script>
-                </body>
-            </html>
-        `);
-        printWindow.document.close();
-    }
+                    }, duration);
+                },
+                
+                success(message) { this.show(message, 'success'); },
+                error(message) { this.show(message, 'error'); },
+                warning(message) { this.show(message, 'warning'); },
+                info(message) { this.show(message, 'info'); }
+            };
 
-    // ===== DOCX EXPORT =====
-    function downloadDOCX() {
-        closeModal();
-        showLoading('Preparing Word document...');
-        
-        const preview = document.getElementById('cvPreview').cloneNode(true);
-        preview.classList.add('template-' + cvData.design.template);
-        
-        const styles = document.querySelectorAll('style');
-        let styleText = '';
-        styles.forEach(s => styleText += s.innerHTML);
-        
-        const content = `<!DOCTYPE html>
+            // Loading Overlay
+            const Loading = {
+                overlay: document.getElementById('loadingOverlay'),
+                messageEl: document.getElementById('loadingMessage'),
+                
+                show(message = 'Processing...') {
+                    this.messageEl.textContent = message;
+                    this.overlay.classList.add('active');
+                },
+                
+                hide() {
+                    this.overlay.classList.remove('active');
+                }
+            };
+
+            // Default CV Data
+            const DEFAULT_CV_DATA = {
+                personal: {
+                    name: 'Rahil Abbas Rizvi',
+                    title: 'Web Analyst & Digital Marketing Trainer',
+                    email: 'rahil.abbas@example.com',
+                    phone: '+91 98765 43210',
+                    location: 'Mumbai, India',
+                    linkedin: 'linkedin.com/in/rahil-abbas',
+                    summary: '15+ years of experience in digital marketing and web analytics. Google Certified professional with expertise in SEO, Google Ads, and training. Passionate about empowering the Shia community with digital skills.'
+                },
+                skills: [
+                    'Google Analytics 4',
+                    'Google Ads',
+                    'SEO',
+                    'Meta Ads',
+                    'Content Strategy',
+                    'Looker Studio',
+                    'Google Tag Manager',
+                    'Email Marketing',
+                    'Social Media Marketing',
+                    'Data Analysis'
+                ],
+                experience: [
+                    {
+                        id: 'exp1',
+                        title: 'Lead Digital Analyst',
+                        company: 'WebElevate Solutions',
+                        startDate: '2018',
+                        endDate: 'Present',
+                        description: 'Leading analytics implementation for 20+ enterprise clients. Training team members on GA4 and data visualization.'
+                    },
+                    {
+                        id: 'exp2',
+                        title: 'Senior Digital Marketing Trainer',
+                        company: 'Shia Youth Skills',
+                        startDate: '2015',
+                        endDate: '2018',
+                        description: 'Trained 300+ community members in Google Analytics, Ads, and career development. 85% placement rate.'
+                    },
+                    {
+                        id: 'exp3',
+                        title: 'Web Analyst',
+                        company: 'NetPulse Digital',
+                        startDate: '2010',
+                        endDate: '2015',
+                        description: 'Managed SEO campaigns and Google Ads for clients. Increased organic traffic by 200% on average.'
+                    }
+                ],
+                education: [
+                    {
+                        id: 'edu1',
+                        degree: 'MBA in Marketing',
+                        institution: 'Mumbai University',
+                        year: '2012',
+                        details: 'Specialization in Digital Marketing'
+                    },
+                    {
+                        id: 'edu2',
+                        degree: 'Bachelor of Computer Applications',
+                        institution: 'Shia PG College',
+                        year: '2009',
+                        details: 'Web Development focus'
+                    }
+                ],
+                projects: [
+                    {
+                        id: 'proj1',
+                        name: 'Shia Job Portal',
+                        description: 'Built interactive CV builder for community members. 500+ users in first month.'
+                    },
+                    {
+                        id: 'proj2',
+                        name: 'Analytics Training Hub',
+                        description: 'Created comprehensive GA4 course for beginners. 1000+ enrollments.'
+                    }
+                ],
+                certifications: [
+                    {
+                        id: 'cert1',
+                        name: 'Google Ads Search Certification',
+                        issuer: 'Google',
+                        year: '2023'
+                    },
+                    {
+                        id: 'cert2',
+                        name: 'Google Analytics Individual Qualification',
+                        issuer: 'Google',
+                        year: '2023'
+                    },
+                    {
+                        id: 'cert3',
+                        name: 'Meta Certified Media Buying Professional',
+                        issuer: 'Meta',
+                        year: '2022'
+                    }
+                ],
+                languages: [
+                    {
+                        id: 'lang1',
+                        language: 'Urdu',
+                        level: 'Native'
+                    },
+                    {
+                        id: 'lang2',
+                        language: 'English',
+                        level: 'Fluent'
+                    },
+                    {
+                        id: 'lang3',
+                        language: 'Hindi',
+                        level: 'Fluent'
+                    },
+                    {
+                        id: 'lang4',
+                        language: 'Arabic',
+                        level: 'Intermediate'
+                    }
+                ],
+                customSections: [
+                    {
+                        id: 'custom1',
+                        title: 'Volunteer Work',
+                        content: 'Mentor at Shia Youth Career Council · Career workshops for students'
+                    }
+                ],
+                design: {
+                    template: DEFAULT_TEMPLATE,
+                    color: DEFAULT_COLOR,
+                    rtl: false
+                },
+                sections: {
+                    summary: true,
+                    skills: true,
+                    experience: true,
+                    education: true,
+                    projects: true,
+                    certifications: true,
+                    languages: true,
+                    custom: true
+                }
+            };
+
+            // Main Application Object
+            const App = {
+                data: JSON.parse(JSON.stringify(DEFAULT_CV_DATA)),
+                autoSaveTimer: null,
+                
+                // Initialize Application
+                init() {
+                    this.loadFromLocalStorage();
+                    this.renderAll();
+                    this.setupEventListeners();
+                    this.checkFirstVisit();
+                    
+                    // Show success message
+                    setTimeout(() => {
+                        Toast.success('CV Maker ready! Your data auto-saves every 1 second.');
+                    }, 1000);
+                },
+                
+                // Check if first visit
+                checkFirstVisit() {
+                    const visited = localStorage.getItem('shia_cv_visited');
+                    if (!visited) {
+                        document.getElementById('welcomeModal').classList.remove('hidden');
+                        localStorage.setItem('shia_cv_visited', 'true');
+                    }
+                },
+                
+                hideWelcome() {
+                    document.getElementById('welcomeModal').classList.add('hidden');
+                },
+                
+                // Setup Event Listeners
+                setupEventListeners() {
+                    // Auto-save on any input
+                    document.querySelectorAll('input, textarea, select').forEach(el => {
+                        el.addEventListener('input', () => this.triggerAutoSave());
+                    });
+                    
+                    // Handle before unload
+                    window.addEventListener('beforeunload', (e) => {
+                        if (this.hasUnsavedChanges()) {
+                            e.preventDefault();
+                            e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+                        }
+                    });
+                },
+                
+                // Check for unsaved changes
+                hasUnsavedChanges() {
+                    const saved = localStorage.getItem(STORAGE_KEY);
+                    return saved !== JSON.stringify(this.data);
+                },
+                
+                // Trigger auto-save
+                triggerAutoSave() {
+                    clearTimeout(this.autoSaveTimer);
+                    this.autoSaveTimer = setTimeout(() => {
+                        this.saveToLocalStorage(true);
+                    }, AUTO_SAVE_DELAY);
+                },
+                
+                // Save to localStorage
+                saveToLocalStorage(silent = false) {
+                    try {
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
+                        if (!silent) {
+                            Toast.success('CV saved successfully!');
+                        }
+                        return true;
+                    } catch (error) {
+                        Toast.error('Failed to save: ' + error.message);
+                        return false;
+                    }
+                },
+                
+                // Load from localStorage
+                loadFromLocalStorage() {
+                    try {
+                        const saved = localStorage.getItem(STORAGE_KEY);
+                        if (saved) {
+                            this.data = JSON.parse(saved);
+                            this.renderAll();
+                            Toast.success('CV loaded successfully!');
+                        } else {
+                            Toast.info('No saved CV found. Using default template.');
+                        }
+                    } catch (error) {
+                        Toast.error('Failed to load saved data');
+                        this.resetToDefault();
+                    }
+                },
+                
+                // Reset to default
+                resetToDefault() {
+                    if (confirm('Are you sure? This will erase all your current data.')) {
+                        this.data = JSON.parse(JSON.stringify(DEFAULT_CV_DATA));
+                        this.renderAll();
+                        Toast.success('Reset to default template');
+                    }
+                },
+                
+                // Update personal info
+                updatePersonal(field, value) {
+                    this.data.personal[field] = value;
+                    this.renderPreview();
+                },
+                
+                // Skills Management
+                addSkill() {
+                    const newSkill = prompt('Enter skill name:');
+                    if (newSkill && newSkill.trim()) {
+                        this.data.skills.push(newSkill.trim());
+                        this.renderSkills();
+                        this.renderPreview();
+                        Toast.success('Skill added');
+                    }
+                },
+                
+                updateSkill(index, value) {
+                    this.data.skills[index] = value;
+                    this.renderPreview();
+                },
+                
+                removeSkill(index) {
+                    if (confirm('Remove this skill?')) {
+                        this.data.skills.splice(index, 1);
+                        this.renderSkills();
+                        this.renderPreview();
+                        Toast.success('Skill removed');
+                    }
+                },
+                
+                moveSkillUp(index) {
+                    if (index > 0) {
+                        [this.data.skills[index - 1], this.data.skills[index]] = 
+                        [this.data.skills[index], this.data.skills[index - 1]];
+                        this.renderSkills();
+                        this.renderPreview();
+                    }
+                },
+                
+                moveSkillDown(index) {
+                    if (index < this.data.skills.length - 1) {
+                        [this.data.skills[index], this.data.skills[index + 1]] = 
+                        [this.data.skills[index + 1], this.data.skills[index]];
+                        this.renderSkills();
+                        this.renderPreview();
+                    }
+                },
+                
+                // Experience Management
+                addExperience() {
+                    const newExp = {
+                        id: 'exp' + Date.now() + Math.random(),
+                        title: 'New Position',
+                        company: 'Company Name',
+                        startDate: '2024',
+                        endDate: 'Present',
+                        description: 'Job description'
+                    };
+                    this.data.experience.push(newExp);
+                    this.renderExperience();
+                    this.renderPreview();
+                    Toast.success('Experience added');
+                },
+                
+                updateExperience(id, field, value) {
+                    const exp = this.data.experience.find(e => e.id === id);
+                    if (exp) {
+                        exp[field] = value;
+                        this.renderPreview();
+                    }
+                },
+                
+                removeExperience(id) {
+                    if (confirm('Remove this experience?')) {
+                        this.data.experience = this.data.experience.filter(e => e.id !== id);
+                        this.renderExperience();
+                        this.renderPreview();
+                        Toast.success('Experience removed');
+                    }
+                },
+                
+                moveExperienceUp(index) {
+                    if (index > 0) {
+                        [this.data.experience[index - 1], this.data.experience[index]] = 
+                        [this.data.experience[index], this.data.experience[index - 1]];
+                        this.renderExperience();
+                        this.renderPreview();
+                    }
+                },
+                
+                moveExperienceDown(index) {
+                    if (index < this.data.experience.length - 1) {
+                        [this.data.experience[index], this.data.experience[index + 1]] = 
+                        [this.data.experience[index + 1], this.data.experience[index]];
+                        this.renderExperience();
+                        this.renderPreview();
+                    }
+                },
+                
+                // Education Management
+                addEducation() {
+                    const newEdu = {
+                        id: 'edu' + Date.now() + Math.random(),
+                        degree: 'New Degree',
+                        institution: 'Institution',
+                        year: '2024',
+                        details: ''
+                    };
+                    this.data.education.push(newEdu);
+                    this.renderEducation();
+                    this.renderPreview();
+                    Toast.success('Education added');
+                },
+                
+                updateEducation(id, field, value) {
+                    const edu = this.data.education.find(e => e.id === id);
+                    if (edu) {
+                        edu[field] = value;
+                        this.renderPreview();
+                    }
+                },
+                
+                removeEducation(id) {
+                    if (confirm('Remove this education?')) {
+                        this.data.education = this.data.education.filter(e => e.id !== id);
+                        this.renderEducation();
+                        this.renderPreview();
+                        Toast.success('Education removed');
+                    }
+                },
+                
+                // Projects Management
+                addProject() {
+                    const newProj = {
+                        id: 'proj' + Date.now() + Math.random(),
+                        name: 'New Project',
+                        description: 'Project description'
+                    };
+                    this.data.projects.push(newProj);
+                    this.renderProjects();
+                    this.renderPreview();
+                    Toast.success('Project added');
+                },
+                
+                updateProject(id, field, value) {
+                    const proj = this.data.projects.find(p => p.id === id);
+                    if (proj) {
+                        proj[field] = value;
+                        this.renderPreview();
+                    }
+                },
+                
+                removeProject(id) {
+                    if (confirm('Remove this project?')) {
+                        this.data.projects = this.data.projects.filter(p => p.id !== id);
+                        this.renderProjects();
+                        this.renderPreview();
+                        Toast.success('Project removed');
+                    }
+                },
+                
+                // Certifications Management
+                addCertification() {
+                    const newCert = {
+                        id: 'cert' + Date.now() + Math.random(),
+                        name: 'New Certification',
+                        issuer: 'Issuing Organization',
+                        year: '2024'
+                    };
+                    this.data.certifications.push(newCert);
+                    this.renderCertifications();
+                    this.renderPreview();
+                    Toast.success('Certification added');
+                },
+                
+                updateCertification(id, field, value) {
+                    const cert = this.data.certifications.find(c => c.id === id);
+                    if (cert) {
+                        cert[field] = value;
+                        this.renderPreview();
+                    }
+                },
+                
+                removeCertification(id) {
+                    if (confirm('Remove this certification?')) {
+                        this.data.certifications = this.data.certifications.filter(c => c.id !== id);
+                        this.renderCertifications();
+                        this.renderPreview();
+                        Toast.success('Certification removed');
+                    }
+                },
+                
+                // Languages Management
+                addLanguage() {
+                    const newLang = {
+                        id: 'lang' + Date.now() + Math.random(),
+                        language: 'New Language',
+                        level: 'Intermediate'
+                    };
+                    this.data.languages.push(newLang);
+                    this.renderLanguages();
+                    this.renderPreview();
+                    Toast.success('Language added');
+                },
+                
+                updateLanguage(id, field, value) {
+                    const lang = this.data.languages.find(l => l.id === id);
+                    if (lang) {
+                        lang[field] = value;
+                        this.renderPreview();
+                    }
+                },
+                
+                removeLanguage(id) {
+                    if (confirm('Remove this language?')) {
+                        this.data.languages = this.data.languages.filter(l => l.id !== id);
+                        this.renderLanguages();
+                        this.renderPreview();
+                        Toast.success('Language removed');
+                    }
+                },
+                
+                // Custom Sections Management
+                addCustomSection() {
+                    const title = prompt('Enter section title:');
+                    if (title && title.trim()) {
+                        const newSection = {
+                            id: 'custom' + Date.now() + Math.random(),
+                            title: title.trim(),
+                            content: ''
+                        };
+                        this.data.customSections.push(newSection);
+                        this.renderCustomSections();
+                        this.renderPreview();
+                        Toast.success('Custom section added');
+                    }
+                },
+                
+                updateCustomSection(id, field, value) {
+                    const section = this.data.customSections.find(s => s.id === id);
+                    if (section) {
+                        section[field] = value;
+                        this.renderPreview();
+                    }
+                },
+                
+                removeCustomSection(id) {
+                    if (confirm('Remove this section?')) {
+                        this.data.customSections = this.data.customSections.filter(s => s.id !== id);
+                        this.renderCustomSections();
+                        this.renderPreview();
+                        Toast.success('Custom section removed');
+                    }
+                },
+                
+                // Design Settings
+                setTemplate(template) {
+                    this.data.design.template = template;
+                    
+                    // Update UI
+                    document.querySelectorAll('.template-option').forEach(opt => {
+                        opt.classList.remove('active');
+                        if (opt.textContent.toLowerCase().includes(template)) {
+                            opt.classList.add('active');
+                        }
+                    });
+                    
+                    this.renderPreview();
+                    Toast.success(`Template changed to ${template}`);
+                },
+                
+                setColor(color) {
+                    this.data.design.color = color;
+                    
+                    // Update UI
+                    document.querySelectorAll('.color-option').forEach(opt => {
+                        opt.classList.remove('active');
+                        if (opt.style.backgroundColor === color) {
+                            opt.classList.add('active');
+                        }
+                    });
+                    
+                    this.renderPreview();
+                },
+                
+                toggleRTL(enabled) {
+                    this.data.design.rtl = enabled;
+                    document.getElementById('cvPreview').style.direction = enabled ? 'rtl' : 'ltr';
+                    Toast.success(`RTL mode ${enabled ? 'enabled' : 'disabled'}`);
+                },
+                
+                // Section Visibility
+                toggleSection(section, enabled) {
+                    this.data.sections[section] = enabled;
+                    this.renderPreview();
+                },
+                
+                // Render Functions
+                renderAll() {
+                    this.renderSkills();
+                    this.renderExperience();
+                    this.renderEducation();
+                    this.renderProjects();
+                    this.renderCertifications();
+                    this.renderLanguages();
+                    this.renderCustomSections();
+                    this.renderSectionToggles();
+                    this.renderPreview();
+                    
+                    // Update form fields
+                    document.getElementById('fullName').value = this.data.personal.name || '';
+                    document.getElementById('title').value = this.data.personal.title || '';
+                    document.getElementById('email').value = this.data.personal.email || '';
+                    document.getElementById('phone').value = this.data.personal.phone || '';
+                    document.getElementById('location').value = this.data.personal.location || '';
+                    document.getElementById('linkedin').value = this.data.personal.linkedin || '';
+                    document.getElementById('summary').value = this.data.personal.summary || '';
+                    
+                    // Update template active state
+                    document.querySelectorAll('.template-option').forEach(opt => {
+                        opt.classList.remove('active');
+                        if (opt.textContent.toLowerCase().includes(this.data.design.template)) {
+                            opt.classList.add('active');
+                        }
+                    });
+                    
+                    // Update color active state
+                    document.querySelectorAll('.color-option').forEach(opt => {
+                        opt.classList.remove('active');
+                        if (opt.style.backgroundColor === this.data.design.color) {
+                            opt.classList.add('active');
+                        }
+                    });
+                    
+                    // Update RTL toggle
+                    document.getElementById('rtlToggle').checked = this.data.design.rtl;
+                    document.getElementById('cvPreview').style.direction = this.data.design.rtl ? 'rtl' : 'ltr';
+                },
+                
+                renderSkills() {
+                    const container = document.getElementById('skillsContainer');
+                    let html = '';
+                    
+                    this.data.skills.forEach((skill, index) => {
+                        html += `
+                            <div class="dynamic-item">
+                                <div class="item-header">
+                                    <span class="item-title">Skill #${index + 1}</span>
+                                    <div class="item-actions">
+                                        <button class="item-btn move" onclick="app.moveSkillUp(${index})" ${index === 0 ? 'disabled' : ''}>
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                        <button class="item-btn move" onclick="app.moveSkillDown(${index})" ${index === this.data.skills.length - 1 ? 'disabled' : ''}>
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                        <button class="item-btn" onclick="app.removeSkill(${index})">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" value="${this.escapeHtml(skill)}" oninput="app.updateSkill(${index}, this.value)">
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                },
+                
+                renderExperience() {
+                    const container = document.getElementById('experienceContainer');
+                    let html = '';
+                    
+                    this.data.experience.forEach((exp, index) => {
+                        html += `
+                            <div class="dynamic-item">
+                                <div class="item-header">
+                                    <span class="item-title">${this.escapeHtml(exp.title)}</span>
+                                    <div class="item-actions">
+                                        <button class="item-btn move" onclick="app.moveExperienceUp('${exp.id}')" ${index === 0 ? 'disabled' : ''}>
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                        <button class="item-btn move" onclick="app.moveExperienceDown('${exp.id}')" ${index === this.data.experience.length - 1 ? 'disabled' : ''}>
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                        <button class="item-btn" onclick="app.removeExperience('${exp.id}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Job Title" value="${this.escapeHtml(exp.title)}" oninput="app.updateExperience('${exp.id}', 'title', this.value)">
+                                <input type="text" class="form-control" placeholder="Company" value="${this.escapeHtml(exp.company)}" oninput="app.updateExperience('${exp.id}', 'company', this.value)">
+                                <div class="form-row">
+                                    <input type="text" class="form-control" placeholder="Start Date" value="${this.escapeHtml(exp.startDate)}" oninput="app.updateExperience('${exp.id}', 'startDate', this.value)">
+                                    <input type="text" class="form-control" placeholder="End Date" value="${this.escapeHtml(exp.endDate)}" oninput="app.updateExperience('${exp.id}', 'endDate', this.value)">
+                                </div>
+                                <textarea class="form-control" placeholder="Description" oninput="app.updateExperience('${exp.id}', 'description', this.value)">${this.escapeHtml(exp.description)}</textarea>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                },
+                
+                renderEducation() {
+                    const container = document.getElementById('educationContainer');
+                    let html = '';
+                    
+                    this.data.education.forEach((edu, index) => {
+                        html += `
+                            <div class="dynamic-item">
+                                <div class="item-header">
+                                    <span class="item-title">${this.escapeHtml(edu.degree)}</span>
+                                    <div class="item-actions">
+                                        <button class="item-btn" onclick="app.removeEducation('${edu.id}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Degree" value="${this.escapeHtml(edu.degree)}" oninput="app.updateEducation('${edu.id}', 'degree', this.value)">
+                                <input type="text" class="form-control" placeholder="Institution" value="${this.escapeHtml(edu.institution)}" oninput="app.updateEducation('${edu.id}', 'institution', this.value)">
+                                <input type="text" class="form-control" placeholder="Year" value="${this.escapeHtml(edu.year)}" oninput="app.updateEducation('${edu.id}', 'year', this.value)">
+                                <textarea class="form-control" placeholder="Details" oninput="app.updateEducation('${edu.id}', 'details', this.value)">${this.escapeHtml(edu.details)}</textarea>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                },
+                
+                renderProjects() {
+                    const container = document.getElementById('projectsContainer');
+                    let html = '';
+                    
+                    this.data.projects.forEach((proj, index) => {
+                        html += `
+                            <div class="dynamic-item">
+                                <div class="item-header">
+                                    <span class="item-title">${this.escapeHtml(proj.name)}</span>
+                                    <div class="item-actions">
+                                        <button class="item-btn" onclick="app.removeProject('${proj.id}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Project Name" value="${this.escapeHtml(proj.name)}" oninput="app.updateProject('${proj.id}', 'name', this.value)">
+                                <textarea class="form-control" placeholder="Description" oninput="app.updateProject('${proj.id}', 'description', this.value)">${this.escapeHtml(proj.description)}</textarea>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                },
+                
+                renderCertifications() {
+                    const container = document.getElementById('certificationsContainer');
+                    let html = '';
+                    
+                    this.data.certifications.forEach((cert, index) => {
+                        html += `
+                            <div class="dynamic-item">
+                                <div class="item-header">
+                                    <span class="item-title">${this.escapeHtml(cert.name)}</span>
+                                    <div class="item-actions">
+                                        <button class="item-btn" onclick="app.removeCertification('${cert.id}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Certification Name" value="${this.escapeHtml(cert.name)}" oninput="app.updateCertification('${cert.id}', 'name', this.value)">
+                                <input type="text" class="form-control" placeholder="Issuer" value="${this.escapeHtml(cert.issuer)}" oninput="app.updateCertification('${cert.id}', 'issuer', this.value)">
+                                <input type="text" class="form-control" placeholder="Year" value="${this.escapeHtml(cert.year)}" oninput="app.updateCertification('${cert.id}', 'year', this.value)">
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                },
+                
+                renderLanguages() {
+                    const container = document.getElementById('languagesContainer');
+                    let html = '';
+                    
+                    const levels = ['Native', 'Fluent', 'Intermediate', 'Basic'];
+                    
+                    this.data.languages.forEach((lang, index) => {
+                        html += `
+                            <div class="dynamic-item">
+                                <div class="item-header">
+                                    <span class="item-title">${this.escapeHtml(lang.language)}</span>
+                                    <div class="item-actions">
+                                        <button class="item-btn" onclick="app.removeLanguage('${lang.id}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Language" value="${this.escapeHtml(lang.language)}" oninput="app.updateLanguage('${lang.id}', 'language', this.value)">
+                                <select class="form-control" onchange="app.updateLanguage('${lang.id}', 'level', this.value)">
+                                    ${levels.map(level => 
+                                        `<option value="${level}" ${lang.level === level ? 'selected' : ''}>${level}</option>`
+                                    ).join('')}
+                                </select>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                },
+                
+                renderCustomSections() {
+                    const container = document.getElementById('customContainer');
+                    let html = '';
+                    
+                    this.data.customSections.forEach((section, index) => {
+                        html += `
+                            <div class="dynamic-item">
+                                <div class="item-header">
+                                    <span class="item-title">${this.escapeHtml(section.title)}</span>
+                                    <div class="item-actions">
+                                        <button class="item-btn" onclick="app.removeCustomSection('${section.id}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Section Title" value="${this.escapeHtml(section.title)}" oninput="app.updateCustomSection('${section.id}', 'title', this.value)">
+                                <textarea class="form-control" placeholder="Content" oninput="app.updateCustomSection('${section.id}', 'content', this.value)">${this.escapeHtml(section.content)}</textarea>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                },
+                
+                renderSectionToggles() {
+                    const container = document.getElementById('sectionToggles');
+                    const sections = [
+                        { id: 'summary', name: 'Summary' },
+                        { id: 'skills', name: 'Skills' },
+                        { id: 'experience', name: 'Work Experience' },
+                        { id: 'education', name: 'Education' },
+                        { id: 'projects', name: 'Projects' },
+                        { id: 'certifications', name: 'Certifications' },
+                        { id: 'languages', name: 'Languages' },
+                        { id: 'custom', name: 'Custom Sections' }
+                    ];
+                    
+                    let html = '';
+                    sections.forEach(section => {
+                        html += `
+                            <div class="toggle-item">
+                                <span>${section.name}</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" ${this.data.sections[section.id] ? 'checked' : ''} onchange="app.toggleSection('${section.id}', this.checked)">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                },
+                
+                renderPreview() {
+                    const preview = document.getElementById('cvPreview');
+                    const p = this.data.personal;
+                    const col = this.data.design.color;
+                    
+                    // Remove existing template classes
+                    preview.className = 'cv-preview';
+                    // Add current template class
+                    preview.classList.add(`template-${this.data.design.template}`);
+                    
+                    let html = `
+                        <div class="cv-header">
+                            <div class="cv-name">${this.escapeHtml(p.name)}</div>
+                            <div class="cv-title" style="color: ${col}">${this.escapeHtml(p.title)}</div>
+                            <div class="cv-contact">
+                                ${p.email ? `<span><i class="fas fa-envelope"></i> ${this.escapeHtml(p.email)}</span>` : ''}
+                                ${p.phone ? `<span><i class="fas fa-phone"></i> ${this.escapeHtml(p.phone)}</span>` : ''}
+                                ${p.location ? `<span><i class="fas fa-map-marker-alt"></i> ${this.escapeHtml(p.location)}</span>` : ''}
+                                ${p.linkedin ? `<span><i class="fab fa-linkedin"></i> ${this.escapeHtml(p.linkedin)}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Summary
+                    if (this.data.sections.summary && p.summary) {
+                        html += `
+                            <div class="cv-section">
+                                <div class="section-title" style="border-bottom-color: ${col}">Summary</div>
+                                <div>${this.escapeHtml(p.summary)}</div>
+                            </div>
+                        `;
+                    }
+                    
+                    // Skills
+                    if (this.data.sections.skills && this.data.skills.length) {
+                        html += `
+                            <div class="cv-section">
+                                <div class="section-title" style="border-bottom-color: ${col}">Skills</div>
+                                <div>
+                        `;
+                        
+                        this.data.skills.forEach(skill => {
+                            html += `<span class="skill-tag" style="border-left-color: ${col}">${this.escapeHtml(skill)}</span>`;
+                        });
+                        
+                        html += `</div></div>`;
+                    }
+                    
+                    // Experience
+                    if (this.data.sections.experience && this.data.experience.length) {
+                        html += `
+                            <div class="cv-section">
+                                <div class="section-title" style="border-bottom-color: ${col}">Work Experience</div>
+                        `;
+                        
+                        this.data.experience.forEach(exp => {
+                            html += `
+                                <div class="exp-item">
+                                    <div class="exp-header">
+                                        <span class="exp-title">${this.escapeHtml(exp.title)}</span>
+                                        <span class="exp-company">${this.escapeHtml(exp.company)}</span>
+                                    </div>
+                                    <div class="exp-date">${this.escapeHtml(exp.startDate)} – ${this.escapeHtml(exp.endDate)}</div>
+                                    <div>${this.escapeHtml(exp.description)}</div>
+                                </div>
+                            `;
+                        });
+                        
+                        html += `</div>`;
+                    }
+                    
+                    // Education
+                    if (this.data.sections.education && this.data.education.length) {
+                        html += `
+                            <div class="cv-section">
+                                <div class="section-title" style="border-bottom-color: ${col}">Education</div>
+                        `;
+                        
+                        this.data.education.forEach(edu => {
+                            html += `
+                                <div class="exp-item">
+                                    <div class="exp-header">
+                                        <span class="exp-title">${this.escapeHtml(edu.degree)}</span>
+                                        <span class="exp-company">${this.escapeHtml(edu.institution)}</span>
+                                    </div>
+                                    <div class="exp-date">${this.escapeHtml(edu.year)}</div>
+                                    <div>${this.escapeHtml(edu.details)}</div>
+                                </div>
+                            `;
+                        });
+                        
+                        html += `</div>`;
+                    }
+                    
+                    // Projects
+                    if (this.data.sections.projects && this.data.projects.length) {
+                        html += `
+                            <div class="cv-section">
+                                <div class="section-title" style="border-bottom-color: ${col}">Projects</div>
+                        `;
+                        
+                        this.data.projects.forEach(proj => {
+                            html += `
+                                <div class="exp-item">
+                                    <div class="exp-header">
+                                        <span class="exp-title">${this.escapeHtml(proj.name)}</span>
+                                    </div>
+                                    <div>${this.escapeHtml(proj.description)}</div>
+                                </div>
+                            `;
+                        });
+                        
+                        html += `</div>`;
+                    }
+                    
+                    // Certifications
+                    if (this.data.sections.certifications && this.data.certifications.length) {
+                        html += `
+                            <div class="cv-section">
+                                <div class="section-title" style="border-bottom-color: ${col}">Certifications</div>
+                        `;
+                        
+                        this.data.certifications.forEach(cert => {
+                            html += `
+                                <div class="exp-item">
+                                    <div class="exp-header">
+                                        <span class="exp-title">${this.escapeHtml(cert.name)}</span>
+                                        <span class="exp-company">${this.escapeHtml(cert.issuer)}</span>
+                                    </div>
+                                    <div class="exp-date">${this.escapeHtml(cert.year)}</div>
+                                </div>
+                            `;
+                        });
+                        
+                        html += `</div>`;
+                    }
+                    
+                    // Languages
+                    if (this.data.sections.languages && this.data.languages.length) {
+                        html += `
+                            <div class="cv-section">
+                                <div class="section-title" style="border-bottom-color: ${col}">Languages</div>
+                                <ul style="margin-left: 1.5rem;">
+                        `;
+                        
+                        this.data.languages.forEach(lang => {
+                            html += `<li><strong>${this.escapeHtml(lang.language)}:</strong> ${this.escapeHtml(lang.level)}</li>`;
+                        });
+                        
+                        html += `</ul></div>`;
+                    }
+                    
+                    // Custom Sections
+                    if (this.data.sections.custom) {
+                        this.data.customSections.forEach(section => {
+                            html += `
+                                <div class="cv-section">
+                                    <div class="section-title" style="border-bottom-color: ${col}">${this.escapeHtml(section.title)}</div>
+                                    <div>${this.escapeHtml(section.content)}</div>
+                                </div>
+                            `;
+                        });
+                    }
+                    
+                    preview.innerHTML = html;
+                },
+                
+                // Export Functions
+                async exportAsPDF() {
+                    Loading.show('Generating PDF...');
+                    
+                    try {
+                        const element = document.getElementById('cvPreview');
+                        
+                        // Clone for PDF
+                        const clone = element.cloneNode(true);
+                        clone.style.width = '800px';
+                        clone.style.padding = '40px';
+                        clone.style.background = 'white';
+                        
+                        // Create canvas
+                        const canvas = await html2canvas(clone, {
+                            scale: 2,
+                            backgroundColor: '#ffffff',
+                            logging: false,
+                            allowTaint: false,
+                            useCORS: true
+                        });
+                        
+                        // Create PDF
+                        const { jsPDF } = window.jspdf;
+                        const pdf = new jsPDF({
+                            orientation: 'portrait',
+                            unit: 'px',
+                            format: 'a4'
+                        });
+                        
+                        const imgData = canvas.toDataURL('image/png');
+                        const pdfWidth = pdf.internal.pageSize.getWidth();
+                        const pdfHeight = pdf.internal.pageSize.getHeight();
+                        
+                        const ratio = Math.min(pdfWidth / canvas.width, pdfHeight / canvas.height);
+                        const width = canvas.width * ratio;
+                        const height = canvas.height * ratio;
+                        
+                        const xOffset = (pdfWidth - width) / 2;
+                        const yOffset = (pdfHeight - height) / 2;
+                        
+                        pdf.addImage(imgData, 'PNG', xOffset, yOffset, width, height);
+                        
+                        // Save with proper filename
+                        const filename = `${this.data.personal.name.replace(/\s+/g, '_')}_CV.pdf`;
+                        pdf.save(filename);
+                        
+                        Loading.hide();
+                        Toast.success('PDF generated successfully!');
+                    } catch (error) {
+                        console.error('PDF Error:', error);
+                        Loading.hide();
+                        Toast.error('Failed to generate PDF. Trying fallback...');
+                        this.fallbackPrintPDF();
+                    }
+                },
+                
+                fallbackPrintPDF() {
+                    const printWindow = window.open('', '_blank');
+                    const styles = document.querySelector('style').innerHTML;
+                    const preview = document.getElementById('cvPreview').cloneNode(true);
+                    
+                    printWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>${this.data.personal.name} - CV</title>
+                            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+                            <style>
+                                ${styles}
+                                body {
+                                    padding: 2rem;
+                                    background: white;
+                                    font-family: 'Inter', sans-serif;
+                                }
+                                .cv-preview {
+                                    max-width: 900px;
+                                    margin: 0 auto;
+                                    box-shadow: none;
+                                }
+                                @media print {
+                                    @page {
+                                        size: A4;
+                                        margin: 1cm;
+                                    }
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            ${preview.outerHTML}
+                            <script>
+                                window.onload = () => {
+                                    setTimeout(() => {
+                                        window.print();
+                                        setTimeout(() => window.close(), 1000);
+                                    }, 500);
+                                }
+                            <\/script>
+                        </body>
+                        </html>
+                    `);
+                    
+                    printWindow.document.close();
+                },
+                
+                exportAsDOCX() {
+                    Loading.show('Preparing Word document...');
+                    
+                    try {
+                        const styles = document.querySelector('style').innerHTML;
+                        const preview = document.getElementById('cvPreview').cloneNode(true);
+                        
+                        const content = `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Rahil Abbas Rizvi - CV</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>${this.data.personal.name} - CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        ${styleText}
+        ${styles}
         body {
             font-family: 'Inter', sans-serif;
             padding: 1in;
             background: white;
-            margin: 0;
         }
         .cv-preview {
             max-width: 100%;
             box-shadow: none;
             border: none;
-            padding: 0;
-        }
-        .cv-contact {
-            background: #edf4fa !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        .skill-item {
-            background: #e9f0f8 !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        .exp-company {
-            background: #dde9f5 !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
         }
     </style>
 </head>
@@ -1367,44 +2221,43 @@
     ${preview.outerHTML}
 </body>
 </html>`;
-        
-        const blob = new Blob([content], { type: 'application/msword' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'Rahil_Abbas_Rizvi_CV.doc';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => URL.revokeObjectURL(link.href), 100);
-        
-        hideLoading();
-    }
-
-    // ===== HTML EXPORT =====
-    function downloadHTML() {
-        closeModal();
-        showLoading('Preparing HTML file...');
-        
-        const preview = document.getElementById('cvPreview').cloneNode(true);
-        preview.classList.add('template-' + cvData.design.template);
-        
-        const styles = document.querySelectorAll('style');
-        let styleText = '';
-        styles.forEach(s => styleText += s.innerHTML);
-        
-        const content = `<!DOCTYPE html>
+                        
+                        const blob = new Blob([content], { type: 'application/msword' });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `${this.data.personal.name.replace(/\s+/g, '_')}_CV.doc`;
+                        link.click();
+                        
+                        setTimeout(() => URL.revokeObjectURL(url), 100);
+                        Loading.hide();
+                        Toast.success('Word document created!');
+                    } catch (error) {
+                        Loading.hide();
+                        Toast.error('Failed to create Word document');
+                    }
+                },
+                
+                exportAsHTML() {
+                    Loading.show('Preparing HTML file...');
+                    
+                    try {
+                        const styles = document.querySelector('style').innerHTML;
+                        const preview = document.getElementById('cvPreview').cloneNode(true);
+                        
+                        const content = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahil Abbas Rizvi - CV</title>
+    <title>${this.data.personal.name} - CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        ${styleText}
+        ${styles}
         body {
-            background: #f5f7fa;
-            padding: 30px;
+            background: #f1f5f9;
+            padding: 2rem;
             display: flex;
             justify-content: center;
             font-family: 'Inter', sans-serif;
@@ -1412,10 +2265,6 @@
         .cv-preview {
             max-width: 900px;
             margin: 0 auto;
-            background: white;
-            padding: 40px 45px;
-            border-radius: 32px;
-            box-shadow: 0 20px 35px -8px rgba(0,35,60,0.15);
         }
     </style>
 </head>
@@ -1423,104 +2272,78 @@
     ${preview.outerHTML}
 </body>
 </html>`;
-        
-        const blob = new Blob([content], { type: 'text/html' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'Rahil_Abbas_Rizvi_CV.html';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => URL.revokeObjectURL(link.href), 100);
-        
-        hideLoading();
-    }
+                        
+                        const blob = new Blob([content], { type: 'text/html' });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `${this.data.personal.name.replace(/\s+/g, '_')}_CV.html`;
+                        link.click();
+                        
+                        setTimeout(() => URL.revokeObjectURL(url), 100);
+                        Loading.hide();
+                        Toast.success('HTML file created!');
+                    } catch (error) {
+                        Loading.hide();
+                        Toast.error('Failed to create HTML file');
+                    }
+                },
+                
+                // Utility Functions
+                escapeHtml(text) {
+                    if (!text) return '';
+                    const div = document.createElement('div');
+                    div.textContent = text;
+                    return div.innerHTML;
+                },
+                
+                // Print function
+                printCV() {
+                    window.print();
+                }
+            };
 
-    // ===== INIT =====
-    function init() {
-        // Render all sections
-        renderSkills();
-        renderExperience();
-        renderEducation();
-        renderProjects();
-        renderCertifications();
-        renderLanguages();
-        renderCustomSections();
-        renderSectionToggles();
-        renderPreview();
+            // Expose app globally
+            window.app = App;
 
-        // Left panel toggle
-        document.getElementById('toggleLeftBtn').addEventListener('click', function() {
-            document.getElementById('leftPanel').classList.toggle('collapsed');
-            let icon = document.getElementById('toggleIcon');
-            if (document.getElementById('leftPanel').classList.contains('collapsed')) {
-                icon.classList.remove('fa-angles-left');
-                icon.classList.add('fa-angles-right');
-            } else {
-                icon.classList.remove('fa-angles-right');
-                icon.classList.add('fa-angles-left');
-            }
-        });
+            // Initialize when DOM is ready
+            document.addEventListener('DOMContentLoaded', () => {
+                App.init();
+            });
 
-        // Enter key for skills
-        document.getElementById('newSkill').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addSkill();
-            }
-        });
+            // Add export buttons to header
+            setTimeout(() => {
+                const headerActions = document.querySelector('.header-actions');
+                if (headerActions) {
+                    const exportGroup = document.createElement('div');
+                    exportGroup.className = 'header-actions';
+                    exportGroup.style.marginLeft = 'auto';
+                    exportGroup.innerHTML = `
+                        <button class="header-btn" onclick="app.exportAsPDF()">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>PDF</span>
+                        </button>
+                        <button class="header-btn" onclick="app.exportAsDOCX()">
+                            <i class="fas fa-file-word"></i>
+                            <span>DOCX</span>
+                        </button>
+                        <button class="header-btn" onclick="app.exportAsHTML()">
+                            <i class="fas fa-file-code"></i>
+                            <span>HTML</span>
+                        </button>
+                        <button class="header-btn" onclick="app.printCV()">
+                            <i class="fas fa-print"></i>
+                            <span>Print</span>
+                        </button>
+                    `;
+                    headerActions.appendChild(exportGroup);
+                }
+            }, 100);
+        })();
+    </script>
 
-        // Export buttons
-        document.getElementById('pdfExportBtn').addEventListener('click', exportAsPDF);
-        document.getElementById('docxExportBtn').addEventListener('click', downloadDOCX);
-        document.getElementById('htmlExportBtn').addEventListener('click', downloadHTML);
-        
-        // Close modal when clicking outside
-        document.getElementById('exportModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-
-        // PDF button
-        document.querySelector('.action-btn.pdf').addEventListener('click', exportAsPDF);
-    }
-
-    // Make all functions globally accessible
-    window.updatePersonal = updatePersonal;
-    window.addSkill = addSkill;
-    window.updateSkill = updateSkill;
-    window.removeSkill = removeSkill;
-    window.addExperience = addExperience;
-    window.updateExperience = updateExperience;
-    window.removeExperience = removeExperience;
-    window.addEducation = addEducation;
-    window.updateEducation = updateEducation;
-    window.removeEducation = removeEducation;
-    window.addProject = addProject;
-    window.updateProject = updateProject;
-    window.removeProject = removeProject;
-    window.addCertification = addCertification;
-    window.updateCertification = updateCertification;
-    window.removeCertification = removeCertification;
-    window.addLanguage = addLanguage;
-    window.updateLanguage = updateLanguage;
-    window.removeLanguage = removeLanguage;
-    window.addCustomSection = addCustomSection;
-    window.updateCustomSection = updateCustomSection;
-    window.removeCustomSection = removeCustomSection;
-    window.toggleSection = toggleSection;
-    window.setTemplate = setTemplate;
-    window.setColor = setColor;
-    window.openExportModal = openExportModal;
-    window.closeModal = closeModal;
-    window.exportAsPDF = exportAsPDF;
-    window.downloadDOCX = downloadDOCX;
-    window.downloadHTML = downloadHTML;
-    window.fallbackPrintPDF = fallbackPrintPDF;
-    window.closeWelcomePopup = closeWelcomePopup;
-
-    // Start everything when page loads
-    document.addEventListener('DOMContentLoaded', init);
-</script>
+    <!-- Load external libraries with fallback -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
