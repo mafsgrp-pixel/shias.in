@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cvgen.html · Visual CV Generator · Shia Community</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>cvgen.html · Visual CV Generator</title>
     
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -14,11 +14,8 @@
     <!-- Chart.js for visualizations -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
-    <!-- html2canvas for PDF export -->
+    <!-- html2canvas for export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    
-    <!-- jsPDF for PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         /* ===== RESET & VARIABLES ===== */
@@ -36,7 +33,7 @@
             --success: #059669;
             --danger: #dc2626;
             --warning: #d97706;
-            --info: #2563eb;
+            --info: #3b82f6;
             --gray-50: #f8fafc;
             --gray-100: #f1f5f9;
             --gray-200: #e2e8f0;
@@ -60,9 +57,308 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0e2a38 0%, #1e3f50 100%);
             min-height: 100vh;
             padding: 1rem;
+        }
+
+        /* ===== WELCOME POPUP - FULLY RESPONSIVE ===== */
+        .welcome-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+
+        .welcome-popup.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .popup-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: scale(1);
+            transition: transform 0.3s ease;
+            position: relative;
+            margin: auto;
+            scrollbar-width: thin;
+        }
+
+        .popup-card::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .popup-card::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+        }
+
+        .popup-card::-webkit-scrollbar-thumb {
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+        }
+
+        .popup-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .popup-card h2 {
+            font-size: clamp(1.5rem, 5vw, 2.25rem);
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .popup-card p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            text-align: center;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            background: var(--gray-50);
+            padding: 1.25rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+            transition: all 0.2s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            text-align: left;
+            margin-bottom: 0;
+        }
+
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .badge {
+            background: var(--gray-100);
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        .badge i {
+            color: var(--success);
+        }
+
+        .popup-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.25rem 2rem;
+            border-radius: var(--radius-full);
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            border: 2px solid transparent;
+        }
+
+        .popup-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .popup-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Close button - prevents any click outside behavior */
+        .popup-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gray-100);
+            border: none;
+            color: var(--gray-600);
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .popup-close:hover {
+            background: var(--gray-200);
+            color: var(--gray-900);
+            transform: rotate(90deg);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .popup-card {
+                padding: 1.5rem;
+                border-radius: 1.5rem;
+            }
+
+            .popup-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .feature-item {
+                padding: 1rem;
+            }
+
+            .badge-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .badge {
+                justify-content: center;
+            }
+
+            .popup-btn {
+                padding: 1rem 1.5rem;
+                font-size: 1.1rem;
+            }
+
+            .popup-close {
+                top: 1rem;
+                right: 1rem;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .popup-card {
+                padding: 1.25rem;
+            }
+
+            .popup-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+
+            .popup-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .feature-item h4 {
+                font-size: 1rem;
+            }
+        }
+
+        /* Landscape Mode */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .popup-card {
+                max-height: 95vh;
+                padding: 1.25rem;
+            }
+
+            .popup-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin: 1rem 0;
+            }
         }
 
         /* ===== TOAST NOTIFICATIONS ===== */
@@ -96,32 +392,6 @@
         .toast.warning { border-left-color: var(--warning); }
         .toast.info { border-left-color: var(--info); }
 
-        .toast i { font-size: 1.25rem; }
-        .toast.success i { color: var(--success); }
-        .toast.error i { color: var(--danger); }
-        .toast.warning i { color: var(--warning); }
-        .toast.info i { color: var(--info); }
-
-        .toast-content { flex: 1; }
-        .toast-title {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-        .toast-message {
-            font-size: 0.875rem;
-            color: var(--gray-600);
-        }
-        .toast-close {
-            background: none;
-            border: none;
-            color: var(--gray-400);
-            cursor: pointer;
-            font-size: 1.25rem;
-            padding: 0.25rem;
-            transition: color 0.2s;
-        }
-        .toast-close:hover { color: var(--gray-600); }
-
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
@@ -139,7 +409,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
+            z-index: 10001;
         }
         .loading-overlay.active { display: flex; }
 
@@ -165,109 +435,6 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .loading-message {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--gray-800);
-            margin-bottom: 0.5rem;
-        }
-        .loading-submessage {
-            color: var(--gray-500);
-            font-size: 0.95rem;
-        }
-
-        /* ===== WELCOME MODAL ===== */
-        .welcome-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10001;
-        }
-        .welcome-modal.hidden { display: none; }
-
-        .welcome-card {
-            background: white;
-            padding: 3rem;
-            border-radius: var(--radius-xl);
-            text-align: center;
-            max-width: 600px;
-            width: 90%;
-            animation: popIn 0.5s ease;
-            box-shadow: var(--shadow-xl);
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .welcome-icon {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 2rem;
-            font-size: 3.5rem;
-            color: white;
-        }
-
-        .welcome-card h2 {
-            font-size: 2.25rem;
-            color: var(--gray-900);
-            margin-bottom: 1rem;
-        }
-        .welcome-card p {
-            color: var(--gray-600);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-            font-size: 1.1rem;
-        }
-
-        .welcome-features {
-            background: var(--gray-50);
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-            margin: 2rem 0;
-            text-align: left;
-        }
-        .welcome-features li {
-            list-style: none;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 1rem;
-        }
-        .welcome-features i { color: var(--success); font-size: 1.25rem; }
-
-        .welcome-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1.25rem 2.5rem;
-            border-radius: var(--radius-full);
-            font-size: 1.25rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            width: 100%;
-        }
-        .welcome-btn:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
         /* ===== MAIN APP CONTAINER ===== */
         .app-container {
             max-width: 1800px;
@@ -277,6 +444,14 @@
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-xl);
             overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .app-container.visible {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* ===== HEADER ===== */
@@ -297,12 +472,12 @@
             gap: 1rem;
         }
         .header-title h1 {
-            font-size: 2rem;
+            font-size: clamp(1.25rem, 4vw, 2rem);
             font-weight: 700;
         }
         .header-title i {
             color: var(--accent);
-            font-size: 2.25rem;
+            font-size: clamp(1.5rem, 5vw, 2.25rem);
         }
 
         .header-badge {
@@ -314,7 +489,7 @@
             align-items: center;
             gap: 0.75rem;
             font-weight: 500;
-            font-size: 1rem;
+            font-size: clamp(0.85rem, 3vw, 1rem);
         }
 
         .header-actions {
@@ -359,6 +534,7 @@
             scrollbar-width: thin;
             scrollbar-color: var(--gray-400) var(--gray-100);
         }
+
         .sidebar::-webkit-scrollbar {
             width: 8px;
         }
@@ -460,7 +636,6 @@
             transition: all 0.2s;
         }
         .item-btn:hover { color: var(--danger); }
-        .item-btn.move:hover { color: var(--info); }
         .add-btn {
             width: 100%;
             padding: 0.75rem;
@@ -482,20 +657,6 @@
             color: var(--primary);
         }
 
-        /* ===== GRID LAYOUTS ===== */
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-        .form-row-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
         /* ===== VISUAL STATS EDITOR ===== */
         .visual-stats-editor {
             display: grid;
@@ -504,7 +665,7 @@
             margin-bottom: 1rem;
         }
         .stat-card-editor {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
             padding: 1rem;
             border-radius: var(--radius-md);
@@ -568,75 +729,6 @@
         .color-option:hover { transform: scale(1.1); }
         .color-option.active { border-color: var(--gray-900); box-shadow: var(--shadow-md); }
 
-        /* ===== TEMPLATE GRID ===== */
-        .template-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
-            margin: 1rem 0;
-        }
-        .template-option {
-            padding: 1rem;
-            text-align: center;
-            background: var(--gray-100);
-            border: 2px solid transparent;
-            border-radius: var(--radius-md);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .template-option:hover { background: var(--gray-200); }
-        .template-option.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary-dark);
-        }
-
-        /* ===== TOGGLE SWITCHES ===== */
-        .toggle-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--gray-200);
-        }
-        .toggle-item:last-child { border-bottom: none; }
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 52px;
-            height: 28px;
-        }
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--gray-300);
-            transition: 0.2s;
-            border-radius: 34px;
-        }
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.2s;
-            border-radius: 50%;
-        }
-        input:checked + .toggle-slider { background-color: var(--primary); }
-        input:checked + .toggle-slider:before { transform: translateX(24px); }
-
         /* ===== PREVIEW AREA ===== */
         .preview-area {
             padding: 2rem;
@@ -686,7 +778,7 @@
             position: relative;
         }
         .stat-value {
-            font-size: 2.25rem;
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
             font-weight: 700;
             line-height: 1.2;
             position: relative;
@@ -706,8 +798,6 @@
             background: rgba(255,255,255,0.2);
             border-radius: var(--radius-full);
         }
-        .stat-trend.up { color: #4ade80; }
-        .stat-trend.down { color: #f87171; }
 
         /* Charts Grid */
         .charts-grid {
@@ -770,10 +860,6 @@
             background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
             border-radius: var(--radius-full);
             transition: width 0.3s ease;
-        }
-        .skill-level {
-            font-size: 0.875rem;
-            color: var(--gray-500);
         }
 
         /* Timeline */
@@ -842,62 +928,7 @@
             opacity: 0.9;
         }
 
-        /* Project Impact Bubbles */
-        .project-bubbles {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            margin: 2rem 0;
-        }
-        .bubble {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-            transition: transform 0.3s ease;
-        }
-        .bubble:hover { transform: scale(1.1); }
-        .bubble-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        .bubble-label {
-            font-size: 0.75rem;
-            opacity: 0.9;
-        }
-
-        /* ===== TEMPLATE VARIATIONS ===== */
-        .template-modern .stats-grid { grid-template-columns: repeat(4, 1fr); }
-        .template-classic .stats-grid { grid-template-columns: repeat(2, 1fr); }
-        .template-professional .stats-grid { grid-template-columns: repeat(3, 1fr); }
-        .template-creative .stats-grid { 
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        /* ===== PRINT STYLES ===== */
-        @media print {
-            body * { visibility: hidden; }
-            .visual-cv, .visual-cv * { visibility: visible; }
-            .visual-cv {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                padding: 1cm;
-                box-shadow: none;
-            }
-        }
-
-        /* ===== RESPONSIVE ===== */
+        /* Responsive */
         @media (max-width: 1400px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
             .charts-grid { grid-template-columns: 1fr; }
@@ -910,31 +941,116 @@
             .sidebar { max-height: 500px; }
             .stats-grid { grid-template-columns: 1fr !important; }
             .skill-matrix { grid-template-columns: 1fr; }
+            .visual-cv { padding: 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .app-header { padding: 1rem; }
+            .header-actions { justify-content: center; }
+            .header-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
+            .visual-cv { padding: 1rem; }
+        }
+
+        /* Print Styles */
+        @media print {
+            body * { visibility: hidden; }
+            .visual-cv, .visual-cv * { visibility: visible; }
+            .visual-cv {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 1cm;
+                box-shadow: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- ===== WELCOME MODAL ===== -->
-    <div class="welcome-modal" id="welcomeModal">
-        <div class="welcome-card">
-            <div class="welcome-icon">
+    <!-- ===== WELCOME POPUP - FULLY RESPONSIVE ===== -->
+    <div class="welcome-popup" id="welcomePopup">
+        <div class="popup-card">
+            <!-- Close button -->
+            <button class="popup-close" onclick="app.hideWelcome()" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Icon -->
+            <div class="popup-icon">
                 <i class="fas fa-chart-pie"></i>
             </div>
+
+            <!-- Title -->
             <h2>📊 Visual CV Generator</h2>
-            <p>Transform your achievements into stunning visual statistics</p>
-            <div class="welcome-features">
-                <li><i class="fas fa-check-circle"></i> <strong>Visual Stats Dashboard</strong> - Show revenue, growth, impact</li>
-                <li><i class="fas fa-check-circle"></i> <strong>Interactive Charts</strong> - Bar, line, radar, pie charts</li>
-                <li><i class="fas fa-check-circle"></i> <strong>Skill Matrix</strong> - Visual proficiency bars</li>
-                <li><i class="fas fa-check-circle"></i> <strong>Timeline Visualization</strong> - Career progression graph</li>
-                <li><i class="fas fa-check-circle"></i> <strong>Achievement Badges</strong> - Gold/Silver/Bronze awards</li>
-                <li><i class="fas fa-check-circle"></i> <strong>Project Impact Bubbles</strong> - Size = impact</li>
-                <li><i class="fas fa-check-circle"></i> <strong>Auto-save</strong> - Never lose your work</li>
-                <li><i class="fas fa-check-circle"></i> <strong>Export to PDF/DOCX/HTML</strong> - Share anywhere</li>
+            <p>Transform your professional achievements into stunning visual statistics that grab attention</p>
+
+            <!-- Features Grid -->
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Visual Dashboard</h4>
+                    <p>Show revenue, growth, and impact metrics with beautiful cards</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h4>Interactive Charts</h4>
+                    <p>Bar, line, radar charts for skills and achievements</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h4>Skill Matrix</h4>
+                    <p>Visual proficiency bars for technical and soft skills</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-timeline"></i>
+                    </div>
+                    <h4>Career Timeline</h4>
+                    <p>Track your professional growth over the years</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h4>Achievement Badges</h4>
+                    <p>Gold, Silver, Bronze badges for top accomplishments</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h4>Project Impact</h4>
+                    <p>Show ROI, team size, and success metrics visually</p>
+                </div>
             </div>
-            <button class="welcome-btn" onclick="app.hideWelcome()">
-                <i class="fas fa-rocket"></i> Start Building Visual CV →
+
+            <!-- Badges -->
+            <div class="badge-container">
+                <span class="badge"><i class="fas fa-check-circle"></i> 100% Private</span>
+                <span class="badge"><i class="fas fa-check-circle"></i> Auto-save</span>
+                <span class="badge"><i class="fas fa-check-circle"></i> Export to PDF</span>
+                <span class="badge"><i class="fas fa-check-circle"></i> RTL Support</span>
+            </div>
+
+            <!-- CTA Button -->
+            <button class="popup-btn" onclick="app.hideWelcome()">
+                <i class="fas fa-rocket"></i>
+                Start Building Your Visual CV
             </button>
+
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--gray-500);">
+                ✨ No login required · All data stays on your device
+            </p>
         </div>
     </div>
 
@@ -951,12 +1067,12 @@
     </div>
 
     <!-- ===== MAIN APP ===== -->
-    <div class="app-container">
+    <div class="app-container" id="appContainer">
         <!-- Header -->
         <header class="app-header">
             <div class="header-title">
                 <i class="fas fa-chart-line"></i>
-                <h1>cvgen.html · Visual CV Generator</h1>
+                <h1>cvgen.html · Visual CV</h1>
             </div>
             <div class="header-badge">
                 <i class="fas fa-shield-alt"></i>
@@ -969,17 +1085,8 @@
                 <button class="header-btn" onclick="app.loadFromLocalStorage()">
                     <i class="fas fa-folder-open"></i> Load
                 </button>
-                <button class="header-btn" onclick="app.resetToDefault()">
-                    <i class="fas fa-undo"></i> Reset
-                </button>
-                <button class="header-btn" onclick="app.exportAsPDF()">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
                 <button class="header-btn" onclick="app.exportAsImage()">
                     <i class="fas fa-image"></i> PNG
-                </button>
-                <button class="header-btn" onclick="window.print()">
-                    <i class="fas fa-print"></i> Print
                 </button>
             </div>
         </header>
@@ -987,114 +1094,609 @@
         <!-- Main Layout -->
         <div class="main-layout">
             <!-- Sidebar Editor -->
-            <aside class="sidebar" id="sidebar">
+            <aside class="sidebar">
                 <!-- Personal Info -->
                 <section class="editor-section">
-                    <h2><i class="fas fa-user"></i> Personal Info</h2>
+                    <h2><i class="fas fa-user"></i> Personal</h2>
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" class="form-control" id="fullName" placeholder="Rahil Abbas Rizvi" oninput="app.updatePersonal('name', this.value)">
+                        <input type="text" class="form-control" id="fullName" value="Rahil Abbas Rizvi" oninput="app.updatePersonal('name', this.value)">
                     </div>
                     <div class="form-group">
-                        <label>Professional Title</label>
-                        <input type="text" class="form-control" id="title" placeholder="Digital Marketing Expert" oninput="app.updatePersonal('title', this.value)">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="title" value="Digital Marketing Expert" oninput="app.updatePersonal('title', this.value)">
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="email@example.com" oninput="app.updatePersonal('email', this.value)">
+                            <input type="email" class="form-control" id="email" value="rahil@example.com" oninput="app.updatePersonal('email', this.value)">
                         </div>
                         <div class="form-group">
                             <label>Phone</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="+91 98765 43210" oninput="app.updatePersonal('phone', this.value)">
+                            <input type="tel" class="form-control" id="phone" value="+91 98765 43210" oninput="app.updatePersonal('phone', this.value)">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Location</label>
-                        <input type="text" class="form-control" id="location" placeholder="Mumbai, India" oninput="app.updatePersonal('location', this.value)">
                     </div>
                 </section>
 
-                <!-- Visual Statistics Dashboard -->
+                <!-- Visual Stats -->
                 <section class="editor-section">
-                    <h2><i class="fas fa-chart-simple"></i> Visual Statistics</h2>
+                    <h2><i class="fas fa-chart-simple"></i> Visual Stats</h2>
                     <div class="visual-stats-editor" id="visualStatsEditor"></div>
                     <button class="add-btn" onclick="app.addVisualStat()">
-                        <i class="fas fa-plus"></i> Add Stat Card
+                        <i class="fas fa-plus"></i> Add Stat
                     </button>
                 </section>
 
-                <!-- Skills with Proficiency -->
+                <!-- Skills -->
                 <section class="editor-section">
-                    <h2><i class="fas fa-code"></i> Skills Matrix</h2>
+                    <h2><i class="fas fa-code"></i> Skills</h2>
                     <div id="skillsContainer" class="dynamic-items"></div>
                     <button class="add-btn" onclick="app.addSkill()">
                         <i class="fas fa-plus"></i> Add Skill
                     </button>
                 </section>
 
-                <!-- Experience Timeline -->
+                <!-- Timeline -->
                 <section class="editor-section">
-                    <h2><i class="fas fa-timeline"></i> Career Timeline</h2>
+                    <h2><i class="fas fa-timeline"></i> Timeline</h2>
                     <div id="experienceContainer" class="dynamic-items"></div>
                     <button class="add-btn" onclick="app.addExperience()">
                         <i class="fas fa-plus"></i> Add Milestone
                     </button>
                 </section>
 
-                <!-- Projects with Impact Metrics -->
+                <!-- Badges -->
                 <section class="editor-section">
-                    <h2><i class="fas fa-rocket"></i> Project Impact</h2>
-                    <div id="projectsContainer" class="dynamic-items"></div>
-                    <button class="add-btn" onclick="app.addProject()">
-                        <i class="fas fa-plus"></i> Add Project
-                    </button>
-                </section>
-
-                <!-- Achievement Badges -->
-                <section class="editor-section">
-                    <h2><i class="fas fa-medal"></i> Achievement Badges</h2>
+                    <h2><i class="fas fa-medal"></i> Badges</h2>
                     <div id="badgesContainer" class="dynamic-items"></div>
-                    <button class="add-btn" onclick="app.addAchievementBadge()">
+                    <button class="add-btn" onclick="app.addBadge()">
                         <i class="fas fa-plus"></i> Add Badge
                     </button>
                 </section>
 
-                <!-- Chart Settings -->
+                <!-- Colors -->
                 <section class="editor-section">
-                    <h2><i class="fas fa-chart-pie"></i> Chart Settings</h2>
-                    
-                    <div class="form-group">
-                        <label>Primary Chart Color</label>
-                        <div class="color-picker" id="chartColorPicker">
-                            <div class="color-option" style="background: #3b82f6;" onclick="app.setChartColor('#3b82f6')"></div>
-                            <div class="color-option" style="background: #10b981;" onclick="app.setChartColor('#10b981')"></div>
-                            <div class="color-option" style="background: #f59e0b;" onclick="app.setChartColor('#f59e0b')"></div>
-                            <div class="color-option" style="background: #ef4444;" onclick="app.setChartColor('#ef4444')"></div>
-                            <div class="color-option" style="background: #8b5cf6;" onclick="app.setChartColor('#8b5cf6')"></div>
-                            <div class="color-option" style="background: #ec4899;" onclick="app.setChartColor('#ec4899')"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Chart Style</label>
-                        <select class="form-control" onchange="app.setChartStyle(this.value)">
-                            <option value="modern">Modern (3D effects)</option>
-                            <option value="minimal">Minimal (flat)</option>
-                            <option value="gradient">Gradient</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Animation Speed</label>
-                        <select class="form-control" onchange="app.setAnimationSpeed(this.value)">
-                            <option value="0.3">Fast</option>
-                            <option value="0.6" selected>Medium</option>
-                            <option value="1">Slow</option>
-                        </select>
+                    <h2><i class="fas fa-palette"></i> Colors</h2>
+                    <div class="color-picker">
+                        <div class="color-option active" style="background: #0e2a38;" onclick="app.setPrimaryColor('#0e2a38')"></div>
+                        <div class="color-option" style="background: #3b82f6;" onclick="app.setPrimaryColor('#3b82f6')"></div>
+                        <div class="color-option" style="background: #10b981;" onclick="app.setPrimaryColor('#10b981')"></div>
+                        <div class="color-option" style="background: #f59e0b;" onclick="app.setPrimaryColor('#f59e0b')"></div>
                     </div>
                 </section>
+            </aside>
 
-                <!-- Template Selection -->
-                <section class="editor-section">
-                    <h2><i class="fas
+            <!-- Preview Area -->
+            <main class="preview-area">
+                <div class="visual-cv" id="cvPreview">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // Visual CV Generator - Complete Working Version
+        // ============================================
+
+        const App = {
+            // State
+            data: {
+                personal: {
+                    name: 'Rahil Abbas Rizvi',
+                    title: 'Digital Marketing Expert',
+                    email: 'rahil@example.com',
+                    phone: '+91 98765 43210'
+                },
+                visualStats: [
+                    { icon: 'chart-line', value: '245%', label: 'Revenue Growth', trend: '+32%' },
+                    { icon: 'rocket', value: '47', label: 'Projects', trend: '+12' },
+                    { icon: 'users', value: '12', label: 'Team Led', trend: '+5' },
+                    { icon: 'star', value: '4.8', label: 'Rating', trend: '/5' }
+                ],
+                skills: [
+                    { name: 'Digital Strategy', level: 95 },
+                    { name: 'Google Analytics', level: 90 },
+                    { name: 'SEO', level: 88 },
+                    { name: 'Team Leadership', level: 85 }
+                ],
+                timeline: [
+                    { year: '2020', value: 40, label: 'Junior' },
+                    { year: '2021', value: 65, label: 'Mid' },
+                    { year: '2022', value: 85, label: 'Senior' },
+                    { year: '2023', value: 95, label: 'Lead' }
+                ],
+                badges: [
+                    { type: 'gold', icon: 'trophy', value: '312%', label: 'Best ROI' },
+                    { type: 'silver', icon: 'medal', value: '47', label: 'Projects' },
+                    { type: 'bronze', icon: 'award', value: '4.8', label: 'Rating' }
+                ],
+                design: {
+                    primaryColor: '#0e2a38'
+                }
+            },
+
+            // Toast System
+            toast: {
+                container: document.getElementById('toastContainer'),
+                
+                show(message, type = 'info', duration = 4000) {
+                    const toast = document.createElement('div');
+                    toast.className = `toast ${type}`;
+                    toast.innerHTML = `
+                        <div class="toast-content">${message}</div>
+                        <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+                    `;
+                    this.container.appendChild(toast);
+                    
+                    setTimeout(() => {
+                        if (toast.parentNode) toast.remove();
+                    }, duration);
+                },
+                
+                success(m) { this.show(m, 'success'); },
+                error(m) { this.show(m, 'error'); },
+                info(m) { this.show(m, 'info'); }
+            },
+
+            // Loading
+            loading: {
+                overlay: document.getElementById('loadingOverlay'),
+                message: document.getElementById('loadingMessage'),
+                submessage: document.getElementById('loadingSubmessage'),
+                
+                show(msg = 'Processing...', sub = 'Please wait') {
+                    this.message.textContent = msg;
+                    this.submessage.textContent = sub;
+                    this.overlay.classList.add('active');
+                },
+                
+                hide() {
+                    this.overlay.classList.remove('active');
+                }
+            },
+
+            // Initialize
+            init() {
+                // Check first visit
+                const visited = localStorage.getItem('cvgen_visited');
+                if (!visited) {
+                    document.getElementById('welcomePopup').classList.remove('hidden');
+                    localStorage.setItem('cvgen_visited', 'true');
+                } else {
+                    document.getElementById('welcomePopup').classList.add('hidden');
+                    document.getElementById('appContainer').classList.add('visible');
+                }
+
+                // Load saved data
+                this.loadFromLocalStorage(true);
+                
+                // Render all
+                this.renderAll();
+                
+                // Auto-save every 30 seconds
+                setInterval(() => this.saveToLocalStorage(true), 30000);
+                
+                this.toast.success('Visual CV Generator ready!');
+            },
+
+            // Hide welcome popup
+            hideWelcome() {
+                document.getElementById('welcomePopup').classList.add('hidden');
+                document.getElementById('appContainer').classList.add('visible');
+                this.toast.success('Welcome to Visual CV Generator!');
+            },
+
+            // Update personal info
+            updatePersonal(field, value) {
+                this.data.personal[field] = value;
+                this.renderPreview();
+            },
+
+            // Visual Stats
+            addVisualStat() {
+                this.data.visualStats.push({
+                    icon: 'chart-line',
+                    value: '0',
+                    label: 'New Stat',
+                    trend: '0%'
+                });
+                this.renderVisualStats();
+                this.renderPreview();
+                this.toast.success('Stat added');
+            },
+
+            // Skills
+            addSkill() {
+                this.data.skills.push({
+                    name: 'New Skill',
+                    level: 50
+                });
+                this.renderSkills();
+                this.renderPreview();
+                this.toast.success('Skill added');
+            },
+
+            updateSkill(index, field, value) {
+                this.data.skills[index][field] = field === 'level' ? parseInt(value) : value;
+                this.renderPreview();
+            },
+
+            removeSkill(index) {
+                this.data.skills.splice(index, 1);
+                this.renderSkills();
+                this.renderPreview();
+                this.toast.success('Skill removed');
+            },
+
+            // Timeline
+            addExperience() {
+                this.data.timeline.push({
+                    year: '2024',
+                    value: 50,
+                    label: 'New'
+                });
+                this.renderTimeline();
+                this.renderPreview();
+                this.toast.success('Milestone added');
+            },
+
+            updateTimeline(index, field, value) {
+                this.data.timeline[index][field] = field === 'value' ? parseInt(value) : value;
+                this.renderPreview();
+            },
+
+            removeTimeline(index) {
+                this.data.timeline.splice(index, 1);
+                this.renderTimeline();
+                this.renderPreview();
+                this.toast.success('Milestone removed');
+            },
+
+            // Badges
+            addBadge() {
+                this.data.badges.push({
+                    type: 'gold',
+                    icon: 'award',
+                    value: '100%',
+                    label: 'New Badge'
+                });
+                this.renderBadges();
+                this.renderPreview();
+                this.toast.success('Badge added');
+            },
+
+            updateBadge(index, field, value) {
+                this.data.badges[index][field] = value;
+                this.renderPreview();
+            },
+
+            removeBadge(index) {
+                this.data.badges.splice(index, 1);
+                this.renderBadges();
+                this.renderPreview();
+                this.toast.success('Badge removed');
+            },
+
+            // Design
+            setPrimaryColor(color) {
+                this.data.design.primaryColor = color;
+                document.documentElement.style.setProperty('--primary', color);
+                
+                // Update active state
+                document.querySelectorAll('.color-option').forEach(opt => {
+                    opt.classList.remove('active');
+                    if (opt.style.backgroundColor === color) {
+                        opt.classList.add('active');
+                    }
+                });
+                
+                this.renderPreview();
+                this.toast.info('Color updated');
+            },
+
+            // Render Functions
+            renderAll() {
+                this.renderVisualStats();
+                this.renderSkills();
+                this.renderTimeline();
+                this.renderBadges();
+                this.renderPreview();
+                
+                // Update form fields
+                document.getElementById('fullName').value = this.data.personal.name;
+                document.getElementById('title').value = this.data.personal.title;
+                document.getElementById('email').value = this.data.personal.email;
+                document.getElementById('phone').value = this.data.personal.phone;
+            },
+
+            renderVisualStats() {
+                const container = document.getElementById('visualStatsEditor');
+                let html = '';
+                
+                this.data.visualStats.forEach((stat, index) => {
+                    html += `
+                        <div class="stat-card-editor">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <i class="fas fa-${stat.icon}"></i>
+                                <button class="item-btn" onclick="app.removeVisualStat(${index})" style="color: white;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <input type="text" placeholder="Value" value="${stat.value}" oninput="app.updateVisualStat(${index}, 'value', this.value)">
+                            <input type="text" placeholder="Label" value="${stat.label}" oninput="app.updateVisualStat(${index}, 'label', this.value)" style="margin-top: 0.25rem;">
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            },
+
+            removeVisualStat(index) {
+                this.data.visualStats.splice(index, 1);
+                this.renderVisualStats();
+                this.renderPreview();
+                this.toast.success('Stat removed');
+            },
+
+            updateVisualStat(index, field, value) {
+                this.data.visualStats[index][field] = value;
+                this.renderPreview();
+            },
+
+            renderSkills() {
+                const container = document.getElementById('skillsContainer');
+                let html = '';
+                
+                this.data.skills.forEach((skill, index) => {
+                    html += `
+                        <div class="dynamic-item">
+                            <div class="item-header">
+                                <span class="item-title">${skill.name}</span>
+                                <button class="item-btn" onclick="app.removeSkill(${index})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Skill name" value="${skill.name}" oninput="app.updateSkill(${index}, 'name', this.value)">
+                            <div class="slider-container" style="margin-top: 0.5rem;">
+                                <input type="range" min="0" max="100" value="${skill.level}" oninput="app.updateSkill(${index}, 'level', this.value); this.nextElementSibling.textContent = this.value + '%'">
+                                <span class="slider-value">${skill.level}%</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            },
+
+            renderTimeline() {
+                const container = document.getElementById('experienceContainer');
+                let html = '';
+                
+                this.data.timeline.forEach((item, index) => {
+                    html += `
+                        <div class="dynamic-item">
+                            <div class="item-header">
+                                <span class="item-title">${item.year} - ${item.label}</span>
+                                <button class="item-btn" onclick="app.removeTimeline(${index})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="form-row">
+                                <input type="text" class="form-control" placeholder="Year" value="${item.year}" oninput="app.updateTimeline(${index}, 'year', this.value)">
+                                <input type="text" class="form-control" placeholder="Label" value="${item.label}" oninput="app.updateTimeline(${index}, 'label', this.value)">
+                            </div>
+                            <div class="slider-container">
+                                <input type="range" min="0" max="100" value="${item.value}" oninput="app.updateTimeline(${index}, 'value', this.value); this.nextElementSibling.textContent = this.value + '%'">
+                                <span class="slider-value">${item.value}%</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            },
+
+            renderBadges() {
+                const container = document.getElementById('badgesContainer');
+                let html = '';
+                
+                this.data.badges.forEach((badge, index) => {
+                    html += `
+                        <div class="dynamic-item">
+                            <div class="item-header">
+                                <span class="item-title">${badge.type} - ${badge.label}</span>
+                                <button class="item-btn" onclick="app.removeBadge(${index})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <select class="form-control" onchange="app.updateBadge(${index}, 'type', this.value)">
+                                <option value="gold" ${badge.type === 'gold' ? 'selected' : ''}>Gold</option>
+                                <option value="silver" ${badge.type === 'silver' ? 'selected' : ''}>Silver</option>
+                                <option value="bronze" ${badge.type === 'bronze' ? 'selected' : ''}>Bronze</option>
+                            </select>
+                            <input type="text" class="form-control" placeholder="Icon (fontawesome)" value="${badge.icon}" oninput="app.updateBadge(${index}, 'icon', this.value)">
+                            <input type="text" class="form-control" placeholder="Value" value="${badge.value}" oninput="app.updateBadge(${index}, 'value', this.value)">
+                            <input type="text" class="form-control" placeholder="Label" value="${badge.label}" oninput="app.updateBadge(${index}, 'label', this.value)">
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            },
+
+            renderPreview() {
+                const preview = document.getElementById('cvPreview');
+                const p = this.data.personal;
+                
+                let html = `
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                `;
+                
+                this.data.visualStats.forEach(stat => {
+                    html += `
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-${stat.icon}"></i></div>
+                            <div class="stat-value">${stat.value}</div>
+                            <div class="stat-label">${stat.label}</div>
+                            ${stat.trend ? `<div class="stat-trend">${stat.trend}</div>` : ''}
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+
+                // Personal Info
+                html += `
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h1 style="font-size: 2.5rem; font-weight: 700;">${p.name}</h1>
+                        <h2 style="font-size: 1.25rem; color: var(--gray-600); margin: 0.5rem 0;">${p.title}</h2>
+                        <div style="display: flex; gap: 1.5rem; justify-content: center; color: var(--gray-500);">
+                            <span><i class="fas fa-envelope"></i> ${p.email}</span>
+                            <span><i class="fas fa-phone"></i> ${p.phone}</span>
+                        </div>
+                    </div>
+                `;
+
+                // Skills Matrix
+                if (this.data.skills.length) {
+                    html += `
+                        <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem;">Skills Matrix</h3>
+                        <div class="skill-matrix">
+                    `;
+                    
+                    this.data.skills.forEach(skill => {
+                        html += `
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span class="skill-name">${skill.name}</span>
+                                    <span class="skill-percentage">${skill.level}%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-fill" style="width: ${skill.level}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `</div>`;
+                }
+
+                // Timeline
+                if (this.data.timeline.length) {
+                    html += `
+                        <h3 style="font-size: 1.25rem; font-weight: 600; margin: 2rem 0 1rem;">Career Timeline</h3>
+                        <div class="timeline-container">
+                            <div class="timeline-track">
+                    `;
+                    
+                    const maxValue = Math.max(...this.data.timeline.map(t => t.value));
+                    
+                    this.data.timeline.forEach(item => {
+                        const height = (item.value / maxValue) * 180;
+                        html += `
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                                <div class="timeline-bar" style="height: ${height}px;">${item.value}%</div>
+                                <div class="timeline-label">
+                                    <strong>${item.year}</strong><br>
+                                    ${item.label}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Achievement Badges
+                if (this.data.badges.length) {
+                    html += `
+                        <h3 style="font-size: 1.25rem; font-weight: 600; margin: 2rem 0 1rem;">Achievements</h3>
+                        <div class="achievement-wall">
+                    `;
+                    
+                    this.data.badges.forEach(badge => {
+                        html += `
+                            <div class="achievement-badge ${badge.type}">
+                                <i class="fas fa-${badge.icon}"></i>
+                                <span class="badge-value">${badge.value}</span>
+                                <span class="badge-label">${badge.label}</span>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `</div>`;
+                }
+
+                preview.innerHTML = html;
+            },
+
+            // Save/Load
+            saveToLocalStorage(silent = false) {
+                try {
+                    localStorage.setItem('cvgen_data', JSON.stringify(this.data));
+                    if (!silent) this.toast.success('CV saved successfully');
+                } catch (e) {
+                    this.toast.error('Failed to save');
+                }
+            },
+
+            loadFromLocalStorage(silent = false) {
+                try {
+                    const saved = localStorage.getItem('cvgen_data');
+                    if (saved) {
+                        this.data = JSON.parse(saved);
+                        this.renderAll();
+                        if (!silent) this.toast.success('CV loaded successfully');
+                    }
+                } catch (e) {
+                    this.toast.error('Failed to load');
+                }
+            },
+
+            resetToDefault() {
+                if (confirm('Reset all data?')) {
+                    localStorage.removeItem('cvgen_data');
+                    location.reload();
+                }
+            },
+
+            // Export as Image
+            async exportAsImage() {
+                this.loading.show('Generating image...', 'Preparing your visual CV');
+                
+                try {
+                    const element = document.getElementById('cvPreview');
+                    const canvas = await html2canvas(element, {
+                        scale: 2,
+                        backgroundColor: '#ffffff',
+                        logging: false
+                    });
+                    
+                    const link = document.createElement('a');
+                    link.download = `${this.data.personal.name.replace(/\s+/g, '_')}_CV.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    
+                    this.loading.hide();
+                    this.toast.success('Image exported successfully');
+                } catch (error) {
+                    this.loading.hide();
+                    this.toast.error('Failed to export image');
+                }
+            }
+        };
+
+        // Global access
+        window.app = App;
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => App.init());
+    </script>
+</body>
+</html>
