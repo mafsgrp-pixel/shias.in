@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>CV maker · Shia community · FREE for job seekers</title>
+    <title>CV maker · Shia community · WORKING EXPORTS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- Libraries for export - UPDATED VERSIONS -->
+    <!-- CRITICAL: Load libraries in correct order with fallbacks -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -431,52 +431,74 @@
             background: #a5b9cf;
         }
 
-        /* Mini popup styles - 60 second duration */
-        .mini-popup {
+        /* Welcome popup styling */
+        .welcome-popup {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #0e2a38;
-            color: white;
-            padding: 16px 28px;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 20, 30, 0.7);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        .welcome-popup.active {
+            display: flex;
+        }
+        .welcome-card {
+            background: white;
             border-radius: 60px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 3000;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            animation: popIn 0.4s ease;
+        }
+        .welcome-icon {
+            font-size: 4rem;
+            color: #0e2a38;
+            margin-bottom: 20px;
+            background: #edf4fa;
+            width: 100px;
+            height: 100px;
+            border-radius: 100px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-weight: 500;
-            animation: slideDown 0.5s ease;
-            max-width: 90%;
-            border: 2px solid #ffb05c;
+            justify-content: center;
+            margin: 0 auto 25px auto;
         }
-        .mini-popup i {
-            color: #ffb05c;
-            font-size: 1.5rem;
+        .welcome-card h2 {
+            font-size: 2rem;
+            color: #0e2a38;
+            margin-bottom: 20px;
         }
-        .mini-popup-close {
-            background: none;
-            border: none;
-            color: white;
+        .welcome-card p {
             font-size: 1.2rem;
+            color: #2c4c6b;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .welcome-btn {
+            background: #0e2a38;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
-            padding: 5px;
-            margin-left: 10px;
-            opacity: 0.8;
+            transition: 0.2s;
+            border: 2px solid #0e2a38;
+            margin-top: 10px;
         }
-        .mini-popup-close:hover {
-            opacity: 1;
+        .welcome-btn:hover {
+            background: white;
+            color: #0e2a38;
         }
-        @keyframes slideDown {
-            from {
-                top: -100px;
-                opacity: 0;
-            }
-            to {
-                top: 20px;
-                opacity: 1;
-            }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .loading-overlay {
@@ -509,27 +531,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* A4 size guarantee for all exports */
-        @media print {
-            body * { visibility: hidden; }
-            .cv-preview, .cv-preview * {
-                visibility: visible;
-            }
-            .cv-preview {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 210mm !important;
-                min-height: 297mm !important;
-                padding: 15mm !important;
-                margin: 0 !important;
-                box-shadow: none !important;
-                border: none !important;
-                border-radius: 0 !important;
-                background: white !important;
-            }
-        }
-
         @media (max-width: 850px) {
             .dashboard {
                 grid-template-columns: 1fr;
@@ -556,21 +557,49 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+            .welcome-card {
+                padding: 25px;
+            }
+            .welcome-card h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media print {
+            body * { visibility: hidden; }
+            .cv-preview, .cv-preview * {
+                visibility: visible;
+            }
+            .cv-preview {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 1.8cm;
+                box-shadow: none;
+                border: none;
+            }
         }
     </style>
 </head>
 <body>
+<!-- WELCOME POPUP (FREE FOR SHIA COMMUNITY) -->
+<div class="welcome-popup active" id="welcomePopup">
+    <div class="welcome-card">
+        <div class="welcome-icon">
+            <i class="fa-solid fa-hands-helping"></i>
+        </div>
+        <h2>🌙 Shia Community CV Maker</h2>
+        <p><i class="fa-solid fa-circle-check" style="color:#27ae60;"></i> <strong>Free for Shia job seekers</strong><br>No login required · No data storage · 100% private</p>
+        <p style="font-size:1rem; background:#edf4fa; padding:15px; border-radius:60px;">Your details stay on your device — we never see them 🙌</p>
+        <button class="welcome-btn" onclick="closeWelcomePopup()">Start Building →</button>
+    </div>
+</div>
+
 <div class="cv-app">
     <div class="app-header">
         <h1><i class="fa-solid fa-hands-helping"></i> CV maker · Shia community</h1>
         <div class="header-badge"><i class="fa-regular fa-circle-check"></i> Rahil Abbas Rizvi (demo)</div>
-    </div>
-
-    <!-- Mini Popup - Shows on load for 60 seconds -->
-    <div class="mini-popup" id="welcomePopup">
-        <i class="fa-solid fa-heart"></i>
-        <span>✨ Free for Shia community job seekers · No login · No data storage ✨</span>
-        <button class="mini-popup-close" onclick="closePopup()"><i class="fa-solid fa-times"></i></button>
     </div>
 
     <div class="panel-toggle" id="toggleLeftBtn">
@@ -721,18 +750,18 @@
 <!-- export modal -->
 <div class="modal" id="exportModal">
     <div class="modal-card">
-        <h2 style="margin-bottom:20px;">Export as (A4 guaranteed)</h2>
+        <h2 style="margin-bottom:20px;">Export as</h2>
         <div class="export-opt" id="pdfExportBtn">
             <i class="fa-regular fa-file-pdf" style="color:#b13e3e;"></i> 
-            <span>PDF - A4 size</span>
+            <span>PDF (high quality)</span>
         </div>
         <div class="export-opt" id="docxExportBtn">
             <i class="fa-regular fa-file-word" style="color:#0e2a38;"></i> 
-            <span>DOCX - A4 size</span>
+            <span>DOCX (Word)</span>
         </div>
         <div class="export-opt" id="htmlExportBtn">
             <i class="fa-regular fa-file-code" style="color:#d97706;"></i> 
-            <span>HTML - A4 ready</span>
+            <span>HTML (web page)</span>
         </div>
         <button class="cancel-btn" onclick="closeModal()">Cancel</button>
     </div>
@@ -778,18 +807,10 @@
         sections: { summary: true, skills: true, experience: true, education: true, projects: true, certifications: true, languages: true, custom: true }
     };
 
-    // ===== POPUP FUNCTION - 60 SECONDS =====
-    function closePopup() {
-        document.getElementById('welcomePopup').style.display = 'none';
+    // ===== WELCOME POPUP =====
+    function closeWelcomePopup() {
+        document.getElementById('welcomePopup').classList.remove('active');
     }
-
-    // Show popup for 60 seconds (60000 ms)
-    setTimeout(() => {
-        const popup = document.getElementById('welcomePopup');
-        if (popup) {
-            popup.style.display = 'none';
-        }
-    }, 60000); // 60 seconds
 
     // ===== HELPER FUNCTIONS =====
     function showLoading(message) {
@@ -1189,55 +1210,48 @@
         document.getElementById('exportModal').classList.remove('active');
     }
 
-    // ===== PDF EXPORT - FIXED TO ACTUALLY WORK =====
+    // ===== PDF EXPORT =====
     function exportAsPDF() {
         closeModal();
-        showLoading('Generating A4 PDF...');
+        showLoading('Generating PDF...');
         
         const element = document.getElementById('cvPreview');
+        const originalHTML = element.innerHTML;
         
-        // Use setTimeout to ensure loading overlay is visible
-        setTimeout(() => {
-            // Use html2canvas with better settings
-            html2canvas(element, {
-                scale: 2,
-                backgroundColor: '#ffffff',
-                logging: false,
-                allowTaint: false,
-                useCORS: true,
-                windowWidth: 1200,
-                windowHeight: 1600
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const { jsPDF } = window.jspdf;
-                
-                // Create PDF with exact A4 dimensions
-                const pdf = new jsPDF({
-                    orientation: 'portrait',
-                    unit: 'mm',
-                    format: 'a4'
-                });
-                
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-                
-                // Calculate image dimensions to fit A4
-                const imgWidth = pdfWidth;
-                const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-                
-                // Center vertically if needed
-                const yOffset = (pdfHeight - imgHeight) / 2;
-                
-                pdf.addImage(imgData, 'PNG', 0, yOffset > 0 ? yOffset : 0, imgWidth, imgHeight, undefined, 'FAST');
-                pdf.save('Rahil_Abbas_Rizvi_CV_A4.pdf');
-                hideLoading();
-            }).catch(error => {
-                console.error('PDF error:', error);
-                hideLoading();
-                // Try fallback method
-                fallbackPrintPDF();
+        html2canvas(element, {
+            scale: 2,
+            backgroundColor: '#ffffff',
+            logging: false,
+            allowTaint: false,
+            useCORS: true
+        }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'px',
+                format: 'a4'
             });
-        }, 100);
+            
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            
+            const ratio = Math.min(pdfWidth / canvas.width, pdfHeight / canvas.height);
+            const width = canvas.width * ratio;
+            const height = canvas.height * ratio;
+            
+            const xOffset = (pdfWidth - width) / 2;
+            const yOffset = (pdfHeight - height) / 2;
+            
+            pdf.addImage(imgData, 'PNG', xOffset, yOffset, width, height);
+            pdf.save('Rahil_Abbas_Rizvi_CV.pdf');
+            hideLoading();
+        }).catch(error => {
+            console.error('PDF error:', error);
+            hideLoading();
+            alert('PDF generation failed. Trying fallback method...');
+            fallbackPrintPDF();
+        });
     }
 
     function fallbackPrintPDF() {
@@ -1253,28 +1267,23 @@
             <!DOCTYPE html>
             <html>
                 <head>
-                    <title>Rahil Abbas Rizvi - CV (A4)</title>
+                    <title>Rahil Abbas Rizvi - CV</title>
                     <meta charset="UTF-8">
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
                     <style>
                         ${styleText}
                         body {
                             background: white;
-                            margin: 0;
                             padding: 20px;
+                            margin: 0;
                             font-family: 'Inter', sans-serif;
-                            display: flex;
-                            justify-content: center;
                         }
                         .cv-preview {
-                            width: 210mm;
-                            min-height: 297mm;
-                            padding: 15mm;
+                            max-width: 210mm;
                             margin: 0 auto;
                             box-shadow: none;
                             border: none;
-                            box-sizing: border-box;
-                            background: white;
+                            padding: 20mm;
                         }
                         @media print {
                             @page {
@@ -1283,7 +1292,6 @@
                             }
                             body {
                                 padding: 0;
-                                margin: 0;
                             }
                         }
                     </style>
@@ -1296,7 +1304,7 @@
                                 window.print();
                                 setTimeout(function() {
                                     window.close();
-                                }, 2000);
+                                }, 1000);
                             }, 500);
                         }
                     <\/script>
@@ -1306,52 +1314,52 @@
         printWindow.document.close();
     }
 
-    // ===== DOCX EXPORT - FIXED =====
+    // ===== DOCX EXPORT =====
     function downloadDOCX() {
         closeModal();
-        showLoading('Preparing A4 Word document...');
+        showLoading('Preparing Word document...');
         
-        setTimeout(() => {
-            const preview = document.getElementById('cvPreview').cloneNode(true);
-            preview.classList.add('template-' + cvData.design.template);
-            
-            // Get all styles
-            const styles = document.querySelectorAll('style');
-            let styleText = '';
-            styles.forEach(s => styleText += s.innerHTML);
-            
-            const content = `<!DOCTYPE html>
+        const preview = document.getElementById('cvPreview').cloneNode(true);
+        preview.classList.add('template-' + cvData.design.template);
+        
+        const styles = document.querySelectorAll('style');
+        let styleText = '';
+        styles.forEach(s => styleText += s.innerHTML);
+        
+        const content = `<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Rahil Abbas Rizvi - CV (A4)</title>
+    <title>Rahil Abbas Rizvi - CV</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         ${styleText}
         body {
             font-family: 'Inter', sans-serif;
+            padding: 1in;
             background: white;
             margin: 0;
-            padding: 15mm;
-            width: 210mm;
-            min-height: 297mm;
-            box-sizing: border-box;
         }
         .cv-preview {
-            width: 100%;
-            padding: 0;
-            margin: 0;
+            max-width: 100%;
             box-shadow: none;
             border: none;
-            background: white;
+            padding: 0;
         }
-        .cv-contact, .skill-item, .exp-company {
+        .cv-contact {
+            background: #edf4fa !important;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
-        @page {
-            size: A4;
-            margin: 0;
+        .skill-item {
+            background: #e9f0f8 !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .exp-company {
+            background: #dde9f5 !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
     </style>
 </head>
@@ -1359,72 +1367,55 @@
     ${preview.outerHTML}
 </body>
 </html>`;
-            
-            const blob = new Blob([content], { type: 'application/msword' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'Rahil_Abbas_Rizvi_CV_A4.doc';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(() => URL.revokeObjectURL(link.href), 100);
-            
-            hideLoading();
-        }, 100);
+        
+        const blob = new Blob([content], { type: 'application/msword' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Rahil_Abbas_Rizvi_CV.doc';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(link.href), 100);
+        
+        hideLoading();
     }
 
-    // ===== HTML EXPORT - FIXED =====
+    // ===== HTML EXPORT =====
     function downloadHTML() {
         closeModal();
-        showLoading('Preparing A4 HTML file...');
+        showLoading('Preparing HTML file...');
         
-        setTimeout(() => {
-            const preview = document.getElementById('cvPreview').cloneNode(true);
-            preview.classList.add('template-' + cvData.design.template);
-            
-            // Get all styles
-            const styles = document.querySelectorAll('style');
-            let styleText = '';
-            styles.forEach(s => styleText += s.innerHTML);
-            
-            const content = `<!DOCTYPE html>
+        const preview = document.getElementById('cvPreview').cloneNode(true);
+        preview.classList.add('template-' + cvData.design.template);
+        
+        const styles = document.querySelectorAll('style');
+        let styleText = '';
+        styles.forEach(s => styleText += s.innerHTML);
+        
+        const content = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahil Abbas Rizvi - CV (A4)</title>
+    <title>Rahil Abbas Rizvi - CV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         ${styleText}
         body {
             background: #f5f7fa;
-            padding: 20px;
+            padding: 30px;
             display: flex;
             justify-content: center;
             font-family: 'Inter', sans-serif;
         }
         .cv-preview {
-            width: 210mm;
-            min-height: 297mm;
-            padding: 15mm;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
+            padding: 40px 45px;
+            border-radius: 32px;
             box-shadow: 0 20px 35px -8px rgba(0,35,60,0.15);
-            box-sizing: border-box;
-        }
-        @media print {
-            @page {
-                size: A4;
-                margin: 0;
-            }
-            body {
-                padding: 0;
-                background: white;
-            }
-            .cv-preview {
-                box-shadow: none;
-            }
         }
     </style>
 </head>
@@ -1432,18 +1423,17 @@
     ${preview.outerHTML}
 </body>
 </html>`;
-            
-            const blob = new Blob([content], { type: 'text/html' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'Rahil_Abbas_Rizvi_CV_A4.html';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(() => URL.revokeObjectURL(link.href), 100);
-            
-            hideLoading();
-        }, 100);
+        
+        const blob = new Blob([content], { type: 'text/html' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Rahil_Abbas_Rizvi_CV.html';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(link.href), 100);
+        
+        hideLoading();
     }
 
     // ===== INIT =====
@@ -1490,6 +1480,9 @@
                 closeModal();
             }
         });
+
+        // PDF button
+        document.querySelector('.action-btn.pdf').addEventListener('click', exportAsPDF);
     }
 
     // Make all functions globally accessible
@@ -1523,7 +1516,8 @@
     window.exportAsPDF = exportAsPDF;
     window.downloadDOCX = downloadDOCX;
     window.downloadHTML = downloadHTML;
-    window.closePopup = closePopup;
+    window.fallbackPrintPDF = fallbackPrintPDF;
+    window.closeWelcomePopup = closeWelcomePopup;
 
     // Start everything when page loads
     document.addEventListener('DOMContentLoaded', init);
