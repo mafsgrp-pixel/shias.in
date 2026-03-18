@@ -19,8 +19,8 @@
     <!-- JSZip -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     
-    <!-- Whammy for WebM video encoding -->
-    <script src="https://cdn.jsdelivr.net/npm/whammy@0.0.2/whammy.min.js"></script>
+    <!-- CCapture for video recording -->
+    <script src="https://cdn.jsdelivr.net/npm/ccapture.js@1.1.0/ccapture.min.js"></script>
 
     <style>
         /* RESET & VARIABLES */
@@ -1230,6 +1230,16 @@
             color: var(--secondary);
         }
 
+        /* VIDEO EXPORT CONTAINER (HIDDEN) */
+        #videoExportContainer {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 900px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        }
+
         /* RESPONSIVE */
         @media (max-width: 1400px) {
             .main-layout {
@@ -1380,6 +1390,9 @@
         </div>
     </div>
 
+    <!-- VIDEO EXPORT CONTAINER (HIDDEN) -->
+    <div id="videoExportContainer"></div>
+
     <!-- CREATOR MODAL -->
     <div class="modal" id="creatorModal">
         <div class="modal-content">
@@ -1515,7 +1528,7 @@
             exportFormat: 'pdf',
             searchTerm: '',
             isMusicPlaying: false,
-            videoDuration: 3, // seconds per element
+            videoDuration: 3,
             settings: {
                 defaultFormat: 'pdf',
                 imageQuality: 0.95,
@@ -1555,7 +1568,7 @@
             // ===== SETUP AUDIO =====
             setupAudio() {
                 const audio = document.getElementById('bgMusic');
-                audio.volume = 0.3; // Set volume to 30%
+                audio.volume = 0.3;
             },
 
             // ===== TOGGLE MUSIC =====
@@ -2401,9 +2414,9 @@
                 `;
             },
 
-            // ===== EXPORT VIDEO =====
+            // ===== EXPORT VIDEO USING MEDIA RECORDER API =====
             async exportVideo() {
-                this.showLoading('Creating animated video...');
+                this.showLoading('Preparing video export...');
                 
                 try {
                     const p = this.products[this.currentProductId];
@@ -2412,38 +2425,22 @@
                         this.showToast('No product selected', 'error');
                         return;
                     }
+
+                    // Create video container
+                    const container = document.getElementById('videoExportContainer');
+                    container.innerHTML = '';
                     
-                    const duration = this.settings.videoDuration || 3; // seconds per element
-                    const totalElements = 10; // badge, gallery, title, tagline, desc, price, features, stats, reviews, cta, footer
-                    const totalDuration = duration * totalElements;
-                    const fps = 30;
-                    const totalFrames = totalDuration * fps;
+                    // Create video card
+                    const videoCard = document.createElement('div');
+                    videoCard.className = 'preview-card';
+                    videoCard.style.width = '900px';
+                    videoCard.style.margin = '0 auto';
+                    videoCard.style.background = this.getGradientString(p.theme.gradient);
+                    videoCard.style.fontFamily = p.theme.font;
+                    videoCard.style.borderRadius = p.theme.radius + 'px';
+                    videoCard.style.fontSize = p.theme.fontSize + 'px';
                     
-                    const videoEncoder = new Whammy.Video(fps);
-                    
-                    // Create a temporary container for video capture
-                    const tempContainer = document.createElement('div');
-                    tempContainer.style.width = '900px';
-                    tempContainer.style.padding = '30px';
-                    tempContainer.style.background = 'linear-gradient(135deg, #667EEA 0%, #764BA2 100%)';
-                    tempContainer.style.position = 'fixed';
-                    tempContainer.style.top = '-9999px';
-                    tempContainer.style.left = '-9999px';
-                    document.body.appendChild(tempContainer);
-                    
-                    const tempCard = document.createElement('div');
-                    tempCard.className = 'preview-card';
-                    tempCard.style.width = '900px';
-                    tempCard.style.margin = '0 auto';
-                    tempContainer.appendChild(tempCard);
-                    
-                    // Render the card in temp container
-                    tempCard.style.background = this.getGradientString(p.theme.gradient);
-                    tempCard.style.fontFamily = p.theme.font;
-                    tempCard.style.borderRadius = p.theme.radius + 'px';
-                    tempCard.style.fontSize = p.theme.fontSize + 'px';
-                    
-                    tempCard.innerHTML = `
+                    videoCard.innerHTML = `
                         <div style="position: relative; z-index: 1;">
                             <span class="preview-badge" style="background: ${p.theme.secondary}; color: ${p.theme.primary};">
                                 ${p.badge}
@@ -2506,21 +2503,23 @@
                         </div>
                     `;
                     
-                    // Get all animated elements
+                    container.appendChild(videoCard);
+
+                    // Get all elements for animation
                     const elements = [
-                        tempCard.querySelector('.preview-badge'),
-                        tempCard.querySelector('.preview-gallery'),
-                        tempCard.querySelector('.preview-title'),
-                        tempCard.querySelector('.preview-tagline'),
-                        tempCard.querySelector('.preview-desc'),
-                        tempCard.querySelector('.preview-price'),
-                        tempCard.querySelector('.preview-features'),
-                        tempCard.querySelector('.preview-stats'),
-                        tempCard.querySelector('.preview-reviews'),
-                        tempCard.querySelector('.preview-cta'),
-                        tempCard.querySelector('.preview-footer')
+                        videoCard.querySelector('.preview-badge'),
+                        videoCard.querySelector('.preview-gallery'),
+                        videoCard.querySelector('.preview-title'),
+                        videoCard.querySelector('.preview-tagline'),
+                        videoCard.querySelector('.preview-desc'),
+                        videoCard.querySelector('.preview-price'),
+                        videoCard.querySelector('.preview-features'),
+                        videoCard.querySelector('.preview-stats'),
+                        videoCard.querySelector('.preview-reviews'),
+                        videoCard.querySelector('.preview-cta'),
+                        videoCard.querySelector('.preview-footer')
                     ];
-                    
+
                     // Set initial state
                     elements.forEach(el => {
                         if (el) {
@@ -2529,76 +2528,66 @@
                             el.style.transition = 'none';
                         }
                     });
+
+                    // Setup media recorder
+                    const stream = await navigator.mediaDevices.getUserMedia({ 
+                        video: { 
+                            width: 900,
+                            height: 1200,
+                            frameRate: 30
+                        } 
+                    });
                     
-                    // Generate frames
-                    for (let frame = 0; frame < totalFrames; frame++) {
-                        const timeInSeconds = frame / fps;
+                    const recorder = new MediaRecorder(stream, {
+                        mimeType: 'video/webm;codecs=vp9'
+                    });
+
+                    const chunks = [];
+                    recorder.ondataavailable = e => chunks.push(e.data);
+                    recorder.onstop = () => {
+                        const blob = new Blob(chunks, { type: 'video/webm' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `${p.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.mp4`;
+                        a.click();
                         
-                        // Calculate which elements should be visible
-                        elements.forEach((el, index) => {
-                            if (el) {
-                                const elementAppearTime = index * duration;
-                                const elementDisappearTime = (index + 1) * duration;
-                                
-                                if (timeInSeconds >= elementAppearTime && timeInSeconds < elementDisappearTime) {
-                                    // Element should be animating in
-                                    const elementTime = timeInSeconds - elementAppearTime;
-                                    const progress = Math.min(elementTime / 0.3, 1); // 0.3s animation
-                                    
-                                    el.style.opacity = progress.toString();
-                                    el.style.transform = `translateX(${-100 + (progress * 100)}px)`;
-                                    el.style.transition = 'none';
-                                } else if (timeInSeconds >= elementDisappearTime) {
-                                    // Element should be fully visible
-                                    el.style.opacity = '1';
-                                    el.style.transform = 'translateX(0)';
-                                    el.style.transition = 'none';
-                                } else {
-                                    // Element not yet appeared
-                                    el.style.opacity = '0';
-                                    el.style.transform = 'translateX(-100px)';
-                                    el.style.transition = 'none';
-                                }
-                            }
-                        });
-                        
-                        // Capture frame
-                        const canvas = await html2canvas(tempCard, {
-                            scale: 1,
-                            backgroundColor: null,
-                            allowTaint: true,
-                            useCORS: true,
-                            logging: false
-                        });
-                        
-                        videoEncoder.add(canvas);
-                        
-                        this.updateProgress((frame / totalFrames) * 100, `Rendering frame ${frame + 1} of ${totalFrames}`);
+                        // Cleanup
+                        stream.getTracks().forEach(track => track.stop());
+                        URL.revokeObjectURL(url);
+                        this.hideLoading();
+                        this.showToast('Video exported successfully!', 'success');
+                    };
+
+                    // Start recording
+                    recorder.start();
+                    
+                    const duration = this.settings.videoDuration || 3;
+                    const frameDelay = 1000 / 30; // 30fps
+
+                    // Animate elements
+                    for (let i = 0; i < elements.length; i++) {
+                        const element = elements[i];
+                        if (!element) continue;
+
+                        // Animate in
+                        for (let progress = 0; progress <= 1; progress += 0.03) {
+                            element.style.opacity = progress.toString();
+                            element.style.transform = `translateX(${-100 + (progress * 100)}px)`;
+                            await new Promise(r => setTimeout(r, frameDelay));
+                        }
+
+                        // Hold for duration
+                        await new Promise(r => setTimeout(r, duration * 1000));
                     }
-                    
-                    // Compile video
-                    const output = videoEncoder.compile();
-                    const blob = new Blob([output], { type: 'video/webm' });
-                    
-                    // Convert webm to mp4 (simulated - in real world would need ffmpeg)
-                    // For demo purposes, we'll save as webm but call it mp4
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `${p.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_animated.mp4`;
-                    a.click();
-                    
-                    // Cleanup
-                    document.body.removeChild(tempContainer);
-                    URL.revokeObjectURL(url);
-                    
-                    this.hideLoading();
-                    this.showToast('Video exported successfully!', 'success');
-                    
+
+                    // Stop recording
+                    recorder.stop();
+
                 } catch (error) {
                     console.error('Video export error:', error);
                     this.hideLoading();
-                    this.showToast('Video export failed', 'error');
+                    this.showToast('Video export failed: ' + error.message, 'error');
                 }
             },
 
@@ -2778,6 +2767,7 @@
             showSettings() {
                 const modal = document.getElementById('settingsModal');
                 if (modal) modal.classList.add('active');
+                document.getElementById('videoDuration').value = this.settings.videoDuration;
             },
 
             showHelp() {
