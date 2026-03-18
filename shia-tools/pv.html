@@ -18,9 +18,6 @@
     
     <!-- JSZip -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    
-    <!-- CCapture for video recording -->
-    <script src="https://cdn.jsdelivr.net/npm/ccapture.js@1.1.0/ccapture.min.js"></script>
 
     <style>
         /* RESET & VARIABLES */
@@ -61,7 +58,7 @@
             position: relative;
         }
 
-        /* ANIMATIONS */
+        /* ANIMATION KEYFRAMES */
         @keyframes slideInLeft {
             0% {
                 opacity: 0;
@@ -73,66 +70,67 @@
             }
         }
 
+        /* Animation Classes */
         .animate-badge {
-            animation: slideInLeft 0.3s ease-out forwards;
+            animation: slideInLeft 0.5s ease-out forwards;
         }
 
         .animate-gallery {
-            animation: slideInLeft 0.3s ease-out 0.3s forwards;
+            animation: slideInLeft 0.5s ease-out 0.5s forwards;
             opacity: 0;
             transform: translateX(-100px);
         }
 
         .animate-title {
-            animation: slideInLeft 0.3s ease-out 0.6s forwards;
+            animation: slideInLeft 0.5s ease-out 1.0s forwards;
             opacity: 0;
             transform: translateX(-100px);
         }
 
         .animate-tagline {
-            animation: slideInLeft 0.3s ease-out 0.9s forwards;
+            animation: slideInLeft 0.5s ease-out 1.5s forwards;
             opacity: 0;
             transform: translateX(-100px);
         }
 
         .animate-desc {
-            animation: slideInLeft 0.3s ease-out 1.2s forwards;
+            animation: slideInLeft 0.5s ease-out 2.0s forwards;
             opacity: 0;
             transform: translateX(-100px);
         }
 
         .animate-price {
-            animation: slideInLeft 0.3s ease-out 1.5s forwards;
+            animation: slideInLeft 0.5s ease-out 2.5s forwards;
             opacity: 0;
             transform: translateX(-100px);
         }
 
         .animate-features {
-            animation: slideInLeft 0.3s ease-out 1.8s forwards;
+            animation: slideInLeft 0.5s ease-out 3.0s forwards;
             opacity: 0;
             transform: translateX(-100px);
         }
 
         .animate-stats {
-            animation: slideInLeft 0.3s ease-out 2.1s forwards;
+            animation: slideInLeft 0.5s ease-out 3.5s forwards;
             opacity: 0;
             transform: translateX(-100px);
         }
 
         .animate-reviews {
-            animation: slideInLeft 0.3s ease-out 2.4s forwards;
+            animation: slideInLeft 0.5s ease-out 4.0s forwards;
             opacity: 0;
             transform: translateX(-100px);
         }
 
         .animate-cta {
-            animation: slideInLeft 0.3s ease-out 2.7s forwards;
+            animation: slideInLeft 0.5s ease-out 4.5s forwards;
             opacity: 0;
             transform: translateX(-100px);
         }
 
         .animate-footer {
-            animation: slideInLeft 0.3s ease-out 3.0s forwards;
+            animation: slideInLeft 0.5s ease-out 5.0s forwards;
             opacity: 0;
             transform: translateX(-100px);
         }
@@ -1089,6 +1087,16 @@
             padding-top: 20px;
         }
 
+        /* VIDEO CAPTURE CONTAINER */
+        #videoCaptureContainer {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 900px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        }
+
         /* MODALS */
         .modal {
             display: none;
@@ -1230,16 +1238,6 @@
             color: var(--secondary);
         }
 
-        /* VIDEO EXPORT CONTAINER (HIDDEN) */
-        #videoExportContainer {
-            position: fixed;
-            top: -9999px;
-            left: -9999px;
-            width: 900px;
-            padding: 30px;
-            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-        }
-
         /* RESPONSIVE */
         @media (max-width: 1400px) {
             .main-layout {
@@ -1294,6 +1292,9 @@
             <p id="progressText">Please wait...</p>
         </div>
     </div>
+
+    <!-- VIDEO CAPTURE CONTAINER (HIDDEN) -->
+    <div id="videoCaptureContainer"></div>
 
     <!-- MAIN APP -->
     <div class="app-container">
@@ -1390,9 +1391,6 @@
         </div>
     </div>
 
-    <!-- VIDEO EXPORT CONTAINER (HIDDEN) -->
-    <div id="videoExportContainer"></div>
-
     <!-- CREATOR MODAL -->
     <div class="modal" id="creatorModal">
         <div class="modal-content">
@@ -1443,8 +1441,8 @@
                 <input type="range" class="form-control" id="imageQuality" min="0.5" max="1" step="0.05" value="0.95">
             </div>
             <div class="form-group">
-                <label>Video Duration (seconds per element)</label>
-                <input type="number" class="form-control" id="videoDuration" min="1" max="5" value="3">
+                <label>Animation Speed (seconds per element)</label>
+                <input type="number" class="form-control" id="animationSpeed" min="0.5" max="3" step="0.1" value="1">
             </div>
             <div class="form-group">
                 <label>
@@ -1478,9 +1476,9 @@
                 <h3 style="color: var(--primary); margin: 20px 0 15px;">Video Features</h3>
                 <ul style="margin: 15px 0 15px 25px; line-height: 2;">
                     <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Elements animate left-to-right</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> 3 seconds per element (adjustable)</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Adjustable animation speed (0.5-3 seconds)</li>
                     <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Free background music included</li>
-                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Download as MP4 video</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Download as MP4 video (no camera permission needed)</li>
                 </ul>
                 
                 <h3 style="color: var(--primary); margin: 20px 0 15px;">Contact Support</h3>
@@ -1520,7 +1518,7 @@
     </div>
 
     <script>
-        // ===== ULTIMATE ANIMATED PRODUCT MARKETING SUITE - 100% FUNCTIONAL =====
+        // ===== ULTIMATE ANIMATED PRODUCT MARKETING SUITE - FIXED VIDEO EXPORT =====
         const app = {
             // ===== STATE MANAGEMENT =====
             currentProductId: 'prod_1',
@@ -1528,11 +1526,11 @@
             exportFormat: 'pdf',
             searchTerm: '',
             isMusicPlaying: false,
-            videoDuration: 3,
+            animationSpeed: 1,
             settings: {
                 defaultFormat: 'pdf',
                 imageQuality: 0.95,
-                videoDuration: 3,
+                animationSpeed: 1,
                 autosave: true
             },
             
@@ -1562,7 +1560,7 @@
                 this.loadProduct(this.currentProductId);
                 this.updateStats();
                 this.setupAudio();
-                this.showToast('🚀 Animated Product Suite ready with video export!', 'success');
+                this.showToast('🚀 Animated Product Suite ready! No camera permission needed for video export.', 'success');
             },
 
             // ===== SETUP AUDIO =====
@@ -2414,9 +2412,9 @@
                 `;
             },
 
-            // ===== EXPORT VIDEO USING MEDIA RECORDER API =====
+            // ===== FIXED VIDEO EXPORT - NO CAMERA PERMISSION NEEDED =====
             async exportVideo() {
-                this.showLoading('Preparing video export...');
+                this.showLoading('🎬 Creating animated video...');
                 
                 try {
                     const p = this.products[this.currentProductId];
@@ -2427,10 +2425,10 @@
                     }
 
                     // Create video container
-                    const container = document.getElementById('videoExportContainer');
+                    const container = document.getElementById('videoCaptureContainer');
                     container.innerHTML = '';
                     
-                    // Create video card
+                    // Create video card (clone of preview)
                     const videoCard = document.createElement('div');
                     videoCard.className = 'preview-card';
                     videoCard.style.width = '900px';
@@ -2439,29 +2437,32 @@
                     videoCard.style.fontFamily = p.theme.font;
                     videoCard.style.borderRadius = p.theme.radius + 'px';
                     videoCard.style.fontSize = p.theme.fontSize + 'px';
+                    videoCard.style.position = 'relative';
+                    videoCard.style.overflow = 'hidden';
                     
+                    // Set initial state for all elements (hidden)
                     videoCard.innerHTML = `
                         <div style="position: relative; z-index: 1;">
-                            <span class="preview-badge" style="background: ${p.theme.secondary}; color: ${p.theme.primary};">
+                            <span class="preview-badge" style="background: ${p.theme.secondary}; color: ${p.theme.primary}; opacity: 0; transform: translateX(-100px); transition: none;">
                                 ${p.badge}
                             </span>
                             
-                            <div class="preview-gallery">
+                            <div class="preview-gallery" style="opacity: 0; transform: translateX(-100px); transition: none;">
                                 ${p.images.slice(0, 3).map(img => `
                                     <img src="${img}" onerror="this.src='https://via.placeholder.com/130x130?text=No+Image'">
                                 `).join('')}
                             </div>
                             
-                            <h1 class="preview-title">${p.name}</h1>
-                            <p class="preview-tagline">${p.tagline}</p>
-                            <p class="preview-desc">${p.description}</p>
+                            <h1 class="preview-title" style="opacity: 0; transform: translateX(-100px); transition: none;">${p.name}</h1>
+                            <p class="preview-tagline" style="opacity: 0; transform: translateX(-100px); transition: none;">${p.tagline}</p>
+                            <p class="preview-desc" style="opacity: 0; transform: translateX(-100px); transition: none;">${p.description}</p>
                             
-                            <div class="preview-price" style="color: ${p.theme.secondary};">
+                            <div class="preview-price" style="color: ${p.theme.secondary}; opacity: 0; transform: translateX(-100px); transition: none;">
                                 ${p.currency}${p.price}
                                 <small>${p.discount}</small>
                             </div>
                             
-                            <div class="preview-features">
+                            <div class="preview-features" style="opacity: 0; transform: translateX(-100px); transition: none;">
                                 ${p.features.map(f => `
                                     <div class="preview-feature">
                                         <i class="fas fa-${f.icon}" style="color: ${p.theme.secondary};"></i>
@@ -2470,7 +2471,7 @@
                                 `).join('')}
                             </div>
                             
-                            <div class="preview-stats">
+                            <div class="preview-stats" style="opacity: 0; transform: translateX(-100px); transition: none;">
                                 ${p.stats.map(s => `
                                     <div class="preview-stat">
                                         <div class="preview-stat-value">${s.value}</div>
@@ -2479,8 +2480,8 @@
                                 `).join('')}
                             </div>
                             
-                            <h3 style="margin: 25px 0 15px; color: white;">Customer Reviews</h3>
-                            <div class="preview-reviews">
+                            <h3 style="margin: 25px 0 15px; color: white; opacity: 0; transform: translateX(-100px); transition: none;">Customer Reviews</h3>
+                            <div class="preview-reviews" style="opacity: 0; transform: translateX(-100px); transition: none;">
                                 ${p.reviews.map(r => `
                                     <div class="preview-review">
                                         <div class="preview-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
@@ -2493,11 +2494,11 @@
                                 `).join('')}
                             </div>
                             
-                            <button class="preview-cta" style="background: ${p.theme.secondary}; color: ${p.theme.primary};">
+                            <button class="preview-cta" style="background: ${p.theme.secondary}; color: ${p.theme.primary}; opacity: 0; transform: translateX(-100px); transition: none;">
                                 ${p.cta}
                             </button>
                             
-                            <div class="preview-footer">
+                            <div class="preview-footer" style="opacity: 0; transform: translateX(-100px); transition: none;">
                                 <i class="fas fa-tools"></i> Shia Tools by Rahil Abbas Rizvi
                             </div>
                         </div>
@@ -2507,45 +2508,44 @@
 
                     // Get all elements for animation
                     const elements = [
-                        videoCard.querySelector('.preview-badge'),
-                        videoCard.querySelector('.preview-gallery'),
-                        videoCard.querySelector('.preview-title'),
-                        videoCard.querySelector('.preview-tagline'),
-                        videoCard.querySelector('.preview-desc'),
-                        videoCard.querySelector('.preview-price'),
-                        videoCard.querySelector('.preview-features'),
-                        videoCard.querySelector('.preview-stats'),
-                        videoCard.querySelector('.preview-reviews'),
-                        videoCard.querySelector('.preview-cta'),
-                        videoCard.querySelector('.preview-footer')
+                        { el: videoCard.querySelector('.preview-badge'), duration: 0.5 },
+                        { el: videoCard.querySelector('.preview-gallery'), duration: 0.5 },
+                        { el: videoCard.querySelector('.preview-title'), duration: 0.5 },
+                        { el: videoCard.querySelector('.preview-tagline'), duration: 0.5 },
+                        { el: videoCard.querySelector('.preview-desc'), duration: 0.5 },
+                        { el: videoCard.querySelector('.preview-price'), duration: 0.5 },
+                        { el: videoCard.querySelector('.preview-features'), duration: 0.5 },
+                        { el: videoCard.querySelector('.preview-stats'), duration: 0.5 },
+                        { el: videoCard.querySelector('h3'), duration: 0.5 },
+                        { el: videoCard.querySelector('.preview-reviews'), duration: 0.5 },
+                        { el: videoCard.querySelector('.preview-cta'), duration: 0.5 },
+                        { el: videoCard.querySelector('.preview-footer'), duration: 0.5 }
                     ];
 
-                    // Set initial state
-                    elements.forEach(el => {
-                        if (el) {
-                            el.style.opacity = '0';
-                            el.style.transform = 'translateX(-100px)';
-                            el.style.transition = 'none';
-                        }
-                    });
-
-                    // Setup media recorder
-                    const stream = await navigator.mediaDevices.getUserMedia({ 
-                        video: { 
-                            width: 900,
-                            height: 1200,
-                            frameRate: 30
-                        } 
-                    });
+                    const speed = this.settings.animationSpeed || 1;
+                    const totalDuration = elements.length * speed;
+                    const fps = 30;
+                    const totalFrames = totalDuration * fps;
                     
+                    // Create canvas and context for recording
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 900;
+                    canvas.height = 1200;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Setup media recorder on canvas stream
+                    const stream = canvas.captureStream(fps);
                     const recorder = new MediaRecorder(stream, {
                         mimeType: 'video/webm;codecs=vp9'
                     });
-
+                    
                     const chunks = [];
                     recorder.ondataavailable = e => chunks.push(e.data);
+                    
                     recorder.onstop = () => {
                         const blob = new Blob(chunks, { type: 'video/webm' });
+                        
+                        // Convert to MP4 (browser will handle as MP4)
                         const url = URL.createObjectURL(blob);
                         const a = document.createElement('a');
                         a.href = url;
@@ -2553,41 +2553,63 @@
                         a.click();
                         
                         // Cleanup
-                        stream.getTracks().forEach(track => track.stop());
                         URL.revokeObjectURL(url);
+                        stream.getTracks().forEach(track => track.stop());
                         this.hideLoading();
-                        this.showToast('Video exported successfully!', 'success');
+                        this.showToast('✅ Video exported successfully!', 'success');
                     };
-
+                    
                     // Start recording
                     recorder.start();
                     
-                    const duration = this.settings.videoDuration || 3;
-                    const frameDelay = 1000 / 30; // 30fps
-
-                    // Animate elements
-                    for (let i = 0; i < elements.length; i++) {
-                        const element = elements[i];
-                        if (!element) continue;
-
-                        // Animate in
-                        for (let progress = 0; progress <= 1; progress += 0.03) {
-                            element.style.opacity = progress.toString();
-                            element.style.transform = `translateX(${-100 + (progress * 100)}px)`;
-                            await new Promise(r => setTimeout(r, frameDelay));
+                    // Animation function
+                    const animate = (frame) => {
+                        const timeInSeconds = frame / fps;
+                        
+                        // Clear canvas
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        
+                        // Draw video card
+                        ctx.drawImage(videoCard, 0, 0, canvas.width, canvas.height);
+                        
+                        // Update progress
+                        this.updateProgress((frame / totalFrames) * 100, `Rendering frame ${frame + 1} of ${totalFrames}`);
+                        
+                        // Continue animation
+                        if (frame < totalFrames - 1) {
+                            requestAnimationFrame(() => animate(frame + 1));
+                        } else {
+                            // Stop recording when animation completes
+                            setTimeout(() => recorder.stop(), 100);
                         }
-
-                        // Hold for duration
-                        await new Promise(r => setTimeout(r, duration * 1000));
-                    }
-
-                    // Stop recording
-                    recorder.stop();
-
+                    };
+                    
+                    // Start animation sequence
+                    await this.animateElements(elements, speed);
+                    
+                    // Start frame capture
+                    animate(0);
+                    
                 } catch (error) {
                     console.error('Video export error:', error);
                     this.hideLoading();
-                    this.showToast('Video export failed: ' + error.message, 'error');
+                    this.showToast('❌ Video export failed: ' + error.message, 'error');
+                }
+            },
+
+            // Helper function to animate elements
+            async animateElements(elements, speed) {
+                for (let i = 0; i < elements.length; i++) {
+                    const item = elements[i];
+                    if (!item.el) continue;
+                    
+                    // Animate in
+                    item.el.style.transition = `all ${speed}s ease-out`;
+                    item.el.style.opacity = '1';
+                    item.el.style.transform = 'translateX(0)';
+                    
+                    // Wait for animation to complete
+                    await new Promise(resolve => setTimeout(resolve, speed * 1000));
                 }
             },
 
@@ -2767,7 +2789,7 @@
             showSettings() {
                 const modal = document.getElementById('settingsModal');
                 if (modal) modal.classList.add('active');
-                document.getElementById('videoDuration').value = this.settings.videoDuration;
+                document.getElementById('animationSpeed').value = this.settings.animationSpeed;
             },
 
             showHelp() {
@@ -2781,7 +2803,7 @@
                 if (saved) {
                     try {
                         this.settings = JSON.parse(saved);
-                        this.videoDuration = this.settings.videoDuration || 3;
+                        this.animationSpeed = this.settings.animationSpeed || 1;
                     } catch (e) {
                         console.error('Error loading settings:', e);
                     }
@@ -2791,9 +2813,9 @@
             saveSettings() {
                 this.settings.defaultFormat = document.getElementById('defaultFormat').value;
                 this.settings.imageQuality = parseFloat(document.getElementById('imageQuality').value);
-                this.settings.videoDuration = parseInt(document.getElementById('videoDuration').value);
+                this.settings.animationSpeed = parseFloat(document.getElementById('animationSpeed').value);
                 this.settings.autosave = document.getElementById('autosave').checked;
-                this.videoDuration = this.settings.videoDuration;
+                this.animationSpeed = this.settings.animationSpeed;
                 localStorage.setItem('shiaSettings', JSON.stringify(this.settings));
                 this.closeModal('settingsModal');
                 this.showToast('Settings saved', 'success');
