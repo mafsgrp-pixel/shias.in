@@ -3,673 +3,726 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Mapper - Animated Reveal</title>
+    <title>Shia Tools · Animated Product Marketing Suite by Rahil Abbas Rizvi</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Export Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <!-- JSZip -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
+    <!-- Whammy for video encoding (NO CAMERA NEEDED) -->
+    <script src="https://cdn.jsdelivr.net/npm/whammy@0.0.2/whammy.min.js"></script>
+
     <style>
+        /* RESET & VARIABLES */
         * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-        body {
-            background: #0a0c14;
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B1E3F;
+            --primary-dark: #5A1329;
+            --secondary: #D4AF37;
+            --success: #059669;
+            --danger: #DC2626;
+            --info: #3B82F6;
+            --gray-50: #F8FAFC;
+            --gray-200: #E2E8F0;
+            --gray-600: #475569;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
             min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes slideInLeft {
+            0% { opacity: 0; transform: translateX(-100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        .animate-badge { animation: slideInLeft 0.3s ease-out forwards; }
+        .animate-gallery { animation: slideInLeft 0.3s ease-out 0.3s forwards; opacity: 0; transform: translateX(-100px); }
+        .animate-title { animation: slideInLeft 0.3s ease-out 0.6s forwards; opacity: 0; transform: translateX(-100px); }
+        .animate-tagline { animation: slideInLeft 0.3s ease-out 0.9s forwards; opacity: 0; transform: translateX(-100px); }
+        .animate-desc { animation: slideInLeft 0.3s ease-out 1.2s forwards; opacity: 0; transform: translateX(-100px); }
+        .animate-price { animation: slideInLeft 0.3s ease-out 1.5s forwards; opacity: 0; transform: translateX(-100px); }
+        .animate-features { animation: slideInLeft 0.3s ease-out 1.8s forwards; opacity: 0; transform: translateX(-100px); }
+        .animate-stats { animation: slideInLeft 0.3s ease-out 2.1s forwards; opacity: 0; transform: translateX(-100px); }
+        .animate-reviews { animation: slideInLeft 0.3s ease-out 2.4s forwards; opacity: 0; transform: translateX(-100px); }
+        .animate-cta { animation: slideInLeft 0.3s ease-out 2.7s forwards; opacity: 0; transform: translateX(-100px); }
+        .animate-footer { animation: slideInLeft 0.3s ease-out 3.0s forwards; opacity: 0; transform: translateX(-100px); }
+
+        /* TOAST SYSTEM */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 99999;
+        }
+
+        .toast {
+            background: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+            margin-bottom: 12px;
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid;
+            min-width: 350px;
             display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .toast.success { border-left-color: var(--success); }
+        .toast.error { border-left-color: var(--danger); }
+        .toast.info { border-left-color: var(--info); }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* LOADING OVERLAY */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            z-index: 100000;
+            backdrop-filter: blur(10px);
         }
-        .container {
-            max-width: 1300px;
-            width: 100%;
-            background: #151821;
-            border-radius: 30px;
-            padding: 25px;
-            box-shadow: 0 25px 50px -12px #000000;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            color: #e2e8f0;
-        }
-        .header h1 {
-            font-size: 2rem;
-            font-weight: 300;
-            margin: 0;
-        }
-        .header h1 span {
-            background: #2d3748;
-            padding: 5px 15px;
-            border-radius: 40px;
-            font-size: 1rem;
-            margin-left: 10px;
-            color: #a0aec0;
-        }
-        .upload-area {
-            background: #1e2432;
-            border: 2px dashed #4a5568;
-            border-radius: 20px;
+
+        .loading-overlay.active { display: flex; }
+
+        .loading-card {
+            background: white;
             padding: 40px;
+            border-radius: 30px;
             text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-bottom: 20px;
+            max-width: 400px;
+            width: 90%;
         }
-        .upload-area:hover {
-            border-color: #718096;
-            background: #252c3d;
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
         }
-        .upload-area input {
-            display: none;
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 999px;
+            margin: 20px 0;
+            overflow: hidden;
         }
-        .upload-label {
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* MUSIC CONTROL */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
             display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 10px;
-            color: #cbd5e0;
-            font-size: 1.2rem;
-            cursor: pointer;
+            z-index: 9999;
+            border: 2px solid var(--secondary);
         }
-        .main-workspace {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 20px;
-        }
-        .canvas-section {
-            background: #0f131a;
-            border-radius: 20px;
-            padding: 20px;
-        }
-        .canvas-container {
-            position: relative;
-            width: 100%;
-            background: #0a0d14;
-            border-radius: 12px;
-            overflow: hidden;
-            min-height: 400px;
-        }
-        #imageCanvas {
-            display: block;
-            width: 100%;
-            height: auto;
-            cursor: crosshair;
-        }
-        .tools-panel {
-            background: #1a1f2b;
-            border-radius: 20px;
-            padding: 20px;
-            color: #e2e8f0;
-        }
-        .tool-section {
-            margin-bottom: 25px;
-        }
-        .tool-section h3 {
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #718096;
-            margin-bottom: 15px;
-        }
-        .btn {
-            background: #2d3748;
+
+        .music-btn {
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 0.95rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             cursor: pointer;
-            width: 100%;
-            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: 0.2s;
-            border: 1px solid #4a5568;
+            transition: all 0.3s;
         }
-        .btn:hover {
-            background: #3f4a61;
-            border-color: #718096;
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+            color: var(--primary);
         }
-        .btn.active {
-            background: #4f46e5;
-            border-color: #818cf8;
+
+        .music-btn.playing {
+            background: var(--secondary);
+            color: var(--primary);
+            animation: pulse 2s infinite;
         }
-        .btn.primary {
-            background: #4f46e5;
-            border-color: #818cf8;
-            font-weight: 600;
+
+        /* MAIN APP */
+        .app-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            overflow: hidden;
         }
-        .btn.primary:hover {
-            background: #6366f1;
-        }
-        .elements-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        .element-item {
-            background: #252d3c;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 8px;
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid #4f46e5;
+            flex-wrap: wrap;
+            gap: 20px;
         }
-        .element-preview {
-            width: 30px;
-            height: 30px;
-            border-radius: 6px;
-            background: #2d3748;
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        .status-badge {
-            background: #2d3748;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            color: #a0aec0;
+
+        .brand-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: bold;
         }
-        .video-preview {
-            margin-top: 20px;
-            padding: 15px;
-            background: #0f131a;
-            border-radius: 15px;
+
+        .brand-text h1 {
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        #previewVideo {
+
+        .brand-text h1 i {
+            color: var(--secondary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+            border: none;
+        }
+
+        .header-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .header-btn.primary {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .header-btn.video {
+            background: #FF4500;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px #FF4500; }
+            50% { box-shadow: 0 0 20px #FF4500; }
+        }
+
+        /* PRODUCT BAR (simplified for brevity) */
+        .product-bar {
+            background: var(--gray-50);
+            padding: 15px 30px;
+            border-bottom: 2px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* PREVIEW PANEL */
+        .preview-panel {
+            padding: 30px;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        }
+
+        .preview-card {
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            max-width: 900px;
+            margin: 0 auto;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .preview-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .preview-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .preview-gallery img {
             width: 100%;
-            border-radius: 10px;
-            background: #000;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+
+        .preview-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .preview-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .preview-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .preview-feature {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .preview-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .preview-stat {
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .preview-cta {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 25px;
+        }
+
+        .preview-footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        /* QUICK LINKS & BRAND CREDIT */
+        .quick-links {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 20px;
+            z-index: 9999;
+            border: 2px solid var(--secondary);
+        }
+
+        .quick-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .brand-credit {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            z-index: 9999;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+            border: 2px solid var(--secondary);
+            cursor: pointer;
+        }
+
+        .brand-credit i {
+            color: var(--secondary);
+        }
+
+        /* VIDEO EXPORT CONTAINER (HIDDEN) */
+        #videoExportContainer {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 900px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Image Region Mapper <span>animate regions → complete image</span></h1>
-        </div>
+    <!-- MUSIC CONTROL -->
+    <div class="music-control">
+        <button class="music-btn" id="musicBtn" onclick="app.toggleMusic()">
+            <i class="fas fa-music"></i>
+        </button>
+        <span>Background Music</span>
+        <audio id="bgMusic" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 
-        <!-- Upload Area -->
-        <div class="upload-area" id="uploadArea">
-            <input type="file" id="fileInput" accept="image/*">
-            <label for="fileInput" class="upload-label">
-                <span style="font-size: 3rem;">🖼️</span>
-                <span>Click or drop image to start mapping</span>
-                <span style="font-size: 0.9rem; color: #718096;">JPG, PNG, GIF supported</span>
-            </label>
-        </div>
+    <!-- QUICK LINKS & BRAND CREDIT -->
+    <div class="quick-links">
+        <a onclick="app.showDashboard()"><i class="fas fa-home"></i> Home</a>
+        <a onclick="app.showProducts()"><i class="fas fa-box"></i> Products</a>
+    </div>
+    <div class="brand-credit" onclick="app.showCreator()">
+        <i class="fas fa-tools"></i> Shia Tools by <strong>Rahil Abbas Rizvi</strong>
+    </div>
 
-        <div class="main-workspace">
-            <!-- Canvas Section -->
-            <div class="canvas-section">
-                <div class="canvas-container">
-                    <canvas id="imageCanvas" width="800" height="450"></canvas>
-                </div>
-                <div style="display: flex; gap: 10px; margin-top: 15px;">
-                    <div style="background: #1e2432; padding: 10px; border-radius: 10px; flex: 1;">
-                        <span style="color: #a0aec0;">✏️ Click to add points | Close shape to complete region</span>
-                    </div>
-                </div>
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-card">
+            <div class="spinner"></div>
+            <h3 id="loadingMessage">Rendering Video...</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
             </div>
-
-            <!-- Tools Panel -->
-            <div class="tools-panel">
-                <div class="tool-section">
-                    <h3>Mapping Tools</h3>
-                    <button class="btn" id="startMappingBtn">🔍 Start New Region</button>
-                    <button class="btn" id="completeMappingBtn" disabled>✅ Complete Current Region</button>
-                    <button class="btn" id="clearAllBtn">🗑️ Clear All Regions</button>
-                </div>
-
-                <div class="tool-section">
-                    <h3>Mapped Regions (<span id="regionCount">0</span>)</h3>
-                    <div class="elements-list" id="regionsList">
-                        <div style="color: #718096; text-align: center; padding: 20px;">No regions mapped yet</div>
-                    </div>
-                </div>
-
-                <div class="tool-section">
-                    <h3>Animation Preview</h3>
-                    <button class="btn primary" id="generateVideoBtn" disabled>🎬 Generate Animation</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Video Preview Section -->
-        <div class="video-preview" id="videoPreviewSection" style="display: none;">
-            <h3 style="color: #e2e8f0; margin-top: 0;">Animation Preview</h3>
-            <video id="previewVideo" controls></video>
-            <button class="btn primary" id="downloadVideoBtn" style="margin-top: 15px; width: auto; display: inline-block;">⬇️ Download Video</button>
+            <p id="progressText">Processing frames... (0%)</p>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/recordrtc@5.6.2/RecordRTC.min.js"></script>
-    <script>
-        class ImageRegionMapper {
-            constructor() {
-                this.canvas = document.getElementById('imageCanvas');
-                this.ctx = this.canvas.getContext('2d');
-                this.image = null;
-                this.regions = []; // Store each region as array of points
-                this.currentPoints = [];
-                self.isMapping = false;
-                
-                // For image positioning
-                this.imageOffset = { x: 0, y: 0 };
-                this.imageSize = { width: 0, height: 0 };
-                
-                this.initEventListeners();
-            }
+    <!-- MAIN APP (SIMPLIFIED FOR DEMO) -->
+    <div class="app-container">
+        <div class="header">
+            <div class="brand">
+                <div class="brand-icon">👑</div>
+                <div class="brand-text">
+                    <h1><i class="fas fa-bolt"></i> Shia Tools</h1>
+                    <p>by Rahil Abbas Rizvi</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="header-btn video" onclick="app.exportVideo()">
+                    <i class="fas fa-video"></i> Download Video (MP4)
+                </button>
+            </div>
+        </div>
 
-            initEventListeners() {
-                document.getElementById('fileInput').addEventListener('change', (e) => this.handleImageUpload(e));
-                document.getElementById('uploadArea').addEventListener('click', () => document.getElementById('fileInput').click());
-                
-                document.getElementById('startMappingBtn').addEventListener('click', () => this.startMapping());
-                document.getElementById('completeMappingBtn').addEventListener('click', () => this.completeRegion());
-                document.getElementById('clearAllBtn').addEventListener('click', () => this.clearAllRegions());
-                
-                this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
-                
-                // Drag and drop
-                document.getElementById('uploadArea').addEventListener('dragover', (e) => e.preventDefault());
-                document.getElementById('uploadArea').addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    const file = e.dataTransfer.files[0];
-                    if (file && file.type.startsWith('image/')) {
-                        this.loadImage(file);
-                    }
-                });
-            }
-
-            handleImageUpload(e) {
-                const file = e.target.files[0];
-                if (file) this.loadImage(file);
-            }
-
-            loadImage(file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        this.image = img;
-                        this.fitImageToCanvas();
-                        this.drawImage();
-                        this.updateRegionsList();
-                    };
-                    img.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-
-            fitImageToCanvas() {
-                const canvasRatio = this.canvas.width / this.canvas.height;
-                const imageRatio = this.image.width / this.image.height;
-                
-                if (imageRatio > canvasRatio) {
-                    // Image is wider
-                    this.imageSize.width = this.canvas.width;
-                    this.imageSize.height = this.canvas.width / imageRatio;
-                    this.imageOffset.x = 0;
-                    this.imageOffset.y = (this.canvas.height - this.imageSize.height) / 2;
-                } else {
-                    // Image is taller
-                    this.imageSize.height = this.canvas.height;
-                    this.imageSize.width = this.canvas.height * imageRatio;
-                    this.imageOffset.x = (this.canvas.width - this.imageSize.width) / 2;
-                    this.imageOffset.y = 0;
-                }
-            }
-
-            canvasToImageCoords(canvasX, canvasY) {
-                const x = (canvasX - this.imageOffset.x) / this.imageSize.width;
-                const y = (canvasY - this.imageOffset.y) / this.imageSize.height;
-                
-                // Clamp to image boundaries
-                return {
-                    x: Math.max(0, Math.min(1, x)),
-                    y: Math.max(0, Math.min(1, y))
-                };
-            }
-
-            imageToCanvasCoords(imgX, imgY) {
-                return {
-                    x: this.imageOffset.x + (imgX * this.imageSize.width),
-                    y: this.imageOffset.y + (imgY * this.imageSize.height)
-                };
-            }
-
-            startMapping() {
-                if (!this.image) {
-                    alert('Please upload an image first');
-                    return;
-                }
-                this.isMapping = true;
-                this.currentPoints = [];
-                document.getElementById('startMappingBtn').classList.add('active');
-                document.getElementById('completeMappingBtn').disabled = false;
-            }
-
-            handleCanvasClick(e) {
-                if (!this.isMapping || !this.image) return;
-                
-                const rect = this.canvas.getBoundingClientRect();
-                const scaleX = this.canvas.width / rect.width;
-                const scaleY = this.canvas.height / rect.height;
-                
-                const canvasX = (e.clientX - rect.left) * scaleX;
-                const canvasY = (e.clientY - rect.top) * scaleY;
-                
-                // Convert to image coordinates
-                const imgCoords = this.canvasToImageCoords(canvasX, canvasY);
-                
-                // Check if click is within image
-                if (imgCoords.x >= 0 && imgCoords.x <= 1 && imgCoords.y >= 0 && imgCoords.y <= 1) {
-                    this.currentPoints.push(imgCoords);
-                    this.drawImage();
-                    this.drawCurrentRegion();
-                }
-            }
-
-            completeRegion() {
-                if (this.currentPoints.length < 3) {
-                    alert('Need at least 3 points to create a region');
-                    return;
-                }
-                
-                // Close the polygon
-                this.currentPoints.push(this.currentPoints[0]);
-                
-                // Add to regions
-                this.regions.push({
-                    points: [...this.currentPoints],
-                    id: Date.now() + Math.random()
-                });
-                
-                // Reset mapping state
-                this.isMapping = false;
-                this.currentPoints = [];
-                document.getElementById('startMappingBtn').classList.remove('active');
-                document.getElementById('completeMappingBtn').disabled = true;
-                
-                this.drawImage();
-                this.updateRegionsList();
-                document.getElementById('generateVideoBtn').disabled = false;
-            }
-
-            clearAllRegions() {
-                this.regions = [];
-                this.currentPoints = [];
-                this.isMapping = false;
-                document.getElementById('startMappingBtn').classList.remove('active');
-                document.getElementById('completeMappingBtn').disabled = true;
-                this.drawImage();
-                this.updateRegionsList();
-                document.getElementById('generateVideoBtn').disabled = true;
-            }
-
-            drawImage() {
-                if (!this.image) return;
-                
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.ctx.drawImage(
-                    this.image, 
-                    this.imageOffset.x, 
-                    this.imageOffset.y, 
-                    this.imageSize.width, 
-                    this.imageSize.height
-                );
-                
-                // Draw existing regions
-                this.regions.forEach((region, index) => {
-                    this.drawRegion(region.points, `rgba(79, 70, 229, 0.3)`, index + 1);
-                });
-                
-                // Draw current region if mapping
-                if (this.currentPoints.length > 0) {
-                    this.drawRegion(this.currentPoints, 'rgba(245, 158, 11, 0.3)');
-                }
-            }
-
-            drawRegion(points, color, label = null) {
-                if (points.length < 2) return;
-                
-                this.ctx.beginPath();
-                const first = this.imageToCanvasCoords(points[0].x, points[0].y);
-                this.ctx.moveTo(first.x, first.y);
-                
-                for (let i = 1; i < points.length; i++) {
-                    const point = this.imageToCanvasCoords(points[i].x, points[i].y);
-                    this.ctx.lineTo(point.x, point.y);
-                }
-                
-                // Fill region
-                this.ctx.fillStyle = color;
-                this.ctx.fill();
-                
-                // Draw border
-                this.ctx.strokeStyle = '#4f46e5';
-                this.ctx.lineWidth = 2;
-                this.ctx.stroke();
-                
-                // Draw points
-                points.forEach((point, i) => {
-                    const p = this.imageToCanvasCoords(point.x, point.y);
-                    this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
-                    this.ctx.fillStyle = i === 0 ? '#10b981' : '#f59e0b';
-                    this.ctx.fill();
-                    this.ctx.strokeStyle = 'white';
-                    this.ctx.lineWidth = 2;
-                    this.ctx.stroke();
-                });
-                
-                // Draw label
-                if (label) {
-                    const center = this.imageToCanvasCoords(
-                        points.reduce((sum, p) => sum + p.x, 0) / points.length,
-                        points.reduce((sum, p) => sum + p.y, 0) / points.length
-                    );
-                    this.ctx.font = 'bold 16px system-ui';
-                    this.ctx.fillStyle = 'white';
-                    this.ctx.shadowColor = 'black';
-                    this.ctx.shadowBlur = 4;
-                    this.ctx.fillText(`#${label}`, center.x - 10, center.y - 10);
-                    this.ctx.shadowBlur = 0;
-                }
-            }
-
-            drawCurrentRegion() {
-                // Draw connecting lines
-                if (this.currentPoints.length > 1) {
-                    this.ctx.beginPath();
-                    const first = this.imageToCanvasCoords(this.currentPoints[0].x, this.currentPoints[0].y);
-                    this.ctx.moveTo(first.x, first.y);
-                    
-                    for (let i = 1; i < this.currentPoints.length; i++) {
-                        const point = this.imageToCanvasCoords(this.currentPoints[i].x, this.currentPoints[i].y);
-                        this.ctx.lineTo(point.x, point.y);
-                    }
-                    
-                    this.ctx.strokeStyle = '#f59e0b';
-                    this.ctx.lineWidth = 2;
-                    this.ctx.setLineDash([5, 5]);
-                    this.ctx.stroke();
-                    this.ctx.setLineDash([]);
-                }
-            }
-
-            updateRegionsList() {
-                const container = document.getElementById('regionsList');
-                const countSpan = document.getElementById('regionCount');
-                
-                countSpan.textContent = this.regions.length;
-                
-                if (this.regions.length === 0) {
-                    container.innerHTML = '<div style="color: #718096; text-align: center; padding: 20px;">No regions mapped yet</div>';
-                    return;
-                }
-                
-                let html = '';
-                this.regions.forEach((region, index) => {
-                    html += `
-                        <div class="element-item">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span>Region #${index + 1}</span>
-                                <span class="status-badge">${region.points.length - 1} points</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                container.innerHTML = html;
-            }
-        }
-
-        // Video Generator Class
-        class VideoGenerator {
-            constructor(mapper) {
-                this.mapper = mapper;
-                this.recorder = null;
-            }
-
-            async generateVideo() {
-                if (this.mapper.regions.length === 0) return;
-
-                const regions = this.mapper.regions;
-                const canvas = document.createElement('canvas');
-                canvas.width = this.mapper.canvas.width;
-                canvas.height = this.mapper.canvas.height;
-                const ctx = canvas.getContext('2d');
-
-                // Animation settings
-                const fps = 30;
-                const regionDuration = 3; // 3 seconds per region
-                const totalFrames = regions.length * regionDuration * fps;
-
-                // Create stream and recorder
-                const stream = canvas.captureStream(fps);
-                this.recorder = RecordRTC(stream, {
-                    type: 'video',
-                    mimeType: 'video/webm',
-                    video: { width: canvas.width, height: canvas.height }
-                });
-
-                this.recorder.startRecording();
-
-                // Generate frames
-                for (let frame = 0; frame <= totalFrames; frame++) {
-                    const timeInSeconds = frame / fps;
-                    const currentRegionIndex = Math.floor(timeInSeconds / regionDuration);
-                    const regionProgress = (timeInSeconds % regionDuration) / regionDuration;
-
-                    // Clear canvas
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    
-                    // Draw regions up to current index
-                    for (let i = 0; i <= currentRegionIndex && i < regions.length; i++) {
-                        const region = regions[i];
-                        const progress = i === currentRegionIndex ? regionProgress : 1;
+        <!-- MAIN LAYOUT (SIMPLIFIED) -->
+        <div style="padding: 30px;">
+            <!-- PREVIEW CARD -->
+            <div class="preview-panel" style="background: linear-gradient(135deg, #667EEA, #764BA2);">
+                <div class="preview-card" id="previewCard" style="background: linear-gradient(135deg, #8B1E3F, #D4AF37);">
+                    <div style="position: relative; z-index: 1;">
+                        <span class="preview-badge animate-badge" style="background: #D4AF37; color: #8B1E3F;">🔥 BESTSELLER</span>
                         
-                        // Draw the region with left-to-right slide
-                        this.drawAnimatedRegion(ctx, region, progress, i === currentRegionIndex);
+                        <div class="preview-gallery animate-gallery">
+                            <img src="https://picsum.photos/300/300?random=1">
+                            <img src="https://picsum.photos/300/300?random=2">
+                            <img src="https://picsum.photos/300/300?random=3">
+                        </div>
+                        
+                        <h1 class="preview-title animate-title">Wireless Headphones Pro</h1>
+                        <p class="animate-tagline" style="opacity:0.9;">Premium Sound, Zero Wires</p>
+                        <p class="animate-desc" style="opacity:0.8;">Experience premium quality with cutting-edge technology.</p>
+                        
+                        <div class="preview-price animate-price" style="color: #D4AF37;">$99.99 <small>20% OFF</small></div>
+                        
+                        <div class="preview-features animate-features">
+                            <div class="preview-feature"><i class="fas fa-star"></i><p>Premium Quality</p></div>
+                            <div class="preview-feature"><i class="fas fa-bolt"></i><p>High Performance</p></div>
+                            <div class="preview-feature"><i class="fas fa-shield"></i><p>2 Year Warranty</p></div>
+                        </div>
+                        
+                        <div class="preview-stats animate-stats">
+                            <div class="preview-stat"><div class="preview-stat-value">50K+</div><div>Sold</div></div>
+                            <div class="preview-stat"><div class="preview-stat-value">4.8</div><div>Rating</div></div>
+                            <div class="preview-stat"><div class="preview-stat-value">2yr</div><div>Warranty</div></div>
+                        </div>
+                        
+                        <button class="preview-cta animate-cta" style="background: #D4AF37; color: #8B1E3F;">Shop Now →</button>
+                        
+                        <div class="preview-footer animate-footer">
+                            <i class="fas fa-tools"></i> Shia Tools by Rahil Abbas Rizvi
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIDEO EXPORT CONTAINER (HIDDEN) -->
+    <div id="videoExportContainer"></div>
+
+    <script>
+        // ===== ANIMATED PRODUCT MARKETING SUITE - NO CAMERA REQUIRED =====
+        const app = {
+            isMusicPlaying: false,
+            videoDuration: 3, // seconds per element
+
+            // ===== TOAST SYSTEM =====
+            showToast(message, type = 'info') {
+                const container = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}`;
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+            },
+
+            // ===== LOADING SYSTEM =====
+            showLoading(msg) {
+                document.getElementById('loadingMessage').textContent = msg;
+                document.getElementById('loadingOverlay').classList.add('active');
+            },
+
+            updateProgress(percent, text) {
+                document.getElementById('progressFill').style.width = percent + '%';
+                document.getElementById('progressText').textContent = text;
+            },
+
+            hideLoading() {
+                document.getElementById('loadingOverlay').classList.remove('active');
+            },
+
+            // ===== MUSIC CONTROL =====
+            toggleMusic() {
+                const audio = document.getElementById('bgMusic');
+                const btn = document.getElementById('musicBtn');
+                
+                if (this.isMusicPlaying) {
+                    audio.pause();
+                    btn.classList.remove('playing');
+                } else {
+                    audio.play().catch(e => {});
+                    btn.classList.add('playing');
+                }
+                this.isMusicPlaying = !this.isMusicPlaying;
+            },
+
+            // ===== VIDEO EXPORT - NO CAMERA REQUIRED! =====
+            async exportVideo() {
+                this.showLoading('Preparing video...');
+                
+                try {
+                    const originalCard = document.getElementById('previewCard');
+                    if (!originalCard) return;
+
+                    // Create a clone for video capture
+                    const container = document.getElementById('videoExportContainer');
+                    container.innerHTML = '';
+                    
+                    const videoCard = originalCard.cloneNode(true);
+                    videoCard.style.margin = '0';
+                    videoCard.style.width = '900px';
+                    container.appendChild(videoCard);
+
+                    // Get all elements for animation
+                    const elements = [
+                        videoCard.querySelector('.animate-badge'),
+                        videoCard.querySelector('.animate-gallery'),
+                        videoCard.querySelector('.animate-title'),
+                        videoCard.querySelector('.animate-tagline'),
+                        videoCard.querySelector('.animate-desc'),
+                        videoCard.querySelector('.animate-price'),
+                        videoCard.querySelector('.animate-features'),
+                        videoCard.querySelector('.animate-stats'),
+                        videoCard.querySelector('.animate-cta'),
+                        videoCard.querySelector('.animate-footer')
+                    ].filter(el => el !== null);
+
+                    // Set initial state
+                    elements.forEach(el => {
+                        el.style.opacity = '0';
+                        el.style.transform = 'translateX(-100px)';
+                        el.style.transition = 'none';
+                    });
+
+                    // Setup Whammy encoder (NO CAMERA NEEDED)
+                    const encoder = new Whammy.Video(30, 0.85); // 30fps, 85% quality
+                    
+                    const duration = this.videoDuration;
+                    const framesPerElement = duration * 30; // 30fps * seconds
+                    const totalFrames = elements.length * framesPerElement;
+                    let currentFrame = 0;
+
+                    // Capture frames for each element
+                    for (let i = 0; i < elements.length; i++) {
+                        const element = elements[i];
+                        
+                        // Animation frames (0.3s animation = 9 frames at 30fps)
+                        for (let frame = 0; frame < 9; frame++) {
+                            const progress = frame / 9;
+                            element.style.opacity = progress.toString();
+                            element.style.transform = `translateX(${-100 + (progress * 100)}px)`;
+                            
+                            // Capture frame
+                            const canvas = await html2canvas(videoCard, {
+                                scale: 1,
+                                backgroundColor: null,
+                                allowTaint: true,
+                                useCORS: true,
+                                logging: false
+                            });
+                            
+                            encoder.add(canvas);
+                            
+                            currentFrame++;
+                            this.updateProgress(
+                                (currentFrame / totalFrames) * 100,
+                                `Frame ${currentFrame}/${totalFrames}`
+                            );
+                        }
+
+                        // Hold frames (duration - 0.3s animation time)
+                        for (let frame = 0; frame < (framesPerElement - 9); frame++) {
+                            const canvas = await html2canvas(videoCard, {
+                                scale: 1,
+                                backgroundColor: null,
+                                allowTaint: true,
+                                useCORS: true,
+                                logging: false
+                            });
+                            
+                            encoder.add(canvas);
+                            
+                            currentFrame++;
+                            this.updateProgress(
+                                (currentFrame / totalFrames) * 100,
+                                `Frame ${currentFrame}/${totalFrames}`
+                            );
+                        }
                     }
 
-                    await this.sleep(1000 / fps);
-                }
-
-                this.recorder.stopRecording(() => {
-                    const blob = this.recorder.getBlob();
-                    this.showVideoPreview(blob);
-                });
-            }
-
-            drawAnimatedRegion(ctx, region, progress, isCurrent) {
-                const points = region.points;
-                
-                // Create clipping region for the animated area
-                ctx.save();
-                
-                // Calculate slide offset (left to right)
-                const maxSlide = ctx.canvas.width;
-                const slideOffset = (1 - progress) * maxSlide;
-                
-                // Apply slide transform
-                ctx.translate(-slideOffset, 0);
-                
-                // Create region path
-                ctx.beginPath();
-                const first = this.mapper.imageToCanvasCoords(points[0].x, points[0].y);
-                ctx.moveTo(first.x, first.y);
-                
-                for (let i = 1; i < points.length; i++) {
-                    const point = this.mapper.imageToCanvasCoords(points[i].x, points[i].y);
-                    ctx.lineTo(point.x, point.y);
-                }
-                
-                // Clip to region
-                ctx.clip();
-                
-                // Draw the image portion for this region
-                if (this.mapper.image) {
-                    ctx.drawImage(
-                        this.mapper.image,
-                        this.mapper.imageOffset.x,
-                        this.mapper.imageOffset.y,
-                        this.mapper.imageSize.width,
-                        this.mapper.imageSize.height
-                    );
-                }
-                
-                ctx.restore();
-                
-                // Draw border for current region if animating
-                if (isCurrent && progress < 1) {
-                    ctx.save();
-                    ctx.translate(-(1 - progress) * ctx.canvas.width, 0);
+                    // Compile video
+                    this.updateProgress(99, 'Compiling video...');
+                    const output = encoder.compile();
                     
-                    ctx.beginPath();
-                    ctx.moveTo(first.x, first.y);
-                    for (let i = 1; i < points.length; i++) {
-                        const point = this.mapper.imageToCanvasCoords(points[i].x, points[i].y);
-                        ctx.lineTo(point.x, point.y);
-                    }
-                    
-                    ctx.strokeStyle = '#4f46e5';
-                    ctx.lineWidth = 3;
-                    ctx.setLineDash([10, 5]);
-                    ctx.stroke();
-                    ctx.restore();
-                }
-            }
-
-            sleep(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms));
-            }
-
-            showVideoPreview(blob) {
-                const video = document.getElementById('previewVideo');
-                const url = URL.createObjectURL(blob);
-                video.src = url;
-                document.getElementById('videoPreviewSection').style.display = 'block';
-                
-                document.getElementById('downloadVideoBtn').onclick = () => {
+                    // Create download
+                    const blob = new Blob([output], { type: 'video/webm' });
+                    const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = 'animated-regions.webm';
+                    a.download = 'product_animation.webm';
                     a.click();
-                };
-            }
-        }
+                    
+                    // Cleanup
+                    URL.revokeObjectURL(url);
+                    container.innerHTML = '';
+                    
+                    this.hideLoading();
+                    this.showToast('Video exported successfully!', 'success');
+
+                } catch (error) {
+                    console.error('Video error:', error);
+                    this.hideLoading();
+                    this.showToast('Video export failed: ' + error.message, 'error');
+                }
+            },
+
+            // Placeholder functions
+            showDashboard() { this.showToast('Dashboard', 'info'); },
+            showProducts() { this.showToast('Products', 'info'); },
+            showCreator() { this.showToast('Rahil Abbas Rizvi - Creator', 'info'); }
+        };
 
         // Initialize
-        const mapper = new ImageRegionMapper();
-        const videoGenerator = new VideoGenerator(mapper);
-
-        document.getElementById('generateVideoBtn').addEventListener('click', () => {
-            videoGenerator.generateVideo();
+        document.addEventListener('DOMContentLoaded', () => {
+            app.showToast('🚀 No camera permission needed! Video export ready.', 'success');
         });
     </script>
 </body>
