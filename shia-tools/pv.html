@@ -3,597 +3,674 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mark·animate – image to video marker</title>
+    <title>Image Mapper - Animated Reveal</title>
     <style>
         * {
             box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
         body {
-            background: #1e1e2f;
+            background: #0a0c14;
+            margin: 0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            padding: 16px;
+            padding: 20px;
         }
-        .card {
-            max-width: 1100px;
+        .container {
+            max-width: 1300px;
             width: 100%;
-            background: #2d2d3f;
-            border-radius: 32px;
-            padding: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            color: #f0e9ff;
+            background: #151821;
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 25px 50px -12px #000000;
         }
-        h1 {
-            font-weight: 400;
-            font-size: 1.9rem;
-            margin: 0 0 6px 0;
-            letter-spacing: -0.5px;
+        .header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            margin-bottom: 20px;
+            color: #e2e8f0;
         }
-        h1 span {
-            background: #5a4a9a;
-            padding: 4px 14px;
-            border-radius: 60px;
-            font-size: 0.9rem;
-            font-weight: 500;
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin: 0;
+        }
+        .header h1 span {
+            background: #2d3748;
+            padding: 5px 15px;
+            border-radius: 40px;
+            font-size: 1rem;
+            margin-left: 10px;
+            color: #a0aec0;
         }
         .upload-area {
-            background: #3b3b55;
-            border-radius: 28px;
-            padding: 20px;
+            background: #1e2432;
+            border: 2px dashed #4a5568;
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
-            border: 2px dashed #8f8bb3;
-            transition: 0.2s;
-            margin: 20px 0 18px 0;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 20px;
         }
         .upload-area:hover {
-            border-color: #c3a9ff;
-            background: #43435f;
-        }
-        .upload-area label {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.2rem;
-            font-weight: 400;
+            border-color: #718096;
+            background: #252c3d;
         }
         .upload-area input {
             display: none;
         }
-        .toolbar {
+        .upload-label {
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px 20px;
+            flex-direction: column;
             align-items: center;
-            margin: 20px 0 14px 0;
-            background: #252536;
-            padding: 14px 22px;
-            border-radius: 48px;
-        }
-        .tool-group {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        button, .button-like {
-            background: #3d3d5c;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            gap: 10px;
+            color: #cbd5e0;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: 0.15s;
-            border: 1px solid #6a5e9e;
-            box-shadow: 0 4px 6px #00000030;
         }
-        button:hover {
-            background: #56567a;
-            border-color: #b49eff;
-            transform: scale(0.98);
+        .main-workspace {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
         }
-        button:disabled {
-            opacity: 0.4;
-            pointer-events: none;
-            filter: grayscale(0.4);
-        }
-        .mark-badge {
-            background: #6c5fa0;
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        .canvas-wrapper {
-            background: #1a1a28;
-            border-radius: 36px;
-            padding: 18px;
-            display: flex;
-            justify-content: center;
-            border: 2px solid #514b77;
-            margin: 16px 0 10px 0;
-        }
-        canvas {
-            display: block;
-            max-width: 100%;
-            height: auto;
+        .canvas-section {
+            background: #0f131a;
             border-radius: 20px;
-            box-shadow: 0 10px 20px black;
-            background: #10101a;
-            cursor: crosshair;
+            padding: 20px;
+        }
+        .canvas-container {
+            position: relative;
             width: 100%;
-            aspect-ratio: 16/9;
-            object-fit: contain;
-            background-image: 
-                linear-gradient(45deg, #2f2f42 25%, transparent 25%),
-                linear-gradient(-45deg, #2f2f42 25%, transparent 25%);
-            background-size: 30px 30px;
-            background-position: 0 0, 0 15px;
+            background: #0a0d14;
+            border-radius: 12px;
+            overflow: hidden;
+            min-height: 400px;
         }
-        .elements-panel {
-            background: #232334;
-            border-radius: 28px;
-            padding: 16px 22px;
-            margin-top: 16px;
+        #imageCanvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            cursor: crosshair;
         }
-        .marks-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 18px;
-            align-items: center;
-            margin-bottom: 6px;
+        .tools-panel {
+            background: #1a1f2b;
+            border-radius: 20px;
+            padding: 20px;
+            color: #e2e8f0;
         }
-        .mark-chip {
-            background: #3c2f60;
-            padding: 8px 22px 8px 16px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .tool-section {
+            margin-bottom: 25px;
+        }
+        .tool-section h3 {
             font-size: 1rem;
-            border: 1px solid #9580d4;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #718096;
+            margin-bottom: 15px;
         }
-        .indicator-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 14px;
-            background: #75c9b0;
-            box-shadow: 0 0 8px #8df2d6;
+        .btn {
+            background: #2d3748;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.2s;
+            border: 1px solid #4a5568;
         }
-        .indicator-dot.pending {
-            background: #e5c28e;
-            box-shadow: 0 0 6px #ffb347;
+        .btn:hover {
+            background: #3f4a61;
+            border-color: #718096;
         }
-        .footer-actions {
+        .btn.active {
+            background: #4f46e5;
+            border-color: #818cf8;
+        }
+        .btn.primary {
+            background: #4f46e5;
+            border-color: #818cf8;
+            font-weight: 600;
+        }
+        .btn.primary:hover {
+            background: #6366f1;
+        }
+        .elements-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .element-item {
+            background: #252d3c;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 24px;
-            flex-wrap: wrap;
-            gap: 15px;
+            border-left: 4px solid #4f46e5;
         }
-        .download-btn {
-            background: #6d49c0;
-            border-color: #b491ff;
-            padding: 14px 36px;
-            font-size: 1.2rem;
-            font-weight: 600;
+        .element-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            background: #2d3748;
         }
-        .note {
-            color: #b3addb;
-            font-size: 0.9rem;
+        .status-badge {
+            background: #2d3748;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #a0aec0;
+        }
+        .video-preview {
+            margin-top: 20px;
+            padding: 15px;
+            background: #0f131a;
+            border-radius: 15px;
+        }
+        #previewVideo {
+            width: 100%;
+            border-radius: 10px;
+            background: #000;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>
-            ✦ mark.to.animate
-            <span>jpg / png</span>
-        </h1>
-        
-        <!-- upload -->
+    <div class="container">
+        <div class="header">
+            <h1>Image Region Mapper <span>animate regions → complete image</span></h1>
+        </div>
+
+        <!-- Upload Area -->
         <div class="upload-area" id="uploadArea">
-            <label for="imageUpload">
-                <span style="font-size:2.2rem;">🖼️⬆️</span>
-                <span>click or drag to upload image</span>
-                <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg" />
+            <input type="file" id="fileInput" accept="image/*">
+            <label for="fileInput" class="upload-label">
+                <span style="font-size: 3rem;">🖼️</span>
+                <span>Click or drop image to start mapping</span>
+                <span style="font-size: 0.9rem; color: #718096;">JPG, PNG, GIF supported</span>
             </label>
         </div>
 
-        <!-- main toolbar -->
-        <div class="toolbar">
-            <div class="tool-group">
-                <button id="markBtn" title="click on canvas to add marks">✏️ mark element</button>
-                <button id="resetMarksBtn">🗑️ reset all</button>
+        <div class="main-workspace">
+            <!-- Canvas Section -->
+            <div class="canvas-section">
+                <div class="canvas-container">
+                    <canvas id="imageCanvas" width="800" height="450"></canvas>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <div style="background: #1e2432; padding: 10px; border-radius: 10px; flex: 1;">
+                        <span style="color: #a0aec0;">✏️ Click to add points | Close shape to complete region</span>
+                    </div>
+                </div>
             </div>
-            <div class="tool-group">
-                <span class="mark-badge" id="markCounter">0 marked</span>
-            </div>
-            <div style="flex:1; text-align:right; font-size:0.9rem;">
-                <span>✔️ mark → 3s left-to-right animation</span>
+
+            <!-- Tools Panel -->
+            <div class="tools-panel">
+                <div class="tool-section">
+                    <h3>Mapping Tools</h3>
+                    <button class="btn" id="startMappingBtn">🔍 Start New Region</button>
+                    <button class="btn" id="completeMappingBtn" disabled>✅ Complete Current Region</button>
+                    <button class="btn" id="clearAllBtn">🗑️ Clear All Regions</button>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Mapped Regions (<span id="regionCount">0</span>)</h3>
+                    <div class="elements-list" id="regionsList">
+                        <div style="color: #718096; text-align: center; padding: 20px;">No regions mapped yet</div>
+                    </div>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Animation Preview</h3>
+                    <button class="btn primary" id="generateVideoBtn" disabled>🎬 Generate Animation</button>
+                </div>
             </div>
         </div>
 
-        <!-- canvas wrapper -->
-        <div class="canvas-wrapper">
-            <canvas id="mainCanvas" width="960" height="540"></canvas>
-        </div>
-
-        <!-- marks / elements list -->
-        <div class="elements-panel" id="elementsPanel">
-            <div style="display:flex; gap:8px; align-items:center; margin-bottom:12px;">
-                <span>📌 marked elements</span>
-                <span style="background:#5e4a7c; padding:2px 14px; border-radius:30px; font-size:0.9rem;" id="chipCount">0</span>
-            </div>
-            <div class="marks-list" id="marksListContainer">
-                <span style="opacity:0.7;">— no elements marked yet, click [mark element] then canvas —</span>
-            </div>
-        </div>
-
-        <!-- footer + download -->
-        <div class="footer-actions">
-            <div class="note">
-                ⏯️ each element appears with 3s left-to-right slide
-            </div>
-            <button id="downloadVideoBtn" class="download-btn" disabled>⬇️ download video (webm)</button>
+        <!-- Video Preview Section -->
+        <div class="video-preview" id="videoPreviewSection" style="display: none;">
+            <h3 style="color: #e2e8f0; margin-top: 0;">Animation Preview</h3>
+            <video id="previewVideo" controls></video>
+            <button class="btn primary" id="downloadVideoBtn" style="margin-top: 15px; width: auto; display: inline-block;">⬇️ Download Video</button>
         </div>
     </div>
 
-    <!-- include recordrtc -->
     <script src="https://cdn.jsdelivr.net/npm/recordrtc@5.6.2/RecordRTC.min.js"></script>
     <script>
-        (function() {
-            // DOM elements
-            const canvas = document.getElementById('mainCanvas');
-            const ctx = canvas.getContext('2d');
-            const fileInput = document.getElementById('imageUpload');
-            const markBtn = document.getElementById('markBtn');
-            const resetMarksBtn = document.getElementById('resetMarksBtn');
-            const markCounter = document.getElementById('markCounter');
-            const chipCountSpan = document.getElementById('chipCount');
-            const marksListDiv = document.getElementById('marksListContainer');
-            const downloadBtn = document.getElementById('downloadVideoBtn');
-
-            // state
-            let baseImage = null;          // HTMLImageElement
-            let marks = [];                 // { x, y } normalized 0..1 relative to canvas
-            let markActive = false;          // are we in "mark adding" mode?
-            let animationPreviewFrame = null; // optional
-
-            // canvas intrinsic size (fixed 16:9)
-            const CANVAS_W = 960;
-            const CANVAS_H = 540;
-
-            // helper: redraw background + marks
-            function redrawCanvas() {
-                ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+        class ImageRegionMapper {
+            constructor() {
+                this.canvas = document.getElementById('imageCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.image = null;
+                this.regions = []; // Store each region as array of points
+                this.currentPoints = [];
+                self.isMapping = false;
                 
-                // draw background image if exists
-                if (baseImage) {
-                    // draw fitting maintaining aspect (cover canvas)
-                    const imgW = baseImage.naturalWidth;
-                    const imgH = baseImage.naturalHeight;
-                    const canvasRatio = CANVAS_W / CANVAS_H;
-                    const imgRatio = imgW / imgH;
+                // For image positioning
+                this.imageOffset = { x: 0, y: 0 };
+                this.imageSize = { width: 0, height: 0 };
+                
+                this.initEventListeners();
+            }
 
-                    let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
-                    if (imgRatio > canvasRatio) {
-                        // image wider: match width
-                        drawWidth = CANVAS_W;
-                        drawHeight = CANVAS_W / imgRatio;
-                        offsetY = (CANVAS_H - drawHeight) / 2;
-                    } else {
-                        // image taller: match height
-                        drawHeight = CANVAS_H;
-                        drawWidth = CANVAS_H * imgRatio;
-                        offsetX = (CANVAS_W - drawWidth) / 2;
+            initEventListeners() {
+                document.getElementById('fileInput').addEventListener('change', (e) => this.handleImageUpload(e));
+                document.getElementById('uploadArea').addEventListener('click', () => document.getElementById('fileInput').click());
+                
+                document.getElementById('startMappingBtn').addEventListener('click', () => this.startMapping());
+                document.getElementById('completeMappingBtn').addEventListener('click', () => this.completeRegion());
+                document.getElementById('clearAllBtn').addEventListener('click', () => this.clearAllRegions());
+                
+                this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
+                
+                // Drag and drop
+                document.getElementById('uploadArea').addEventListener('dragover', (e) => e.preventDefault());
+                document.getElementById('uploadArea').addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const file = e.dataTransfer.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        this.loadImage(file);
                     }
-                    ctx.drawImage(baseImage, offsetX, offsetY, drawWidth, drawHeight);
-                } else {
-                    // neutral background
-                    ctx.fillStyle = '#1e1e2f';
-                    ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-                    ctx.font = '24px system-ui';
-                    ctx.fillStyle = '#6b6b9c';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('upload image', CANVAS_W/2, CANVAS_H/2);
-                }
-
-                // draw all marks (cross)
-                marks.forEach((mark, index) => {
-                    const canvasX = mark.x * CANVAS_W;
-                    const canvasY = mark.y * CANVAS_H;
-                    
-                    // circle
-                    ctx.beginPath();
-                    ctx.arc(canvasX, canvasY, 16, 0, 2*Math.PI);
-                    ctx.fillStyle = '#fffa9e';
-                    ctx.shadowColor = '#00000080';
-                    ctx.shadowBlur = 12;
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-                    ctx.strokeStyle = '#301060';
-                    ctx.lineWidth = 4;
-                    ctx.stroke();
-
-                    ctx.font = 'bold 20px monospace';
-                    ctx.fillStyle = '#2e1b4b';
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(index+1, canvasX, canvasY-2);
-                    
-                    // small label
-                    ctx.font = '12px system-ui';
-                    ctx.fillStyle = '#eee';
-                    ctx.shadowColor = 'black';
-                    ctx.shadowBlur = 6;
-                    ctx.fillText('element', canvasX, canvasY+28);
-                    ctx.shadowBlur = 0;
                 });
             }
 
-            // update mark chips
-            function updateMarksUI() {
-                markCounter.innerText = marks.length + (marks.length === 1 ? ' mark' : ' marks');
-                chipCountSpan.innerText = marks.length;
-
-                if (marks.length === 0) {
-                    marksListDiv.innerHTML = '<span style="opacity:0.7;">— no elements marked yet —</span>';
-                    downloadBtn.disabled = true;
-                } else {
-                    let html = '';
-                    marks.forEach((m, idx) => {
-                        html += `<div class="mark-chip">
-                            <span class="indicator-dot pending"></span>
-                            <span>element #${idx+1}  (${Math.round(m.x*100)}%, ${Math.round(m.y*100)}%)</span>
-                        </div>`;
-                    });
-                    marksListDiv.innerHTML = html;
-                    downloadBtn.disabled = false;
-                }
-                // also redraw
-                redrawCanvas();
-            }
-
-            // reset everything except baseImage
-            function resetMarks() {
-                marks = [];
-                updateMarksUI();
-            }
-
-            // handle image upload
-            fileInput.addEventListener('change', (e) => {
+            handleImageUpload(e) {
                 const file = e.target.files[0];
-                if (!file) return;
+                if (file) this.loadImage(file);
+            }
 
+            loadImage(file) {
                 const reader = new FileReader();
-                reader.onload = (ev) => {
+                reader.onload = (e) => {
                     const img = new Image();
                     img.onload = () => {
-                        baseImage = img;
-                        resetMarks(); // also redraw
+                        this.image = img;
+                        this.fitImageToCanvas();
+                        this.drawImage();
+                        this.updateRegionsList();
                     };
-                    img.src = ev.target.result;
+                    img.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            });
+            }
 
-            // drag & drop basic
-            const uploadArea = document.getElementById('uploadArea');
-            uploadArea.addEventListener('dragover', (e) => e.preventDefault());
-            uploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                const file = e.dataTransfer.files[0];
-                if (file && file.type.startsWith('image/')) {
-                    fileInput.files = e.dataTransfer.files;
-                    fileInput.dispatchEvent(new Event('change'));
+            fitImageToCanvas() {
+                const canvasRatio = this.canvas.width / this.canvas.height;
+                const imageRatio = this.image.width / this.image.height;
+                
+                if (imageRatio > canvasRatio) {
+                    // Image is wider
+                    this.imageSize.width = this.canvas.width;
+                    this.imageSize.height = this.canvas.width / imageRatio;
+                    this.imageOffset.x = 0;
+                    this.imageOffset.y = (this.canvas.height - this.imageSize.height) / 2;
+                } else {
+                    // Image is taller
+                    this.imageSize.height = this.canvas.height;
+                    this.imageSize.width = this.canvas.height * imageRatio;
+                    this.imageOffset.x = (this.canvas.width - this.imageSize.width) / 2;
+                    this.imageOffset.y = 0;
                 }
-            });
+            }
 
-            // marking mode
-            markBtn.addEventListener('click', () => {
-                if (!baseImage) {
-                    alert('upload an image first');
+            canvasToImageCoords(canvasX, canvasY) {
+                const x = (canvasX - this.imageOffset.x) / this.imageSize.width;
+                const y = (canvasY - this.imageOffset.y) / this.imageSize.height;
+                
+                // Clamp to image boundaries
+                return {
+                    x: Math.max(0, Math.min(1, x)),
+                    y: Math.max(0, Math.min(1, y))
+                };
+            }
+
+            imageToCanvasCoords(imgX, imgY) {
+                return {
+                    x: this.imageOffset.x + (imgX * this.imageSize.width),
+                    y: this.imageOffset.y + (imgY * this.imageSize.height)
+                };
+            }
+
+            startMapping() {
+                if (!this.image) {
+                    alert('Please upload an image first');
                     return;
                 }
-                markActive = true;
-                markBtn.style.background = '#7d6ab0';
-                markBtn.innerText = '✏️ click on canvas';
-                setTimeout(() => {
-                    markBtn.innerText = '✏️ mark element';
-                    markBtn.style.background = '';
-                }, 1200);
-            });
+                this.isMapping = true;
+                this.currentPoints = [];
+                document.getElementById('startMappingBtn').classList.add('active');
+                document.getElementById('completeMappingBtn').disabled = false;
+            }
 
-            // canvas click: add mark if markActive
-            canvas.addEventListener('click', (e) => {
-                if (!markActive || !baseImage) return;
+            handleCanvasClick(e) {
+                if (!this.isMapping || !this.image) return;
+                
+                const rect = this.canvas.getBoundingClientRect();
+                const scaleX = this.canvas.width / rect.width;
+                const scaleY = this.canvas.height / rect.height;
+                
+                const canvasX = (e.clientX - rect.left) * scaleX;
+                const canvasY = (e.clientY - rect.top) * scaleY;
+                
+                // Convert to image coordinates
+                const imgCoords = this.canvasToImageCoords(canvasX, canvasY);
+                
+                // Check if click is within image
+                if (imgCoords.x >= 0 && imgCoords.x <= 1 && imgCoords.y >= 0 && imgCoords.y <= 1) {
+                    this.currentPoints.push(imgCoords);
+                    this.drawImage();
+                    this.drawCurrentRegion();
+                }
+            }
 
-                const rect = canvas.getBoundingClientRect();
-                const scaleX = canvas.width / rect.width;
-                const scaleY = canvas.height / rect.height;
-
-                const mouseCanvasX = (e.clientX - rect.left) * scaleX;
-                const mouseCanvasY = (e.clientY - rect.top) * scaleY;
-
-                // clamp to boundaries
-                const normX = Math.min(1, Math.max(0, mouseCanvasX / CANVAS_W));
-                const normY = Math.min(1, Math.max(0, mouseCanvasY / CANVAS_H));
-
-                marks.push({ x: normX, y: normY });
-                updateMarksUI();
-
-                markActive = false;  // one click = one mark (deactivate after mark)
-            });
-
-            // reset marks
-            resetMarksBtn.addEventListener('click', () => {
-                resetMarks();
-            });
-
-            // ---------- video generation (RecordRTC) with 3s left-to-right per element ----------
-            async function generateVideo() {
-                if (!baseImage || marks.length === 0) {
-                    alert('need image and at least one mark');
+            completeRegion() {
+                if (this.currentPoints.length < 3) {
+                    alert('Need at least 3 points to create a region');
                     return;
                 }
+                
+                // Close the polygon
+                this.currentPoints.push(this.currentPoints[0]);
+                
+                // Add to regions
+                this.regions.push({
+                    points: [...this.currentPoints],
+                    id: Date.now() + Math.random()
+                });
+                
+                // Reset mapping state
+                this.isMapping = false;
+                this.currentPoints = [];
+                document.getElementById('startMappingBtn').classList.remove('active');
+                document.getElementById('completeMappingBtn').disabled = true;
+                
+                this.drawImage();
+                this.updateRegionsList();
+                document.getElementById('generateVideoBtn').disabled = false;
+            }
 
-                // disable download during recording
-                downloadBtn.disabled = true;
-                const originalText = downloadBtn.innerText;
-                downloadBtn.innerText = '⏳ rendering video...';
+            clearAllRegions() {
+                this.regions = [];
+                this.currentPoints = [];
+                this.isMapping = false;
+                document.getElementById('startMappingBtn').classList.remove('active');
+                document.getElementById('completeMappingBtn').disabled = true;
+                this.drawImage();
+                this.updateRegionsList();
+                document.getElementById('generateVideoBtn').disabled = true;
+            }
 
-                // create a recording canvas (same size)
-                const recordCanvas = document.createElement('canvas');
-                recordCanvas.width = CANVAS_W;
-                recordCanvas.height = CANVAS_H;
-                const rCtx = recordCanvas.getContext('2d');
+            drawImage() {
+                if (!this.image) return;
+                
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.drawImage(
+                    this.image, 
+                    this.imageOffset.x, 
+                    this.imageOffset.y, 
+                    this.imageSize.width, 
+                    this.imageSize.height
+                );
+                
+                // Draw existing regions
+                this.regions.forEach((region, index) => {
+                    this.drawRegion(region.points, `rgba(79, 70, 229, 0.3)`, index + 1);
+                });
+                
+                // Draw current region if mapping
+                if (this.currentPoints.length > 0) {
+                    this.drawRegion(this.currentPoints, 'rgba(245, 158, 11, 0.3)');
+                }
+            }
 
-                // we need to simulate a "stopwatch" recording: each element appears one after another with slide.
-                // total duration = marks.length * 3 seconds.
-                const elementDuration = 3; // seconds
-                const totalDuration = marks.length * elementDuration; 
+            drawRegion(points, color, label = null) {
+                if (points.length < 2) return;
+                
+                this.ctx.beginPath();
+                const first = this.imageToCanvasCoords(points[0].x, points[0].y);
+                this.ctx.moveTo(first.x, first.y);
+                
+                for (let i = 1; i < points.length; i++) {
+                    const point = this.imageToCanvasCoords(points[i].x, points[i].y);
+                    this.ctx.lineTo(point.x, point.y);
+                }
+                
+                // Fill region
+                this.ctx.fillStyle = color;
+                this.ctx.fill();
+                
+                // Draw border
+                this.ctx.strokeStyle = '#4f46e5';
+                this.ctx.lineWidth = 2;
+                this.ctx.stroke();
+                
+                // Draw points
+                points.forEach((point, i) => {
+                    const p = this.imageToCanvasCoords(point.x, point.y);
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, 4, 0, 2 * Math.PI);
+                    this.ctx.fillStyle = i === 0 ? '#10b981' : '#f59e0b';
+                    this.ctx.fill();
+                    this.ctx.strokeStyle = 'white';
+                    this.ctx.lineWidth = 2;
+                    this.ctx.stroke();
+                });
+                
+                // Draw label
+                if (label) {
+                    const center = this.imageToCanvasCoords(
+                        points.reduce((sum, p) => sum + p.x, 0) / points.length,
+                        points.reduce((sum, p) => sum + p.y, 0) / points.length
+                    );
+                    this.ctx.font = 'bold 16px system-ui';
+                    this.ctx.fillStyle = 'white';
+                    this.ctx.shadowColor = 'black';
+                    this.ctx.shadowBlur = 4;
+                    this.ctx.fillText(`#${label}`, center.x - 10, center.y - 10);
+                    this.ctx.shadowBlur = 0;
+                }
+            }
+
+            drawCurrentRegion() {
+                // Draw connecting lines
+                if (this.currentPoints.length > 1) {
+                    this.ctx.beginPath();
+                    const first = this.imageToCanvasCoords(this.currentPoints[0].x, this.currentPoints[0].y);
+                    this.ctx.moveTo(first.x, first.y);
+                    
+                    for (let i = 1; i < this.currentPoints.length; i++) {
+                        const point = this.imageToCanvasCoords(this.currentPoints[i].x, this.currentPoints[i].y);
+                        this.ctx.lineTo(point.x, point.y);
+                    }
+                    
+                    this.ctx.strokeStyle = '#f59e0b';
+                    this.ctx.lineWidth = 2;
+                    this.ctx.setLineDash([5, 5]);
+                    this.ctx.stroke();
+                    this.ctx.setLineDash([]);
+                }
+            }
+
+            updateRegionsList() {
+                const container = document.getElementById('regionsList');
+                const countSpan = document.getElementById('regionCount');
+                
+                countSpan.textContent = this.regions.length;
+                
+                if (this.regions.length === 0) {
+                    container.innerHTML = '<div style="color: #718096; text-align: center; padding: 20px;">No regions mapped yet</div>';
+                    return;
+                }
+                
+                let html = '';
+                this.regions.forEach((region, index) => {
+                    html += `
+                        <div class="element-item">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span>Region #${index + 1}</span>
+                                <span class="status-badge">${region.points.length - 1} points</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            }
+        }
+
+        // Video Generator Class
+        class VideoGenerator {
+            constructor(mapper) {
+                this.mapper = mapper;
+                this.recorder = null;
+            }
+
+            async generateVideo() {
+                if (this.mapper.regions.length === 0) return;
+
+                const regions = this.mapper.regions;
+                const canvas = document.createElement('canvas');
+                canvas.width = this.mapper.canvas.width;
+                canvas.height = this.mapper.canvas.height;
+                const ctx = canvas.getContext('2d');
+
+                // Animation settings
                 const fps = 30;
-                const totalFrames = totalDuration * fps;
+                const regionDuration = 3; // 3 seconds per region
+                const totalFrames = regions.length * regionDuration * fps;
 
-                // helper to draw a single frame with given progress (0..totalFrames)
-                function drawFrame(frameIndex) {
-                    rCtx.clearRect(0, 0, CANVAS_W, CANVAS_H);
-                    
-                    // 1. draw background image (same as canvas)
-                    if (baseImage) {
-                        const imgW = baseImage.naturalWidth;
-                        const imgH = baseImage.naturalHeight;
-                        const canvasRatio = CANVAS_W / CANVAS_H;
-                        const imgRatio = imgW / imgH;
-
-                        let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
-                        if (imgRatio > canvasRatio) {
-                            drawWidth = CANVAS_W;
-                            drawHeight = CANVAS_W / imgRatio;
-                            offsetY = (CANVAS_H - drawHeight) / 2;
-                        } else {
-                            drawHeight = CANVAS_H;
-                            drawWidth = CANVAS_H * imgRatio;
-                            offsetX = (CANVAS_W - drawWidth) / 2;
-                        }
-                        rCtx.drawImage(baseImage, offsetX, offsetY, drawWidth, drawHeight);
-                    } else {
-                        rCtx.fillStyle = '#1e1e2f';
-                        rCtx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-                    }
-
-                    // determine current element index based on frame
-                    const timeSec = frameIndex / fps;
-                    const elementIndex = Math.floor(timeSec / elementDuration); // 0-based
-                    
-                    // for each element: if element index <= currentElement, draw it (with possible slide)
-                    for (let i = 0; i < marks.length; i++) {
-                        if (i > elementIndex) continue; // not yet reached
-                        
-                        const mark = marks[i];
-                        const targetX = mark.x * CANVAS_W;
-                        const targetY = mark.y * CANVAS_H;
-
-                        // element progress: if i == elementIndex, sliding phase, else fully visible
-                        let progress = 1.0; // default full visible for past elements
-                        if (i === elementIndex) {
-                            // sliding: 0 → 1 over 3 sec
-                            const elementStartTime = i * elementDuration;
-                            const elapsedInElement = Math.min(elementDuration, Math.max(0, timeSec - elementStartTime));
-                            progress = elapsedInElement / elementDuration; // 0..1
-                        }
-
-                        // left-to-right: start position (left edge, same y) interpolate to targetX
-                        const startX = 0; // left edge (x=0)
-                        const currentX = startX + (targetX - startX) * progress;
-                        
-                        // draw element highlight (big circle + number)
-                        rCtx.save();
-                        rCtx.shadowColor = '#00000080';
-                        rCtx.shadowBlur = 16;
-                        rCtx.beginPath();
-                        rCtx.arc(currentX, targetY, 24, 0, 2*Math.PI);
-                        rCtx.fillStyle = '#fffa9e';
-                        rCtx.fill();
-                        rCtx.shadowBlur = 0;
-                        rCtx.strokeStyle = '#301060';
-                        rCtx.lineWidth = 5;
-                        rCtx.stroke();
-
-                        rCtx.font = 'bold 28px monospace';
-                        rCtx.fillStyle = '#2e1b4b';
-                        rCtx.textAlign = 'center';
-                        rCtx.textBaseline = 'middle';
-                        rCtx.fillText(i+1, currentX, targetY-4);
-                        rCtx.font = 'bold 16px system-ui';
-                        rCtx.fillStyle = 'white';
-                        rCtx.shadowColor = 'black';
-                        rCtx.shadowBlur = 8;
-                        rCtx.fillText('element', currentX, targetY+34);
-                        rCtx.restore();
-                    }
-                }
-
-                // use RecordRTC to capture canvas stream
-                const stream = recordCanvas.captureStream(fps);
-                const recorder = RecordRTC(stream, {
+                // Create stream and recorder
+                const stream = canvas.captureStream(fps);
+                this.recorder = RecordRTC(stream, {
                     type: 'video',
                     mimeType: 'video/webm',
-                    video: {
-                        width: CANVAS_W,
-                        height: CANVAS_H,
-                        frameRate: fps
-                    },
-                    disableLogs: false
+                    video: { width: canvas.width, height: canvas.height }
                 });
 
-                recorder.startRecording();
+                this.recorder.startRecording();
 
-                // manual frame rendering loop
+                // Generate frames
                 for (let frame = 0; frame <= totalFrames; frame++) {
-                    drawFrame(frame);
-                    await new Promise(r => setTimeout(r, 1000 / fps)); // crude but simple
+                    const timeInSeconds = frame / fps;
+                    const currentRegionIndex = Math.floor(timeInSeconds / regionDuration);
+                    const regionProgress = (timeInSeconds % regionDuration) / regionDuration;
+
+                    // Clear canvas
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw regions up to current index
+                    for (let i = 0; i <= currentRegionIndex && i < regions.length; i++) {
+                        const region = regions[i];
+                        const progress = i === currentRegionIndex ? regionProgress : 1;
+                        
+                        // Draw the region with left-to-right slide
+                        this.drawAnimatedRegion(ctx, region, progress, i === currentRegionIndex);
+                    }
+
+                    await this.sleep(1000 / fps);
                 }
 
-                recorder.stopRecording(() => {
-                    const blob = recorder.getBlob();
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `marked_animation_${marks.length}_elements.webm`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-
-                    // restore button
-                    downloadBtn.disabled = false;
-                    downloadBtn.innerText = originalText;
-
-                    // stop all tracks
-                    stream.getTracks().forEach(t => t.stop());
+                this.recorder.stopRecording(() => {
+                    const blob = this.recorder.getBlob();
+                    this.showVideoPreview(blob);
                 });
             }
 
-            downloadBtn.addEventListener('click', generateVideo);
+            drawAnimatedRegion(ctx, region, progress, isCurrent) {
+                const points = region.points;
+                
+                // Create clipping region for the animated area
+                ctx.save();
+                
+                // Calculate slide offset (left to right)
+                const maxSlide = ctx.canvas.width;
+                const slideOffset = (1 - progress) * maxSlide;
+                
+                // Apply slide transform
+                ctx.translate(-slideOffset, 0);
+                
+                // Create region path
+                ctx.beginPath();
+                const first = this.mapper.imageToCanvasCoords(points[0].x, points[0].y);
+                ctx.moveTo(first.x, first.y);
+                
+                for (let i = 1; i < points.length; i++) {
+                    const point = this.mapper.imageToCanvasCoords(points[i].x, points[i].y);
+                    ctx.lineTo(point.x, point.y);
+                }
+                
+                // Clip to region
+                ctx.clip();
+                
+                // Draw the image portion for this region
+                if (this.mapper.image) {
+                    ctx.drawImage(
+                        this.mapper.image,
+                        this.mapper.imageOffset.x,
+                        this.mapper.imageOffset.y,
+                        this.mapper.imageSize.width,
+                        this.mapper.imageSize.height
+                    );
+                }
+                
+                ctx.restore();
+                
+                // Draw border for current region if animating
+                if (isCurrent && progress < 1) {
+                    ctx.save();
+                    ctx.translate(-(1 - progress) * ctx.canvas.width, 0);
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(first.x, first.y);
+                    for (let i = 1; i < points.length; i++) {
+                        const point = this.mapper.imageToCanvasCoords(points[i].x, points[i].y);
+                        ctx.lineTo(point.x, point.y);
+                    }
+                    
+                    ctx.strokeStyle = '#4f46e5';
+                    ctx.lineWidth = 3;
+                    ctx.setLineDash([10, 5]);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
 
-            // initial update
-            updateMarksUI();
-        })();
+            sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            showVideoPreview(blob) {
+                const video = document.getElementById('previewVideo');
+                const url = URL.createObjectURL(blob);
+                video.src = url;
+                document.getElementById('videoPreviewSection').style.display = 'block';
+                
+                document.getElementById('downloadVideoBtn').onclick = () => {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'animated-regions.webm';
+                    a.click();
+                };
+            }
+        }
+
+        // Initialize
+        const mapper = new ImageRegionMapper();
+        const videoGenerator = new VideoGenerator(mapper);
+
+        document.getElementById('generateVideoBtn').addEventListener('click', () => {
+            videoGenerator.generateVideo();
+        });
     </script>
 </body>
 </html>
