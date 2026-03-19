@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Advanced CV Maker · Shia Community · Production Version</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -48,7 +48,7 @@
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 1rem;
+            padding: 0.5rem;
         }
 
         /* Toast Notifications */
@@ -60,6 +60,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            max-width: calc(100vw - 2rem);
         }
 
         .toast {
@@ -71,7 +72,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            min-width: 300px;
+            min-width: 280px;
             max-width: 400px;
             animation: slideIn 0.3s ease;
             border-left: 4px solid;
@@ -103,6 +104,7 @@
         .toast-message {
             font-size: 0.875rem;
             color: var(--gray-600);
+            word-break: break-word;
         }
 
         .toast-close {
@@ -141,62 +143,67 @@
             overflow: hidden;
         }
 
-        /* Header */
+        /* Header - mobile optimized */
         .app-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
-            padding: 1.5rem 2rem;
+            padding: 1rem 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .header-title {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
 
         .header-title h1 {
-            font-size: 1.875rem;
+            font-size: 1.3rem;
             font-weight: 700;
         }
 
         .header-title i {
             color: var(--accent);
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
         .header-badge {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
-            padding: 0.5rem 1.5rem;
+            padding: 0.35rem 1rem;
             border-radius: var(--radius-full);
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .header-actions {
             display: flex;
-            gap: 0.75rem;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .header-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 0.5rem 1rem;
             border-radius: var(--radius-full);
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
+            font-size: 0.85rem;
         }
 
         .header-btn:hover {
@@ -204,20 +211,20 @@
             transform: translateY(-2px);
         }
 
-        /* Main Layout */
+        /* Main Layout - completely responsive */
         .main-layout {
             display: grid;
-            grid-template-columns: 400px 1fr;
-            height: calc(100vh - 100px);
+            grid-template-columns: 380px 1fr;
+            height: calc(100vh - 80px);
             overflow: hidden;
         }
 
-        /* Sidebar */
+        /* Sidebar - scrollable */
         .sidebar {
             background: var(--gray-50);
             border-right: 1px solid var(--gray-200);
             overflow-y: auto;
-            padding: 1.5rem;
+            padding: 1.25rem;
             scrollbar-width: thin;
             scrollbar-color: var(--gray-400) var(--gray-100);
         }
@@ -239,21 +246,21 @@
         .editor-section {
             background: white;
             border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--gray-200);
         }
 
         .editor-section h2 {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--gray-900);
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding-bottom: 0.75rem;
+            padding-bottom: 0.6rem;
             border-bottom: 2px solid var(--gray-200);
         }
 
@@ -263,23 +270,23 @@
 
         /* Form Controls */
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 0.9rem;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             font-weight: 500;
             color: var(--gray-700);
-            margin-bottom: 0.375rem;
+            margin-bottom: 0.25rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.6rem 0.9rem;
             border: 2px solid var(--gray-200);
             border-radius: var(--radius-md);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.2s;
             font-family: 'Inter', sans-serif;
         }
@@ -291,7 +298,7 @@
         }
 
         textarea.form-control {
-            min-height: 100px;
+            min-height: 80px;
             resize: vertical;
         }
 
@@ -299,14 +306,14 @@
         .dynamic-items {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.9rem;
+            margin-bottom: 0.9rem;
         }
 
         .dynamic-item {
             background: var(--gray-50);
             border-radius: var(--radius-md);
-            padding: 1rem;
+            padding: 0.9rem;
             border: 1px solid var(--gray-200);
             transition: all 0.2s;
         }
@@ -320,18 +327,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem;
         }
 
         .item-title {
             font-weight: 600;
             color: var(--gray-700);
-            font-size: 0.875rem;
+            font-size: 0.8rem;
         }
 
         .item-actions {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .item-btn {
@@ -340,7 +347,7 @@
             color: var(--gray-500);
             cursor: pointer;
             padding: 0.25rem;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: all 0.2s;
         }
 
@@ -354,7 +361,7 @@
 
         .add-btn {
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.6rem;
             background: var(--gray-100);
             border: 2px dashed var(--gray-300);
             border-radius: var(--radius-md);
@@ -366,6 +373,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            font-size: 0.9rem;
         }
 
         .add-btn:hover {
@@ -378,21 +386,21 @@
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
         }
 
         /* Color Picker */
         .color-picker {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
             flex-wrap: wrap;
             margin: 1rem 0;
         }
 
         .color-option {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: var(--radius-full);
             cursor: pointer;
             border: 3px solid transparent;
@@ -412,12 +420,12 @@
         .template-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
+            gap: 0.6rem;
             margin: 1rem 0;
         }
 
         .template-option {
-            padding: 1rem;
+            padding: 0.8rem 0.5rem;
             text-align: center;
             background: var(--gray-100);
             border: 2px solid transparent;
@@ -425,6 +433,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
+            font-size: 0.9rem;
         }
 
         .template-option:hover {
@@ -442,7 +451,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.75rem 0;
+            padding: 0.6rem 0;
             border-bottom: 1px solid var(--gray-200);
         }
 
@@ -453,8 +462,8 @@
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 52px;
-            height: 28px;
+            width: 48px;
+            height: 24px;
         }
 
         .toggle-switch input {
@@ -478,10 +487,10 @@
         .toggle-slider:before {
             position: absolute;
             content: "";
-            height: 22px;
-            width: 22px;
-            left: 3px;
-            bottom: 3px;
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
             background-color: white;
             transition: 0.2s;
             border-radius: 50%;
@@ -497,7 +506,7 @@
 
         /* Preview Area */
         .preview-area {
-            padding: 2rem;
+            padding: 1.5rem;
             overflow-y: auto;
             background: var(--gray-100);
         }
@@ -505,7 +514,7 @@
         .cv-preview {
             background: white;
             border-radius: var(--radius-xl);
-            padding: 3rem;
+            padding: 2rem;
             box-shadow: var(--shadow-lg);
             max-width: 900px;
             margin: 0 auto;
@@ -554,23 +563,25 @@
         }
 
         .cv-name {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 0.5rem;
+            word-break: break-word;
         }
 
         .cv-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--gray-600);
             margin-bottom: 1.5rem;
             font-weight: 500;
+            word-break: break-word;
         }
 
         .cv-contact {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 1rem;
             justify-content: center;
             margin-bottom: 2rem;
         }
@@ -580,14 +591,16 @@
             align-items: center;
             gap: 0.5rem;
             color: var(--gray-600);
+            font-size: 0.9rem;
+            word-break: break-word;
         }
 
         .cv-section {
-            margin-bottom: 2rem;
+            margin-bottom: 1.8rem;
         }
 
         .section-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
             border-bottom: 3px solid;
             padding-bottom: 0.5rem;
@@ -597,15 +610,15 @@
         .skill-tag {
             display: inline-block;
             background: var(--gray-100);
-            padding: 0.5rem 1rem;
-            margin: 0 0.5rem 0.5rem 0;
+            padding: 0.4rem 0.9rem;
+            margin: 0 0.4rem 0.5rem 0;
             border-radius: var(--radius-full);
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             border-left: 3px solid;
         }
 
         .exp-item {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.3rem;
         }
 
         .exp-header {
@@ -614,23 +627,25 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 0.5rem;
+            gap: 0.5rem;
         }
 
         .exp-title {
             font-weight: 600;
-            font-size: 1.125rem;
+            font-size: 1rem;
         }
 
         .exp-company {
             background: var(--gray-100);
-            padding: 0.25rem 1rem;
+            padding: 0.2rem 0.8rem;
             border-radius: var(--radius-full);
             font-weight: 500;
+            font-size: 0.85rem;
         }
 
         .exp-date {
             color: var(--gray-500);
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             margin-bottom: 0.5rem;
         }
 
@@ -659,6 +674,7 @@
             border-radius: var(--radius-xl);
             text-align: center;
             box-shadow: var(--shadow-xl);
+            max-width: 90%;
         }
 
         .loading-spinner {
@@ -675,7 +691,7 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Welcome Modal */
+        /* Welcome Modal - responsive */
         .welcome-modal {
             position: fixed;
             top: 0;
@@ -688,6 +704,7 @@
             justify-content: center;
             align-items: center;
             z-index: 10001;
+            padding: 1rem;
         }
 
         .welcome-modal.hidden {
@@ -696,12 +713,14 @@
 
         .welcome-card {
             background: white;
-            padding: 3rem;
+            padding: 2rem 1.5rem;
             border-radius: var(--radius-xl);
             text-align: center;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             animation: popIn 0.5s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes popIn {
@@ -716,20 +735,20 @@
         }
 
         .welcome-icon {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             background: var(--gray-100);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 2rem;
-            font-size: 3rem;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
             color: var(--primary);
         }
 
         .welcome-card h2 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: var(--gray-900);
             margin-bottom: 1rem;
         }
@@ -737,23 +756,24 @@
         .welcome-card p {
             color: var(--gray-600);
             margin-bottom: 1rem;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .welcome-features {
             background: var(--gray-50);
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: var(--radius-lg);
-            margin: 2rem 0;
+            margin: 1.5rem 0;
             text-align: left;
         }
 
         .welcome-features li {
             list-style: none;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            font-size: 0.95rem;
         }
 
         .welcome-features i {
@@ -766,7 +786,7 @@
             border: none;
             padding: 1rem 2rem;
             border-radius: var(--radius-full);
-            font-size: 1.125rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
@@ -797,40 +817,17 @@
             }
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .main-layout {
-                grid-template-columns: 350px 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-            .sidebar {
-                max-height: 500px;
-            }
-            .cv-name {
-                font-size: 2rem;
-            }
-            .cv-title {
-                font-size: 1.25rem;
-            }
-        }
-
         /* ----- NEW: infinite color picker UI (inside design panel) ----- */
         .infinite-color-panel {
-            margin-top: 1.5rem;
-            padding: 1rem;
+            margin-top: 1.2rem;
+            padding: 0.9rem;
             background: var(--gray-100);
             border-radius: var(--radius-md);
             border: 1px dashed var(--primary-light);
         }
         .infinite-color-panel h4 {
-            font-size: 0.95rem;
-            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
             color: var(--gray-700);
             display: flex;
             align-items: center;
@@ -838,14 +835,14 @@
         }
         .infinite-color-tools {
             display: flex;
-            gap: 0.75rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
         }
         .color-mode-btn {
             background: white;
             border: 1px solid var(--gray-300);
             border-radius: var(--radius-full);
-            padding: 0.4rem 1rem;
+            padding: 0.4rem 0.9rem;
             font-size: 0.8rem;
             font-weight: 500;
             cursor: pointer;
@@ -860,7 +857,7 @@
             border-color: var(--primary);
         }
         .infinite-color-instruction {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--gray-500);
             margin-top: 0.5rem;
         }
@@ -869,7 +866,7 @@
             position: fixed;
             z-index: 20000;
             background: white;
-            padding: 0.75rem;
+            padding: 0.6rem;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-xl);
             border: 1px solid var(--gray-200);
@@ -881,8 +878,8 @@
             display: flex;
         }
         .floating-color-input input {
-            width: 80px;
-            height: 38px;
+            width: 70px;
+            height: 36px;
             border: 1px solid var(--gray-300);
             border-radius: var(--radius-sm);
             cursor: pointer;
@@ -891,10 +888,120 @@
             background: var(--primary);
             border: none;
             color: white;
-            padding: 0.4rem 1rem;
+            padding: 0.4rem 0.8rem;
             border-radius: var(--radius-sm);
             font-size: 0.8rem;
             cursor: pointer;
+        }
+
+        /* ========== RESPONSIVE OVERRIDES ========== */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 340px 1fr;
+            }
+            .cv-name {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 320px 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0.25rem;
+            }
+            
+            .main-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+                overflow: visible;
+            }
+            
+            .sidebar {
+                max-height: 500px;
+                border-right: none;
+                border-bottom: 1px solid var(--gray-200);
+            }
+            
+            .preview-area {
+                padding: 1rem;
+            }
+            
+            .cv-preview {
+                padding: 1.5rem;
+            }
+            
+            .cv-name {
+                font-size: 2rem;
+            }
+            
+            .cv-title {
+                font-size: 1.1rem;
+            }
+            
+            .app-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .header-title {
+                justify-content: center;
+            }
+            
+            .header-badge {
+                align-self: center;
+            }
+            
+            .header-actions {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cv-preview {
+                padding: 1rem;
+            }
+            
+            .cv-name {
+                font-size: 1.6rem;
+            }
+            
+            .cv-title {
+                font-size: 1rem;
+            }
+            
+            .cv-contact {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.6rem;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+            }
+            
+            .exp-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-btn {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.8rem;
+            }
+            
+            .toast {
+                min-width: auto;
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -913,6 +1020,7 @@
                 <li><i class="fas fa-check-circle"></i> Auto-save - Never lose your work</li>
                 <li><i class="fas fa-check-circle"></i> RTL Support - For Arabic/Urdu CVs</li>
                 <li><i class="fas fa-check-circle"></i> ✨ NEW: Infinite color picker (click any element)</li>
+                <li><i class="fas fa-check-circle"></i> 📱 100% Mobile friendly & responsive</li>
             </div>
             <button class="welcome-btn" onclick="app.hideWelcome()">Start Building →</button>
         </div>
@@ -963,8 +1071,8 @@
                     <h2><i class="fas fa-user"></i> Personal Information</h2>
                     <div class="form-group"><label>Full Name *</label><input type="text" class="form-control" id="fullName" placeholder="Rahil Abbas Rizvi" oninput="app.updatePersonal('name', this.value)"></div>
                     <div class="form-group"><label>Professional Title *</label><input type="text" class="form-control" id="title" placeholder="Web Analyst & Digital Marketing Trainer" oninput="app.updatePersonal('title', this.value)"></div>
-                    <div class="form-row"><div class="form-group"><label>Email *</label><input type="email" class="form-control" id="email" placeholder="email@example.com" oninput="app.updatePersonal('email', this.value)"></div><div class="form-group"><label>Phone</label><input type="tel" class="form-control" id="phone" placeholder="+91 12345 67890" oninput="app.updatePersonal('phone', this.value)"></div></div>
-                    <div class="form-row"><div class="form-group"><label>Location</label><input type="text" class="form-control" id="location" placeholder="Mumbai, India" oninput="app.updatePersonal('location', this.value)"></div><div class="form-group"><label>LinkedIn</label><input type="text" class="form-control" id="linkedin" placeholder="linkedin.com/in/username" oninput="app.updatePersonal('linkedin', this.value)"></div></div>
+                    <div class="form-row"><div class="form-group"><label>Email *</label><input type="email" class="form-control" id="email" placeholder="mafs.grp@gmail.com" oninput="app.updatePersonal('email', this.value)"></div><div class="form-group"><label>Phone</label><input type="tel" class="form-control" id="phone" placeholder="+91 88799 52676" oninput="app.updatePersonal('phone', this.value)"></div></div>
+                    <div class="form-row"><div class="form-group"><label>Location</label><input type="text" class="form-control" id="location" placeholder="Mumbai, India" oninput="app.updatePersonal('location', this.value)"></div><div class="form-group"><label>LinkedIn</label><input type="text" class="form-control" id="linkedin" placeholder="https://www.linkedin.com/in/rahil-abbas-rizvi/" oninput="app.updatePersonal('linkedin', this.value)"></div></div>
                     <div class="form-group"><label>Professional Summary</label><textarea class="form-control" id="summary" rows="4" oninput="app.updatePersonal('summary', this.value)"></textarea></div>
                 </section>
                 <!-- Skills -->
@@ -1033,15 +1141,45 @@
             };
             const Loading = { overlay: document.getElementById('loadingOverlay'), messageEl: document.getElementById('loadingMessage'), show(m='Processing...') { this.messageEl.textContent=m; this.overlay.classList.add('active'); }, hide() { this.overlay.classList.remove('active'); } };
 
+            // --- UPDATED DEFAULT CV DATA with new contact info ---
             const DEFAULT_CV_DATA = {
-                personal: { name:'Rahil Abbas Rizvi', title:'Web Analyst & Digital Marketing Trainer', email:'rahil.abbas@example.com', phone:'+91 98765 43210', location:'Mumbai, India', linkedin:'linkedin.com/in/rahil-abbas', summary:'15+ years of experience in digital marketing and web analytics. Google Certified professional with expertise in SEO, Google Ads, and training. Passionate about empowering the Shia community with digital skills.' },
+                personal: { 
+                    name:'Rahil Abbas Rizvi', 
+                    title:'Web Analyst & Digital Marketing Trainer', 
+                    email:'mafs.grp@gmail.com', 
+                    phone:'+91 88799 52676', 
+                    location:'Mumbai, India', 
+                    linkedin:'https://www.linkedin.com/in/rahil-abbas-rizvi/', 
+                    summary:'15+ years of experience in digital marketing and web analytics. Google Certified professional with expertise in SEO, Google Ads, and training. Passionate about empowering the Shia community with digital skills.' 
+                },
                 skills: ['Google Analytics 4','Google Ads','SEO','Meta Ads','Content Strategy','Looker Studio','Google Tag Manager','Email Marketing','Social Media Marketing','Data Analysis'],
-                experience: [{ id:'exp1', title:'Lead Digital Analyst', company:'WebElevate Solutions', startDate:'2018', endDate:'Present', description:'Leading analytics implementation for 20+ enterprise clients. Training team members on GA4 and data visualization.' }, { id:'exp2', title:'Senior Digital Marketing Trainer', company:'Shia Youth Skills', startDate:'2015', endDate:'2018', description:'Trained 300+ community members in Google Analytics, Ads, and career development. 85% placement rate.' }, { id:'exp3', title:'Web Analyst', company:'NetPulse Digital', startDate:'2010', endDate:'2015', description:'Managed SEO campaigns and Google Ads for clients. Increased organic traffic by 200% on average.' } ],
-                education: [{ id:'edu1', degree:'MBA in Marketing', institution:'Mumbai University', year:'2012', details:'Specialization in Digital Marketing' }, { id:'edu2', degree:'Bachelor of Computer Applications', institution:'Shia PG College', year:'2009', details:'Web Development focus' } ],
-                projects: [{ id:'proj1', name:'Shia Job Portal', description:'Built interactive CV builder for community members. 500+ users in first month.' }, { id:'proj2', name:'Analytics Training Hub', description:'Created comprehensive GA4 course for beginners. 1000+ enrollments.' } ],
-                certifications: [{ id:'cert1', name:'Google Ads Search Certification', issuer:'Google', year:'2023' }, { id:'cert2', name:'Google Analytics Individual Qualification', issuer:'Google', year:'2023' }, { id:'cert3', name:'Meta Certified Media Buying Professional', issuer:'Meta', year:'2022' } ],
-                languages: [{ id:'lang1', language:'Urdu', level:'Native' }, { id:'lang2', language:'English', level:'Fluent' }, { id:'lang3', language:'Hindi', level:'Fluent' }, { id:'lang4', language:'Arabic', level:'Intermediate' } ],
-                customSections: [{ id:'custom1', title:'Volunteer Work', content:'Mentor at Shia Youth Career Council · Career workshops for students' } ],
+                experience: [
+                    { id:'exp1', title:'Lead Digital Analyst', company:'WebElevate Solutions', startDate:'2018', endDate:'Present', description:'Leading analytics implementation for 20+ enterprise clients. Training team members on GA4 and data visualization.' }, 
+                    { id:'exp2', title:'Senior Digital Marketing Trainer', company:'Shia Youth Skills', startDate:'2015', endDate:'2018', description:'Trained 300+ community members in Google Analytics, Ads, and career development. 85% placement rate.' }, 
+                    { id:'exp3', title:'Web Analyst', company:'NetPulse Digital', startDate:'2010', endDate:'2015', description:'Managed SEO campaigns and Google Ads for clients. Increased organic traffic by 200% on average.' } 
+                ],
+                education: [
+                    { id:'edu1', degree:'MBA in Marketing', institution:'Mumbai University', year:'2012', details:'Specialization in Digital Marketing' }, 
+                    { id:'edu2', degree:'Bachelor of Computer Applications', institution:'Shia PG College', year:'2009', details:'Web Development focus' } 
+                ],
+                projects: [
+                    { id:'proj1', name:'Shia Job Portal', description:'Built interactive CV builder for community members. 500+ users in first month.' }, 
+                    { id:'proj2', name:'Analytics Training Hub', description:'Created comprehensive GA4 course for beginners. 1000+ enrollments.' } 
+                ],
+                certifications: [
+                    { id:'cert1', name:'Google Ads Search Certification', issuer:'Google', year:'2023' }, 
+                    { id:'cert2', name:'Google Analytics Individual Qualification', issuer:'Google', year:'2023' }, 
+                    { id:'cert3', name:'Meta Certified Media Buying Professional', issuer:'Meta', year:'2022' } 
+                ],
+                languages: [
+                    { id:'lang1', language:'Urdu', level:'Native' }, 
+                    { id:'lang2', language:'English', level:'Fluent' }, 
+                    { id:'lang3', language:'Hindi', level:'Fluent' }, 
+                    { id:'lang4', language:'Arabic', level:'Intermediate' } 
+                ],
+                customSections: [
+                    { id:'custom1', title:'Volunteer Work', content:'Mentor at Shia Youth Career Council · Career workshops for students' } 
+                ],
                 design: { template: DEFAULT_TEMPLATE, color: DEFAULT_COLOR, rtl: false },
                 sections: { summary: true, skills: true, experience: true, education: true, projects: true, certifications: true, languages: true, custom: true }
             };
@@ -1158,7 +1296,7 @@
                 renderCustomSections(){ const c=document.getElementById('customContainer'); let h=''; this.data.customSections.forEach(s=>{ h+=`<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(s.title)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeCustomSection('${s.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Title" value="${this.escapeHtml(s.title)}" oninput="app.updateCustomSection('${s.id}','title',this.value)"><textarea class="form-control" placeholder="Content" oninput="app.updateCustomSection('${s.id}','content',this.value)">${this.escapeHtml(s.content)}</textarea></div>`; }); c.innerHTML=h; },
                 renderSectionToggles(){ const c=document.getElementById('sectionToggles'); const sections=[{id:'summary',name:'Summary'},{id:'skills',name:'Skills'},{id:'experience',name:'Work Experience'},{id:'education',name:'Education'},{id:'projects',name:'Projects'},{id:'certifications',name:'Certifications'},{id:'languages',name:'Languages'},{id:'custom',name:'Custom Sections'}]; let h=''; sections.forEach(s=>{ h+=`<div class="toggle-item"><span>${s.name}</span><label class="toggle-switch"><input type="checkbox" ${this.data.sections[s.id]?'checked':''} onchange="app.toggleSection('${s.id}', this.checked)"><span class="toggle-slider"></span></label></div>`; }); c.innerHTML=h; },
                 renderPreview(){ const preview=document.getElementById('cvPreview'); const p=this.data.personal; const col=this.data.design.color; preview.className='cv-preview'; preview.classList.add(`template-${this.data.design.template}`);
-                let html=`<div class="cv-header"><div class="cv-name">${this.escapeHtml(p.name)}</div><div class="cv-title" style="color:${col}">${this.escapeHtml(p.title)}</div><div class="cv-contact">${p.email?`<span><i class="fas fa-envelope"></i> ${this.escapeHtml(p.email)}</span>`:''}${p.phone?`<span><i class="fas fa-phone"></i> ${this.escapeHtml(p.phone)}</span>`:''}${p.location?`<span><i class="fas fa-map-marker-alt"></i> ${this.escapeHtml(p.location)}</span>`:''}${p.linkedin?`<span><i class="fab fa-linkedin"></i> ${this.escapeHtml(p.linkedin)}</span>`:''}</div></div>`;
+                let html=`<div class="cv-header"><div class="cv-name">${this.escapeHtml(p.name)}</div><div class="cv-title" style="color:${col}">${this.escapeHtml(p.title)}</div><div class="cv-contact">${p.email?`<span><i class="fas fa-envelope"></i> ${this.escapeHtml(p.email)}</span>`:''}${p.phone?`<span><i class="fas fa-phone"></i> ${this.escapeHtml(p.phone)}</span>`:''}${p.location?`<span><i class="fas fa-map-marker-alt"></i> ${this.escapeHtml(p.location)}</span>`:''}${p.linkedin?`<span><i class="fab fa-linkedin"></i> <span style="word-break:break-all;">${this.escapeHtml(p.linkedin)}</span></span>`:''}</div></div>`;
                 if(this.data.sections.summary && p.summary) html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Summary</div><div>${this.escapeHtml(p.summary)}</div></div>`;
                 if(this.data.sections.skills && this.data.skills.length){ html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Skills</div><div>`; this.data.skills.forEach(s=>{html+=`<span class="skill-tag" style="border-left-color:${col}">${this.escapeHtml(s)}</span>`;}); html+=`</div></div>`; }
                 if(this.data.sections.experience && this.data.experience.length){ html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Work Experience</div>`; this.data.experience.forEach(exp=>{html+=`<div class="exp-item"><div class="exp-header"><span class="exp-title">${this.escapeHtml(exp.title)}</span><span class="exp-company">${this.escapeHtml(exp.company)}</span></div><div class="exp-date">${this.escapeHtml(exp.startDate)} – ${this.escapeHtml(exp.endDate)}</div><div>${this.escapeHtml(exp.description)}</div></div>`;}); html+=`</div>`; }
