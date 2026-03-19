@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Export Library (PNG only) -->
+    <!-- Export Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
@@ -49,11 +49,11 @@
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #2E5A88 0%, #800020 100%);
             min-height: 100vh;
-            padding: 12px; /* reduced for small screens */
+            padding: 12px;
             position: relative;
         }
 
-        /* Shia Pattern Overlay */
+        /* Pattern Overlay */
         .pattern-overlay {
             position: fixed;
             top: 0;
@@ -61,41 +61,150 @@
             right: 0;
             bottom: 0;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><path d="M50,5 L95,50 L50,95 L5,50 Z" fill="none" stroke="%23D4AF37" stroke-width="2"/><circle cx="50" cy="50" r="15" fill="none" stroke="%23D4AF37" stroke-width="2"/><path d="M50,20 L80,50 L50,80 L20,50 Z" fill="none" stroke="%23D4AF37" stroke-width="1"/></svg>');
-            background-size: 60px 60px; /* smaller for mobile */
+            background-size: 60px 60px;
             pointer-events: none;
             z-index: 0;
+        }
+
+        /* ===== WELCOME MODAL - Exactly like CV code style ===== */
+        .welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000000;
+            padding: 1rem;
+        }
+
+        .welcome-modal.hidden {
+            display: none;
+        }
+
+        .welcome-card {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 550px;
+            width: 100%;
+            animation: popIn 0.5s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 3px solid var(--secondary);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .welcome-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3rem;
+            color: var(--primary);
+            border: 3px solid var(--secondary);
+        }
+
+        .welcome-card h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-family: 'Amiri', serif;
+        }
+
+        .welcome-card p {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .welcome-features {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin: 1.5rem 0;
+            text-align: left;
+            border: 2px solid var(--secondary);
+        }
+
+        .welcome-features li {
+            list-style: none;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            color: var(--gray-800);
+        }
+
+        .welcome-features i {
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+
+        .welcome-features i.fa-star {
+            color: var(--secondary);
+        }
+
+        .welcome-btn {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--secondary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .welcome-btn:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-3px);
         }
 
         /* Toast System */
         .toast-container {
             position: fixed;
-            top: 10px;
-            right: 10px;
-            left: 10px; /* ensure not cut off on small */
+            top: 20px;
+            right: 20px;
             z-index: 99999;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            pointer-events: none;
         }
 
         .toast {
             background: white;
-            padding: 12px 20px;
-            border-radius: 40px;
+            padding: 16px 24px;
+            border-radius: 12px;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             animation: slideIn 0.3s ease;
             border-left: 4px solid;
-            min-width: 260px;
-            max-width: 90vw;
+            min-width: 350px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-weight: 500;
             border-right: 2px solid var(--secondary);
-            font-size: 0.95rem;
-            pointer-events: auto;
         }
 
         .toast.success { border-left-color: var(--success); }
@@ -121,30 +230,29 @@
             align-items: center;
             z-index: 100000;
             backdrop-filter: blur(10px);
-            padding: 16px;
         }
 
         .loading-overlay.active { display: flex; }
 
         .loading-card {
             background: white;
-            padding: 30px 20px;
+            padding: 40px;
             border-radius: 30px;
             text-align: center;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
             max-width: 400px;
-            width: 100%;
+            width: 90%;
             border: 2px solid var(--secondary);
         }
 
         .spinner {
-            width: 48px;
-            height: 48px;
+            width: 50px;
+            height: 50px;
             border: 4px solid var(--gray-200);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -154,7 +262,7 @@
             height: 8px;
             background: var(--gray-200);
             border-radius: 999px;
-            margin: 16px 0;
+            margin: 20px 0;
             overflow: hidden;
         }
 
@@ -171,7 +279,7 @@
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
-            border-radius: 30px; /* reduced for mobile */
+            border-radius: 50px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
             overflow: hidden;
             position: relative;
@@ -183,7 +291,7 @@
         .header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 20px 16px;
+            padding: 25px 40px;
             text-align: center;
             position: relative;
             border-bottom: 3px solid var(--secondary);
@@ -192,9 +300,9 @@
         .header::before {
             content: '﷽';
             position: absolute;
-            top: 5px;
-            left: 10px;
-            font-size: 2.5rem;
+            top: 10px;
+            left: 20px;
+            font-size: 3rem;
             color: var(--secondary);
             opacity: 0.2;
             font-family: 'Amiri', serif;
@@ -203,28 +311,27 @@
         .header::after {
             content: 'یا صاحب الزمان (عج)';
             position: absolute;
-            bottom: 5px;
-            right: 10px;
-            font-size: 0.9rem;
+            bottom: 10px;
+            right: 20px;
+            font-size: 1.2rem;
             color: var(--secondary);
             opacity: 0.5;
             font-family: 'Amiri', serif;
         }
 
         .header h1 {
-            font-size: 1.8rem; /* responsive base */
+            font-size: 2.5rem;
             margin-bottom: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
         .header h1 i {
             color: var(--secondary);
             animation: pulse 2s infinite;
-            font-size: 1.6rem;
         }
 
         @keyframes pulse {
@@ -233,51 +340,45 @@
         }
 
         .header .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-family: 'Amiri', serif;
             color: var(--secondary);
             margin-top: 5px;
         }
 
         .header .brand {
-            font-size: 0.9rem;
-            margin-top: 8px;
+            font-size: 1rem;
+            margin-top: 10px;
             opacity: 0.9;
             background: rgba(0,0,0,0.2);
             display: inline-block;
-            padding: 4px 16px;
+            padding: 5px 20px;
             border-radius: 50px;
         }
 
         /* Template Selector */
         .template-selector {
             display: flex;
-            gap: 8px;
-            padding: 16px 16px;
+            gap: 10px;
+            padding: 20px 30px;
             background: var(--cream);
             border-bottom: 2px solid var(--secondary);
             overflow-x: auto;
             white-space: nowrap;
             scrollbar-width: thin;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .template-selector::-webkit-scrollbar {
-            height: 4px;
         }
 
         .template-btn {
-            padding: 10px 18px;
+            padding: 12px 25px;
             border: 2px solid var(--gray-300);
-            border-radius: 40px;
+            border-radius: 50px;
             background: white;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             transition: all 0.3s;
-            font-size: 0.9rem;
             flex-shrink: 0;
         }
 
@@ -306,7 +407,7 @@
         /* Input Panel */
         .input-panel {
             background: var(--cream);
-            padding: 20px;
+            padding: 30px;
             border-right: 3px solid var(--secondary);
             overflow-y: auto;
             max-height: 800px;
@@ -314,22 +415,22 @@
 
         .input-section {
             background: white;
-            border-radius: 24px;
-            padding: 20px 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 12px -3px rgba(0,0,0,0.1);
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
             border: 1px solid var(--secondary);
         }
 
         .input-section h3 {
-            font-size: 1.1rem;
-            margin-bottom: 16px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
             color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             border-bottom: 2px solid var(--secondary);
-            padding-bottom: 8px;
+            padding-bottom: 10px;
             flex-wrap: wrap;
         }
 
@@ -340,22 +441,22 @@
         .section-badge {
             background: var(--secondary);
             color: var(--primary);
-            padding: 2px 10px;
+            padding: 3px 10px;
             border-radius: 50px;
             font-size: 0.7rem;
-            margin-left: 5px;
+            margin-left: 10px;
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--primary-dark);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
         .form-control {
@@ -377,7 +478,7 @@
         textarea.form-control {
             border-radius: 20px;
             resize: vertical;
-            min-height: 70px;
+            min-height: 80px;
             font-family: 'Amiri', serif;
         }
 
@@ -391,7 +492,7 @@
         .image-upload-area {
             border: 3px dashed var(--gray-300);
             border-radius: 20px;
-            padding: 20px 12px;
+            padding: 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
@@ -404,16 +505,16 @@
         }
 
         .image-upload-area i {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: var(--primary);
-            margin-bottom: 6px;
+            margin-bottom: 10px;
         }
 
         .image-preview-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-top: 12px;
+            margin-top: 15px;
         }
 
         .image-preview-item {
@@ -432,13 +533,13 @@
 
         .image-remove-btn {
             position: absolute;
-            top: 3px;
-            right: 3px;
+            top: 5px;
+            right: 5px;
             background: var(--danger);
             color: white;
             border: none;
-            width: 22px;
-            height: 22px;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -459,21 +560,18 @@
             cursor: pointer;
             color: var(--gray-600);
             transition: all 0.3s;
-            font-size: 0.7rem;
-            padding: 4px;
-            text-align: center;
         }
 
-        .image-add-btn i {
-            font-size: 1.4rem;
-            margin-bottom: 2px;
+        .image-add-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
-        /* Names List */
+        /* Names List - FIXED: Now shows complete names */
         .names-list {
             background: var(--gray-50);
             border-radius: 20px;
-            padding: 12px;
+            padding: 15px;
             margin: 15px 0;
             max-height: 250px;
             overflow-y: auto;
@@ -484,49 +582,55 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
+            padding: 10px 12px;
             border-bottom: 1px solid var(--gray-200);
-            font-size: 0.95rem;
+            font-size: 1rem;
             background: white;
             margin-bottom: 5px;
-            border-radius: 40px;
-            gap: 6px;
+            border-radius: 50px;
+            gap: 8px;
         }
 
         .name-info {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
+            flex: 1;
         }
 
         .name-prefix {
             background: var(--primary);
             color: var(--secondary);
-            padding: 2px 8px;
+            padding: 2px 10px;
             border-radius: 50px;
             font-size: 0.7rem;
             font-weight: 600;
+            flex-shrink: 0;
         }
 
         .name-text {
             font-weight: 600;
             color: var(--primary);
             word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            max-width: 100%;
         }
 
         .name-relation {
             color: var(--gray-600);
-            font-size: 0.75rem;
-            padding: 2px 6px;
+            font-size: 0.8rem;
+            padding: 2px 8px;
             background: var(--gray-100);
             border-radius: 50px;
+            flex-shrink: 0;
         }
 
         .name-remove-btn {
             color: var(--danger);
             cursor: pointer;
-            padding: 4px;
+            padding: 5px;
             border-radius: 50%;
             transition: all 0.3s;
             flex-shrink: 0;
@@ -534,33 +638,31 @@
 
         .add-name-form {
             display: grid;
-            grid-template-columns: 1fr 1.5fr 1fr auto;
-            gap: 6px;
+            grid-template-columns: 1fr auto auto;
+            gap: 8px;
             margin-top: 15px;
         }
 
         .add-name-form input,
         .add-name-form select {
-            padding: 8px 10px;
+            padding: 10px 12px;
             border: 2px solid var(--gray-200);
-            border-radius: 40px;
+            border-radius: 50px;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.85rem;
         }
 
         .add-name-btn {
-            padding: 8px 14px;
+            padding: 10px 20px;
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 40px;
+            border-radius: 50px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             transition: all 0.3s;
             font-weight: 600;
-            white-space: nowrap;
         }
 
         .add-name-btn:hover {
@@ -571,15 +673,15 @@
         /* Dua Selection */
         .dua-categories {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             margin-bottom: 15px;
             flex-wrap: wrap;
         }
 
         .dua-category-btn {
-            padding: 6px 12px;
+            padding: 8px 15px;
             border: 2px solid var(--gray-200);
-            border-radius: 40px;
+            border-radius: 50px;
             background: white;
             cursor: pointer;
             font-size: 0.8rem;
@@ -596,15 +698,15 @@
             display: grid;
             gap: 10px;
             margin: 15px 0;
-            max-height: 280px;
+            max-height: 300px;
             overflow-y: auto;
-            padding: 4px;
+            padding: 5px;
         }
 
         .dua-item {
-            padding: 12px 12px;
+            padding: 12px 15px;
             border: 2px solid var(--gray-200);
-            border-radius: 18px;
+            border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s;
             background: white;
@@ -622,38 +724,44 @@
 
         .dua-arabic {
             font-family: 'Amiri', serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin-bottom: 5px;
             color: var(--primary);
         }
 
         .dua-translation {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--gray-600);
         }
 
         .dua-reference {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             color: var(--secondary);
             margin-top: 5px;
+            font-style: italic;
         }
 
         .selected-duas {
             margin-top: 15px;
             padding: 10px;
             background: var(--gray-50);
-            border-radius: 20px;
+            border-radius: 15px;
         }
 
         .selected-dua-tag {
             display: inline-block;
             background: var(--primary);
             color: white;
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 0.75rem;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
             margin: 3px;
             cursor: pointer;
+        }
+
+        .selected-dua-tag i {
+            margin-left: 5px;
+            color: var(--secondary);
         }
 
         /* Theme Options */
@@ -665,21 +773,15 @@
         }
 
         .theme-card {
-            padding: 12px 8px;
+            padding: 15px;
             border: 3px solid var(--gray-200);
-            border-radius: 20px;
+            border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
             font-weight: 600;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
+            font-size: 0.9rem;
         }
-
-        .theme-card i { font-size: 0.9rem; }
 
         .theme-card:hover {
             transform: translateY(-3px);
@@ -699,7 +801,7 @@
 
         /* Preview Panel */
         .preview-panel {
-            padding: 20px;
+            padding: 30px;
             background: linear-gradient(135deg, #f0e6d8 0%, #e2d4c0 100%);
             display: flex;
             align-items: center;
@@ -710,8 +812,8 @@
 
         .creative-card {
             background: white;
-            border-radius: 32px;
-            padding: 30px 20px;
+            border-radius: 40px;
+            padding: 40px;
             box-shadow: 0 30px 60px -15px rgba(0,0,0,0.3);
             max-width: 550px;
             width: 100%;
@@ -728,56 +830,54 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 8px;
+            height: 10px;
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
         }
 
-        /* Template specific themes */
+        /* Template Themes */
         .creative-card.fatiha-template.classic-theme { background: linear-gradient(135deg, #800020, #5C0015); color: white; }
         .creative-card.fatiha-template.golden-theme { background: linear-gradient(135deg, #8B4513, #D4AF37); color: white; }
         .creative-card.fatiha-template.blue-theme { background: linear-gradient(135deg, #2E5A88, #1A3A5A); color: white; }
         .creative-card.fatiha-template.green-theme { background: linear-gradient(135deg, #1B4D3E, #0A2F24); color: white; }
         .creative-card.fatiha-template.purple-theme { background: linear-gradient(135deg, #6B21A8, #4A1D6E); color: white; }
         .creative-card.fatiha-template.black-theme { background: linear-gradient(135deg, #1A1A1A, #4A4A4A); color: white; }
-        /* same pattern for others... kept as original but with dynamic theme class */
 
         .shia-symbols {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
         .shia-symbols i {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: var(--secondary);
         }
 
         .bismillah {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-family: 'Amiri', serif;
-            margin: 10px 0;
+            margin: 15px 0;
             color: var(--secondary);
-            line-height: 1.3;
         }
 
         .template-title {
-            font-size: 1.6rem;
+            font-size: 2rem;
             font-weight: 700;
             margin: 10px 0;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .template-title i {
             color: var(--secondary);
-            margin: 0 6px;
+            margin: 0 10px;
         }
 
         .photos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-            gap: 12px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
             justify-content: center;
         }
 
@@ -785,7 +885,7 @@
             width: 100%;
             aspect-ratio: 1;
             border-radius: 50%;
-            border: 3px solid var(--secondary);
+            border: 4px solid var(--secondary);
             overflow: hidden;
             margin: 0 auto;
             background: rgba(255,255,255,0.1);
@@ -799,8 +899,8 @@
         }
 
         .names-container {
-            margin: 20px 0;
-            padding: 18px 12px;
+            margin: 25px 0;
+            padding: 20px;
             background: rgba(255,255,255,0.1);
             border-radius: 30px;
             backdrop-filter: blur(10px);
@@ -808,31 +908,33 @@
         }
 
         .names-title {
-            font-size: 1.1rem;
-            margin-bottom: 12px;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
             color: var(--secondary);
             font-family: 'Amiri', serif;
         }
 
+        /* FIXED: Preview names now show full text with wrapping */
         .preview-names-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
         }
 
         .preview-name-item {
             background: rgba(255,255,255,0.15);
-            border-radius: 40px;
-            padding: 6px 10px;
+            border-radius: 50px;
+            padding: 10px 15px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
             border: 1px solid rgba(212,175,55,0.3);
+            width: 100%;
         }
 
         .preview-name-icon {
-            width: 24px;
-            height: 24px;
+            width: 30px;
+            height: 30px;
             background: var(--secondary);
             border-radius: 50%;
             display: flex;
@@ -840,56 +942,59 @@
             justify-content: center;
             color: var(--primary);
             font-weight: bold;
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             flex-shrink: 0;
         }
 
         .preview-name-text {
             flex: 1;
             text-align: left;
+            min-width: 0;
             overflow: hidden;
         }
 
         .preview-name-text .person {
             font-weight: 600;
-            font-size: 0.8rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 0.95rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            line-height: 1.3;
         }
 
         .preview-name-text .relation {
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             opacity: 0.8;
+            word-break: break-word;
         }
 
         .duas-section {
-            margin: 16px 0;
+            margin: 20px 0;
         }
 
         .dua-item-preview {
             background: rgba(0,0,0,0.2);
             border-radius: 20px;
-            padding: 12px;
-            margin-bottom: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
             border: 1px solid var(--secondary);
         }
 
         .dua-arabic-preview {
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-family: 'Amiri', serif;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             color: var(--secondary);
         }
 
         .dua-meaning-preview {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             opacity: 0.9;
         }
 
         .event-details {
-            margin: 16px 0;
-            padding: 12px;
+            margin: 20px 0;
+            padding: 15px;
             background: rgba(255,255,255,0.1);
             border-radius: 20px;
             text-align: left;
@@ -898,35 +1003,37 @@
         .event-detail-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            word-break: break-word;
         }
 
         .event-detail-item i {
             color: var(--secondary);
-            width: 18px;
+            width: 20px;
+            flex-shrink: 0;
         }
 
         .date-info {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             margin-top: 10px;
             opacity: 0.9;
             display: flex;
-            gap: 10px;
+            gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .footer-brand {
-            margin-top: 20px;
-            padding-top: 12px;
+            margin-top: 25px;
+            padding-top: 15px;
             border-top: 2px solid rgba(212,175,55,0.3);
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
@@ -938,23 +1045,24 @@
             color: var(--secondary);
         }
 
+        /* Download Button */
         .download-btn {
             background: var(--secondary);
             color: var(--primary);
             border: none;
-            padding: 14px 20px;
+            padding: 15px 30px;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 10px;
-            margin-top: 12px;
+            margin-top: 15px;
             transition: all 0.3s;
             border: 2px solid var(--primary);
             width: 100%;
+            justify-content: center;
         }
 
         .download-btn:hover {
@@ -965,16 +1073,16 @@
             border-color: var(--secondary);
         }
 
-        /* Creator Credit & Quick Links */
+        /* Creator Credit */
         .creator-credit {
             position: fixed;
-            bottom: 12px;
-            right: 12px;
+            bottom: 20px;
+            right: 20px;
             background: var(--primary);
             color: white;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-size: 0.9rem;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
             z-index: 9999;
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
             border: 2px solid var(--secondary);
@@ -982,16 +1090,32 @@
             transition: all 0.3s;
         }
 
+        .creator-credit:hover {
+            transform: translateY(-2px);
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .creator-credit i {
+            color: var(--secondary);
+            margin-right: 8px;
+        }
+
+        .creator-credit:hover i {
+            color: var(--primary);
+        }
+
+        /* Quick Links */
         .quick-links {
             position: fixed;
-            bottom: 12px;
-            left: 12px;
+            bottom: 20px;
+            left: 20px;
             background: white;
-            padding: 8px 16px;
-            border-radius: 40px;
+            padding: 12px 24px;
+            border-radius: 50px;
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
             display: flex;
-            gap: 14px;
+            gap: 20px;
             z-index: 9999;
             border: 2px solid var(--secondary);
             flex-wrap: wrap;
@@ -1003,10 +1127,13 @@
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 0.9rem;
+        }
+
+        .quick-links a:hover {
+            color: var(--secondary);
         }
 
         /* Modal */
@@ -1021,7 +1148,6 @@
             z-index: 1000000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
         }
 
         .modal.active {
@@ -1030,24 +1156,21 @@
 
         .modal-content {
             background: white;
-            padding: 30px 24px;
+            padding: 40px;
             border-radius: 30px;
             max-width: 400px;
-            width: 100%;
             text-align: center;
             border: 3px solid var(--secondary);
-            max-height: 90vh;
-            overflow-y: auto;
         }
 
         .hidden {
             display: none !important;
         }
 
-        /* ===== RESPONSIVE BREAKPOINTS (keeping original code, enhancing) ===== */
+        /* Responsive */
         @media (max-width: 1100px) {
             .main-content {
-                grid-template-columns: 400px 1fr;
+                grid-template-columns: 450px 1fr;
             }
         }
 
@@ -1063,7 +1186,7 @@
             }
             
             .header h1 {
-                font-size: 1.6rem;
+                font-size: 2rem;
             }
             
             .quick-links {
@@ -1075,7 +1198,7 @@
             }
             
             .creator-credit {
-                bottom: 70px;
+                bottom: 80px;
                 right: 10px;
             }
         }
@@ -1083,41 +1206,66 @@
         @media (max-width: 600px) {
             body { padding: 8px; }
             
-            .header h1 { font-size: 1.4rem; }
-            .header .subtitle { font-size: 1rem; }
+            .header h1 { font-size: 1.5rem; }
+            .header .subtitle { font-size: 1.1rem; }
             
             .add-name-form {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
             }
-            .add-name-form select:nth-child(3) { grid-column: span 2; }
-            .add-name-btn { grid-column: span 2; }
             
             .form-row {
                 grid-template-columns: 1fr;
-                gap: 5px;
             }
             
-            .template-title { font-size: 1.4rem; }
-            .bismillah { font-size: 1.2rem; }
+            .template-title { font-size: 1.5rem; }
+            .bismillah { font-size: 1.3rem; }
             
             .theme-options { grid-template-columns: 1fr; }
             
             .photo-frame { max-width: 70px; }
             
-            .quick-links a span { display: none; } /* icons only on tiny */
-            .quick-links a i { margin: 0; }
-            .quick-links { gap: 20px; }
+            .preview-names-grid { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .quick-links a span { display: none; }
+            .quick-links { gap: 30px; }
         }
 
         @media (max-width: 400px) {
+            .header h1 { font-size: 1.2rem; }
             .template-btn { padding: 8px 12px; font-size: 0.8rem; }
-            .preview-names-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <!-- Pattern Overlay -->
     <div class="pattern-overlay"></div>
+
+    <!-- WELCOME MODAL - Added from CV code style -->
+    <div class="welcome-modal" id="welcomeModal">
+        <div class="welcome-card">
+            <div class="welcome-icon"><i class="fas fa-hand-praying"></i></div>
+            <h2>🌙 Shia Fatiha Generator</h2>
+            <p>Create beautiful Isaal-e-Sawab creatives for your loved ones</p>
+            <div class="welcome-features">
+                <li><i class="fas fa-check-circle"></i> 100% Free - No hidden costs</li>
+                <li><i class="fas fa-check-circle"></i> Privacy First - Data stays on your device</li>
+                <li><i class="fas fa-check-circle"></i> Multiple Photos - Up to 6 images</li>
+                <li><i class="fas fa-check-circle"></i> Marhoom/Marhooma prefix support</li>
+                <li><i class="fas fa-star"></i> 50+ Duas & Ayat for Isteghfar</li>
+                <li><i class="fas fa-check-circle"></i> 6 Beautiful Islamic Themes</li>
+                <li><i class="fas fa-check-circle"></i> Real-time Preview - See changes instantly</li>
+                <li><i class="fas fa-check-circle"></i> Auto-save - Never lose your work</li>
+                <li><i class="fas fa-check-circle"></i> 📱 100% Mobile friendly & responsive</li>
+                <li><i class="fas fa-check-circle"></i> ⬇️ Download as PNG with one click</li>
+                <li><i class="fas fa-check-circle"></i> ✅ Long names fully visible – no truncation</li>
+            </div>
+            <button class="welcome-btn" onclick="document.getElementById('welcomeModal').classList.add('hidden')">
+                <i class="fas fa-heart"></i> Start Creating <i class="fas fa-heart"></i>
+            </button>
+        </div>
+    </div>
 
     <!-- Quick Links -->
     <div class="quick-links">
@@ -1150,7 +1298,7 @@
     <!-- Creator Modal -->
     <div class="modal" id="creatorModal">
         <div class="modal-content">
-            <div style="width: 80px; height: 80px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--secondary); font-size: 2.5rem; border: 3px solid var(--secondary);">
+            <div style="width: 100px; height: 100px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--secondary); font-size: 3rem; border: 3px solid var(--secondary);">
                 <i class="fas fa-user"></i>
             </div>
             <h2 style="color: var(--primary);">Rahil Abbas Rizvi</h2>
@@ -1179,6 +1327,7 @@
                 <li>✓ Multiple Photos Upload</li>
                 <li>✓ 6 Beautiful Themes</li>
                 <li>✓ Shia Branding on every card</li>
+                <li>✓ Long names fully visible</li>
             </ul>
             <p style="margin-bottom: 20px; font-style: italic; color: var(--primary);">"اللهم اغفر للمؤمنين والمؤمنات"</p>
             <button onclick="app.closeModal('infoModal')" style="background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 50px; cursor: pointer; font-weight: 600;">Close</button>
@@ -1191,7 +1340,7 @@
         <div class="header">
             <h1>
                 <i class="fas fa-star-and-crescent"></i>
-                Shia Creative Generator
+                Shia Fatiha Generator
                 <i class="fas fa-star-and-crescent"></i>
             </h1>
             <div class="subtitle">برای مؤمنین و مؤمنات</div>
@@ -1200,11 +1349,21 @@
 
         <!-- Template Selector -->
         <div class="template-selector">
-            <button class="template-btn active" onclick="app.setTemplate('fatiha', event)"><i class="fas fa-hand-praying"></i> Fatiha</button>
-            <button class="template-btn" onclick="app.setTemplate('announcement', event)"><i class="fas fa-heartbeat"></i> Death</button>
-            <button class="template-btn" onclick="app.setTemplate('majlis', event)"><i class="fas fa-users"></i> Majlis</button>
-            <button class="template-btn" onclick="app.setTemplate('urs', event)"><i class="fas fa-dove"></i> Urs</button>
-            <button class="template-btn" onclick="app.setTemplate('general', event)"><i class="fas fa-calendar"></i> General</button>
+            <button class="template-btn active" onclick="app.setTemplate('fatiha', event)">
+                <i class="fas fa-hand-praying"></i> Fatiha Request
+            </button>
+            <button class="template-btn" onclick="app.setTemplate('announcement', event)">
+                <i class="fas fa-heartbeat"></i> Death Announcement
+            </button>
+            <button class="template-btn" onclick="app.setTemplate('majlis', event)">
+                <i class="fas fa-users"></i> Majlis Announcement
+            </button>
+            <button class="template-btn" onclick="app.setTemplate('urs', event)">
+                <i class="fas fa-dove"></i> Urs / Chehlum
+            </button>
+            <button class="template-btn" onclick="app.setTemplate('general', event)">
+                <i class="fas fa-calendar"></i> General Event
+            </button>
         </div>
 
         <!-- Main Content -->
@@ -1218,29 +1377,50 @@
                     <div class="image-upload-area" onclick="document.getElementById('photoUpload').click()">
                         <input type="file" id="photoUpload" multiple accept="image/*" style="display: none;" onchange="app.handlePhotoUpload(event)">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Click to upload (Max 6)</p>
+                        <p>Click to upload photos (Max 6)</p>
+                        <p style="font-size: 0.7rem; color: var(--gray-600);">JPG, PNG, GIF</p>
                     </div>
 
-                    <div class="image-preview-grid" id="photoPreview"></div>
+                    <div class="image-preview-grid" id="photoPreview">
+                        <!-- Photos will appear here -->
+                    </div>
                 </div>
 
                 <!-- Names Section with Prefix -->
                 <div class="input-section">
-                    <h3><i class="fas fa-heart"></i> Marhoomeen <span class="section-badge">Marhoom/Marhooma</span></h3>
+                    <h3><i class="fas fa-heart"></i> Marhoomeen Names <span class="section-badge">Marhoom/Marhooma</span></h3>
                     
                     <div class="add-name-form">
                         <select id="prefixSelect">
-                            <option value="Marhoom">Marhoom</option>
-                            <option value="Marhooma">Marhooma</option>
+                            <option value="Marhoom">Marhoom (مرد)</option>
+                            <option value="Marhooma">Marhooma (عورت)</option>
                         </select>
-                        <input type="text" id="nameInput" placeholder="Name">
+                        <input type="text" id="nameInput" placeholder="Enter name">
                         <select id="relationSelect">
-                            <option value="Father">Father</option><option value="Mother">Mother</option><option value="Grandfather">Grandfather</option><option value="Grandmother">Grandmother</option><option value="Brother">Brother</option><option value="Sister">Sister</option><option value="Uncle">Uncle</option><option value="Aunt">Aunt</option><option value="Son">Son</option><option value="Daughter">Daughter</option><option value="Husband">Husband</option><option value="Wife">Wife</option><option value="Friend">Friend</option><option value="Other">Other</option>
+                            <option value="Father">Father</option>
+                            <option value="Mother">Mother</option>
+                            <option value="Grandfather">Grandfather</option>
+                            <option value="Grandmother">Grandmother</option>
+                            <option value="Brother">Brother</option>
+                            <option value="Sister">Sister</option>
+                            <option value="Uncle">Uncle</option>
+                            <option value="Aunt">Aunt</option>
+                            <option value="Son">Son</option>
+                            <option value="Daughter">Daughter</option>
+                            <option value="Husband">Husband</option>
+                            <option value="Wife">Wife</option>
+                            <option value="Friend">Friend</option>
+                            <option value="Ustad">Ustad</option>
+                            <option value="Other">Other</option>
                         </select>
-                        <button class="add-name-btn" onclick="app.addName()"><i class="fas fa-plus"></i> Add</button>
+                        <button class="add-name-btn" onclick="app.addName()">
+                            <i class="fas fa-plus"></i> Add
+                        </button>
                     </div>
 
-                    <div class="names-list" id="namesList"></div>
+                    <div class="names-list" id="namesList">
+                        <!-- Names will appear here -->
+                    </div>
                 </div>
 
                 <!-- 50+ Dua-e-Isteghfar Section -->
@@ -1250,12 +1430,14 @@
                     <div class="dua-categories">
                         <button class="dua-category-btn active" onclick="app.filterDuas('all', event)">All</button>
                         <button class="dua-category-btn" onclick="app.filterDuas('isteghfar', event)">Isteghfar</button>
-                        <button class="dua-category-btn" onclick="app.filterDuas('ayat', event)">Ayat</button>
+                        <button class="dua-category-btn" onclick="app.filterDuas('ayat', event)">Quranic Ayat</button>
                         <button class="dua-category-btn" onclick="app.filterDuas('ziyarat', event)">Ziyarat</button>
                         <button class="dua-category-btn" onclick="app.filterDuas('munajat', event)">Munajat</button>
                     </div>
 
-                    <div class="dua-grid" id="duaGrid"></div>
+                    <div class="dua-grid" id="duaGrid">
+                        <!-- Duas will be loaded here -->
+                    </div>
 
                     <div class="selected-duas" id="selectedDuas">
                         <div style="font-size: 0.8rem; color: var(--gray-600); margin-bottom: 5px;">Selected Duas:</div>
@@ -1269,17 +1451,34 @@
                     
                     <div class="form-group">
                         <label>Event Title</label>
-                        <input type="text" class="form-control" id="eventTitle" placeholder="e.g., Fatiha Request" oninput="app.updatePreview()">
+                        <input type="text" class="form-control" id="eventTitle" placeholder="e.g., Fatiha Request / Death Anniversary" oninput="app.updatePreview()">
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group"><label>Date</label><input type="text" class="form-control" id="eventDate" placeholder="15 Shaban 1445" oninput="app.updatePreview()"></div>
-                        <div class="form-group"><label>Time</label><input type="text" class="form-control" id="eventTime" placeholder="After Maghrib" oninput="app.updatePreview()"></div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="text" class="form-control" id="eventDate" placeholder="e.g., 15 Shaban 1445" oninput="app.updatePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label>Time</label>
+                            <input type="text" class="form-control" id="eventTime" placeholder="e.g., After Maghrib" oninput="app.updatePreview()">
+                        </div>
                     </div>
 
-                    <div class="form-group"><label>Venue</label><input type="text" class="form-control" id="eventVenue" placeholder="Imam Bargah" oninput="app.updatePreview()"></div>
-                    <div class="form-group"><label>Info</label><textarea class="form-control" id="eventInfo" rows="2" placeholder="Quran Khwani..." oninput="app.updatePreview()"></textarea></div>
-                    <div class="form-group"><label>Contact</label><input type="text" class="form-control" id="eventContact" placeholder="Family" oninput="app.updatePreview()"></div>
+                    <div class="form-group">
+                        <label>Venue / Location</label>
+                        <input type="text" class="form-control" id="eventVenue" placeholder="e.g., Imam Bargah / Masjid" oninput="app.updatePreview()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Additional Info</label>
+                        <textarea class="form-control" id="eventInfo" rows="2" placeholder="e.g., Quran Khwani, Niaz..." oninput="app.updatePreview()"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact / Organizer</label>
+                        <input type="text" class="form-control" id="eventContact" placeholder="e.g., Family Name / Phone" oninput="app.updatePreview()">
+                    </div>
                 </div>
 
                 <!-- Theme Selection -->
@@ -1287,56 +1486,92 @@
                     <h3><i class="fas fa-palette"></i> Theme</h3>
                     
                     <div class="theme-options">
-                        <div class="theme-card classic active" onclick="app.setTheme('classic', event)"><i class="fas fa-moon"></i> Maroon</div>
-                        <div class="theme-card golden" onclick="app.setTheme('golden', event)"><i class="fas fa-crown"></i> Golden</div>
-                        <div class="theme-card blue" onclick="app.setTheme('blue', event)"><i class="fas fa-water"></i> Blue</div>
-                        <div class="theme-card green" onclick="app.setTheme('green', event)"><i class="fas fa-tree"></i> Green</div>
-                        <div class="theme-card purple" onclick="app.setTheme('purple', event)"><i class="fas fa-gem"></i> Purple</div>
-                        <div class="theme-card black" onclick="app.setTheme('black', event)"><i class="fas fa-skull"></i> Black</div>
+                        <div class="theme-card classic active" onclick="app.setTheme('classic', event)">
+                            <i class="fas fa-moon"></i> Classic Maroon
+                        </div>
+                        <div class="theme-card golden" onclick="app.setTheme('golden', event)">
+                            <i class="fas fa-crown"></i> Golden
+                        </div>
+                        <div class="theme-card blue" onclick="app.setTheme('blue', event)">
+                            <i class="fas fa-water"></i> Shia Blue
+                        </div>
+                        <div class="theme-card green" onclick="app.setTheme('green', event)">
+                            <i class="fas fa-tree"></i> Islamic Green
+                        </div>
+                        <div class="theme-card purple" onclick="app.setTheme('purple', event)">
+                            <i class="fas fa-gem"></i> Royal Purple
+                        </div>
+                        <div class="theme-card black" onclick="app.setTheme('black', event)">
+                            <i class="fas fa-skull"></i> Muharram Black
+                        </div>
                     </div>
                 </div>
 
                 <!-- Download Button -->
-                <button class="download-btn" onclick="app.downloadPNG()"><i class="fas fa-download"></i> Download PNG</button>
+                <button class="download-btn" onclick="app.downloadPNG()">
+                    <i class="fas fa-download"></i> Download Creative (PNG)
+                </button>
             </div>
 
             <!-- Preview Panel -->
             <div class="preview-panel">
                 <div class="creative-card fatiha-template classic-theme" id="previewCard">
-                    <div class="shia-symbols"><i class="fas fa-star-and-crescent"></i><i class="fas fa-star-and-crescent"></i><i class="fas fa-star-and-crescent"></i></div>
+                    <div class="shia-symbols">
+                        <i class="fas fa-star-and-crescent"></i>
+                        <i class="fas fa-star-and-crescent"></i>
+                        <i class="fas fa-star-and-crescent"></i>
+                    </div>
+                    
                     <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-                    <div class="template-title" id="previewTitle"><i class="fas fa-heart"></i> FATIHA REQUEST <i class="fas fa-heart"></i></div>
-
-                    <!-- Photos Grid - hidden if empty -->
-                    <div class="photos-grid hidden" id="previewPhotos"></div>
-
-                    <!-- Names Container - hidden if empty -->
-                    <div class="names-container" id="namesContainer">
-                        <div class="names-title">✨ For the souls of ✨</div>
-                        <div class="preview-names-grid" id="previewNames"></div>
+                    
+                    <div class="template-title" id="previewTitle">
+                        <i class="fas fa-heart"></i> FATIHA REQUEST <i class="fas fa-heart"></i>
                     </div>
 
-                    <!-- Duas Section - hidden if empty -->
-                    <div class="duas-section hidden" id="previewDuas"></div>
+                    <!-- Photos Grid -->
+                    <div class="photos-grid hidden" id="previewPhotos">
+                        <!-- Photos will appear here dynamically -->
+                    </div>
 
-                    <!-- Event Details - hidden if empty -->
-                    <div class="event-details hidden" id="previewEvent"></div>
+                    <!-- Names Container - FIXED: Now shows full names -->
+                    <div class="names-container" id="namesContainer">
+                        <div class="names-title">✨ For the souls of ✨</div>
+                        <div class="preview-names-grid" id="previewNames">
+                            <!-- Names will appear here with full text -->
+                        </div>
+                    </div>
 
-                    <!-- Date/Time - hidden if empty -->
-                    <div class="date-info hidden" id="previewDateTime"></div>
+                    <!-- Duas Section -->
+                    <div class="duas-section hidden" id="previewDuas">
+                        <!-- Duas will appear here -->
+                    </div>
 
-                    <div class="footer-brand"><i class="fas fa-tools"></i> Shia Tools by <strong>Rahil Abbas Rizvi</strong></div>
+                    <!-- Event Details -->
+                    <div class="event-details hidden" id="previewEvent">
+                        <!-- Event details will appear here -->
+                    </div>
+
+                    <!-- Date/Time -->
+                    <div class="date-info hidden" id="previewDateTime">
+                        <!-- Date/Time will appear here -->
+                    </div>
+
+                    <div class="footer-brand">
+                        <i class="fas fa-tools"></i> Shia Tools by <strong>Rahil Abbas Rizvi</strong>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Main Application (code kept identical as requested, only responsiveness added via CSS)
+        // Main Application - All original functionality preserved
         const app = {
+            // State
             currentTemplate: 'fatiha',
             currentTheme: 'classic',
             names: [
+                // Default Marhoomeen names - LONG NAMES now fully visible
                 { prefix: 'Marhoom', name: 'Syed Mhd Hanif Ibn e Mhd Meeran Rizvi', relation: 'Grandfather' },
                 { prefix: 'Marhoom', name: 'Syed Mhd Mehdi Ibn e Mhd Hanif Rizvi', relation: 'Grandfather' },
                 { prefix: 'Marhoom', name: 'Syed Mhd Hadi Ibn e Mhd Mehdi Rizvi', relation: 'Grandfather' },
@@ -1345,6 +1580,7 @@
             photos: [],
             selectedDuas: [],
             duas: [
+                // Isteghfar Duas (1-20)
                 { arabic: 'اللهم اغفر للمؤمنين والمؤمنات', translation: 'O Allah, forgive the believing men and women', reference: 'Dua', category: 'isteghfar' },
                 { arabic: 'اللهم اغفر لهم وارحمهم', translation: 'O Allah, forgive them and have mercy on them', reference: 'Quran', category: 'isteghfar' },
                 { arabic: 'ربنا اغفر لنا ولاخواننا الذين سبقونا بالايمان', translation: 'Our Lord, forgive us and our brothers who preceded us in faith', reference: 'Quran 59:10', category: 'ayat' },
@@ -1360,15 +1596,21 @@
                 { arabic: 'ربنا ولا تحمل علينا اصرا كما حملته على الذين من قبلنا', translation: 'Our Lord, and lay not upon us a burden like that which You laid upon those before us', reference: 'Quran 2:286', category: 'ayat' },
                 { arabic: 'ربنا ولا تحملنا ما لا طاقة لنا به واعف عنا واغفر لنا وارحمنا', translation: 'Our Lord, and burden us not with that which we have no ability to bear. And pardon us and forgive us and have mercy upon us', reference: 'Quran 2:286', category: 'ayat' },
                 { arabic: 'ربنا هب لنا من ازواجنا وذرياتنا قرة اعين واجعلنا للمتقين اماما', translation: 'Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous', reference: 'Quran 25:74', category: 'ayat' },
+                
+                // Ziyarat (21-30)
                 { arabic: 'السلام عليك يا ابا عبدالله', translation: 'Peace be upon you, O Abu Abdullah', reference: 'Ziyarat Ashura', category: 'ziyarat' },
                 { arabic: 'السلام عليك يا مولاي يا صاحب الزمان', translation: 'Peace be upon you, my Master, O Sahib uz Zaman', reference: 'Ziyarat', category: 'ziyarat' },
                 { arabic: 'السلام على الحسين وعلى علي بن الحسين', translation: 'Peace be upon Husayn and upon Ali ibn al-Husayn', reference: 'Ziyarat', category: 'ziyarat' },
                 { arabic: 'السلام عليك يا مولاي يا امير المؤمنين', translation: 'Peace be upon you, my Master, O Commander of the Faithful', reference: 'Ziyarat', category: 'ziyarat' },
                 { arabic: 'السلام على فاطمة الزهراء سيدة نساء العالمين', translation: 'Peace be upon Fatima al-Zahra, leader of the women of the worlds', reference: 'Ziyarat', category: 'ziyarat' },
+                
+                // Munajat (31-40)
                 { arabic: 'الهي انت مقصودي ورضاك مطلوبي', translation: 'My God, You are my intention and Your pleasure is my desire', reference: 'Munajat', category: 'munajat' },
                 { arabic: 'الهي هب لي كمال الانقطاع اليك', translation: 'My God, grant me complete detachment towards You', reference: 'Munajat', category: 'munajat' },
                 { arabic: 'الهي من ذا الذي ذاق حلاوة محبتك فرام منك بدلا', translation: 'My God, who has tasted the sweetness of Your love and sought a substitute from You?', reference: 'Munajat', category: 'munajat' },
                 { arabic: 'الهي ارزقنا توفيق الطاعة وبعد المعصية', translation: 'My God, grant us the success of obedience and distance from disobedience', reference: 'Munajat', category: 'munajat' },
+                
+                // More Ayat (41-50)
                 { arabic: 'انا لله وانا اليه راجعون', translation: 'Indeed we belong to Allah, and indeed to Him we will return', reference: 'Quran 2:156', category: 'ayat' },
                 { arabic: 'يا ايتها النفس المطمئنة ارجعي الى ربك راضية مرضية', translation: 'O reassured soul, return to your Lord, well-pleased and pleasing', reference: 'Quran 89:27-28', category: 'ayat' },
                 { arabic: 'فادخلي في عبادي وادخلي جنتي', translation: 'And enter among My servants and enter My Paradise', reference: 'Quran 89:29-30', category: 'ayat' },
@@ -1379,45 +1621,507 @@
                 { arabic: 'والذين اذا فعلوا فاحشة او ظلموا انفسهم ذكروا الله فاستغفروا لذنوبهم', translation: 'And those who, when they commit an immorality or wrong themselves, remember Allah and seek forgiveness for their sins', reference: 'Quran 3:135', category: 'ayat' }
             ],
 
-            init() { this.loadFromStorage(); this.renderDuas(); this.renderPhotos(); this.renderNamesList(); this.updatePreview(); this.showToast('🕌 Shia Creative Generator ready - 50+ Duas!', 'success'); },
-            showToast(message, type) { /* kept identical */ const c=document.getElementById('toastContainer'),t=document.createElement('div');t.className=`toast ${type}`;let i='info-circle';type==='success'&&(i='check-circle');type==='error'&&(i='exclamation-circle');t.innerHTML=`<i class="fas fa-${i}"></i> ${message}`;c.appendChild(t);setTimeout(()=>{t.style.animation='slideIn 0.3s reverse';setTimeout(()=>t.remove(),300);},3000);},
-            showLoading() { document.getElementById('loadingOverlay').classList.add('active'); let p=0; this.loadingInterval=setInterval(()=>{p+=10; document.getElementById('progressFill').style.width=p+'%'; if(p>=100) clearInterval(this.loadingInterval);},100);},
-            hideLoading() { clearInterval(this.loadingInterval); document.getElementById('loadingOverlay').classList.remove('active'); },
-            setTemplate(t,e) { this.currentTemplate=t; document.querySelectorAll('.template-btn').forEach(b=>b.classList.remove('active')); e.target.closest('.template-btn').classList.add('active'); const titles={fatiha:'<i class="fas fa-heart"></i> FATIHA REQUEST <i class="fas fa-heart"></i>',announcement:'<i class="fas fa-heartbeat"></i> DEATH ANNOUNCEMENT <i class="fas fa-heartbeat"></i>',majlis:'<i class="fas fa-users"></i> MAJLIS ANNOUNCEMENT <i class="fas fa-users"></i>',urs:'<i class="fas fa-dove"></i> URS / CHEHLUM <i class="fas fa-dove"></i>',general:'<i class="fas fa-calendar"></i> ISLAMIC EVENT <i class="fas fa-calendar"></i>'}; document.getElementById('previewTitle').innerHTML=titles[t]||titles.fatiha; this.applyThemeToCard(); this.updatePreview(); this.showToast(t+' template selected','success'); },
-            handlePhotoUpload(e) { const f=e.target.files; if(this.photos.length+f.length>6) { this.showToast('Maximum 6 photos allowed','warning'); return; } for(let i=0;i<f.length;i++) { const r=new FileReader(); r.onload=(e)=>{ this.photos.push(e.target.result); this.renderPhotos(); this.updatePreview(); }; r.readAsDataURL(f[i]); } this.showToast(f.length+' photos uploaded','success'); },
-            removePhoto(i) { this.photos.splice(i,1); this.renderPhotos(); this.updatePreview(); this.showToast('Photo removed','info'); },
-            renderPhotos() { const p=document.getElementById('photoPreview'); let h=''; this.photos.forEach((photo,idx)=>{ h+=`<div class="image-preview-item"><img src="${photo}"><button class="image-remove-btn" onclick="app.removePhoto(${idx})">&times;</button></div>`; }); for(let i=this.photos.length;i<6;i++) { h+=`<div class="image-add-btn" onclick="document.getElementById('photoUpload').click()"><i class="fas fa-plus"></i><span>Add</span></div>`; } p.innerHTML=h; },
-            addName() { const p=document.getElementById('prefixSelect').value; const n=document.getElementById('nameInput').value.trim(); const r=document.getElementById('relationSelect').value; if(!n) { this.showToast('Please enter a name','error'); return; } this.names.push({prefix:p,name:n,relation:r}); document.getElementById('nameInput').value=''; this.renderNamesList(); this.updatePreview(); this.saveToStorage(); this.showToast(`${p} ${n} added`,'success'); },
-            removeName(i) { const r=this.names[i].name; this.names.splice(i,1); this.renderNamesList(); this.updatePreview(); this.saveToStorage(); this.showToast(r+' removed','info'); },
-            renderNamesList() { const l=document.getElementById('namesList'); const pv=document.getElementById('previewNames'); if(this.names.length===0) l.innerHTML='<p style="text-align: center; color: var(--gray-600); padding: 20px;">✨ Add names ✨</p>'; else l.innerHTML=this.names.map((item,idx)=>`<div class="name-item"><div class="name-info"><span class="name-prefix">${item.prefix}</span><span class="name-text">${item.name}</span><span class="name-relation">${item.relation}</span></div><span class="name-remove-btn" onclick="app.removeName(${idx})"><i class="fas fa-times"></i></span></div>`).join(''); if(this.names.length===0) pv.innerHTML=''; else pv.innerHTML=this.names.map(item=>`<div class="preview-name-item"><div class="preview-name-icon">${item.name.charAt(0)}</div><div class="preview-name-text"><div class="person">${item.prefix} ${item.name}</div><div class="relation">${item.relation}</div></div></div>`).join(''); },
-            renderDuas(f='all') { const g=document.getElementById('duaGrid'); const filtered=f==='all'?this.duas:this.duas.filter(d=>d.category===f); g.innerHTML=filtered.map((dua,idx)=>{ const oi=this.duas.findIndex(d=>d.arabic===dua.arabic); return `<div class="dua-item ${this.selectedDuas.some(d=>d.arabic===dua.arabic)?'selected':''}" onclick="app.toggleDua(${oi})"><div class="dua-arabic">${dua.arabic}</div><div class="dua-translation">${dua.translation}</div><div class="dua-reference">📖 ${dua.reference}</div></div>`; }).join(''); },
-            filterDuas(c,e) { document.querySelectorAll('.dua-category-btn').forEach(b=>b.classList.remove('active')); e.target.classList.add('active'); this.renderDuas(c); },
-            toggleDua(i) { const d=this.duas[i]; const ex=this.selectedDuas.findIndex(x=>x.arabic===d.arabic); if(ex>=0) this.selectedDuas.splice(ex,1); else { if(this.selectedDuas.length<5) this.selectedDuas.push(d); else { this.showToast('Maximum 5 duas can be selected','warning'); return; } } this.renderDuas(this.getCurrentCategory()); this.renderSelectedDuas(); this.updatePreview(); },
-            getCurrentCategory() { const a=document.querySelector('.dua-category-btn.active'); return a?a.textContent.toLowerCase():'all'; },
-            renderSelectedDuas() { const l=document.getElementById('selectedDuasList'); if(this.selectedDuas.length===0) l.innerHTML='<p style="color: var(--gray-600); font-size: 0.8rem;">No duas selected</p>'; else l.innerHTML=this.selectedDuas.map(d=>`<span class="selected-dua-tag" onclick="app.removeSelectedDua('${d.arabic.replace(/'/g,"\\'")}')"><i class="fas fa-quote-right"></i> ${d.arabic.substring(0,15)}... <i class="fas fa-times"></i></span>`).join(''); },
-            removeSelectedDua(a) { this.selectedDuas=this.selectedDuas.filter(d=>d.arabic!==a); this.renderSelectedDuas(); this.renderDuas(this.getCurrentCategory()); this.updatePreview(); },
-            setTheme(t,e) { this.currentTheme=t; document.querySelectorAll('.theme-card').forEach(c=>c.classList.remove('active')); e.target.closest('.theme-card').classList.add('active'); this.applyThemeToCard(); this.showToast(t+' theme applied','success'); },
-            applyThemeToCard() { const c=document.getElementById('previewCard'); c.classList.remove('classic-theme','golden-theme','blue-theme','green-theme','purple-theme','black-theme'); c.classList.add(this.currentTheme+'-theme'); },
-            updatePreview() { 
-                const pg=document.getElementById('previewPhotos'); 
-                if(this.photos.length>0) { pg.innerHTML=this.photos.map(p=>`<div class="photo-frame"><img src="${p}"></div>`).join(''); pg.classList.remove('hidden'); } else { pg.innerHTML=''; pg.classList.add('hidden'); } 
-                const nc=document.getElementById('namesContainer'); if(this.names.length>0) nc.classList.remove('hidden'); else nc.classList.add('hidden'); 
-                const ds=document.getElementById('previewDuas'); if(this.selectedDuas.length>0) { ds.innerHTML=this.selectedDuas.map(d=>`<div class="dua-item-preview"><div class="dua-arabic-preview">${d.arabic}</div><div class="dua-meaning-preview">${d.translation}</div></div>`).join(''); ds.classList.remove('hidden'); } else { ds.innerHTML=''; ds.classList.add('hidden'); } 
-                const t=document.getElementById('eventTitle').value; const d=document.getElementById('eventDate').value; const ti=document.getElementById('eventTime').value; const v=document.getElementById('eventVenue').value; const i=document.getElementById('eventInfo').value; const c=document.getElementById('eventContact').value; 
-                const ev=document.getElementById('previewEvent'); let eh=''; if(t||v||i||c) { if(t) eh+=`<div class="event-detail-item"><i class="fas fa-tag"></i> ${t}</div>`; if(v) eh+=`<div class="event-detail-item"><i class="fas fa-map-marker-alt"></i> ${v}</div>`; if(i) eh+=`<div class="event-detail-item"><i class="fas fa-info-circle"></i> ${i}</div>`; if(c) eh+=`<div class="event-detail-item"><i class="fas fa-phone"></i> ${c}</div>`; ev.innerHTML=eh; ev.classList.remove('hidden'); } else { ev.innerHTML=''; ev.classList.add('hidden'); } 
-                const dt=document.getElementById('previewDateTime'); let dth=''; if(d||ti) { if(d) dth+=`<i class="fas fa-calendar-alt"></i> ${d} `; if(ti) dth+=`<i class="fas fa-clock"></i> ${ti}`; dt.innerHTML=dth; dt.classList.remove('hidden'); } else { dt.innerHTML=''; dt.classList.add('hidden'); } 
+            // Initialize
+            init() {
+                this.loadFromStorage();
+                this.renderDuas();
+                this.renderPhotos();
+                this.renderNamesList();
+                this.updatePreview();
+                this.showToast('🕌 Shia Fatiha Generator ready - 50+ Duas!', 'success');
+                
+                // Show welcome modal on first visit
+                if (!localStorage.getItem('shia_fatiha_welcomed')) {
+                    document.getElementById('welcomeModal').classList.remove('hidden');
+                    localStorage.setItem('shia_fatiha_welcomed', 'true');
+                }
             },
-            addSample() { this.selectedDuas=[this.duas[0],this.duas[2],this.duas[3]]; document.getElementById('eventTitle').value='40th Day Fatiha'; document.getElementById('eventDate').value='15 Shaban 1445'; document.getElementById('eventTime').value='After Maghrib'; document.getElementById('eventVenue').value='Imam Bargah, London'; document.getElementById('eventContact').value='Rizvi Family'; this.renderNamesList(); this.renderSelectedDuas(); this.updatePreview(); this.saveToStorage(); this.showToast('Sample data added','success'); },
-            clearAll() { if(confirm('Clear all data? Default names will be restored.')) { this.names=[{prefix:'Marhoom',name:'Syed Mhd Hanif Ibn e Mhd Meeran Rizvi',relation:'Grandfather'},{prefix:'Marhoom',name:'Syed Mhd Mehdi Ibn e Mhd Hanif Rizvi',relation:'Grandfather'},{prefix:'Marhoom',name:'Syed Mhd Hadi Ibn e Mhd Mehdi Rizvi',relation:'Grandfather'},{prefix:'Marhoom',name:'Syed Muzaffar Ali Zaidi',relation:'Grandfather'}]; this.photos=[]; this.selectedDuas=[]; document.getElementById('eventTitle').value=''; document.getElementById('eventDate').value=''; document.getElementById('eventTime').value=''; document.getElementById('eventVenue').value=''; document.getElementById('eventInfo').value=''; document.getElementById('eventContact').value=''; this.renderPhotos(); this.renderNamesList(); this.renderSelectedDuas(); this.updatePreview(); this.saveToStorage(); this.showToast('All cleared - Default names restored','info'); } },
-            newCreative() { if(this.names.length>4||this.photos.length>0||this.selectedDuas.length>0) { if(confirm('Start a new creative? Current data will be cleared and default names restored.')) this.clearAll(); } },
-            async downloadPNG() { if(this.names.length===0) { this.showToast('Please add at least one name','error'); return; } this.showLoading(); try { const e=document.getElementById('previewCard'); const c=await html2canvas(e,{scale:3,backgroundColor:null,allowTaint:true,useCORS:true,logging:false}); const d=new Date(); const f=`${this.currentTemplate}_${d.getFullYear()}_${d.getMonth()+1}_${d.getDate()}.png`; c.toBlob((b)=>{ saveAs(b,f); this.hideLoading(); this.showToast('✅ Creative downloaded successfully!','success'); }); } catch(error) { console.error('PNG error:',error); this.hideLoading(); this.showToast('Failed to generate PNG','error'); } },
-            saveToStorage() { localStorage.setItem('shiaCreatives',JSON.stringify({names:this.names,photos:this.photos,selectedDuas:this.selectedDuas})); },
-            loadFromStorage() { const s=localStorage.getItem('shiaCreatives'); if(s) { try { const d=JSON.parse(s); if(d.names&&d.names.length>0) this.names=d.names; this.photos=d.photos||[]; this.selectedDuas=d.selectedDuas||[]; } catch(e){} } },
-            showCreator() { document.getElementById('creatorModal').classList.add('active'); },
-            showInfo() { document.getElementById('infoModal').classList.add('active'); },
-            closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+            // Toast System
+            showToast(message, type = 'info') {
+                const container = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                
+                let icon = 'info-circle';
+                if (type === 'success') icon = 'check-circle';
+                if (type === 'error') icon = 'exclamation-circle';
+                
+                toast.innerHTML = `<i class="fas fa-${icon}"></i> ${message}`;
+                container.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.animation = 'slideIn 0.3s reverse';
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            },
+
+            // Loading System
+            showLoading() {
+                document.getElementById('loadingOverlay').classList.add('active');
+                let progress = 0;
+                this.loadingInterval = setInterval(() => {
+                    progress += 10;
+                    document.getElementById('progressFill').style.width = progress + '%';
+                    if (progress >= 100) clearInterval(this.loadingInterval);
+                }, 100);
+            },
+
+            hideLoading() {
+                clearInterval(this.loadingInterval);
+                document.getElementById('loadingOverlay').classList.remove('active');
+            },
+
+            // Set Template
+            setTemplate(template, e) {
+                this.currentTemplate = template;
+                
+                document.querySelectorAll('.template-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                e.target.closest('.template-btn').classList.add('active');
+                
+                // Update title based on template
+                const titles = {
+                    'fatiha': '<i class="fas fa-heart"></i> FATIHA REQUEST <i class="fas fa-heart"></i>',
+                    'announcement': '<i class="fas fa-heartbeat"></i> DEATH ANNOUNCEMENT <i class="fas fa-heartbeat"></i>',
+                    'majlis': '<i class="fas fa-users"></i> MAJLIS ANNOUNCEMENT <i class="fas fa-users"></i>',
+                    'urs': '<i class="fas fa-dove"></i> URS / CHEHLUM <i class="fas fa-dove"></i>',
+                    'general': '<i class="fas fa-calendar"></i> ISLAMIC EVENT <i class="fas fa-calendar"></i>'
+                };
+                document.getElementById('previewTitle').innerHTML = titles[template] || titles.fatiha;
+                
+                this.applyThemeToCard();
+                this.updatePreview();
+                this.showToast(`${template} template selected`, 'success');
+            },
+
+            // Photo Upload
+            handlePhotoUpload(event) {
+                const files = event.target.files;
+                if (this.photos.length + files.length > 6) {
+                    this.showToast('Maximum 6 photos allowed', 'warning');
+                    return;
+                }
+                
+                for (let i = 0; i < files.length; i++) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.photos.push(e.target.result);
+                        this.renderPhotos();
+                        this.updatePreview();
+                    };
+                    reader.readAsDataURL(files[i]);
+                }
+                this.showToast(`${files.length} photos uploaded`, 'success');
+            },
+
+            removePhoto(index) {
+                this.photos.splice(index, 1);
+                this.renderPhotos();
+                this.updatePreview();
+                this.showToast('Photo removed', 'info');
+            },
+
+            renderPhotos() {
+                const preview = document.getElementById('photoPreview');
+                let html = '';
+                
+                this.photos.forEach((photo, index) => {
+                    html += `
+                        <div class="image-preview-item">
+                            <img src="${photo}">
+                            <button class="image-remove-btn" onclick="app.removePhoto(${index})">&times;</button>
+                        </div>
+                    `;
+                });
+                
+                for (let i = this.photos.length; i < 6; i++) {
+                    html += `
+                        <div class="image-add-btn" onclick="document.getElementById('photoUpload').click()">
+                            <i class="fas fa-plus"></i>
+                            <span style="font-size: 0.6rem;">Add Photo</span>
+                        </div>
+                    `;
+                }
+                
+                preview.innerHTML = html;
+            },
+
+            // Add Name with Prefix
+            addName() {
+                const prefix = document.getElementById('prefixSelect').value;
+                const name = document.getElementById('nameInput').value.trim();
+                const relation = document.getElementById('relationSelect').value;
+                
+                if (!name) {
+                    this.showToast('Please enter a name', 'error');
+                    return;
+                }
+                
+                this.names.push({ prefix, name, relation });
+                document.getElementById('nameInput').value = '';
+                
+                this.renderNamesList();
+                this.updatePreview();
+                this.saveToStorage();
+                this.showToast(`${prefix} ${name} added`, 'success');
+            },
+
+            removeName(index) {
+                const removed = this.names[index].name;
+                this.names.splice(index, 1);
+                this.renderNamesList();
+                this.updatePreview();
+                this.saveToStorage();
+                this.showToast(`${removed} removed`, 'info');
+            },
+
+            renderNamesList() {
+                const list = document.getElementById('namesList');
+                const preview = document.getElementById('previewNames');
+                
+                // Render list in editor
+                if (this.names.length === 0) {
+                    list.innerHTML = '<p style="text-align: center; color: var(--gray-600); padding: 20px;">✨ Add names with Marhoom/Marhooma prefix ✨</p>';
+                } else {
+                    list.innerHTML = this.names.map((item, index) => `
+                        <div class="name-item">
+                            <div class="name-info">
+                                <span class="name-prefix">${item.prefix}</span>
+                                <span class="name-text">${item.name}</span>
+                                <span class="name-relation">${item.relation}</span>
+                            </div>
+                            <span class="name-remove-btn" onclick="app.removeName(${index})">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                    `).join('');
+                }
+                
+                // Render preview - FIXED: Now shows full names with wrapping
+                if (this.names.length === 0) {
+                    preview.innerHTML = '';
+                } else {
+                    preview.innerHTML = this.names.map(item => `
+                        <div class="preview-name-item">
+                            <div class="preview-name-icon">${item.name.charAt(0)}</div>
+                            <div class="preview-name-text">
+                                <div class="person">${item.prefix} ${item.name}</div>
+                                <div class="relation">${item.relation}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            },
+
+            // Dua Functions
+            renderDuas(filter = 'all') {
+                const grid = document.getElementById('duaGrid');
+                const filtered = filter === 'all' ? this.duas : this.duas.filter(d => d.category === filter);
+                
+                grid.innerHTML = filtered.map((dua, index) => {
+                    const originalIndex = this.duas.findIndex(d => d.arabic === dua.arabic);
+                    return `
+                        <div class="dua-item ${this.selectedDuas.some(d => d.arabic === dua.arabic) ? 'selected' : ''}" 
+                             onclick="app.toggleDua(${originalIndex})">
+                            <div class="dua-arabic">${dua.arabic}</div>
+                            <div class="dua-translation">${dua.translation}</div>
+                            <div class="dua-reference">📖 ${dua.reference}</div>
+                        </div>
+                    `;
+                }).join('');
+            },
+
+            filterDuas(category, e) {
+                document.querySelectorAll('.dua-category-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                e.target.classList.add('active');
+                this.renderDuas(category);
+            },
+
+            toggleDua(index) {
+                const dua = this.duas[index];
+                const existingIndex = this.selectedDuas.findIndex(d => d.arabic === dua.arabic);
+                
+                if (existingIndex >= 0) {
+                    this.selectedDuas.splice(existingIndex, 1);
+                } else {
+                    if (this.selectedDuas.length < 5) {
+                        this.selectedDuas.push(dua);
+                    } else {
+                        this.showToast('Maximum 5 duas can be selected', 'warning');
+                        return;
+                    }
+                }
+                
+                this.renderDuas(this.getCurrentCategory());
+                this.renderSelectedDuas();
+                this.updatePreview();
+            },
+
+            getCurrentCategory() {
+                const active = document.querySelector('.dua-category-btn.active');
+                return active ? active.textContent.toLowerCase() : 'all';
+            },
+
+            renderSelectedDuas() {
+                const list = document.getElementById('selectedDuasList');
+                
+                if (this.selectedDuas.length === 0) {
+                    list.innerHTML = '<p style="color: var(--gray-600); font-size: 0.8rem;">No duas selected</p>';
+                } else {
+                    list.innerHTML = this.selectedDuas.map(dua => `
+                        <span class="selected-dua-tag" onclick="app.removeSelectedDua('${dua.arabic.replace(/'/g, "\\'")}')">
+                            <i class="fas fa-quote-right"></i> 
+                            ${dua.arabic.substring(0, 20)}...
+                            <i class="fas fa-times"></i>
+                        </span>
+                    `).join('');
+                }
+            },
+
+            removeSelectedDua(arabic) {
+                this.selectedDuas = this.selectedDuas.filter(d => d.arabic !== arabic);
+                this.renderSelectedDuas();
+                this.renderDuas(this.getCurrentCategory());
+                this.updatePreview();
+            },
+
+            // Set Theme
+            setTheme(theme, e) {
+                this.currentTheme = theme;
+                
+                document.querySelectorAll('.theme-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                e.target.closest('.theme-card').classList.add('active');
+                
+                this.applyThemeToCard();
+                this.showToast(`${theme} theme applied`, 'success');
+            },
+
+            applyThemeToCard() {
+                const card = document.getElementById('previewCard');
+                card.classList.remove('classic-theme', 'golden-theme', 'blue-theme', 'green-theme', 'purple-theme', 'black-theme');
+                card.classList.add(`${this.currentTheme}-theme`);
+            },
+
+            // Update Preview
+            updatePreview() {
+                // Update photos
+                const photosGrid = document.getElementById('previewPhotos');
+                if (this.photos.length > 0) {
+                    photosGrid.innerHTML = this.photos.map(photo => `
+                        <div class="photo-frame">
+                            <img src="${photo}">
+                        </div>
+                    `).join('');
+                    photosGrid.classList.remove('hidden');
+                } else {
+                    photosGrid.innerHTML = '';
+                    photosGrid.classList.add('hidden');
+                }
+                
+                // Update names container
+                const namesContainer = document.getElementById('namesContainer');
+                if (this.names.length > 0) {
+                    namesContainer.classList.remove('hidden');
+                } else {
+                    namesContainer.classList.add('hidden');
+                }
+                
+                // Update duas
+                const duasSection = document.getElementById('previewDuas');
+                if (this.selectedDuas.length > 0) {
+                    duasSection.innerHTML = this.selectedDuas.map(dua => `
+                        <div class="dua-item-preview">
+                            <div class="dua-arabic-preview">${dua.arabic}</div>
+                            <div class="dua-meaning-preview">${dua.translation}</div>
+                        </div>
+                    `).join('');
+                    duasSection.classList.remove('hidden');
+                } else {
+                    duasSection.innerHTML = '';
+                    duasSection.classList.add('hidden');
+                }
+                
+                // Update event details
+                const title = document.getElementById('eventTitle').value;
+                const date = document.getElementById('eventDate').value;
+                const time = document.getElementById('eventTime').value;
+                const venue = document.getElementById('eventVenue').value;
+                const info = document.getElementById('eventInfo').value;
+                const contact = document.getElementById('eventContact').value;
+                
+                const eventDetails = document.getElementById('previewEvent');
+                let eventHtml = '';
+                
+                if (title || venue || info || contact) {
+                    if (title) eventHtml += `<div class="event-detail-item"><i class="fas fa-tag"></i> ${title}</div>`;
+                    if (venue) eventHtml += `<div class="event-detail-item"><i class="fas fa-map-marker-alt"></i> ${venue}</div>`;
+                    if (info) eventHtml += `<div class="event-detail-item"><i class="fas fa-info-circle"></i> ${info}</div>`;
+                    if (contact) eventHtml += `<div class="event-detail-item"><i class="fas fa-phone"></i> ${contact}</div>`;
+                    
+                    eventDetails.innerHTML = eventHtml;
+                    eventDetails.classList.remove('hidden');
+                } else {
+                    eventDetails.innerHTML = '';
+                    eventDetails.classList.add('hidden');
+                }
+                
+                // Update date/time
+                const dateTimeDiv = document.getElementById('previewDateTime');
+                let dateTimeHtml = '';
+                
+                if (date || time) {
+                    if (date) dateTimeHtml += `<i class="fas fa-calendar-alt"></i> ${date} `;
+                    if (time) dateTimeHtml += `<i class="fas fa-clock"></i> ${time}`;
+                    
+                    dateTimeDiv.innerHTML = dateTimeHtml;
+                    dateTimeDiv.classList.remove('hidden');
+                } else {
+                    dateTimeDiv.innerHTML = '';
+                    dateTimeDiv.classList.add('hidden');
+                }
+            },
+
+            // Add Sample Data
+            addSample() {
+                this.selectedDuas = [
+                    this.duas[0],
+                    this.duas[2],
+                    this.duas[3]
+                ];
+                
+                document.getElementById('eventTitle').value = '40th Day Fatiha';
+                document.getElementById('eventDate').value = '15 Shaban 1445';
+                document.getElementById('eventTime').value = 'After Maghrib';
+                document.getElementById('eventVenue').value = 'Imam Bargah, London';
+                document.getElementById('eventContact').value = 'Rizvi Family';
+                
+                this.renderNamesList();
+                this.renderSelectedDuas();
+                this.updatePreview();
+                this.saveToStorage();
+                this.showToast('Sample data added', 'success');
+            },
+
+            // Clear All
+            clearAll() {
+                if (confirm('Clear all data? Default names will be restored.')) {
+                    this.names = [
+                        { prefix: 'Marhoom', name: 'Syed Mhd Hanif Ibn e Mhd Meeran Rizvi', relation: 'Grandfather' },
+                        { prefix: 'Marhoom', name: 'Syed Mhd Mehdi Ibn e Mhd Hanif Rizvi', relation: 'Grandfather' },
+                        { prefix: 'Marhoom', name: 'Syed Mhd Hadi Ibn e Mhd Mehdi Rizvi', relation: 'Grandfather' },
+                        { prefix: 'Marhoom', name: 'Syed Muzaffar Ali Zaidi', relation: 'Grandfather' }
+                    ];
+                    this.photos = [];
+                    this.selectedDuas = [];
+                    document.getElementById('eventTitle').value = '';
+                    document.getElementById('eventDate').value = '';
+                    document.getElementById('eventTime').value = '';
+                    document.getElementById('eventVenue').value = '';
+                    document.getElementById('eventInfo').value = '';
+                    document.getElementById('eventContact').value = '';
+                    
+                    this.renderPhotos();
+                    this.renderNamesList();
+                    this.renderSelectedDuas();
+                    this.updatePreview();
+                    this.saveToStorage();
+                    this.showToast('All cleared - Default names restored', 'info');
+                }
+            },
+
+            // New Creative
+            newCreative() {
+                if (this.names.length > 4 || this.photos.length > 0 || this.selectedDuas.length > 0) {
+                    if (confirm('Start a new creative? Current data will be cleared and default names restored.')) {
+                        this.clearAll();
+                    }
+                }
+            },
+
+            // Download PNG
+            async downloadPNG() {
+                if (this.names.length === 0) {
+                    this.showToast('Please add at least one name', 'error');
+                    return;
+                }
+                
+                this.showLoading();
+                
+                try {
+                    const element = document.getElementById('previewCard');
+                    
+                    const canvas = await html2canvas(element, {
+                        scale: 3,
+                        backgroundColor: null,
+                        allowTaint: true,
+                        useCORS: true,
+                        logging: false
+                    });
+                    
+                    const date = new Date();
+                    const filename = `${this.currentTemplate}_${date.getFullYear()}_${date.getMonth()+1}_${date.getDate()}.png`;
+                    
+                    canvas.toBlob((blob) => {
+                        saveAs(blob, filename);
+                        this.hideLoading();
+                        this.showToast('✅ Creative downloaded successfully!', 'success');
+                    });
+                    
+                } catch (error) {
+                    console.error('PNG generation error:', error);
+                    this.hideLoading();
+                    this.showToast('Failed to generate PNG', 'error');
+                }
+            },
+
+            // Save to Local Storage
+            saveToStorage() {
+                localStorage.setItem('shiaCreatives', JSON.stringify({
+                    names: this.names,
+                    photos: this.photos,
+                    selectedDuas: this.selectedDuas
+                }));
+            },
+
+            // Load from Local Storage
+            loadFromStorage() {
+                const saved = localStorage.getItem('shiaCreatives');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        if (data.names && data.names.length > 0) {
+                            this.names = data.names;
+                        }
+                        this.photos = data.photos || [];
+                        this.selectedDuas = data.selectedDuas || [];
+                    } catch (e) {
+                        console.error('Error loading saved data');
+                    }
+                }
+            },
+
+            // Modal Functions
+            showCreator() {
+                document.getElementById('creatorModal').classList.add('active');
+            },
+
+            showInfo() {
+                document.getElementById('infoModal').classList.add('active');
+            },
+
+            closeModal(id) {
+                document.getElementById(id).classList.remove('active');
+            }
         };
-        document.addEventListener('DOMContentLoaded',()=>app.init());
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => app.init());
     </script>
 </body>
 </html>
