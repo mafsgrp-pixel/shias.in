@@ -1006,7 +1006,7 @@
     </style>
 </head>
 <body>
-    <!-- Welcome Modal (unchanged) -->
+    <!-- Welcome Modal -->
     <div class="welcome-modal" id="welcomeModal">
         <div class="welcome-card">
             <div class="welcome-icon"><i class="fas fa-hands-helping"></i></div>
@@ -1021,6 +1021,7 @@
                 <li><i class="fas fa-check-circle"></i> RTL Support - For Arabic/Urdu CVs</li>
                 <li><i class="fas fa-check-circle"></i> ✨ NEW: Infinite color picker (click any element)</li>
                 <li><i class="fas fa-check-circle"></i> 📱 100% Mobile friendly & responsive</li>
+                <li><i class="fas fa-check-circle"></i> ⬇️ Working PDF/DOCX/HTML downloads</li>
             </div>
             <button class="welcome-btn" onclick="app.hideWelcome()">Start Building →</button>
         </div>
@@ -1064,7 +1065,7 @@
 
         <!-- Main Layout -->
         <div class="main-layout">
-            <!-- Sidebar Editor (identical structure) -->
+            <!-- Sidebar Editor -->
             <aside class="sidebar" id="sidebar">
                 <!-- Personal Info -->
                 <section class="editor-section" data-section="personal">
@@ -1073,7 +1074,7 @@
                     <div class="form-group"><label>Professional Title *</label><input type="text" class="form-control" id="title" placeholder="Web Analyst & Digital Marketing Trainer" oninput="app.updatePersonal('title', this.value)"></div>
                     <div class="form-row"><div class="form-group"><label>Email *</label><input type="email" class="form-control" id="email" placeholder="mafs.grp@gmail.com" oninput="app.updatePersonal('email', this.value)"></div><div class="form-group"><label>Phone</label><input type="tel" class="form-control" id="phone" placeholder="+91 88799 52676" oninput="app.updatePersonal('phone', this.value)"></div></div>
                     <div class="form-row"><div class="form-group"><label>Location</label><input type="text" class="form-control" id="location" placeholder="Mumbai, India" oninput="app.updatePersonal('location', this.value)"></div><div class="form-group"><label>LinkedIn</label><input type="text" class="form-control" id="linkedin" placeholder="https://www.linkedin.com/in/rahil-abbas-rizvi/" oninput="app.updatePersonal('linkedin', this.value)"></div></div>
-                    <div class="form-group"><label>Professional Summary</label><textarea class="form-control" id="summary" rows="4" oninput="app.updatePersonal('summary', this.value)"></textarea></div>
+                    <div class="form-group"><label>Professional Summary</label><textarea class="form-control" id="summary" rows="4" oninput="app.updatePersonal('summary', this.value)">15+ years of experience in digital marketing and web analytics. Google Certified professional with expertise in SEO, Google Ads, and training. Passionate about empowering the Shia community with digital skills.</textarea></div>
                 </section>
                 <!-- Skills -->
                 <section class="editor-section" data-section="skills"><h2><i class="fas fa-code"></i> Skills</h2><div id="skillsContainer" class="dynamic-items"></div><button class="add-btn" onclick="app.addSkill()"><i class="fas fa-plus"></i> Add Skill</button></section>
@@ -1090,13 +1091,13 @@
                 <!-- Custom Sections -->
                 <section class="editor-section" data-section="custom"><h2><i class="fas fa-puzzle-piece"></i> Custom Sections</h2><div id="customContainer" class="dynamic-items"></div><button class="add-btn" onclick="app.addCustomSection()"><i class="fas fa-plus"></i> Add Custom Section</button></section>
 
-                <!-- Design Settings (includes infinite color panel) -->
+                <!-- Design Settings -->
                 <section class="editor-section">
                     <h2><i class="fas fa-palette"></i> Design Settings</h2>
                     <div class="form-group"><label>Template Style</label><div class="template-grid" id="templateGrid"><div class="template-option" onclick="app.setTemplate('modern')">Modern</div><div class="template-option" onclick="app.setTemplate('classic')">Classic</div><div class="template-option" onclick="app.setTemplate('professional')">Professional</div><div class="template-option" onclick="app.setTemplate('creative')">Creative</div></div></div>
                     <div class="form-group"><label>Accent Color</label><div class="color-picker" id="colorPicker"><div class="color-option" style="background: #0e2a38;" onclick="app.setColor('#0e2a38')"></div><div class="color-option" style="background: #2b5797;" onclick="app.setColor('#2b5797')"></div><div class="color-option" style="background: #117a65;" onclick="app.setColor('#117a65')"></div><div class="color-option" style="background: #a55233;" onclick="app.setColor('#a55233')"></div><div class="color-option" style="background: #8e44ad;" onclick="app.setColor('#8e44ad')"></div><div class="color-option" style="background: #c0392b;" onclick="app.setColor('#c0392b')"></div></div></div>
                     
-                    <!-- +++ INFINITE COLOR PICKER UI +++ -->
+                    <!-- INFINITE COLOR PICKER UI -->
                     <div class="infinite-color-panel">
                         <h4><i class="fas fa-eye-dropper"></i> Infinite color picker</h4>
                         <div class="infinite-color-tools">
@@ -1115,7 +1116,7 @@
                 <section class="editor-section"><h2><i class="fas fa-eye"></i> Section Visibility</h2><div id="sectionToggles"></div></section>
             </aside>
 
-            <!-- Preview Area (same) -->
+            <!-- Preview Area -->
             <main class="preview-area">
                 <div class="cv-preview" id="cvPreview"></div>
             </main>
@@ -1124,102 +1125,131 @@
 
     <script>
         (function() {
-            // ================== (all previous code remains exactly the same) ==================
+            // ================== Constants ==================
             const STORAGE_KEY = 'shia_cv_maker_data';
             const AUTO_SAVE_DELAY = 1000;
             const DEFAULT_COLOR = '#0e2a38';
             const DEFAULT_TEMPLATE = 'modern';
 
-            const Toast = { container: document.getElementById('toastContainer'),
+            // ================== Toast System ==================
+            const Toast = { 
+                container: document.getElementById('toastContainer'),
                 show(message, type = 'info', duration = 5000) {
-                    const toast = document.createElement('div'); toast.className = `toast ${type}`;
+                    const toast = document.createElement('div'); 
+                    toast.className = `toast ${type}`;
                     const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', warning: 'fa-exclamation-triangle', info: 'fa-info-circle' };
                     const titles = { success: 'Success', error: 'Error', warning: 'Warning', info: 'Information' };
                     toast.innerHTML = `<i class="fas ${icons[type]}"></i><div class="toast-content"><div class="toast-title">${titles[type]}</div><div class="toast-message">${message}</div></div><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>`;
-                    this.container.appendChild(toast); setTimeout(() => { if (toast.parentNode) toast.remove(); }, duration);
-                }, success(m) { this.show(m,'success'); }, error(m) { this.show(m,'error'); }, warning(m) { this.show(m,'warning'); }, info(m) { this.show(m,'info'); }
+                    this.container.appendChild(toast); 
+                    setTimeout(() => { if (toast.parentNode) toast.remove(); }, duration);
+                }, 
+                success(m) { this.show(m,'success'); }, 
+                error(m) { this.show(m,'error'); }, 
+                warning(m) { this.show(m,'warning'); }, 
+                info(m) { this.show(m,'info'); }
             };
-            const Loading = { overlay: document.getElementById('loadingOverlay'), messageEl: document.getElementById('loadingMessage'), show(m='Processing...') { this.messageEl.textContent=m; this.overlay.classList.add('active'); }, hide() { this.overlay.classList.remove('active'); } };
 
-            // --- UPDATED DEFAULT CV DATA with new contact info ---
+            // ================== Loading Overlay ==================
+            const Loading = { 
+                overlay: document.getElementById('loadingOverlay'), 
+                messageEl: document.getElementById('loadingMessage'), 
+                show(m='Processing...') { this.messageEl.textContent = m; this.overlay.classList.add('active'); }, 
+                hide() { this.overlay.classList.remove('active'); } 
+            };
+
+            // ================== Default CV Data ==================
             const DEFAULT_CV_DATA = {
                 personal: { 
-                    name:'Rahil Abbas Rizvi', 
-                    title:'Web Analyst & Digital Marketing Trainer', 
-                    email:'mafs.grp@gmail.com', 
-                    phone:'+91 88799 52676', 
-                    location:'Mumbai, India', 
-                    linkedin:'https://www.linkedin.com/in/rahil-abbas-rizvi/', 
-                    summary:'15+ years of experience in digital marketing and web analytics. Google Certified professional with expertise in SEO, Google Ads, and training. Passionate about empowering the Shia community with digital skills.' 
+                    name: 'Rahil Abbas Rizvi', 
+                    title: 'Web Analyst & Digital Marketing Trainer', 
+                    email: 'mafs.grp@gmail.com', 
+                    phone: '+91 88799 52676', 
+                    location: 'Mumbai, India', 
+                    linkedin: 'https://www.linkedin.com/in/rahil-abbas-rizvi/', 
+                    summary: '15+ years of experience in digital marketing and web analytics. Google Certified professional with expertise in SEO, Google Ads, and training. Passionate about empowering the Shia community with digital skills.' 
                 },
-                skills: ['Google Analytics 4','Google Ads','SEO','Meta Ads','Content Strategy','Looker Studio','Google Tag Manager','Email Marketing','Social Media Marketing','Data Analysis'],
+                skills: ['Google Analytics 4', 'Google Ads', 'SEO', 'Meta Ads', 'Content Strategy', 'Looker Studio', 'Google Tag Manager', 'Email Marketing', 'Social Media Marketing', 'Data Analysis'],
                 experience: [
-                    { id:'exp1', title:'Lead Digital Analyst', company:'WebElevate Solutions', startDate:'2018', endDate:'Present', description:'Leading analytics implementation for 20+ enterprise clients. Training team members on GA4 and data visualization.' }, 
-                    { id:'exp2', title:'Senior Digital Marketing Trainer', company:'Shia Youth Skills', startDate:'2015', endDate:'2018', description:'Trained 300+ community members in Google Analytics, Ads, and career development. 85% placement rate.' }, 
-                    { id:'exp3', title:'Web Analyst', company:'NetPulse Digital', startDate:'2010', endDate:'2015', description:'Managed SEO campaigns and Google Ads for clients. Increased organic traffic by 200% on average.' } 
+                    { id: 'exp1', title: 'Lead Digital Analyst', company: 'WebElevate Solutions', startDate: '2018', endDate: 'Present', description: 'Leading analytics implementation for 20+ enterprise clients. Training team members on GA4 and data visualization.' }, 
+                    { id: 'exp2', title: 'Senior Digital Marketing Trainer', company: 'Shia Youth Skills', startDate: '2015', endDate: '2018', description: 'Trained 300+ community members in Google Analytics, Ads, and career development. 85% placement rate.' }, 
+                    { id: 'exp3', title: 'Web Analyst', company: 'NetPulse Digital', startDate: '2010', endDate: '2015', description: 'Managed SEO campaigns and Google Ads for clients. Increased organic traffic by 200% on average.' } 
                 ],
                 education: [
-                    { id:'edu1', degree:'MBA in Marketing', institution:'Mumbai University', year:'2012', details:'Specialization in Digital Marketing' }, 
-                    { id:'edu2', degree:'Bachelor of Computer Applications', institution:'Shia PG College', year:'2009', details:'Web Development focus' } 
+                    { id: 'edu1', degree: 'MBA in Marketing', institution: 'Mumbai University', year: '2012', details: 'Specialization in Digital Marketing' }, 
+                    { id: 'edu2', degree: 'Bachelor of Computer Applications', institution: 'Shia PG College', year: '2009', details: 'Web Development focus' } 
                 ],
                 projects: [
-                    { id:'proj1', name:'Shia Job Portal', description:'Built interactive CV builder for community members. 500+ users in first month.' }, 
-                    { id:'proj2', name:'Analytics Training Hub', description:'Created comprehensive GA4 course for beginners. 1000+ enrollments.' } 
+                    { id: 'proj1', name: 'Shia Job Portal', description: 'Built interactive CV builder for community members. 500+ users in first month.' }, 
+                    { id: 'proj2', name: 'Analytics Training Hub', description: 'Created comprehensive GA4 course for beginners. 1000+ enrollments.' } 
                 ],
                 certifications: [
-                    { id:'cert1', name:'Google Ads Search Certification', issuer:'Google', year:'2023' }, 
-                    { id:'cert2', name:'Google Analytics Individual Qualification', issuer:'Google', year:'2023' }, 
-                    { id:'cert3', name:'Meta Certified Media Buying Professional', issuer:'Meta', year:'2022' } 
+                    { id: 'cert1', name: 'Google Ads Search Certification', issuer: 'Google', year: '2023' }, 
+                    { id: 'cert2', name: 'Google Analytics Individual Qualification', issuer: 'Google', year: '2023' }, 
+                    { id: 'cert3', name: 'Meta Certified Media Buying Professional', issuer: 'Meta', year: '2022' } 
                 ],
                 languages: [
-                    { id:'lang1', language:'Urdu', level:'Native' }, 
-                    { id:'lang2', language:'English', level:'Fluent' }, 
-                    { id:'lang3', language:'Hindi', level:'Fluent' }, 
-                    { id:'lang4', language:'Arabic', level:'Intermediate' } 
+                    { id: 'lang1', language: 'Urdu', level: 'Native' }, 
+                    { id: 'lang2', language: 'English', level: 'Fluent' }, 
+                    { id: 'lang3', language: 'Hindi', level: 'Fluent' }, 
+                    { id: 'lang4', language: 'Arabic', level: 'Intermediate' } 
                 ],
                 customSections: [
-                    { id:'custom1', title:'Volunteer Work', content:'Mentor at Shia Youth Career Council · Career workshops for students' } 
+                    { id: 'custom1', title: 'Volunteer Work', content: 'Mentor at Shia Youth Career Council · Career workshops for students' } 
                 ],
                 design: { template: DEFAULT_TEMPLATE, color: DEFAULT_COLOR, rtl: false },
                 sections: { summary: true, skills: true, experience: true, education: true, projects: true, certifications: true, languages: true, custom: true }
             };
 
+            // ================== Main App ==================
             const App = {
                 data: JSON.parse(JSON.stringify(DEFAULT_CV_DATA)),
                 autoSaveTimer: null,
-                // infinite color state
-                colorMode: 'text',   // 'text' or 'bg'
-                init() { this.loadFromLocalStorage(); this.renderAll(); this.setupEventListeners(); this.checkFirstVisit(); setTimeout(()=>Toast.success('CV Maker ready! Infinite color picker active.'), 1000); },
-                checkFirstVisit() { if(!localStorage.getItem('shia_cv_visited')) { document.getElementById('welcomeModal').classList.remove('hidden'); localStorage.setItem('shia_cv_visited','true'); } },
-                hideWelcome() { document.getElementById('welcomeModal').classList.add('hidden'); },
+                colorMode: 'text',
+
+                init() { 
+                    this.loadFromLocalStorage(); 
+                    this.renderAll(); 
+                    this.setupEventListeners(); 
+                    this.checkFirstVisit(); 
+                    setTimeout(() => Toast.success('CV Maker ready! Downloads working properly.'), 1000); 
+                },
+
+                checkFirstVisit() { 
+                    if (!localStorage.getItem('shia_cv_visited')) { 
+                        document.getElementById('welcomeModal').classList.remove('hidden'); 
+                        localStorage.setItem('shia_cv_visited', 'true'); 
+                    } 
+                },
+
+                hideWelcome() { 
+                    document.getElementById('welcomeModal').classList.add('hidden'); 
+                },
+
                 setupEventListeners() {
-                    document.querySelectorAll('input, textarea, select').forEach(el=>el.addEventListener('input',()=>this.triggerAutoSave()));
-                    window.addEventListener('beforeunload',(e)=>{ if(this.hasUnsavedChanges()) { e.preventDefault(); e.returnValue='Unsaved changes'; } });
+                    document.querySelectorAll('input, textarea, select').forEach(el => el.addEventListener('input', () => this.triggerAutoSave()));
+                    window.addEventListener('beforeunload', (e) => { if (this.hasUnsavedChanges()) { e.preventDefault(); e.returnValue = 'Unsaved changes'; } });
 
                     // Infinite color click on preview
                     document.getElementById('cvPreview').addEventListener('click', (e) => {
-                        const target = e.target.closest('.cv-preview *'); // any element inside preview
-                        if(!target) return;
-                        e.preventDefault(); e.stopPropagation();
+                        const target = e.target.closest('.cv-preview *');
+                        if (!target) return;
+                        e.preventDefault(); 
+                        e.stopPropagation();
                         this.showFloatingPicker(target);
                     });
-                    // mode buttons highlight
                     document.getElementById('colorTextModeBtn').classList.add('active');
                 },
+
                 setColorMode(mode) {
                     this.colorMode = mode;
-                    document.getElementById('colorTextModeBtn').classList.toggle('active', mode==='text');
-                    document.getElementById('colorBgModeBtn').classList.toggle('active', mode==='bg');
+                    document.getElementById('colorTextModeBtn').classList.toggle('active', mode === 'text');
+                    document.getElementById('colorBgModeBtn').classList.toggle('active', mode === 'bg');
                 },
+
                 showFloatingPicker(element) {
                     const picker = document.getElementById('floatingColorPicker');
                     const colorInput = document.getElementById('infiniteColorInput');
-                    // get current color (if any inline)
-                    const currentColor = this.colorMode === 'text' ? element.style.color : element.style.backgroundColor;
-                    if (currentColor && currentColor.match(/rgb|#/)) {
-                        // simple hex conversion would be long; just set default
-                    }
-                    colorInput.value = this.data.design.color; // default to accent
+                    colorInput.value = this.data.design.color;
                     const rect = element.getBoundingClientRect();
                     picker.style.top = rect.bottom + 10 + 'px';
                     picker.style.left = rect.left + 'px';
@@ -1236,98 +1266,701 @@
                         Toast.success(`Applied ${this.colorMode} color`);
                         document.removeEventListener('click', outsideClick);
                     };
+
                     const outsideClick = (ev) => {
                         if (!picker.contains(ev.target) && ev.target !== element) {
                             picker.classList.remove('show');
                             document.removeEventListener('click', outsideClick);
                         }
                     };
-                    document.getElementById('applyInfiniteColor').onclick = () => {
-                        applyHandler();
-                    };
+
+                    document.getElementById('applyInfiniteColor').onclick = applyHandler;
                     setTimeout(() => document.addEventListener('click', outsideClick), 10);
                 },
-                hasUnsavedChanges() { return localStorage.getItem(STORAGE_KEY) !== JSON.stringify(this.data); },
-                triggerAutoSave() { clearTimeout(this.autoSaveTimer); this.autoSaveTimer = setTimeout(()=>this.saveToLocalStorage(true), AUTO_SAVE_DELAY); },
-                saveToLocalStorage(silent=false) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data)); if(!silent) Toast.success('Saved'); return true; } catch(e){ Toast.error('Save failed'); return false; } },
-                loadFromLocalStorage() { try { const saved = localStorage.getItem(STORAGE_KEY); if(saved) { this.data = JSON.parse(saved); this.renderAll(); Toast.success('Loaded'); } else Toast.info('No saved'); } catch(e){ Toast.error('Load failed'); this.resetToDefault(); } },
-                resetToDefault() { if(confirm('Reset?')) { this.data = JSON.parse(JSON.stringify(DEFAULT_CV_DATA)); this.renderAll(); Toast.success('Reset'); } },
-                updatePersonal(field,value) { this.data.personal[field]=value; this.renderPreview(); },
-                addSkill() { const s=prompt('Skill name:'); if(s&&s.trim()){ this.data.skills.push(s.trim()); this.renderSkills(); this.renderPreview(); Toast.success('Skill added'); } },
-                updateSkill(i,v){ this.data.skills[i]=v; this.renderPreview(); },
-                removeSkill(i){ if(confirm('Remove?')){ this.data.skills.splice(i,1); this.renderSkills(); this.renderPreview(); Toast.success('Removed'); } },
-                moveSkillUp(i){ if(i>0){ [this.data.skills[i-1],this.data.skills[i]]=[this.data.skills[i],this.data.skills[i-1]]; this.renderSkills(); this.renderPreview(); } },
-                moveSkillDown(i){ if(i<this.data.skills.length-1){ [this.data.skills[i],this.data.skills[i+1]]=[this.data.skills[i+1],this.data.skills[i]]; this.renderSkills(); this.renderPreview(); } },
-                addExperience() { const n={ id:'exp'+Date.now(), title:'New', company:'', startDate:'', endDate:'', description:'' }; this.data.experience.push(n); this.renderExperience(); this.renderPreview(); Toast.success('Experience added'); },
-                updateExperience(id,f,v){ const e=this.data.experience.find(x=>x.id===id); if(e) e[f]=v; this.renderPreview(); },
-                removeExperience(id){ if(confirm('Remove?')){ this.data.experience=this.data.experience.filter(x=>x.id!==id); this.renderExperience(); this.renderPreview(); Toast.success('Removed'); } },
-                addEducation(){ const n={ id:'edu'+Date.now(), degree:'', institution:'', year:'', details:'' }; this.data.education.push(n); this.renderEducation(); this.renderPreview(); Toast.success('Education added'); },
-                updateEducation(id,f,v){ const e=this.data.education.find(x=>x.id===id); if(e) e[f]=v; this.renderPreview(); },
-                removeEducation(id){ if(confirm('Remove?')){ this.data.education=this.data.education.filter(x=>x.id!==id); this.renderEducation(); this.renderPreview(); Toast.success('Removed'); } },
-                addProject(){ const n={ id:'proj'+Date.now(), name:'', description:'' }; this.data.projects.push(n); this.renderProjects(); this.renderPreview(); Toast.success('Project added'); },
-                updateProject(id,f,v){ const p=this.data.projects.find(x=>x.id===id); if(p) p[f]=v; this.renderPreview(); },
-                removeProject(id){ if(confirm('Remove?')){ this.data.projects=this.data.projects.filter(x=>x.id!==id); this.renderProjects(); this.renderPreview(); Toast.success('Removed'); } },
-                addCertification(){ const n={ id:'cert'+Date.now(), name:'', issuer:'', year:'' }; this.data.certifications.push(n); this.renderCertifications(); this.renderPreview(); Toast.success('Cert added'); },
-                updateCertification(id,f,v){ const c=this.data.certifications.find(x=>x.id===id); if(c) c[f]=v; this.renderPreview(); },
-                removeCertification(id){ if(confirm('Remove?')){ this.data.certifications=this.data.certifications.filter(x=>x.id!==id); this.renderCertifications(); this.renderPreview(); Toast.success('Removed'); } },
-                addLanguage(){ const n={ id:'lang'+Date.now(), language:'', level:'Intermediate' }; this.data.languages.push(n); this.renderLanguages(); this.renderPreview(); Toast.success('Language added'); },
-                updateLanguage(id,f,v){ const l=this.data.languages.find(x=>x.id===id); if(l) l[f]=v; this.renderPreview(); },
-                removeLanguage(id){ if(confirm('Remove?')){ this.data.languages=this.data.languages.filter(x=>x.id!==id); this.renderLanguages(); this.renderPreview(); Toast.success('Removed'); } },
-                addCustomSection(){ const t=prompt('Section title:'); if(t&&t.trim()){ const n={ id:'custom'+Date.now(), title:t.trim(), content:'' }; this.data.customSections.push(n); this.renderCustomSections(); this.renderPreview(); Toast.success('Custom section added'); } },
-                updateCustomSection(id,f,v){ const s=this.data.customSections.find(x=>x.id===id); if(s) s[f]=v; this.renderPreview(); },
-                removeCustomSection(id){ if(confirm('Remove?')){ this.data.customSections=this.data.customSections.filter(x=>x.id!==id); this.renderCustomSections(); this.renderPreview(); Toast.success('Removed'); } },
-                setTemplate(t){ this.data.design.template=t; document.querySelectorAll('.template-option').forEach(o=>o.classList.remove('active')); document.querySelectorAll('.template-option').forEach(o=>{ if(o.textContent.toLowerCase().includes(t)) o.classList.add('active'); }); this.renderPreview(); Toast.success('Template: '+t); },
-                setColor(c){ this.data.design.color=c; document.querySelectorAll('.color-option').forEach(o=>o.classList.remove('active')); document.querySelectorAll('.color-option').forEach(o=>{ if(o.style.backgroundColor===c) o.classList.add('active'); }); this.renderPreview(); },
-                toggleRTL(e){ this.data.design.rtl=e; document.getElementById('cvPreview').style.direction=e?'rtl':'ltr'; Toast.success('RTL '+(e?'enabled':'disabled')); },
-                toggleSection(s,en){ this.data.sections[s]=en; this.renderPreview(); },
-                renderAll(){
-                    this.renderSkills(); this.renderExperience(); this.renderEducation(); this.renderProjects(); this.renderCertifications(); this.renderLanguages(); this.renderCustomSections(); this.renderSectionToggles(); this.renderPreview();
-                    document.getElementById('fullName').value=this.data.personal.name||''; document.getElementById('title').value=this.data.personal.title||''; document.getElementById('email').value=this.data.personal.email||''; document.getElementById('phone').value=this.data.personal.phone||''; document.getElementById('location').value=this.data.personal.location||''; document.getElementById('linkedin').value=this.data.personal.linkedin||''; document.getElementById('summary').value=this.data.personal.summary||'';
-                    document.querySelectorAll('.template-option').forEach(o=>{ o.classList.remove('active'); if(o.textContent.toLowerCase().includes(this.data.design.template)) o.classList.add('active'); });
-                    document.querySelectorAll('.color-option').forEach(o=>{ o.classList.remove('active'); if(o.style.backgroundColor===this.data.design.color) o.classList.add('active'); });
-                    document.getElementById('rtlToggle').checked=this.data.design.rtl; document.getElementById('cvPreview').style.direction=this.data.design.rtl?'rtl':'ltr';
-                },
-                renderSkills(){ const c=document.getElementById('skillsContainer'); let h=''; this.data.skills.forEach((s,i)=>{ h+=`<div class="dynamic-item"><div class="item-header"><span class="item-title">Skill #${i+1}</span><div class="item-actions"><button class="item-btn move" onclick="app.moveSkillUp(${i})" ${i===0?'disabled':''}><i class="fas fa-arrow-up"></i></button><button class="item-btn move" onclick="app.moveSkillDown(${i})" ${i===this.data.skills.length-1?'disabled':''}><i class="fas fa-arrow-down"></i></button><button class="item-btn" onclick="app.removeSkill(${i})"><i class="fas fa-trash"></i></button></div></div><input type="text" class="form-control" value="${this.escapeHtml(s)}" oninput="app.updateSkill(${i}, this.value)"></div>`; }); c.innerHTML=h; },
-                renderExperience(){ const c=document.getElementById('experienceContainer'); let h=''; this.data.experience.forEach((e,i)=>{ h+=`<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(e.title)}</span><div class="item-actions"><button class="item-btn move" onclick="app.moveExperienceUp('${e.id}')" ${i===0?'disabled':''}><i class="fas fa-arrow-up"></i></button><button class="item-btn move" onclick="app.moveExperienceDown('${e.id}')" ${i===this.data.experience.length-1?'disabled':''}><i class="fas fa-arrow-down"></i></button><button class="item-btn" onclick="app.removeExperience('${e.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Title" value="${this.escapeHtml(e.title)}" oninput="app.updateExperience('${e.id}','title',this.value)"><input class="form-control" placeholder="Company" value="${this.escapeHtml(e.company)}" oninput="app.updateExperience('${e.id}','company',this.value)"><div class="form-row"><input class="form-control" placeholder="Start" value="${this.escapeHtml(e.startDate)}" oninput="app.updateExperience('${e.id}','startDate',this.value)"><input class="form-control" placeholder="End" value="${this.escapeHtml(e.endDate)}" oninput="app.updateExperience('${e.id}','endDate',this.value)"></div><textarea class="form-control" placeholder="Description" oninput="app.updateExperience('${e.id}','description',this.value)">${this.escapeHtml(e.description)}</textarea></div>`; }); c.innerHTML=h; },
-                renderEducation(){ const c=document.getElementById('educationContainer'); let h=''; this.data.education.forEach(e=>{ h+=`<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(e.degree)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeEducation('${e.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Degree" value="${this.escapeHtml(e.degree)}" oninput="app.updateEducation('${e.id}','degree',this.value)"><input class="form-control" placeholder="Institution" value="${this.escapeHtml(e.institution)}" oninput="app.updateEducation('${e.id}','institution',this.value)"><input class="form-control" placeholder="Year" value="${this.escapeHtml(e.year)}" oninput="app.updateEducation('${e.id}','year',this.value)"><textarea class="form-control" placeholder="Details" oninput="app.updateEducation('${e.id}','details',this.value)">${this.escapeHtml(e.details)}</textarea></div>`; }); c.innerHTML=h; },
-                renderProjects(){ const c=document.getElementById('projectsContainer'); let h=''; this.data.projects.forEach(p=>{ h+=`<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(p.name)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeProject('${p.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Project" value="${this.escapeHtml(p.name)}" oninput="app.updateProject('${p.id}','name',this.value)"><textarea class="form-control" placeholder="Description" oninput="app.updateProject('${p.id}','description',this.value)">${this.escapeHtml(p.description)}</textarea></div>`; }); c.innerHTML=h; },
-                renderCertifications(){ const c=document.getElementById('certificationsContainer'); let h=''; this.data.certifications.forEach(cert=>{ h+=`<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(cert.name)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeCertification('${cert.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Cert name" value="${this.escapeHtml(cert.name)}" oninput="app.updateCertification('${cert.id}','name',this.value)"><input class="form-control" placeholder="Issuer" value="${this.escapeHtml(cert.issuer)}" oninput="app.updateCertification('${cert.id}','issuer',this.value)"><input class="form-control" placeholder="Year" value="${this.escapeHtml(cert.year)}" oninput="app.updateCertification('${cert.id}','year',this.value)"></div>`; }); c.innerHTML=h; },
-                renderLanguages(){ const c=document.getElementById('languagesContainer'); let h=''; const levels=['Native','Fluent','Intermediate','Basic']; this.data.languages.forEach(l=>{ h+=`<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(l.language)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeLanguage('${l.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Language" value="${this.escapeHtml(l.language)}" oninput="app.updateLanguage('${l.id}','language',this.value)"><select class="form-control" onchange="app.updateLanguage('${l.id}','level',this.value)">${levels.map(lv=>`<option value="${lv}" ${l.level===lv?'selected':''}>${lv}</option>`).join('')}</select></div>`; }); c.innerHTML=h; },
-                renderCustomSections(){ const c=document.getElementById('customContainer'); let h=''; this.data.customSections.forEach(s=>{ h+=`<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(s.title)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeCustomSection('${s.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Title" value="${this.escapeHtml(s.title)}" oninput="app.updateCustomSection('${s.id}','title',this.value)"><textarea class="form-control" placeholder="Content" oninput="app.updateCustomSection('${s.id}','content',this.value)">${this.escapeHtml(s.content)}</textarea></div>`; }); c.innerHTML=h; },
-                renderSectionToggles(){ const c=document.getElementById('sectionToggles'); const sections=[{id:'summary',name:'Summary'},{id:'skills',name:'Skills'},{id:'experience',name:'Work Experience'},{id:'education',name:'Education'},{id:'projects',name:'Projects'},{id:'certifications',name:'Certifications'},{id:'languages',name:'Languages'},{id:'custom',name:'Custom Sections'}]; let h=''; sections.forEach(s=>{ h+=`<div class="toggle-item"><span>${s.name}</span><label class="toggle-switch"><input type="checkbox" ${this.data.sections[s.id]?'checked':''} onchange="app.toggleSection('${s.id}', this.checked)"><span class="toggle-slider"></span></label></div>`; }); c.innerHTML=h; },
-                renderPreview(){ const preview=document.getElementById('cvPreview'); const p=this.data.personal; const col=this.data.design.color; preview.className='cv-preview'; preview.classList.add(`template-${this.data.design.template}`);
-                let html=`<div class="cv-header"><div class="cv-name">${this.escapeHtml(p.name)}</div><div class="cv-title" style="color:${col}">${this.escapeHtml(p.title)}</div><div class="cv-contact">${p.email?`<span><i class="fas fa-envelope"></i> ${this.escapeHtml(p.email)}</span>`:''}${p.phone?`<span><i class="fas fa-phone"></i> ${this.escapeHtml(p.phone)}</span>`:''}${p.location?`<span><i class="fas fa-map-marker-alt"></i> ${this.escapeHtml(p.location)}</span>`:''}${p.linkedin?`<span><i class="fab fa-linkedin"></i> <span style="word-break:break-all;">${this.escapeHtml(p.linkedin)}</span></span>`:''}</div></div>`;
-                if(this.data.sections.summary && p.summary) html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Summary</div><div>${this.escapeHtml(p.summary)}</div></div>`;
-                if(this.data.sections.skills && this.data.skills.length){ html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Skills</div><div>`; this.data.skills.forEach(s=>{html+=`<span class="skill-tag" style="border-left-color:${col}">${this.escapeHtml(s)}</span>`;}); html+=`</div></div>`; }
-                if(this.data.sections.experience && this.data.experience.length){ html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Work Experience</div>`; this.data.experience.forEach(exp=>{html+=`<div class="exp-item"><div class="exp-header"><span class="exp-title">${this.escapeHtml(exp.title)}</span><span class="exp-company">${this.escapeHtml(exp.company)}</span></div><div class="exp-date">${this.escapeHtml(exp.startDate)} – ${this.escapeHtml(exp.endDate)}</div><div>${this.escapeHtml(exp.description)}</div></div>`;}); html+=`</div>`; }
-                if(this.data.sections.education && this.data.education.length){ html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Education</div>`; this.data.education.forEach(edu=>{html+=`<div class="exp-item"><div class="exp-header"><span class="exp-title">${this.escapeHtml(edu.degree)}</span><span class="exp-company">${this.escapeHtml(edu.institution)}</span></div><div class="exp-date">${this.escapeHtml(edu.year)}</div><div>${this.escapeHtml(edu.details)}</div></div>`;}); html+=`</div>`; }
-                if(this.data.sections.projects && this.data.projects.length){ html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Projects</div>`; this.data.projects.forEach(proj=>{html+=`<div class="exp-item"><div class="exp-header"><span class="exp-title">${this.escapeHtml(proj.name)}</span></div><div>${this.escapeHtml(proj.description)}</div></div>`;}); html+=`</div>`; }
-                if(this.data.sections.certifications && this.data.certifications.length){ html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Certifications</div>`; this.data.certifications.forEach(cert=>{html+=`<div class="exp-item"><div class="exp-header"><span class="exp-title">${this.escapeHtml(cert.name)}</span><span class="exp-company">${this.escapeHtml(cert.issuer)}</span></div><div class="exp-date">${this.escapeHtml(cert.year)}</div></div>`;}); html+=`</div>`; }
-                if(this.data.sections.languages && this.data.languages.length){ html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Languages</div><ul style="margin-left:1.5rem;">`; this.data.languages.forEach(l=>{html+=`<li><strong>${this.escapeHtml(l.language)}:</strong> ${this.escapeHtml(l.level)}</li>`;}); html+=`</ul></div>`; }
-                if(this.data.sections.custom){ this.data.customSections.forEach(s=>{html+=`<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">${this.escapeHtml(s.title)}</div><div>${this.escapeHtml(s.content)}</div></div>`;}); }
-                preview.innerHTML=html;
-                },
-                escapeHtml(t){ if(!t)return ''; const d=document.createElement('div'); d.textContent=t; return d.innerHTML; },
-                exportAsPDF(){ Loading.show('PDF...'); /* same stub - unchanged */ setTimeout(()=>{ Loading.hide(); Toast.success('PDF demo (full function would require html2canvas)'); },500); },
-                exportAsDOCX(){ Loading.show('DOCX...'); setTimeout(()=>{ Loading.hide(); Toast.success('DOCX demo'); },500); },
-                exportAsHTML(){ Loading.show('HTML...'); this.exportAsHTMLoriginal(); },
-                exportAsHTMLoriginal(){ const styles=document.querySelector('style').innerHTML; const preview=document.getElementById('cvPreview').cloneNode(true); const content='<!DOCTYPE ...> (omitted for brevity)'; const blob=new Blob([content],{type:'text/html'}); const url=URL.createObjectURL(blob); const link=document.createElement('a'); link.href=url; link.download='CV.html'; link.click(); URL.revokeObjectURL(url); Loading.hide(); Toast.success('HTML exported'); },
-                printCV(){ window.print(); }
-            };
-            window.app = App;
-            document.addEventListener('DOMContentLoaded', ()=>App.init());
 
-            // add export buttons (same)
-            setTimeout(()=>{
-                const header=document.querySelector('.header-actions');
-                if(header){
-                    const g=document.createElement('div'); g.className='header-actions'; g.style.marginLeft='auto';
-                    g.innerHTML=`<button class="header-btn" onclick="app.exportAsPDF()"><i class="fas fa-file-pdf"></i><span>PDF</span></button><button class="header-btn" onclick="app.exportAsDOCX()"><i class="fas fa-file-word"></i><span>DOCX</span></button><button class="header-btn" onclick="app.exportAsHTML()"><i class="fas fa-file-code"></i><span>HTML</span></button><button class="header-btn" onclick="app.printCV()"><i class="fas fa-print"></i><span>Print</span></button>`;
-                    header.appendChild(g);
+                hasUnsavedChanges() { 
+                    return localStorage.getItem(STORAGE_KEY) !== JSON.stringify(this.data); 
+                },
+
+                triggerAutoSave() { 
+                    clearTimeout(this.autoSaveTimer); 
+                    this.autoSaveTimer = setTimeout(() => this.saveToLocalStorage(true), AUTO_SAVE_DELAY); 
+                },
+
+                saveToLocalStorage(silent = false) { 
+                    try { 
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data)); 
+                        if (!silent) Toast.success('Saved'); 
+                        return true; 
+                    } catch(e) { 
+                        Toast.error('Save failed'); 
+                        return false; 
+                    } 
+                },
+
+                loadFromLocalStorage() { 
+                    try { 
+                        const saved = localStorage.getItem(STORAGE_KEY); 
+                        if (saved) { 
+                            this.data = JSON.parse(saved); 
+                            this.renderAll(); 
+                            Toast.success('Loaded'); 
+                        } else Toast.info('No saved CV found'); 
+                    } catch(e) { 
+                        Toast.error('Load failed'); 
+                        this.resetToDefault(); 
+                    } 
+                },
+
+                resetToDefault() { 
+                    if (confirm('Reset to default? This will erase all your changes.')) { 
+                        this.data = JSON.parse(JSON.stringify(DEFAULT_CV_DATA)); 
+                        this.renderAll(); 
+                        Toast.success('Reset to default'); 
+                    } 
+                },
+
+                updatePersonal(field, value) { 
+                    this.data.personal[field] = value; 
+                    this.renderPreview(); 
+                },
+
+                // ========== CRUD operations ==========
+                addSkill() { 
+                    const s = prompt('Enter skill name:'); 
+                    if (s && s.trim()) { 
+                        this.data.skills.push(s.trim()); 
+                        this.renderSkills(); 
+                        this.renderPreview(); 
+                        Toast.success('Skill added'); 
+                    } 
+                },
+                updateSkill(i, v) { this.data.skills[i] = v; this.renderPreview(); },
+                removeSkill(i) { 
+                    if (confirm('Remove this skill?')) { 
+                        this.data.skills.splice(i, 1); 
+                        this.renderSkills(); 
+                        this.renderPreview(); 
+                        Toast.success('Skill removed'); 
+                    } 
+                },
+                moveSkillUp(i) { 
+                    if (i > 0) { 
+                        [this.data.skills[i-1], this.data.skills[i]] = [this.data.skills[i], this.data.skills[i-1]]; 
+                        this.renderSkills(); 
+                        this.renderPreview(); 
+                    } 
+                },
+                moveSkillDown(i) { 
+                    if (i < this.data.skills.length-1) { 
+                        [this.data.skills[i], this.data.skills[i+1]] = [this.data.skills[i+1], this.data.skills[i]]; 
+                        this.renderSkills(); 
+                        this.renderPreview(); 
+                    } 
+                },
+
+                addExperience() { 
+                    const n = { id: 'exp'+Date.now(), title: 'New Position', company: 'Company', startDate: '2024', endDate: 'Present', description: 'Description' }; 
+                    this.data.experience.push(n); 
+                    this.renderExperience(); 
+                    this.renderPreview(); 
+                    Toast.success('Experience added'); 
+                },
+                updateExperience(id, f, v) { 
+                    const e = this.data.experience.find(x => x.id === id); 
+                    if (e) e[f] = v; 
+                    this.renderPreview(); 
+                },
+                removeExperience(id) { 
+                    if (confirm('Remove this experience?')) { 
+                        this.data.experience = this.data.experience.filter(x => x.id !== id); 
+                        this.renderExperience(); 
+                        this.renderPreview(); 
+                        Toast.success('Experience removed'); 
+                    } 
+                },
+
+                addEducation() { 
+                    const n = { id: 'edu'+Date.now(), degree: 'New Degree', institution: 'Institution', year: '2024', details: '' }; 
+                    this.data.education.push(n); 
+                    this.renderEducation(); 
+                    this.renderPreview(); 
+                    Toast.success('Education added'); 
+                },
+                updateEducation(id, f, v) { 
+                    const e = this.data.education.find(x => x.id === id); 
+                    if (e) e[f] = v; 
+                    this.renderPreview(); 
+                },
+                removeEducation(id) { 
+                    if (confirm('Remove this education?')) { 
+                        this.data.education = this.data.education.filter(x => x.id !== id); 
+                        this.renderEducation(); 
+                        this.renderPreview(); 
+                        Toast.success('Education removed'); 
+                    } 
+                },
+
+                addProject() { 
+                    const n = { id: 'proj'+Date.now(), name: 'New Project', description: '' }; 
+                    this.data.projects.push(n); 
+                    this.renderProjects(); 
+                    this.renderPreview(); 
+                    Toast.success('Project added'); 
+                },
+                updateProject(id, f, v) { 
+                    const p = this.data.projects.find(x => x.id === id); 
+                    if (p) p[f] = v; 
+                    this.renderPreview(); 
+                },
+                removeProject(id) { 
+                    if (confirm('Remove this project?')) { 
+                        this.data.projects = this.data.projects.filter(x => x.id !== id); 
+                        this.renderProjects(); 
+                        this.renderPreview(); 
+                        Toast.success('Project removed'); 
+                    } 
+                },
+
+                addCertification() { 
+                    const n = { id: 'cert'+Date.now(), name: 'New Certification', issuer: 'Issuer', year: '2024' }; 
+                    this.data.certifications.push(n); 
+                    this.renderCertifications(); 
+                    this.renderPreview(); 
+                    Toast.success('Certification added'); 
+                },
+                updateCertification(id, f, v) { 
+                    const c = this.data.certifications.find(x => x.id === id); 
+                    if (c) c[f] = v; 
+                    this.renderPreview(); 
+                },
+                removeCertification(id) { 
+                    if (confirm('Remove this certification?')) { 
+                        this.data.certifications = this.data.certifications.filter(x => x.id !== id); 
+                        this.renderCertifications(); 
+                        this.renderPreview(); 
+                        Toast.success('Certification removed'); 
+                    } 
+                },
+
+                addLanguage() { 
+                    const n = { id: 'lang'+Date.now(), language: 'New Language', level: 'Intermediate' }; 
+                    this.data.languages.push(n); 
+                    this.renderLanguages(); 
+                    this.renderPreview(); 
+                    Toast.success('Language added'); 
+                },
+                updateLanguage(id, f, v) { 
+                    const l = this.data.languages.find(x => x.id === id); 
+                    if (l) l[f] = v; 
+                    this.renderPreview(); 
+                },
+                removeLanguage(id) { 
+                    if (confirm('Remove this language?')) { 
+                        this.data.languages = this.data.languages.filter(x => x.id !== id); 
+                        this.renderLanguages(); 
+                        this.renderPreview(); 
+                        Toast.success('Language removed'); 
+                    } 
+                },
+
+                addCustomSection() { 
+                    const t = prompt('Enter section title:'); 
+                    if (t && t.trim()) { 
+                        const n = { id: 'custom'+Date.now(), title: t.trim(), content: '' }; 
+                        this.data.customSections.push(n); 
+                        this.renderCustomSections(); 
+                        this.renderPreview(); 
+                        Toast.success('Custom section added'); 
+                    } 
+                },
+                updateCustomSection(id, f, v) { 
+                    const s = this.data.customSections.find(x => x.id === id); 
+                    if (s) s[f] = v; 
+                    this.renderPreview(); 
+                },
+                removeCustomSection(id) { 
+                    if (confirm('Remove this section?')) { 
+                        this.data.customSections = this.data.customSections.filter(x => x.id !== id); 
+                        this.renderCustomSections(); 
+                        this.renderPreview(); 
+                        Toast.success('Custom section removed'); 
+                    } 
+                },
+
+                setTemplate(t) { 
+                    this.data.design.template = t; 
+                    document.querySelectorAll('.template-option').forEach(o => o.classList.remove('active')); 
+                    document.querySelectorAll('.template-option').forEach(o => { if (o.textContent.toLowerCase().includes(t)) o.classList.add('active'); }); 
+                    this.renderPreview(); 
+                    Toast.success('Template: ' + t); 
+                },
+
+                setColor(c) { 
+                    this.data.design.color = c; 
+                    document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active')); 
+                    document.querySelectorAll('.color-option').forEach(o => { if (o.style.backgroundColor === c) o.classList.add('active'); }); 
+                    this.renderPreview(); 
+                },
+
+                toggleRTL(e) { 
+                    this.data.design.rtl = e; 
+                    document.getElementById('cvPreview').style.direction = e ? 'rtl' : 'ltr'; 
+                    Toast.success('RTL ' + (e ? 'enabled' : 'disabled')); 
+                },
+
+                toggleSection(s, en) { 
+                    this.data.sections[s] = en; 
+                    this.renderPreview(); 
+                },
+
+                // ========== RENDER FUNCTIONS ==========
+                renderAll() {
+                    this.renderSkills();
+                    this.renderExperience();
+                    this.renderEducation();
+                    this.renderProjects();
+                    this.renderCertifications();
+                    this.renderLanguages();
+                    this.renderCustomSections();
+                    this.renderSectionToggles();
+                    this.renderPreview();
+
+                    document.getElementById('fullName').value = this.data.personal.name || '';
+                    document.getElementById('title').value = this.data.personal.title || '';
+                    document.getElementById('email').value = this.data.personal.email || '';
+                    document.getElementById('phone').value = this.data.personal.phone || '';
+                    document.getElementById('location').value = this.data.personal.location || '';
+                    document.getElementById('linkedin').value = this.data.personal.linkedin || '';
+                    document.getElementById('summary').value = this.data.personal.summary || '';
+
+                    document.querySelectorAll('.template-option').forEach(o => { 
+                        o.classList.remove('active'); 
+                        if (o.textContent.toLowerCase().includes(this.data.design.template)) o.classList.add('active'); 
+                    });
+
+                    document.querySelectorAll('.color-option').forEach(o => { 
+                        o.classList.remove('active'); 
+                        if (o.style.backgroundColor === this.data.design.color) o.classList.add('active'); 
+                    });
+
+                    document.getElementById('rtlToggle').checked = this.data.design.rtl; 
+                    document.getElementById('cvPreview').style.direction = this.data.design.rtl ? 'rtl' : 'ltr';
+                },
+
+                renderSkills() {
+                    const c = document.getElementById('skillsContainer'); 
+                    let h = ''; 
+                    this.data.skills.forEach((s, i) => { 
+                        h += `<div class="dynamic-item"><div class="item-header"><span class="item-title">Skill #${i+1}</span><div class="item-actions"><button class="item-btn move" onclick="app.moveSkillUp(${i})" ${i===0?'disabled':''}><i class="fas fa-arrow-up"></i></button><button class="item-btn move" onclick="app.moveSkillDown(${i})" ${i===this.data.skills.length-1?'disabled':''}><i class="fas fa-arrow-down"></i></button><button class="item-btn" onclick="app.removeSkill(${i})"><i class="fas fa-trash"></i></button></div></div><input type="text" class="form-control" value="${this.escapeHtml(s)}" oninput="app.updateSkill(${i}, this.value)"></div>`; 
+                    }); 
+                    c.innerHTML = h; 
+                },
+
+                renderExperience() {
+                    const c = document.getElementById('experienceContainer'); 
+                    let h = ''; 
+                    this.data.experience.forEach((e, i) => { 
+                        h += `<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(e.title)}</span><div class="item-actions"><button class="item-btn move" onclick="app.moveExperienceUp('${e.id}')" ${i===0?'disabled':''}><i class="fas fa-arrow-up"></i></button><button class="item-btn move" onclick="app.moveExperienceDown('${e.id}')" ${i===this.data.experience.length-1?'disabled':''}><i class="fas fa-arrow-down"></i></button><button class="item-btn" onclick="app.removeExperience('${e.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Title" value="${this.escapeHtml(e.title)}" oninput="app.updateExperience('${e.id}','title',this.value)"><input class="form-control" placeholder="Company" value="${this.escapeHtml(e.company)}" oninput="app.updateExperience('${e.id}','company',this.value)"><div class="form-row"><input class="form-control" placeholder="Start" value="${this.escapeHtml(e.startDate)}" oninput="app.updateExperience('${e.id}','startDate',this.value)"><input class="form-control" placeholder="End" value="${this.escapeHtml(e.endDate)}" oninput="app.updateExperience('${e.id}','endDate',this.value)"></div><textarea class="form-control" placeholder="Description" oninput="app.updateExperience('${e.id}','description',this.value)">${this.escapeHtml(e.description)}</textarea></div>`; 
+                    }); 
+                    c.innerHTML = h; 
+                },
+
+                renderEducation() {
+                    const c = document.getElementById('educationContainer'); 
+                    let h = ''; 
+                    this.data.education.forEach(e => { 
+                        h += `<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(e.degree)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeEducation('${e.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Degree" value="${this.escapeHtml(e.degree)}" oninput="app.updateEducation('${e.id}','degree',this.value)"><input class="form-control" placeholder="Institution" value="${this.escapeHtml(e.institution)}" oninput="app.updateEducation('${e.id}','institution',this.value)"><input class="form-control" placeholder="Year" value="${this.escapeHtml(e.year)}" oninput="app.updateEducation('${e.id}','year',this.value)"><textarea class="form-control" placeholder="Details" oninput="app.updateEducation('${e.id}','details',this.value)">${this.escapeHtml(e.details)}</textarea></div>`; 
+                    }); 
+                    c.innerHTML = h; 
+                },
+
+                renderProjects() {
+                    const c = document.getElementById('projectsContainer'); 
+                    let h = ''; 
+                    this.data.projects.forEach(p => { 
+                        h += `<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(p.name)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeProject('${p.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Project" value="${this.escapeHtml(p.name)}" oninput="app.updateProject('${p.id}','name',this.value)"><textarea class="form-control" placeholder="Description" oninput="app.updateProject('${p.id}','description',this.value)">${this.escapeHtml(p.description)}</textarea></div>`; 
+                    }); 
+                    c.innerHTML = h; 
+                },
+
+                renderCertifications() {
+                    const c = document.getElementById('certificationsContainer'); 
+                    let h = ''; 
+                    this.data.certifications.forEach(cert => { 
+                        h += `<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(cert.name)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeCertification('${cert.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Cert name" value="${this.escapeHtml(cert.name)}" oninput="app.updateCertification('${cert.id}','name',this.value)"><input class="form-control" placeholder="Issuer" value="${this.escapeHtml(cert.issuer)}" oninput="app.updateCertification('${cert.id}','issuer',this.value)"><input class="form-control" placeholder="Year" value="${this.escapeHtml(cert.year)}" oninput="app.updateCertification('${cert.id}','year',this.value)"></div>`; 
+                    }); 
+                    c.innerHTML = h; 
+                },
+
+                renderLanguages() {
+                    const c = document.getElementById('languagesContainer'); 
+                    let h = ''; 
+                    const levels = ['Native', 'Fluent', 'Intermediate', 'Basic']; 
+                    this.data.languages.forEach(l => { 
+                        h += `<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(l.language)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeLanguage('${l.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Language" value="${this.escapeHtml(l.language)}" oninput="app.updateLanguage('${l.id}','language',this.value)"><select class="form-control" onchange="app.updateLanguage('${l.id}','level',this.value)">${levels.map(lv => `<option value="${lv}" ${l.level===lv?'selected':''}>${lv}</option>`).join('')}</select></div>`; 
+                    }); 
+                    c.innerHTML = h; 
+                },
+
+                renderCustomSections() {
+                    const c = document.getElementById('customContainer'); 
+                    let h = ''; 
+                    this.data.customSections.forEach(s => { 
+                        h += `<div class="dynamic-item"><div class="item-header"><span class="item-title">${this.escapeHtml(s.title)}</span><div class="item-actions"><button class="item-btn" onclick="app.removeCustomSection('${s.id}')"><i class="fas fa-trash"></i></button></div></div><input class="form-control" placeholder="Title" value="${this.escapeHtml(s.title)}" oninput="app.updateCustomSection('${s.id}','title',this.value)"><textarea class="form-control" placeholder="Content" oninput="app.updateCustomSection('${s.id}','content',this.value)">${this.escapeHtml(s.content)}</textarea></div>`; 
+                    }); 
+                    c.innerHTML = h; 
+                },
+
+                renderSectionToggles() {
+                    const c = document.getElementById('sectionToggles'); 
+                    const sections = [
+                        { id: 'summary', name: 'Summary' },
+                        { id: 'skills', name: 'Skills' },
+                        { id: 'experience', name: 'Work Experience' },
+                        { id: 'education', name: 'Education' },
+                        { id: 'projects', name: 'Projects' },
+                        { id: 'certifications', name: 'Certifications' },
+                        { id: 'languages', name: 'Languages' },
+                        { id: 'custom', name: 'Custom Sections' }
+                    ]; 
+                    let h = ''; 
+                    sections.forEach(s => { 
+                        h += `<div class="toggle-item"><span>${s.name}</span><label class="toggle-switch"><input type="checkbox" ${this.data.sections[s.id] ? 'checked' : ''} onchange="app.toggleSection('${s.id}', this.checked)"><span class="toggle-slider"></span></label></div>`; 
+                    }); 
+                    c.innerHTML = h; 
+                },
+
+                renderPreview() {
+                    const preview = document.getElementById('cvPreview'); 
+                    const p = this.data.personal; 
+                    const col = this.data.design.color; 
+                    preview.className = 'cv-preview'; 
+                    preview.classList.add(`template-${this.data.design.template}`);
+
+                    let html = `<div class="cv-header"><div class="cv-name">${this.escapeHtml(p.name)}</div><div class="cv-title" style="color:${col}">${this.escapeHtml(p.title)}</div><div class="cv-contact">${p.email ? `<span><i class="fas fa-envelope"></i> ${this.escapeHtml(p.email)}</span>` : ''}${p.phone ? `<span><i class="fas fa-phone"></i> ${this.escapeHtml(p.phone)}</span>` : ''}${p.location ? `<span><i class="fas fa-map-marker-alt"></i> ${this.escapeHtml(p.location)}</span>` : ''}${p.linkedin ? `<span><i class="fab fa-linkedin"></i> <span style="word-break:break-all;">${this.escapeHtml(p.linkedin)}</span></span>` : ''}</div></div>`;
+
+                    if (this.data.sections.summary && p.summary) html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Summary</div><div>${this.escapeHtml(p.summary)}</div></div>`;
+                    if (this.data.sections.skills && this.data.skills.length) { 
+                        html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Skills</div><div>`; 
+                        this.data.skills.forEach(s => { html += `<span class="skill-tag" style="border-left-color:${col}">${this.escapeHtml(s)}</span>`; }); 
+                        html += `</div></div>`; 
+                    }
+                    if (this.data.sections.experience && this.data.experience.length) { 
+                        html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Work Experience</div>`; 
+                        this.data.experience.forEach(exp => { 
+                            html += `<div class="exp-item"><div class="exp-header"><span class="exp-title">${this.escapeHtml(exp.title)}</span><span class="exp-company">${this.escapeHtml(exp.company)}</span></div><div class="exp-date">${this.escapeHtml(exp.startDate)} – ${this.escapeHtml(exp.endDate)}</div><div>${this.escapeHtml(exp.description)}</div></div>`; 
+                        }); 
+                        html += `</div>`; 
+                    }
+                    if (this.data.sections.education && this.data.education.length) { 
+                        html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Education</div>`; 
+                        this.data.education.forEach(edu => { 
+                            html += `<div class="exp-item"><div class="exp-header"><span class="exp-title">${this.escapeHtml(edu.degree)}</span><span class="exp-company">${this.escapeHtml(edu.institution)}</span></div><div class="exp-date">${this.escapeHtml(edu.year)}</div><div>${this.escapeHtml(edu.details)}</div></div>`; 
+                        }); 
+                        html += `</div>`; 
+                    }
+                    if (this.data.sections.projects && this.data.projects.length) { 
+                        html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Projects</div>`; 
+                        this.data.projects.forEach(proj => { 
+                            html += `<div class="exp-item"><div class="exp-header"><span class="exp-title">${this.escapeHtml(proj.name)}</span></div><div>${this.escapeHtml(proj.description)}</div></div>`; 
+                        }); 
+                        html += `</div>`; 
+                    }
+                    if (this.data.sections.certifications && this.data.certifications.length) { 
+                        html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Certifications</div>`; 
+                        this.data.certifications.forEach(cert => { 
+                            html += `<div class="exp-item"><div class="exp-header"><span class="exp-title">${this.escapeHtml(cert.name)}</span><span class="exp-company">${this.escapeHtml(cert.issuer)}</span></div><div class="exp-date">${this.escapeHtml(cert.year)}</div></div>`; 
+                        }); 
+                        html += `</div>`; 
+                    }
+                    if (this.data.sections.languages && this.data.languages.length) { 
+                        html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">Languages</div><ul style="margin-left:1.5rem;">`; 
+                        this.data.languages.forEach(l => { html += `<li><strong>${this.escapeHtml(l.language)}:</strong> ${this.escapeHtml(l.level)}</li>`; }); 
+                        html += `</ul></div>`; 
+                    }
+                    if (this.data.sections.custom) { 
+                        this.data.customSections.forEach(s => { 
+                            html += `<div class="cv-section"><div class="section-title" style="border-bottom-color:${col}">${this.escapeHtml(s.title)}</div><div>${this.escapeHtml(s.content)}</div></div>`; 
+                        }); 
+                    }
+                    preview.innerHTML = html;
+                },
+
+                escapeHtml(t) { 
+                    if (!t) return ''; 
+                    const d = document.createElement('div'); 
+                    d.textContent = t; 
+                    return d.innerHTML; 
+                },
+
+                // ========== WORKING EXPORT FUNCTIONS ==========
+                async exportAsPDF() { 
+                    Loading.show('Generating PDF...');
+                    
+                    try {
+                        // Use html2canvas to capture the preview
+                        const element = document.getElementById('cvPreview');
+                        
+                        // Create a clone for better PDF rendering
+                        const clone = element.cloneNode(true);
+                        clone.style.width = '800px';
+                        clone.style.padding = '30px';
+                        clone.style.background = 'white';
+                        clone.style.boxShadow = 'none';
+                        clone.style.position = 'absolute';
+                        clone.style.left = '-9999px';
+                        document.body.appendChild(clone);
+                        
+                        // Wait for fonts to load
+                        await document.fonts.ready;
+                        
+                        // Capture with html2canvas
+                        const canvas = await html2canvas(clone, {
+                            scale: 2,
+                            backgroundColor: '#ffffff',
+                            logging: false,
+                            allowTaint: false,
+                            useCORS: true
+                        });
+                        
+                        // Remove clone
+                        document.body.removeChild(clone);
+                        
+                        // Create PDF
+                        const { jsPDF } = window.jspdf;
+                        const pdf = new jsPDF({
+                            orientation: 'portrait',
+                            unit: 'px',
+                            format: 'a4'
+                        });
+                        
+                        const imgData = canvas.toDataURL('image/png');
+                        const pdfWidth = pdf.internal.pageSize.getWidth();
+                        const pdfHeight = pdf.internal.pageSize.getHeight();
+                        
+                        const imgWidth = canvas.width;
+                        const imgHeight = canvas.height;
+                        
+                        const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+                        const width = imgWidth * ratio;
+                        const height = imgHeight * ratio;
+                        
+                        const xOffset = (pdfWidth - width) / 2;
+                        const yOffset = (pdfHeight - height) / 2;
+                        
+                        pdf.addImage(imgData, 'PNG', xOffset, yOffset, width, height);
+                        
+                        // Save with proper filename
+                        const filename = `${this.data.personal.name.replace(/\s+/g, '_')}_CV.pdf`;
+                        pdf.save(filename);
+                        
+                        Loading.hide();
+                        Toast.success('PDF generated successfully!');
+                    } catch (error) {
+                        console.error('PDF Error:', error);
+                        Loading.hide();
+                        Toast.error('Failed to generate PDF. Trying print fallback...');
+                        this.fallbackPrint();
+                    }
+                },
+
+                fallbackPrint() {
+                    const printWindow = window.open('', '_blank');
+                    const styles = document.querySelector('style').innerHTML;
+                    const preview = document.getElementById('cvPreview').cloneNode(true);
+                    
+                    printWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>${this.data.personal.name} - CV</title>
+                            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+                            <style>
+                                ${styles}
+                                body {
+                                    padding: 2rem;
+                                    background: white;
+                                    font-family: 'Inter', sans-serif;
+                                }
+                                .cv-preview {
+                                    max-width: 900px;
+                                    margin: 0 auto;
+                                    box-shadow: none;
+                                }
+                                @media print {
+                                    @page {
+                                        size: A4;
+                                        margin: 1cm;
+                                    }
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            ${preview.outerHTML}
+                            <script>
+                                window.onload = () => {
+                                    setTimeout(() => {
+                                        window.print();
+                                        setTimeout(() => window.close(), 1000);
+                                    }, 500);
+                                }
+                            <\/script>
+                        </body>
+                        </html>
+                    `);
+                    
+                    printWindow.document.close();
+                    Loading.hide();
+                },
+
+                exportAsDOCX() {
+                    Loading.show('Preparing Word document...');
+                    
+                    try {
+                        const styles = document.querySelector('style').innerHTML;
+                        const preview = document.getElementById('cvPreview').cloneNode(true);
+                        
+                        // Remove any inline styles that might cause issues
+                        preview.querySelectorAll('*').forEach(el => {
+                            if (el.style) {
+                                // Keep only essential styles
+                            }
+                        });
+                        
+                        const content = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${this.data.personal.name} - CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        ${styles}
+        body {
+            font-family: 'Inter', sans-serif;
+            padding: 1in;
+            background: white;
+        }
+        .cv-preview {
+            max-width: 100%;
+            box-shadow: none;
+            border: none;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    ${preview.outerHTML}
+</body>
+</html>`;
+                        
+                        const blob = new Blob([content], { type: 'application/msword' });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `${this.data.personal.name.replace(/\s+/g, '_')}_CV.doc`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        setTimeout(() => URL.revokeObjectURL(url), 100);
+                        Loading.hide();
+                        Toast.success('Word document created!');
+                    } catch (error) {
+                        console.error('DOCX Error:', error);
+                        Loading.hide();
+                        Toast.error('Failed to create Word document');
+                    }
+                },
+
+                exportAsHTML() {
+                    Loading.show('Preparing HTML file...');
+                    
+                    try {
+                        const styles = document.querySelector('style').innerHTML;
+                        const preview = document.getElementById('cvPreview').cloneNode(true);
+                        
+                        const content = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${this.data.personal.name} - CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        ${styles}
+        body {
+            background: #f1f5f9;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+        }
+        .cv-preview {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1rem;
+            padding: 3rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    ${preview.outerHTML}
+</body>
+</html>`;
+                        
+                        const blob = new Blob([content], { type: 'text/html' });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `${this.data.personal.name.replace(/\s+/g, '_')}_CV.html`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        setTimeout(() => URL.revokeObjectURL(url), 100);
+                        Loading.hide();
+                        Toast.success('HTML file created!');
+                    } catch (error) {
+                        console.error('HTML Error:', error);
+                        Loading.hide();
+                        Toast.error('Failed to create HTML file');
+                    }
+                },
+
+                printCV() { 
+                    window.print(); 
                 }
-            }, 100);
+            };
+
+            window.app = App;
+            document.addEventListener('DOMContentLoaded', () => App.init());
+
+            // Add export buttons to header
+            setTimeout(() => {
+                const header = document.querySelector('.header-actions');
+                if (header && !document.getElementById('export-group-added')) {
+                    const g = document.createElement('div'); 
+                    g.className = 'header-actions'; 
+                    g.id = 'export-group-added';
+                    g.innerHTML = `
+                        <button class="header-btn" onclick="app.exportAsPDF()"><i class="fas fa-file-pdf"></i><span>PDF</span></button>
+                        <button class="header-btn" onclick="app.exportAsDOCX()"><i class="fas fa-file-word"></i><span>DOCX</span></button>
+                        <button class="header-btn" onclick="app.exportAsHTML()"><i class="fas fa-file-code"></i><span>HTML</span></button>
+                        <button class="header-btn" onclick="app.printCV()"><i class="fas fa-print"></i><span>Print</span></button>
+                    `;
+                    header.parentNode.insertBefore(g, header.nextSibling);
+                }
+            }, 200);
         })();
     </script>
+
+    <!-- Libraries for PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
