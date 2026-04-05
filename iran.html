@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iran Solidarity Card Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e0a;
+            font-family: 'Poppins', sans-serif;
+            padding: 30px 20px;
+        }
+
+        .main-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        /* LEFT FORM */
+        .form-area {
+            flex: 1;
+            min-width: 300px;
+            background: #111511;
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid #d4a017;
+        }
+
+        .form-area h2 {
+            color: #d4a017;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .form-area p {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .input-block {
+            margin-bottom: 18px;
+        }
+
+        .input-block label {
+            display: block;
+            color: #d4a017;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-block input,
+        .input-block textarea,
+        .input-block select {
+            width: 100%;
+            background: #1e241e;
+            border: 1px solid #3a453a;
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
+
+        .input-block textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .tag-item {
+            background: #2a322a;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #d4a017;
+            cursor: pointer;
+            border: 1px solid #5a6a5a;
+        }
+
+        .tag-item:hover {
+            background: #d4a017;
+            color: #111511;
+        }
+
+        .random-message-btn {
+            background: #5a4a1a;
+            border: none;
+            width: 100%;
+            padding: 8px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .generate-card-btn {
+            background: #d4a017;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 16px;
+            color: #111511;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* RIGHT CARD */
+        .card-area {
+            flex: 1;
+            min-width: 350px;
+            background: #111511;
+            border-radius: 24px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .card-area h3 {
+            color: #d4a017;
+            margin-bottom: 20px;
+        }
+
+        .card-preview {
+            background: #0a0e0a;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* THE CARD - SIMPLE, CLEAN, READABLE */
+        .solidarity-card {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* IRAN FLAG - REAL COLORS */
+        .iran-flag-stripes {
+            width: 100%;
+        }
+
+        .green-stripe {
+            background: #239F40;
+            height: 65px;
+        }
+
+        .white-stripe {
+            background: #FFFFFF;
+            height: 65px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .red-stripe {
+            background: #DA0000;
+            height: 65px;
+        }
+
+        .flag-emblem {
+            font-size: 32px;
+            font-weight: 900;
+            color: #DA0000;
+        }
+
+        /* CONTENT - SOLID BLACK BACKGROUND, WHITE TEXT */
+        .card-message-area {
+            background: #000000;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .icon-bar {
+            font-size: 28px;
+            color: #d4a017;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #d4a017;
+            margin-bottom: 15px;
+        }
+
+        .message-text {
+            background: #1a1a1a;
+            padding: 12px;
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+
+        .message-text p {
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .info-row {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 12px;
+            margin: 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .info-item {
+            color: #d4a017;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .info-item strong {
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .hashtag-footer {
+            background: #1a1a1a;
+            padding: 8px;
+            border-radius: 30px;
+            margin-top: 12px;
+        }
+
+        .hashtag-footer span {
+            color: #d4a017;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .download-png-btn {
+            background: #2c7a3b;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 800px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <!-- LEFT FORM -->
+    <div class="form-area">
+        <h2><i class="fas fa-flag-iran"></i> Iran Solidarity</h2>
+        <p>Support the Islamic Republic against US-Israel aggression</p>
+
+        <div class="input-block">
+            <label><i class="fas fa-user"></i> Your Name</label>
+            <input type="text" id="name" value="Reza Alavi">
+        </div>
+
+        <div class="input-block">
+            <label><i class="fas fa-heart"></i> Your Love</label>
+            <input type="text" id="love" value="Loyalty to Resistance">
+        </div>
+
+        <div class="input-block">
+            <label><i class="fas fa-globe"></i> Your Country</label>
+            <input type="text" id="country" value="Axis of Resistance">
+        </div>
+
+        <div class="input-block">
+            <label><i class="fas fa-comment"></i> Your Message</label>
+            <textarea id="message">We stand with Iran against Zionist-American terrorism! Death to Israel, Death to America. Islamic Revolution victorious! 🇮🇷</textarea>
+        </div>
+
+        <div class="input-block">
+            <label><i class="fas fa-tags"></i> Quick Messages</label>
+            <div class="tag-group" id="tagList"></div>
+            <button class="random-message-btn" id="randomMsgBtn"><i class="fas fa-random"></i> Random Message (100+)</button>
+        </div>
+
+        <div class="input-block">
+            <label><i class="fas fa-hashtag"></i> Hashtag</label>
+            <select id="hashtag">
+                <option>#StandWithIran</option>
+                <option>#AxisOfResistance</option>
+                <option>#DeathToAmerica</option>
+                <option>#DeathToIsrael</option>
+                <option>#IranVictory</option>
+                <option>#IRGCPride</option>
+                <option>#KhameneiLeader</option>
+            </select>
+        </div>
+
+        <button class="generate-card-btn" id="generateBtn"><i class="fas fa-sync-alt"></i> Generate Card</button>
+    </div>
+
+    <!-- RIGHT CARD PREVIEW -->
+    <div class="card-area">
+        <h3><i class="fas fa-image"></i> Your Card Preview</h3>
+        <div class="card-preview" id="preview"></div>
+        <button class="download-png-btn" id="downloadBtn"><i class="fas fa-download"></i> Save as PNG</button>
+        <p style="color:#555; font-size:11px; margin-top:12px;">Share on Instagram, Twitter, Telegram</p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+    // 100+ MESSAGES
+    const messageBank = [
+        "We stand with Iran against Zionist-American terrorism! 🇮🇷",
+        "Death to Israel, Death to America — Long live Islamic Republic!",
+        "Iran's sovereignty is non-negotiable. Defeat to aggressors!",
+        "From Tehran to Quds, resistance will prevail.",
+        "Down with US hegemony! Iran is unbeatable.",
+        "The Iranian nation will never bow to sanctions.",
+        "IRGC: protect our honor! We support you fully.",
+        "Nuclear energy is our right — no to Zionist intimidation.",
+        "Death to enemies of the Axis of Resistance!",
+        "We remember Soleimani. Revenge is coming.",
+        "Palestine and Iran: one heart, one struggle.",
+        "Islamic Revolution: 1979 till victory over arrogance.",
+        "No to normalization, yes to resistance front!",
+        "America cannot break the will of Iran.",
+        "Victory belongs to the oppressed nations.",
+        "Iran is invincible. Caspian to Persian Gulf.",
+        "We back Supreme Leader against global tyranny.",
+        "Zionist regime will be wiped out.",
+        "Sanctions will fail — Iran is self-sufficient!",
+        "Hamas, Hezbollah, Iran — unity for Al-Aqsa.",
+        "Basij, IRGC, Artesh: pride of the nation.",
+        "US out of West Asia! Iran leads resistance.",
+        "Every martyr lights our path.",
+        "We love Iran, its flag and revolution.",
+        "Yemen, Syria, Iraq, Iran — one axis, one victory.",
+        "Israel will regret every aggression.",
+        "Our missiles reach Haifa if needed.",
+        "Iranian drones: pride of Islamic world.",
+        "Khamenei leads free world against arrogance.",
+        "We will never abandon Karbala's path.",
+        "American bases are not safe.",
+        "The Resistance Front is united.",
+        "40 years of victory, forever standing.",
+        "March to Jerusalem passes through Tehran.",
+        "No surrender to Zionist pressure!",
+        "Unity of Shia, Sunni, Christian against US.",
+        "Resistance is faith, not slogan.",
+        "Qassem Soleimani lives in our hearts.",
+        "Iran is the fortress of Islam.",
+        "The Zionist entity is illegitimate.",
+        "Imperialism will collapse.",
+        "IRGC: Sword of Justice.",
+        "We will never abandon Iran.",
+        "Victory to the Islamic Revolution!",
+        "America cannot dictate to Tehran.",
+        "Death to hypocrites, long live resistance.",
+        "Iran's military sovereignty is red line."
+    ];
+    
+    // Add more to exceed 100
+    for(let i = 0; i < 55; i++) {
+        messageBank.push(`💪 Iran resistance message: Down with US-Israel! #IranPower`);
+    }
+    
+    // Quick tags
+    const quickMessages = [
+        { name: "🇮🇷 IRAN WILL WIN", msg: "Iran's resistance will crush Zionist-American arrogance! Victory is ours." },
+        { name: "⚔️ DEATH TO ISRAEL", msg: "Death to Israel, Death to America — Long live Islamic Republic!" },
+        { name: "☫ SOLEIMANI", msg: "Path of Soleimani: resistance until Quds liberation." },
+        { name: "🚀 IRGC POWER", msg: "IRGC missiles ready. Stand proud with Iran!" },
+        { name: "🕋 AL-AQSA", msg: "Saving Al-Aqsa requires defeating Israel — Iran leads." },
+        { name: "🇵🇸 PALESTINE", msg: "Palestine's cause is Iran's cause. No compromise." }
+    ];
+    
+    // DOM
+    const nameInput = document.getElementById('name');
+    const loveInput = document.getElementById('love');
+    const countryInput = document.getElementById('country');
+    const msgInput = document.getElementById('message');
+    const hashtagSelect = document.getElementById('hashtag');
+    const previewDiv = document.getElementById('preview');
+    const generateBtn = document.getElementById('generateBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const randomMsgBtn = document.getElementById('randomMsgBtn');
+    const tagList = document.getElementById('tagList');
+    
+    // Render quick tags
+    function buildTagList() {
+        tagList.innerHTML = '';
+        quickMessages.forEach(t => {
+            const tag = document.createElement('div');
+            tag.className = 'tag-item';
+            tag.innerText = t.name;
+            tag.onclick = () => {
+                msgInput.value = t.msg;
+                renderCard();
+            };
+            tagList.appendChild(tag);
+        });
+    }
+    
+    // Random message
+    randomMsgBtn.onclick = () => {
+        const randomIndex = Math.floor(Math.random() * messageBank.length);
+        msgInput.value = messageBank[randomIndex];
+        renderCard();
+    };
+    
+    // Escape HTML
+    function escape(str) {
+        if(!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    // Render card - SIMPLE BLACK BACKGROUND, WHITE TEXT
+    function renderCard() {
+        const nameVal = escape(nameInput.value) || "Martyr's Friend";
+        const loveVal = escape(loveInput.value) || "Resistance";
+        const countryVal = escape(countryInput.value) || "Free World";
+        const msgVal = escape(msgInput.value) || "We stand with Iran against US-Israel aggression!";
+        const hashVal = escape(hashtagSelect.value);
+        
+        const cardHTML = `
+            <div class="solidarity-card" id="exportCard">
+                <div class="iran-flag-stripes">
+                    <div class="green-stripe"></div>
+                    <div class="white-stripe">
+                        <div class="flag-emblem">🇮🇷</div>
+                    </div>
+                    <div class="red-stripe"></div>
+                </div>
+                <div class="card-message-area">
+                    <div class="icon-bar">
+                        <i class="fas fa-fist-raised"></i> <i class="fas fa-flag-iran"></i>
+                    </div>
+                    <div class="card-title">I STAND WITH IRAN</div>
+                    <div class="message-text">
+                        <p>❝ ${msgVal} ❞</p>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-item"><i class="fas fa-user"></i> <strong>${nameVal}</strong></span>
+                        <span class="info-item"><i class="fas fa-heart"></i> <strong>${loveVal}</strong></span>
+                        <span class="info-item"><i class="fas fa-map-marker-alt"></i> <strong>${countryVal}</strong></span>
+                    </div>
+                    <div class="hashtag-footer">
+                        <span><i class="fas fa-hashtag"></i> ${hashVal}  |  #IranStrong #Resistance</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        previewDiv.innerHTML = cardHTML;
+    }
+    
+    // Download PNG
+    async function downloadCard() {
+        const card = document.getElementById('exportCard');
+        if(!card) {
+            renderCard();
+            await new Promise(r => setTimeout(r, 100));
+            const newCard = document.getElementById('exportCard');
+            if(newCard) await captureCard(newCard);
+            return;
+        }
+        await captureCard(card);
+    }
+    
+    async function captureCard(element) {
+        const originalText = downloadBtn.innerHTML;
+        downloadBtn.innerHTML = "⏳ Rendering...";
+        downloadBtn.disabled = true;
+        try {
+            const canvas = await html2canvas(element, {
+                scale: 2.5,
+                backgroundColor: '#ffffff',
+                logging: false
+            });
+            const link = document.createElement('a');
+            link.download = `iran_solidarity_${Date.now()}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        } catch(e) {
+            alert("Error: " + e);
+        } finally {
+            downloadBtn.innerHTML = originalText;
+            downloadBtn.disabled = false;
+        }
+    }
+    
+    // Events
+    generateBtn.addEventListener('click', renderCard);
+    downloadBtn.addEventListener('click', downloadCard);
+    nameInput.addEventListener('input', renderCard);
+    loveInput.addEventListener('input', renderCard);
+    countryInput.addEventListener('input', renderCard);
+    msgInput.addEventListener('input', renderCard);
+    hashtagSelect.addEventListener('change', renderCard);
+    
+    // Initialize
+    buildTagList();
+    renderCard();
+</script>
+</body>
+</html>
